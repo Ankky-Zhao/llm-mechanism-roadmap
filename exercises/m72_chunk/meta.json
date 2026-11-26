@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "rag",
+ "level": 1,
+ "minutes": 30,
+ "title": {
+  "zh": "分块：固定窗口与按句子打包",
+  "en": "Chunking: fixed windows and sentence packing"
+ },
+ "prompt": {
+  "zh": "建立索引之前，长文档要先切成块。实现两种切法。`chunk_words(text, size, overlap)` 按空格分词，每块 `size` 个词，相邻两块共享 `overlap` 个词，最后一块可以较短，但不应出现完全被前一块包含的多余的块。`chunk_sentences(text, max_words)` 以句子为单位，把连续的句子装进同一块，直到再加一句就会超过 `max_words`，单独一句超过上限时自成一块。测试的最后一部分用一段文字说明重叠的作用。一条事实的两半落在块的边界两侧时，没有重叠的切法得不到同时包含两半的块，有重叠时可以。",
+  "en": "Before an index is built, long documents are cut into chunks. Implement two ways of cutting. `chunk_words(text, size, overlap)` splits on whitespace, puts `size` words into each chunk and lets neighbouring chunks share `overlap` words. The last chunk may be shorter, but no extra chunk that is fully contained in the previous one should appear. `chunk_sentences(text, max_words)` works on sentences and packs consecutive sentences into one chunk until one more would exceed `max_words`, with a single sentence above the limit forming a chunk of its own. The last part of the tests uses a passage to show what overlap is for. When the two halves of a fact fall on either side of a chunk boundary, cutting without overlap yields no chunk that holds both halves, and cutting with overlap does."
+ },
+ "hints": [
+  {
+   "zh": "窗口每次前进 `size - overlap` 个词。起点为 `i` 的窗口覆盖到 `i + size`，当它已经到达末尾时就应当停止，否则会多出一个只含重叠部分的块。",
+   "en": "The window advances by `size - overlap` words. A window starting at `i` covers up to `i + size`, and the loop should stop once it has reached the end, since one more chunk holding only the overlap would otherwise appear."
+  },
+  {
+   "zh": "句子可以用 `re.split(r'(?<=[.!?])\\s+', text.strip())` 切开。打包时维护当前块的句子列表和词数。",
+   "en": "Sentences can be split with `re.split(r'(?<=[.!?])\\s+', text.strip())`. While packing, keep the list of sentences of the current chunk and its word count."
+  }
+ ]
+}

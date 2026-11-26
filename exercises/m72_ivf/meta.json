@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "rag",
+ "level": 2,
+ "minutes": 40,
+ "title": {
+  "zh": "倒排文件索引：用少量比较换取近似结果",
+  "en": "An inverted file index: approximate results from few comparisons"
+ },
+ "prompt": {
+  "zh": "精确检索要把问题与每一个向量比较。倒排文件索引（IVF）先用 k-means 把向量分成 `nlist` 个簇，检索时只在与问题最接近的 `nprobe` 个簇里查找。实现 `IVFIndex` 的 `add` 和 `search`，`search` 返回 `(ids, n_compared)`，其中 `n_compared` 是比较过的向量个数，等于 `nlist` 个质心加上被扫描的簇里的向量数。数据为 4096 个 32 维的单位向量，`nlist` 取 256，即 Faiss 文档对 100 万以下的数据给出的范围 $4\\sqrt{N}$ 至 $16\\sqrt{N}$ 的下限。测试在两组合成数据上测量召回率，一组有明显的簇结构，一组没有，以说明近似检索的效果取决于数据的分布。安装了 `faiss-cpu` 时，测试还会把精确检索的结果与 Faiss 的 `IndexFlatIP` 比较。",
+  "en": "Exact search compares the query with every vector. An inverted file index (IVF) first groups the vectors into `nlist` clusters with k-means and at query time looks only into the `nprobe` clusters closest to the query. Implement `add` and `search` of `IVFIndex`. `search` returns `(ids, n_compared)`, where `n_compared` is the number of vectors compared, equal to the `nlist` centroids plus the vectors in the scanned clusters. The data are 4096 unit vectors of 32 dimensions and `nlist` is 256, the lower end of the range $4\\sqrt{N}$ to $16\\sqrt{N}$ that the Faiss documentation gives for data below one million vectors. The tests measure recall on two synthetic data sets, one with a clear cluster structure and one without, to show that the quality of approximate search depends on the distribution of the data. With `faiss-cpu` installed, the tests also compare exact search with `IndexFlatIP` of Faiss."
+ },
+ "hints": [
+  {
+   "zh": "`add` 中先求每个向量所属的簇，`np.argmax(x @ self.centroids.T, axis=1)`，再为每个簇保存属于它的向量编号。",
+   "en": "In `add`, first find the cluster of every vector with `np.argmax(x @ self.centroids.T, axis=1)`, then store for every cluster the ids of its vectors."
+  },
+  {
+   "zh": "`search` 中先把问题与全部质心比较，取内积最大的 `nprobe` 个簇，把这些簇的编号拼起来，再只在这些向量中做精确检索。",
+   "en": "In `search`, compare the query with all centroids first, take the `nprobe` clusters with the largest inner product, concatenate their ids and run exact search among these vectors alone."
+  }
+ ]
+}

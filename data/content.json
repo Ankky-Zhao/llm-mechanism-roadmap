@@ -216,25 +216,26 @@
   {
    "id": "s6",
    "name": {
-    "zh": "模型生态",
-    "en": "Model ecosystem"
+    "zh": "模型与工具生态",
+    "en": "Models and tooling"
    },
    "note": {
-    "zh": "闭源与开放权重模型的差别，以及许可证实际允许什么。",
-    "en": "Closed versus open-weight models, and what licenses actually permit."
+    "zh": "闭源与开放权重模型的差别，许可证实际允许什么，以及管理实验、模型和线上系统的工具。",
+    "en": "Closed versus open-weight models, what licenses actually permit, and the tools for managing experiments, models and running systems."
    },
    "modules": [
     "models",
-    "licenses"
+    "licenses",
+    "mlops"
    ],
    "num": "06",
    "why": {
-    "zh": "实际工作中需要在具体的模型之间做选择，而且选择受许可证约束。",
-    "en": "Real work requires choosing between concrete models, and the choice is constrained by licenses."
+    "zh": "实际工作中需要在具体的模型之间做选择，选择受许可证约束，而把模型用起来并长期维护还需要一套工程工具。",
+    "en": "Real work requires choosing between concrete models, the choice is constrained by licenses, and putting a model to use and maintaining it over time takes a set of engineering tools."
    },
    "what": {
-    "zh": "比较闭源模型与开放权重模型，梳理常见许可证允许和禁止的用途。",
-    "en": "Compares closed and open-weight models and sorts out what common licenses allow and forbid."
+    "zh": "比较闭源模型与开放权重模型，梳理常见许可证允许和禁止的用途，介绍 MLOps 的环节和 MLflow 等工具并手写一个实验跟踪器。",
+    "en": "Compares closed and open-weight models, sorts out what common licenses allow and forbid, and introduces the stages of MLOps and tools such as MLflow, with an experiment tracker written by hand."
    },
    "meaning": {
     "zh": "把前面的原理落实到“选哪个模型、能不能这样用”的现实决定上。",
@@ -6512,7 +6513,7 @@
     "zh": "先检索再生成。手写关键词检索和向量检索，融合与重排，并在一个虚构小镇的资料上搭建完整的问答流程。",
     "en": "Retrieve first, then generate. Keyword and vector retrieval by hand, fusion and reranking, and a complete question-answering pipeline over material about an invented town."
    },
-   "minutes": 150,
+   "minutes": 220,
    "why": {
     "zh": "模型的知识停留在训练数据截止的时刻，也不包含任何非公开的资料，对于没有见过的事实，它仍然会给出流畅的回答。检索增强生成的做法是在回答之前先从外部资料中找出相关的段落，放进提示词，让模型依据这些段落作答。这样可以使用最新的或私有的资料，回答也可以追溯到出处。它是目前把大模型接入实际业务时使用最广的方式。它同时提供了一个观察模型怎样使用上下文证据的场合，检索到了正确的段落而答案仍然出错的情形，正是本路线后面要分析的问题。",
     "en": "The knowledge of a model stops at the cutoff of its training data and includes no non-public material, yet for facts it has never seen it still produces fluent answers. Retrieval-augmented generation first finds relevant passages in external material, places them in the prompt and has the model answer from these passages. Current or private material can be used this way, and answers can be traced to their sources. It is at present the most widely used way of connecting large models to practical applications. It also offers a setting for observing how a model uses evidence in its context. The case in which the right passage was retrieved and the answer is still wrong is exactly what this roadmap analyses later."
@@ -6524,7 +6525,12 @@
     "vector search",
     "RRF",
     "cross-encoder",
-    "Recall@k / MRR"
+    "Recall@k / MRR",
+    "chunking",
+    "approximate nearest neighbour search",
+    "IVF",
+    "HNSW",
+    "vector database"
    ],
    "goals": [
     {
@@ -6538,6 +6544,10 @@
     {
      "zh": "能搭建检索、重排、生成的完整流程，并把检索错误与生成错误分开分析",
      "en": "Build the full pipeline of retrieval, reranking and generation and analyse retrieval errors and generation errors separately"
+    },
+    {
+     "zh": "能说明块的大小和重叠怎样影响检索，并说明精确检索、近似检索和向量数据库各自适用的规模",
+     "en": "Explain how chunk size and overlap affect retrieval, and at which scale exact search, approximate search and a vector database each apply"
     }
    ],
    "explain": [
@@ -6546,12 +6556,20 @@
      "en": "**The overall flow.** RAG has an offline and an online part. Offline, the material is cut into passages and an index is built for every passage. Online, the question of the user is used for retrieval, the few most relevant passages are taken, combined with the question into a prompt and handed to the model for generation. In the paper that proposed the method, Lewis and colleagues distinguish two kinds of memory. Knowledge in the model weights is called parametric memory and retrievable external material non-parametric memory, the latter being updatable at any time and able to indicate its source."
     },
     {
+     "zh": "**分块。** 离线阶段的第一步是把文档切成块，检索和生成都以块为单位。块的大小是一个需要权衡的量。块太大时，一个块里混有多个话题，它的向量是这些内容的平均，与具体问题的相似度被稀释，放入提示词时也占用更多上下文。块太小时，一条完整的信息被拆散，检索到的片段缺少理解它所需的前后文。嵌入模型还有输入长度的上限，超出的部分会被截断，不会进入向量。练习 5 实现两种基本的切法，即固定长度的滑动窗口和按句子打包，并演示重叠的作用，一条事实的两半落在边界两侧时，没有重叠就得不到同时包含两半的块。Chroma 的一份技术报告在词元层面比较了多种分块策略，结论是分块方式对检索效果有明显影响，按段落和句子等分隔符递归切分的简单方法在参数合适时表现良好。合适的块大小取决于文档和问题的类型，需要像练习 2 那样用带标注的问题来测量。",
+     "en": "**Chunking.** The first step of the offline phase cuts documents into chunks, and both retrieval and generation work in units of chunks. The chunk size is a quantity to be traded off. In a chunk that is too large, several topics are mixed, its vector is an average over them, the similarity to a specific question is diluted, and it takes more context when placed in the prompt. With chunks that are too small, one complete piece of information is torn apart and a retrieved fragment lacks the surrounding text needed to understand it. Embedding models also have a maximum input length, and what exceeds it is truncated and never reaches the vector. Exercise 5 implements two basic ways of cutting, a sliding window of fixed length and packing by sentences, and demonstrates what overlap is for. When the two halves of a fact fall on either side of a boundary, no chunk holds both halves unless there is overlap. A technical report by Chroma compares several chunking strategies at the level of tokens and concludes that the way of chunking affects retrieval noticeably, and that the simple method of splitting recursively at separators such as paragraphs and sentences performs well when its parameters are suitable. The suitable chunk size depends on the kind of documents and questions and has to be measured with labelled questions, as in exercise 2."
+    },
+    {
      "zh": "**关键词检索。** BM25 是经典的关键词排序方法。它对问题中的每个词计算一个分数再相加，这个分数由三个因素决定。词在全部段落中越少见，权重越高。词在某个段落中出现的次数越多，分数越高，但增长会饱和。段落越长，分数相应打折。它只认字面上相同的词，对编号、专有名词这类必须精确匹配的内容很有效，对换了说法的问题则无能为力。",
      "en": "**Keyword retrieval.** BM25 is the classic keyword ranking method. It computes a score for every word of the question and adds them up, and three factors determine this score. The rarer a word across all passages, the higher its weight. The more often a word occurs in a passage, the higher the score, with saturating growth. The longer a passage, the more the score is discounted. It recognizes only literally identical words, works very well for content that must match exactly, such as codes and proper names, and can do nothing for questions phrased differently."
     },
     {
      "zh": "**向量检索。** 用一个嵌入模型把每个段落编码成一个向量，问题也编码成向量，按向量之间的余弦相似度排序。含义相近而用词不同的文本，向量也会接近，所以它能处理换了说法的问题。段落的向量可以预先算好，查询时只需要编码问题并做一次矩阵乘法。段落数量很大时，逐个比较会很慢，FAISS 这类库提供了牺牲少量精度换取速度的近似搜索。",
      "en": "**Vector retrieval.** An embedding model encodes every passage as a vector, the question is encoded as a vector too, and passages are ranked by the cosine similarity between the vectors. Texts close in meaning and different in wording have nearby vectors, so questions phrased differently can be handled. The passage vectors can be computed in advance, and a query needs only the encoding of the question and one matrix multiplication. With very many passages, comparing one by one becomes slow, and libraries such as FAISS provide approximate search that trades a little precision for speed."
+    },
+    {
+     "zh": "**向量索引与向量数据库。** 练习 1 的向量检索把问题与每一个段落的向量比较，这叫精确检索，也称暴力检索，结果准确，计算量与段落数成正比。段落达到百万以上时，通常改用近似最近邻检索，以少量的准确率损失换取速度。两类常用的索引结构是倒排文件（IVF）和 HNSW。IVF 先把向量聚成若干簇，检索时只查看与问题最接近的几个簇。HNSW 把向量连成多层的图，检索时从稀疏的上层出发逐层向下逼近。练习 6 实现 IVF。在有明显簇结构的合成数据上，只探查 256 个簇中的 4 个，比较的向量约占全部的 8%，前 10 名的召回率为 0.976。在没有簇结构的合成数据上，同样的设置下召回率只有 0.335，探查 64 个簇、比较约 31% 的向量时才达到 0.921。近似检索的效果取决于数据的分布，上线前需要在自己的数据上测量召回率。Faiss 是实现这些索引的库，只负责向量的存储和检索。向量数据库在索引之外还提供持久化、按元数据过滤、增删改以及文档原文的存储，Chroma 是其中一个开源的例子，按其文档的说明，它保存嵌入、文档和元数据，并支持向量检索、全文检索和元数据过滤。段落只有几千到几万个时，精确检索通常已经足够快，不需要专门的数据库。",
+     "en": "**Vector indexes and vector databases.** The vector retrieval of exercise 1 compares the question with the vector of every passage. This is exact search, also called brute-force search. Its result is accurate and its cost is proportional to the number of passages. From a million passages or so, approximate nearest neighbour search is usually used, trading a small loss of accuracy for speed. Two common index structures are the inverted file (IVF) and HNSW. IVF first groups the vectors into clusters and at query time looks only into the few clusters closest to the question. HNSW links the vectors into a graph of several layers, and a search starts in the sparse upper layers and moves down towards the target. Exercise 6 implements IVF. On synthetic data with a clear cluster structure, probing 4 of 256 clusters compares about 8% of all vectors and reaches a recall of 0.976 for the top 10. On synthetic data without cluster structure the same setting reaches a recall of 0.335 only, and 0.921 is reached when 64 clusters are probed and about 31% of the vectors are compared. The quality of approximate search depends on the distribution of the data, and recall has to be measured on one's own data before deployment. Faiss is a library that implements these indexes and handles the storage and search of vectors alone. A vector database adds persistence, filtering by metadata, insertion and deletion, and storage of the original documents on top of the index. Chroma is an open-source example. According to its documentation it stores embeddings, documents and metadata and supports vector search, full-text search and metadata filtering. With a few thousand to a few tens of thousands of passages, exact search is usually fast enough and no dedicated database is needed."
     },
     {
      "zh": "**两者的互补与融合。** 练习 1 至练习 3 使用 30 个关于一个虚构小镇的段落和 20 个问题，其中 12 个问题沿用了原文的用词或编号，8 个是换了说法的。BM25 在前一类上的 MRR 是 0.96，在后一类上只有 0.33。向量检索在后一类上是 1.00，在前一类上是 0.92，出错的是 LH-204 和 LH-207 这类只差几个字符的编号。倒数排名融合（RRF）只使用排名不使用分数，把一个段落在各路结果中的排名的倒数相加。在这份数据上，等权重的 RRF 总体 MRR 为 0.81，低于单独使用向量检索的 0.95，原因是 BM25 在换了说法的问题上把正确段落排得很靠后，拖累了融合后的结果。这个结果与常见的说法不完全一致。Anthropic 在其检索实验中报告嵌入加 BM25 优于单独使用嵌入。可见融合是否有益取决于数据和两路检索各自的质量，需要在自己的数据上测量。",
@@ -6683,6 +6701,46 @@
        }
       }
      ]
+    },
+    {
+     "title": {
+      "zh": "IVF 检索的比较次数",
+      "en": "The number of comparisons of an IVF search"
+     },
+     "source": {
+      "text": "Faiss wiki, Guidelines to choose an index",
+      "url": "https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index"
+     },
+     "steps": [
+      {
+       "tex": "C_{\\text{flat}} = N",
+       "note": {
+        "zh": "精确检索把问题与全部 $N$ 个向量各比较一次。",
+        "en": "Exact search compares the question once with each of the $N$ vectors."
+       }
+      },
+      {
+       "tex": "C_{\\text{IVF}} \\approx n_{\\text{list}} + n_{\\text{probe}}\\,\\frac{N}{n_{\\text{list}}}",
+       "note": {
+        "zh": "IVF 先与 $n_{\\text{list}}$ 个质心比较，再扫描 $n_{\\text{probe}}$ 个簇。各簇大小相近时，每个簇约有 $N/n_{\\text{list}}$ 个向量。",
+        "en": "IVF first compares with the $n_{\\text{list}}$ centroids and then scans $n_{\\text{probe}}$ clusters. With clusters of similar size, each holds about $N/n_{\\text{list}}$ vectors."
+       }
+      },
+      {
+       "tex": "N=4096,\\ n_{\\text{list}}=256,\\ n_{\\text{probe}}=4:\\quad C_{\\text{IVF}} \\approx 256 + 4\\times16 = 320 \\approx 0.078\\,N",
+       "note": {
+        "zh": "练习 6 的设置。实测比较的向量占 8.0%，与估计一致。$n_{\\text{list}}=256$ 是 Faiss 文档对 100 万以下的数据建议的范围 $4\\sqrt{N}$ 至 $16\\sqrt{N}$ 的下限。",
+        "en": "The setting of exercise 6. The measured share of compared vectors is 8.0%, in line with the estimate. $n_{\\text{list}}=256$ is the lower end of the range $4\\sqrt{N}$ to $16\\sqrt{N}$ that the Faiss documentation suggests for data below one million vectors."
+       }
+      },
+      {
+       "tex": "\\frac{dC_{\\text{IVF}}}{dn_{\\text{list}}}=0 \\ \\Rightarrow\\ n_{\\text{list}}=\\sqrt{n_{\\text{probe}}\\,N},\\qquad C_{\\min}=2\\sqrt{n_{\\text{probe}}\\,N}",
+       "note": {
+        "zh": "固定 $n_{\\text{probe}}$ 时，比较次数在 $n_{\\text{list}}$ 与 $\\sqrt{N}$ 同量级时最小，此时总量按 $\\sqrt{N}$ 增长，不再按 $N$ 增长。这解释了建议值为什么与 $\\sqrt{N}$ 成正比。这个式子只计算比较次数，召回率还取决于数据的分布，需要实测。",
+        "en": "For fixed $n_{\\text{probe}}$, the number of comparisons is smallest when $n_{\\text{list}}$ is of the order of $\\sqrt{N}$, and the total then grows with $\\sqrt{N}$ and no longer with $N$. This explains why the suggested values are proportional to $\\sqrt{N}$. The expression counts comparisons only. Recall depends on the distribution of the data as well and has to be measured."
+       }
+      }
+     ]
     }
    ],
    "faq": [
@@ -6735,13 +6793,35 @@
       "zh": "分两层。检索层用 Recall@k 和 MRR 这类指标，衡量正确的段落是否被找到、排在第几。生成层衡量回答是否正确以及是否忠实于所给的段落。两层需要分开统计，否则无法判断应当改进哪一部分。练习 4 用的是最简单的判断方法，即检查回答中是否包含正确答案的关键字符串。这种方法偏宽松，回答中夹带了错误内容时仍会被算作正确。更可靠的评测方法在阶段 8 讨论。",
       "en": "On two levels. The retrieval level uses metrics such as Recall@k and MRR to measure whether the right passage is found and at which rank. The generation level measures whether the answer is right and whether it is faithful to the passages given. The two levels have to be counted separately, or it cannot be judged which part needs improving. Exercise 4 uses the simplest check, whether the reply contains the key string of the correct answer. This check is lenient and still counts a reply as correct when it carries wrong content alongside. More reliable evaluation methods are discussed in stage 8."
      }
+    },
+    {
+     "q": {
+      "zh": "块应该切多大？要不要重叠？",
+      "en": "How large should chunks be, and should they overlap?"
+     },
+     "a": {
+      "zh": "没有通用的数值。可以从文档的自然结构出发，例如按段落或小节切分，再限制最大长度，这样得到的块在语义上比较完整。重叠可以减少信息被边界切断的情况，代价是索引变大，检索结果中出现内容重复的块。块的大小还要与后面的环节配合，放入提示词的块数乘以块的长度不能超出为检索内容留出的上下文预算。较可靠的做法是准备一组带标注的问题，对几种设置分别测量 Recall@k，再做选择。Chroma 的报告指出，一些常用分块方法的默认参数效果并不好，所以不宜直接沿用所用的库的默认值。",
+      "en": "There is no universal value. A reasonable start is the natural structure of the documents, such as paragraphs or sections, with a maximum length imposed, which gives chunks that are fairly complete in meaning. Overlap reduces the cases in which information is cut by a boundary, at the price of a larger index and of chunks with repeated content among the results. The chunk size also has to fit the later steps. The number of chunks placed in the prompt times their length must stay within the context budget reserved for retrieved content. The more reliable practice is to prepare a set of labelled questions, measure Recall@k for several settings and then choose. The report by Chroma notes that the default parameters of some popular chunking methods perform rather poorly, so the defaults of the library in use should not be adopted unchecked."
+     }
+    },
+    {
+     "q": {
+      "zh": "什么时候才需要向量数据库？",
+      "en": "When is a vector database needed?"
+     },
+     "a": {
+      "zh": "取决于数据的规模和对功能的需要。段落在几万个以内时，把向量放在一个 NumPy 数组里做精确检索，一次查询通常在毫秒量级，结果还是准确的。规模增大到精确检索太慢时，需要近似索引，可以直接使用 Faiss 这类库。需要持久化、多个进程同时读写、按元数据过滤（例如只检索某个用户或某个日期之后的文档）或频繁增删时，向量数据库提供了这些现成的功能。一些通用数据库也支持向量检索，已经在使用这类数据库的项目可以先考虑它们，以减少需要维护的系统数量。",
+      "en": "It depends on the scale of the data and on the functions required. With up to a few tens of thousands of passages, keeping the vectors in a NumPy array and searching exactly usually takes on the order of milliseconds per query, and the result is exact. When the scale makes exact search too slow, an approximate index is needed, and a library such as Faiss can be used directly. Where persistence, concurrent reads and writes by several processes, filtering by metadata (for example retrieving the documents of one user, or those after a given date) or frequent insertion and deletion are required, a vector database offers these functions ready-made. Some general-purpose databases support vector search as well, and a project that already runs one may consider it first to keep the number of systems to maintain small."
+     }
     }
    ],
    "exercises": [
     "m72_bm25",
     "m72_hybrid",
     "m72_rerank",
-    "m72_minirag"
+    "m72_minirag",
+    "m72_chunk",
+    "m72_ivf"
    ],
    "plain": {
     "zh": "闭卷考试只能凭记忆，记不清的地方容易瞎编。RAG 相当于改成开卷，先到书架上把相关的几页找出来，再对着这几页作答。关键词检索像按书后的索引查，词必须对得上。向量检索像请教一位熟悉内容的图书管理员，换一种说法他也知道要的是哪一本。开卷同样可能答错，例如翻对了页却抄错了行。",
@@ -6805,8 +6885,8 @@
      "en": "**Three things a loop has to handle.** Exercise 3 replaces the model by a stand-in that answers from a script and checks these three things one by one. The model may request a tool that does not exist, omit an argument or output JSON that cannot be parsed. Such cases should not crash the program. The error message should be returned as the tool result for the model to see and adjust to. The model may keep requesting tools without giving an answer, so a step limit is set. The calls and results of every round have to stay in the conversation unchanged, since the model has no other memory and everything it knows about the progress of the task comes from the context."
     },
     {
-     "zh": "**框架做了什么。** 练习 4 用 LangChain 的 `@tool` 定义了同样的两个工具。它生成的 JSON 模式与练习 1 手写的注册表在工具名、参数类型和必填项上完全一致，把它接到练习 3 的循环上，运行结果也相同。框架提供的是这些部件的现成实现以及与各种服务的对接，机制并没有不同。Anthropic 的建议是先直接使用模型的 API，如果使用框架，要确保理解它底层的代码，因为抽象层会遮住实际发送的提示词和收到的回复，增加排查问题的难度。各种框架的比较不在本路线的范围之内，可以参看姊妹项目 Agent Atlas。",
-     "en": "**What a framework does.** Exercise 4 defines the same two tools with `@tool` of LangChain. The JSON schema it generates agrees fully with the hand-written registry of exercise 1 in tool names, parameter types and required parameters, and connected to the loop of exercise 3 it produces the same run. A framework provides ready-made implementations of these parts and connections to various services, and the mechanism is no different. Anthropic advises starting with the API of the model directly and, where a framework is used, making sure the code beneath it is understood, since layers of abstraction hide the prompts actually sent and the replies received and make debugging harder. A comparison of frameworks lies outside this roadmap and can be found in the sibling project Agent Atlas."
+     "zh": "**框架做了什么。** 练习 4 用 LangChain 的 `@tool` 定义了同样的两个工具。它生成的 JSON 模式与练习 1 手写的注册表在工具名、参数类型和必填项上完全一致，把它接到练习 3 的循环上，运行结果也相同。框架提供的是这些部件的现成实现以及与各种服务的对接，机制并没有不同。Anthropic 的建议是先直接使用模型的 API，如果使用框架，要确保理解它底层的代码，因为抽象层会遮住实际发送的提示词和收到的回复，增加排查问题的难度。常见的框架侧重点不同。LangChain 提供模型、工具和检索等部件的统一接口以及大量与外部服务的对接。LlamaIndex 从连接私有数据起步，其文档把核心想法称为上下文增强，即在模型回答时把用户自己的数据提供给它，现在同样支持 agent 和多步的工作流。两者解决的问题有不少重叠，选择时可以看哪一个对所用的数据源和模型支持得更好。更细的框架比较不在本路线的范围之内，可以参看姊妹项目 Agent Atlas。",
+     "en": "**What a framework does.** Exercise 4 defines the same two tools with `@tool` of LangChain. The JSON schema it generates agrees fully with the hand-written registry of exercise 1 in tool names, parameter types and required parameters, and connected to the loop of exercise 3 it produces the same run. A framework provides ready-made implementations of these parts and connections to various services, and the mechanism is no different. Anthropic advises starting with the API of the model directly and, where a framework is used, making sure the code beneath it is understood, since layers of abstraction hide the prompts actually sent and the replies received and make debugging harder. The common frameworks differ in emphasis. LangChain offers uniform interfaces for components such as models, tools and retrieval, together with a large number of integrations with external services. LlamaIndex started from connecting private data. Its documentation calls the core idea context augmentation, which means supplying the model with the data of the user when it answers, and it now supports agents and multi-step workflows as well. The problems the two address overlap considerably, and a choice can be based on which one supports the data sources and models in use better. A more detailed comparison of frameworks lies outside this roadmap and can be found in the sibling project Agent Atlas."
     },
     {
      "zh": "**指令与数据没有分界。** 系统提示词、用户消息、工具返回的内容，在进入模型之前都被拼成同一个 token 序列。角色标记也只是序列里的几个特殊 token。模型的结构中没有任何部件规定某一段文本的优先级更高，或者某一段文本只能当作数据。模型之所以通常遵从系统提示词，是训练使它倾向于这样做，这是一种统计上的倾向，不是一条被强制执行的规则。练习 3 的最后做了两个观察。系统提示词要求不得透露一个门禁码，三种询问方式下这个 5 亿参数的模型都把它说了出来，包括最直接的那一种。另一个观察中，工具返回的网页文本里夹带了一句“忽略此前的全部指令”，模型这一次没有照做，仍然回答了开放时间。单次测试不能说明它不会被别的写法影响。",
@@ -9024,6 +9104,267 @@
     "zh": "探针像给模型做脑电图。在某一层贴上电极，训练一个很简单的读数器，看能不能从信号里读出“这个城市在哪个大洲”。读得出来，说明信息在那里，却不说明大脑用到了它，也可能只是读数器自己太聪明，所以需要对照实验。引导向量是反过来的做法，在那个位置施加一个小小的刺激，看行为是否随之改变。",
     "en": "A probe is like an EEG of the model. Electrodes are attached at some layer and a very simple reader is trained to see whether the signal reveals which continent a city is on. If it does, the information is there, which does not show that the brain uses it, and the reader may merely be too clever by itself, hence the need for controls. A steering vector goes the other way. A small stimulus is applied at that place to see whether the behaviour changes with it."
    }
+  },
+  "mlops": {
+   "num": "6.3",
+   "status": "ready",
+   "minutes": 130,
+   "title": {
+    "zh": "MLOps 与 LLMOps 工具",
+    "en": "MLOps and LLMOps tooling"
+   },
+   "summary": {
+    "zh": "模型之外的工程环节有哪些，实验跟踪、模型注册、数据版本和线上监控各解决什么问题，MLflow 等工具怎样对应这些环节，以及大模型应用带来了哪些新的要求。",
+    "en": "Which engineering stages surround a model, what experiment tracking, model registries, data versioning and production monitoring each solve, how tools such as MLflow map onto these stages, and which new requirements LLM applications bring."
+   },
+   "asof": {
+    "zh": "本模块中关于具体工具功能的说明核对于 2026 年 11 月 26 日，取自各工具的官方文档。工具的功能和归属变化较快，使用前请以官方文档为准。",
+    "en": "The statements about the features of specific tools in this module were checked on 26 November 2026 against the official documentation of each tool. Features and ownership of tools change quickly, and the official documentation should be consulted before use."
+   },
+   "why": {
+    "zh": "做过几轮实验之后，常见的困难是说不清哪一次结果对应哪一组参数、哪一份数据和哪一版代码。模型上线之后，又需要知道它是否仍然表现正常。这些问题与模型的原理无关，却决定了一项工作能否复现、能否交接、能否长期运行。面试中的“你怎样管理实验”“模型上线后怎样监控”问的就是这部分内容。",
+    "en": "After a few rounds of experiments, a common difficulty is being unable to say which result belongs to which parameters, which data and which version of the code. Once a model is in production, it also has to be known whether it still behaves normally. These problems are unrelated to how models work, yet they decide whether a piece of work can be reproduced, handed over and run over time. Interview questions such as how experiments are managed or how a model is monitored in production ask about this part."
+   },
+   "plain": {
+    "zh": "可以把训练模型比作在厨房里研发一道新菜。只靠记忆的话，过几天就说不清最好吃的那一次放了多少盐、火候多大、用的是哪一批食材。实验跟踪相当于每做一次都写下配方和品尝的评分。数据版本相当于给每批食材贴上标签。模型注册相当于把定稿的配方编号存档，并注明哪一版正在店里供应。监控相当于持续收集顾客的反馈，发现味道变了就回头检查。MLOps 就是这一整套记录和流程，目的是让做出来的结果可以重复，出了问题可以追查。",
+    "en": "Training a model can be compared to developing a new dish in a kitchen. Relying on memory alone, it is unclear after a few days how much salt went into the best attempt, how high the heat was and which batch of ingredients was used. Experiment tracking corresponds to writing down the recipe and the tasting score of every attempt. Data versioning corresponds to labelling every batch of ingredients. A model registry corresponds to filing the final recipes under numbers and noting which version is being served in the restaurant. Monitoring corresponds to collecting the feedback of guests continuously and going back to check when the taste has changed. MLOps is this whole set of records and procedures, with the aim that results can be repeated and problems can be traced."
+   },
+   "terms": [
+    "MLOps",
+    "experiment tracking",
+    "run",
+    "artifact",
+    "model registry",
+    "data versioning",
+    "continuous training",
+    "drift",
+    "LLMOps",
+    "tracing"
+   ],
+   "goals": [
+    {
+     "zh": "能说出机器学习系统生命周期的各个环节，以及每个环节要记录或自动化的内容",
+     "en": "Name the stages of the life cycle of a machine learning system and what is recorded or automated in each"
+    },
+    {
+     "zh": "能实现一个最小的实验跟踪器，并用 MLflow 完成同样的记录与查询",
+     "en": "Implement a minimal experiment tracker and do the same logging and querying with MLflow"
+    },
+    {
+     "zh": "能说明大模型应用在版本管理、评估和监控上与传统机器学习的不同",
+     "en": "Explain how LLM applications differ from classic machine learning in versioning, evaluation and monitoring"
+    }
+   ],
+   "explain": [
+    {
+     "zh": "**模型代码只是系统的一小部分。** Sculley 等人 2015 年的论文 Hidden Technical Debt in Machine Learning Systems 指出，机器学习系统可以很快做出来，长期维护的代价却容易被忽视。文中一幅常被引用的图显示，在实际系统中，模型代码只占很小的一块，周围是数据收集、数据校验、特征处理、配置、资源管理、服务基础设施和监控。MLOps 这个词指的就是管理这些环节的方法和工具。Google Cloud 的一篇架构文档把它定义为一种工程文化和实践，目标是把机器学习系统的开发与运维统一起来。",
+     "en": "**Model code is a small part of the system.** The 2015 paper Hidden Technical Debt in Machine Learning Systems by Sculley et al. points out that machine learning systems are quick to build while the cost of maintaining them over time is easily overlooked. An often cited figure of the paper shows that in a real system the model code is one small box, surrounded by data collection, data verification, feature processing, configuration, resource management, serving infrastructure and monitoring. The term MLOps refers to the methods and tools for managing these parts. An architecture document of Google Cloud defines it as an engineering culture and practice that aims at unifying the development and the operation of machine learning systems."
+    },
+    {
+     "zh": "**生命周期的环节。** 一个模型从数据到线上服务经过几个环节，每个环节有需要记录的内容。数据环节记录用的是哪一版数据。实验环节记录每次运行的参数、指标和产物。评估环节决定一个候选模型是否好于当前版本。注册环节给通过评估的模型一个版本号，并标明哪一版在线上。部署环节把模型变成可以调用的服务。监控环节观察线上的输入和输出是否偏离了训练时的情况，这种偏离称为漂移，发现之后回到数据环节重新训练。Google 的文档按自动化程度把成熟度分为三级，第 0 级全部手工操作，第 1 级的训练流水线可以自动重新训练和部署，第 2 级连流水线自身的修改也经过自动的构建、测试和发布。该文档还在软件工程的持续集成和持续交付之外提出了持续训练，即自动地重新训练并上线模型，这是机器学习系统特有的环节。",
+     "en": "**The stages of the life cycle.** On its way from data to a production service a model passes several stages, each with something to record. The data stage records which version of the data was used. The experiment stage records the parameters, metrics and outputs of every run. The evaluation stage decides whether a candidate model is better than the current version. The registry stage gives a model that passed evaluation a version number and marks which version is in production. The deployment stage turns the model into a service that can be called. The monitoring stage watches whether inputs and outputs in production deviate from the conditions of training. Such deviation is called drift, and once it is found the process returns to the data stage for retraining. The Google document grades maturity by the degree of automation into three levels. At level 0 everything is done by hand, at level 1 a training pipeline retrains and redeploys automatically, and at level 2 changes to the pipeline itself go through automated building, testing and release. Beside continuous integration and continuous delivery from software engineering, the document introduces continuous training, the automatic retraining and serving of models, a stage specific to machine learning systems."
+    },
+    {
+     "zh": "**实验跟踪的数据模型。** 实验跟踪工具的核心概念很少。按 MLflow 文档的定义，一次运行（run）是代码的一次执行，例如运行一次训练脚本。一次运行记录参数（输入的设置，例如学习率）、指标（测量得到的数值，例如验证集损失，可以随训练步数多次记录）和产物（输出的文件，例如模型权重和图表）。若干次运行归入一个实验（experiment），对应一个任务。练习 1 用几十行代码实现这个数据模型，每次运行保存为一个 JSON 文件。练习 2 用 MLflow 记录同样的实验，两边查到的最佳运行一致。工具多出来的是界面、并发写入、远程存储、权限和与训练框架的自动对接，数据模型本身并不复杂。",
+     "en": "**The data model of experiment tracking.** Experiment tracking tools rest on few core concepts. As the MLflow documentation defines them, a run is one execution of code, such as running a training script once. A run records parameters (input settings such as the learning rate), metrics (measured values such as the validation loss, which can be logged many times over the training steps) and artifacts (output files such as model weights and plots). Several runs are grouped into an experiment, which corresponds to one task. Exercise 1 implements this data model in a few dozen lines, saving every run as a JSON file. Exercise 2 records the same experiments with MLflow, and both sides find the same best run. What a tool adds is the interface, concurrent writing, remote storage, permissions and automatic integration with training frameworks. The data model itself is not complicated."
+    },
+    {
+     "zh": "**MLflow 与其他工具。** MLflow 是一个开源平台，文档把功能分成两部分。传统机器学习部分包括实验跟踪、模型打包、模型注册和部署。面向大模型和 agent 的部分包括追踪（记录一次请求中每个中间步骤的输入、输出和元数据）、提示词管理和评估。按其文档的说明，MLflow 的追踪与 OpenTelemetry 兼容，并能自动记录 OpenAI、LangChain、LlamaIndex 等库的调用。其他工具各自覆盖部分环节。DVC 用类似 Git 的方式给数据、模型和实验做版本管理。Weights & Biases 是提供实验跟踪的商业服务。Hugging Face Hub 托管模型和数据集并保留版本历史。下面的表按环节列出了一些例子，表中的工具只是示例，不代表推荐。初学时不必全部掌握，先用一个实验跟踪工具把自己的实验记录下来，收益就已经很明显。",
+     "en": "**MLflow and other tools.** MLflow is an open-source platform whose documentation divides its features into two parts. The part for classic machine learning covers experiment tracking, model packaging, a model registry and deployment. The part for LLMs and agents covers tracing (recording the inputs, outputs and metadata of every intermediate step of a request), prompt management and evaluation. According to its documentation, MLflow tracing is compatible with OpenTelemetry and records calls of libraries such as OpenAI, LangChain and LlamaIndex automatically. Other tools each cover some of the stages. DVC versions data, models and experiments in a way similar to Git. Weights & Biases is a commercial service offering experiment tracking. The Hugging Face Hub hosts models and data sets and keeps their version history. The table below lists some examples by stage. The tools in it are examples and not recommendations. A beginner need not master them all. Recording one's own experiments with one tracking tool already brings a clear benefit."
+    },
+    {
+     "zh": "**大模型应用的不同之处。** 使用现成的大模型做应用时，多数团队不训练模型，上面的环节相应地发生了变化，这部分常被称为 LLMOps。需要管理版本的对象从权重变成了提示词、工具描述、检索配置和所用的模型版本，其中任何一项变化都可能改变系统的行为。评估不再是在固定测试集上算一个准确率，输出是自由文本并且带有随机性，需要 8.1 中介绍的评委模型和任务指标，并在每次修改提示词之后重新运行，像软件工程中的回归测试一样。监控的对象增加了每次请求的 token 用量、费用和延迟。排查问题依靠追踪，一次请求可能包含多次模型调用和工具调用，需要记录每一步的输入和输出才能定位出错的环节。服务商更新或下线模型版本，也是一种需要应对的外部变化。",
+     "en": "**What differs for LLM applications.** When applications are built on existing large models, most teams do not train a model, and the stages above change accordingly. This part is often called LLMOps. The objects to be versioned change from weights to prompts, tool descriptions, retrieval configuration and the model version in use, and a change to any one of them can alter the behaviour of the system. Evaluation is no longer one accuracy figure on a fixed test set. Outputs are free text and carry randomness, which calls for the judge models and task metrics introduced in 8.1, run again after every change to a prompt in the manner of regression tests in software engineering. Monitoring extends to the token usage, cost and latency of every request. Debugging relies on tracing. One request may contain several model calls and tool calls, and the input and output of every step have to be recorded to locate the step that failed. A provider updating or retiring a model version is one more external change to be dealt with."
+    }
+   ],
+   "figure": {
+    "file": "mlops_cycle.svg",
+    "caption": {
+     "zh": "机器学习系统的生命周期。每个环节下方是需要记录的内容。监控发现漂移之后回到数据环节，形成闭环。",
+     "en": "The life cycle of a machine learning system. Below every stage is what has to be recorded. When monitoring finds drift, the process returns to the data stage and the loop closes."
+    }
+   },
+   "table": {
+    "caption": {
+     "zh": "各环节要解决的问题和一些工具的例子（核对于 2026-11-26）。表中的工具只是示例，同一环节还有其他选择。",
+     "en": "The problem each stage solves, with some example tools (checked on 2026-11-26). The tools are examples, and other choices exist for every stage."
+    },
+    "head": [
+     {
+      "zh": "环节",
+      "en": "Stage"
+     },
+     {
+      "zh": "要回答的问题",
+      "en": "Question to answer"
+     },
+     {
+      "zh": "记录或自动化的内容",
+      "en": "What is recorded or automated"
+     },
+     {
+      "zh": "工具示例",
+      "en": "Example tools"
+     }
+    ],
+    "rows": [
+     [
+      {
+       "zh": "数据版本",
+       "en": "Data versioning"
+      },
+      {
+       "zh": "这个结果用的是哪一份数据",
+       "en": "Which data produced this result"
+      },
+      {
+       "zh": "数据文件的版本及其与代码版本的对应",
+       "en": "Versions of data files and their link to code versions"
+      },
+      "DVC, Hugging Face Hub"
+     ],
+     [
+      {
+       "zh": "实验跟踪",
+       "en": "Experiment tracking"
+      },
+      {
+       "zh": "哪一组参数得到了哪个结果",
+       "en": "Which parameters gave which result"
+      },
+      {
+       "zh": "参数、指标、产物、代码版本",
+       "en": "Parameters, metrics, artifacts, code version"
+      },
+      "MLflow, Weights & Biases"
+     ],
+     [
+      {
+       "zh": "模型注册",
+       "en": "Model registry"
+      },
+      {
+       "zh": "线上运行的是哪一版模型",
+       "en": "Which model version runs in production"
+      },
+      {
+       "zh": "模型版本、所处阶段、来源的运行",
+       "en": "Model versions, their stage and the run they came from"
+      },
+      "MLflow, Hugging Face Hub"
+     ],
+     [
+      {
+       "zh": "部署与服务",
+       "en": "Deployment and serving"
+      },
+      {
+       "zh": "怎样把模型变成稳定的服务",
+       "en": "How a model becomes a stable service"
+      },
+      {
+       "zh": "打包、接口、扩缩容",
+       "en": "Packaging, interface, scaling"
+      },
+      "MLflow, vLLM"
+     ],
+     [
+      {
+       "zh": "监控",
+       "en": "Monitoring"
+      },
+      {
+       "zh": "模型现在是否仍然正常",
+       "en": "Whether the model still behaves normally"
+      },
+      {
+       "zh": "输入输出的分布、质量指标、延迟与费用",
+       "en": "Distributions of inputs and outputs, quality metrics, latency and cost"
+      },
+      {
+       "zh": "各监控平台",
+       "en": "monitoring platforms"
+      }
+     ],
+     [
+      {
+       "zh": "追踪（大模型应用）",
+       "en": "Tracing (LLM applications)"
+      },
+      {
+       "zh": "一次请求的哪一步出了问题",
+       "en": "Which step of a request went wrong"
+      },
+      {
+       "zh": "每一步的输入、输出、耗时和 token 用量",
+       "en": "Input, output, duration and token usage of every step"
+      },
+      "MLflow Tracing, Langfuse, LangSmith"
+     ],
+     [
+      {
+       "zh": "提示词与评估管理（大模型应用）",
+       "en": "Prompt and evaluation management (LLM applications)"
+      },
+      {
+       "zh": "这次改动有没有让结果变差",
+       "en": "Whether a change made the results worse"
+      },
+      {
+       "zh": "提示词版本、评估集、每个版本的得分",
+       "en": "Prompt versions, evaluation sets, the score of every version"
+      },
+      "MLflow, Langfuse"
+     ]
+    ]
+   },
+   "derivations": [],
+   "exercises": [
+    "m63_tracker",
+    "m63_mlflow"
+   ],
+   "faq": [
+    {
+     "q": {
+      "zh": "只是自己做研究，需要这些工具吗？",
+      "en": "Are these tools needed for research done alone?"
+     },
+     "a": {
+      "zh": "其中的实验跟踪值得尽早使用，其余的可以按需要再加。研究中常见的情况是几周之后需要重现论文中的某个数字，或审稿人要求补一组对比，这时能否找到当时的参数、数据版本和代码版本，决定了要花几分钟还是几天。最低限度的做法是每次运行自动保存完整的配置、代码的 Git 提交号、随机种子和结果，练习 1 的跟踪器已经能做到这一点。模型注册、自动部署和线上监控是为多人协作和长期运行的服务准备的，个人研究项目通常用不到。",
+      "en": "Experiment tracking is worth adopting early, and the rest can be added as needed. A common situation in research is having to reproduce a number of a paper weeks later, or a reviewer asking for one more comparison. Whether the parameters, data version and code version of the time can be found then decides between minutes and days. The minimum practice is to save the full configuration, the Git commit of the code, the random seed and the results of every run automatically, which the tracker of exercise 1 can already do. A model registry, automated deployment and production monitoring serve collaboration among several people and long-running services, and a personal research project usually does not need them."
+     }
+    },
+    {
+     "q": {
+      "zh": "MLOps 和 DevOps 有什么不同？",
+      "en": "How does MLOps differ from DevOps?"
+     },
+     "a": {
+      "zh": "DevOps 管理的是代码，同一份代码构建出的程序行为是确定的。机器学习系统的行为由代码、数据和训练过程共同决定，所以多出了几项内容。需要做版本管理的除了代码还有数据和模型。测试除了检查代码，还要校验数据和评估模型的质量。即使代码没有任何改动，线上的数据分布发生变化之后，模型的表现也可能下降，因此需要监控和重新训练。Google 的文档把最后一点概括为持续训练，并指出持续集成在这里还包括对数据和模型的测试与验证。",
+      "en": "DevOps manages code, and a program built from the same code behaves deterministically. The behaviour of a machine learning system is determined jointly by code, data and the training process, which adds several items. Data and models have to be versioned in addition to code. Tests check the code and also validate the data and evaluate the quality of the model. Even with no change to the code, the performance of a model can degrade once the distribution of data in production shifts, which calls for monitoring and retraining. The Google document summarizes the last point as continuous training and notes that continuous integration here also covers the testing and validation of data and models."
+     }
+    },
+    {
+     "q": {
+      "zh": "什么是漂移？怎样发现？",
+      "en": "What is drift, and how is it detected?"
+     },
+     "a": {
+      "zh": "漂移指线上的情况偏离了模型训练或评估时的情况。常见的有两类。输入的分布变了，例如用户开始问训练数据中很少出现的话题。输入与正确输出之间的关系变了，例如一条规定更新之后，原来正确的回答不再正确。发现的办法是持续比较线上数据与基准数据的统计量，例如输入长度、话题分布和模型输出的分布，并定期抽取线上样本做人工或自动的质量评估。对于大模型应用，还有一种来自上游的变化，即服务商更新了模型版本，同样的提示词得到了不同的输出，所以在固定的评估集上定期重新运行也是监控的一部分。",
+      "en": "Drift means that conditions in production have moved away from those under which the model was trained or evaluated. Two kinds are common. The distribution of inputs changes, for example when users start asking about topics that were rare in the training data. The relation between inputs and correct outputs changes, for example when a regulation is updated and a formerly correct answer is no longer correct. Detection works by comparing statistics of production data with a reference continuously, such as input length, topic distribution and the distribution of model outputs, and by sampling production data regularly for manual or automatic quality assessment. For LLM applications there is one more change from upstream. A provider updates a model version and the same prompt yields different output, so rerunning a fixed evaluation set regularly is part of monitoring as well."
+     }
+    },
+    {
+     "q": {
+      "zh": "提示词为什么也要做版本管理？",
+      "en": "Why do prompts need version control as well?"
+     },
+     "a": {
+      "zh": "在大模型应用中，提示词的作用相当于传统系统中的代码和模型权重，一处措辞的修改就可能改变系统在某一类输入上的行为。没有版本记录时，线上表现变差之后无法确定是哪一次修改引起的，也无法回退。合适的做法是把提示词与代码一样纳入版本管理，每个版本关联它在评估集上的得分，上线哪个版本有明确的记录。提示词放在 Git 仓库里已经能满足基本需要，专门的提示词管理功能提供的是不重新部署代码就能切换版本，以及与评估结果和追踪记录的关联。",
+      "en": "In an LLM application the prompt plays the role that code and model weights play in a classic system, and a change of wording in one place can alter how the system behaves on a class of inputs. Without a version history, it cannot be determined after a degradation in production which change caused it, and a rollback is impossible. The appropriate practice is to version prompts like code, to link every version to its score on the evaluation set and to keep an explicit record of which version is live. Keeping prompts in a Git repository already meets the basic need. Dedicated prompt management adds switching versions without redeploying code and links to evaluation results and traces."
+     }
+    }
+   ]
   }
  },
  "whys_planned": [
@@ -9152,6 +9493,13 @@
     "en": "Why does a model not know today's date or its own knowledge cutoff?"
    },
    "module": "pretraining"
+  },
+  {
+   "q": {
+    "zh": "为什么模型在测试集上表现很好，上线一段时间后效果却变差了？",
+    "en": "Why does a model that did well on the test set get worse after some time in production?"
+   },
+   "module": "mlops"
   }
  ],
  "interview": {
@@ -11347,6 +11695,171 @@
    },
    "module": "probes",
    "link": "https://arxiv.org/abs/2310.06824"
+  },
+  {
+   "term": {
+    "zh": "分块",
+    "en": "chunking"
+   },
+   "def": {
+    "zh": "把长文档切成较短的片段，检索和生成以片段为单位。",
+    "en": "Cutting long documents into shorter pieces, which then serve as the units of retrieval and generation."
+   },
+   "module": "rag"
+  },
+  {
+   "term": {
+    "zh": "近似最近邻检索",
+    "en": "approximate nearest neighbour search"
+   },
+   "def": {
+    "zh": "不与全部向量比较、以少量准确率损失换取速度的向量检索方法，简称 ANN。",
+    "en": "Vector search that avoids comparing with every vector and trades a small loss of accuracy for speed, abbreviated ANN."
+   },
+   "module": "rag"
+  },
+  {
+   "term": {
+    "zh": "倒排文件索引",
+    "en": "IVF"
+   },
+   "def": {
+    "zh": "先把向量聚成若干簇、检索时只查看与问题最接近的几个簇的索引结构。",
+    "en": "An index that first groups the vectors into clusters and at query time looks only into the few clusters closest to the query."
+   },
+   "module": "rag"
+  },
+  {
+   "term": {
+    "zh": "HNSW",
+    "en": "HNSW"
+   },
+   "def": {
+    "zh": "把向量连成多层的图、检索时从稀疏的上层逐层向下逼近的索引结构，由 Malkov 和 Yashunin 提出。",
+    "en": "An index that links the vectors into a graph of several layers and searches from the sparse upper layers downwards, proposed by Malkov and Yashunin."
+   },
+   "module": "rag"
+  },
+  {
+   "term": {
+    "zh": "向量数据库",
+    "en": "vector database"
+   },
+   "def": {
+    "zh": "在向量索引之外提供持久化、元数据过滤、增删改和原文存储的数据库。",
+    "en": "A database that adds persistence, metadata filtering, insertion and deletion, and storage of the original documents to a vector index."
+   },
+   "module": "rag"
+  },
+  {
+   "term": {
+    "zh": "MLOps",
+    "en": "MLOps"
+   },
+   "def": {
+    "zh": "管理机器学习系统从数据、实验到部署和监控各个环节的方法与工具。",
+    "en": "The methods and tools for managing the stages of a machine learning system from data and experiments to deployment and monitoring."
+   },
+   "module": "mlops"
+  },
+  {
+   "term": {
+    "zh": "实验跟踪",
+    "en": "experiment tracking"
+   },
+   "def": {
+    "zh": "自动记录每次运行的参数、指标和产物，使结果可以比较和复现。",
+    "en": "Recording the parameters, metrics and artifacts of every run automatically so that results can be compared and reproduced."
+   },
+   "module": "mlops"
+  },
+  {
+   "term": {
+    "zh": "运行",
+    "en": "run"
+   },
+   "def": {
+    "zh": "代码的一次执行，例如运行一次训练脚本，是实验跟踪的基本记录单位。",
+    "en": "One execution of code, such as running a training script once. It is the basic unit of record in experiment tracking."
+   },
+   "module": "mlops"
+  },
+  {
+   "term": {
+    "zh": "产物",
+    "en": "artifact"
+   },
+   "def": {
+    "zh": "一次运行输出的文件，例如模型权重、图表和数据文件。",
+    "en": "A file output by a run, such as model weights, plots and data files."
+   },
+   "module": "mlops"
+  },
+  {
+   "term": {
+    "zh": "模型注册",
+    "en": "model registry"
+   },
+   "def": {
+    "zh": "为模型分配版本号并记录各版本所处阶段和来源的系统。",
+    "en": "A system that assigns version numbers to models and records the stage and origin of every version."
+   },
+   "module": "mlops"
+  },
+  {
+   "term": {
+    "zh": "数据版本管理",
+    "en": "data versioning"
+   },
+   "def": {
+    "zh": "记录数据集的各个版本及其与代码版本的对应关系。",
+    "en": "Recording the versions of a data set and how they correspond to versions of the code."
+   },
+   "module": "mlops"
+  },
+  {
+   "term": {
+    "zh": "持续训练",
+    "en": "continuous training"
+   },
+   "def": {
+    "zh": "自动地重新训练并上线模型，是机器学习系统在持续集成和持续交付之外特有的环节。",
+    "en": "Retraining and serving models automatically, a stage specific to machine learning systems beside continuous integration and continuous delivery."
+   },
+   "module": "mlops"
+  },
+  {
+   "term": {
+    "zh": "漂移",
+    "en": "drift"
+   },
+   "def": {
+    "zh": "线上的输入分布或输入与正确输出之间的关系偏离了训练或评估时的情况。",
+    "en": "The distribution of inputs in production, or the relation between inputs and correct outputs, moving away from the conditions of training or evaluation."
+   },
+   "module": "mlops"
+  },
+  {
+   "term": {
+    "zh": "LLMOps",
+    "en": "LLMOps"
+   },
+   "def": {
+    "zh": "面向大模型应用的运维实践，管理对象包括提示词、检索配置、评估集和模型版本。",
+    "en": "Operational practice for LLM applications, in which the managed objects include prompts, retrieval configuration, evaluation sets and model versions."
+   },
+   "module": "mlops"
+  },
+  {
+   "term": {
+    "zh": "追踪",
+    "en": "tracing"
+   },
+   "def": {
+    "zh": "记录一次请求中每个中间步骤的输入、输出、耗时等信息，用于定位问题。",
+    "en": "Recording the input, output, duration and similar information of every intermediate step of a request in order to locate problems."
+   },
+   "module": "mlops"
   }
  ]
 }

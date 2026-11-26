@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 250" role="img">
+<defs><marker id="mo-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="f-muted"/></marker></defs>
+<g font-size="14" text-anchor="middle">
+<g><rect x="14" y="70" width="112" height="50" rx="8" class="f-surface s-line" stroke-width="1.5"/><text x="70" y="100" class="f-ink" data-l="zh">数据</text><text x="70" y="100" class="f-ink" data-l="en">Data</text></g>
+<g><rect x="142" y="70" width="112" height="50" rx="8" class="f-soft s-accent" stroke-width="1.5"/><text x="198" y="100" class="f-ink" data-l="zh">实验</text><text x="198" y="100" class="f-ink" data-l="en">Experiments</text></g>
+<g><rect x="270" y="70" width="112" height="50" rx="8" class="f-surface s-line" stroke-width="1.5"/><text x="326" y="100" class="f-ink" data-l="zh">评估</text><text x="326" y="100" class="f-ink" data-l="en">Evaluation</text></g>
+<g><rect x="398" y="70" width="112" height="50" rx="8" class="f-surface s-line" stroke-width="1.5"/><text x="454" y="100" class="f-ink" data-l="zh">模型注册</text><text x="454" y="100" class="f-ink" data-l="en">Registry</text></g>
+<g><rect x="526" y="70" width="112" height="50" rx="8" class="f-surface s-line" stroke-width="1.5"/><text x="582" y="100" class="f-ink" data-l="zh">部署</text><text x="582" y="100" class="f-ink" data-l="en">Deployment</text></g>
+<g><rect x="654" y="70" width="112" height="50" rx="8" class="f-pinsoft s-pin" stroke-width="1.5"/><text x="710" y="100" class="f-ink" data-l="zh">监控</text><text x="710" y="100" class="f-ink" data-l="en">Monitoring</text></g>
+</g>
+<g font-size="12" text-anchor="middle" class="f-muted">
+<text x="70" y="142" data-l="zh">数据版本</text><text x="70" y="142" data-l="en">data version</text>
+<text x="198" y="142" data-l="zh">参数、指标、产物</text><text x="198" y="142" data-l="en">params, metrics,</text><text x="198" y="158" data-l="en">artifacts</text>
+<text x="326" y="142" data-l="zh">与当前版本比较</text><text x="326" y="142" data-l="en">compare with the</text><text x="326" y="158" data-l="en">current version</text>
+<text x="454" y="142" data-l="zh">版本号、阶段</text><text x="454" y="142" data-l="en">version, stage</text>
+<text x="582" y="142" data-l="zh">打包、接口</text><text x="582" y="142" data-l="en">packaging, API</text>
+<text x="710" y="142" data-l="zh">漂移、质量、费用</text><text x="710" y="142" data-l="en">drift, quality, cost</text>
+</g>
+<g fill="none" class="s-muted" stroke-width="1.5" marker-end="url(#mo-a)">
+<path d="M126 95H138"/><path d="M254 95H266"/><path d="M382 95H394"/><path d="M510 95H522"/><path d="M638 95H650"/>
+<path d="M710 70V34H70V66"/>
+</g>
+<text x="390" y="26" font-size="12.5" text-anchor="middle" class="f-muted" data-l="zh">发现漂移后回到数据环节，重新训练</text><text x="390" y="26" font-size="12.5" text-anchor="middle" class="f-muted" data-l="en">on drift, back to the data stage and retrain</text>
+<text x="390" y="215" font-size="12.5" text-anchor="middle" class="f-muted" data-l="zh">大模型应用中，“实验”的对象常是提示词与检索配置，“监控”增加了追踪</text><text x="390" y="215" font-size="12.5" text-anchor="middle" class="f-muted" data-l="en">in LLM applications the experiments are often about prompts and retrieval settings, and monitoring adds tracing</text>
+</svg>

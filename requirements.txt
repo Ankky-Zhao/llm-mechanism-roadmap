@@ -9,3 +9,4 @@ langchain-core  # used only by the comparison exercise of module 7.3
 scikit-learn  # used only to cross-check one function in module 8.1
 matplotlib
 transformer_lens  # optional, used only by the cross-check exercise of module 9.3 (version 4 or later)
+mlflow  # used only by the comparison exercise of module 6.3

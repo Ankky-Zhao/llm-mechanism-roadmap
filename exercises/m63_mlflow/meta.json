@@ -1,0 +1,27 @@
+{
+ "kind": "code",
+ "module": "mlops",
+ "level": 2,
+ "minutes": 30,
+ "requires": [
+  "m63_tracker"
+ ],
+ "title": {
+  "zh": "用 MLflow 记录同样的实验并对比",
+  "en": "The same experiments with MLflow, compared"
+ },
+ "prompt": {
+  "zh": "用 MLflow 的跟踪接口记录与上一题相同的实验，再把两边读出的结果相互比较。实现 `log_with_mlflow(uri, experiment, configs, curve)`，对 `configs` 中的每组参数开始一次运行，记录参数，并按步记录 `curve(config)` 给出的各步 `val_acc`。实现 `best_with_mlflow(uri, experiment, metric)`，用 `MlflowClient.search_runs` 按指标降序取出最好的一次运行，返回 `(参数字典, 指标值)`。MLflow 把参数保存为字符串，返回前需要转回数值。这个练习需要安装 `mlflow`，数据写入本地的 SQLite 文件，不需要启动服务，也不需要联网。",
+  "en": "Record the same experiments as in the previous exercise with the tracking interface of MLflow and compare what the two sides read back. Implement `log_with_mlflow(uri, experiment, configs, curve)`, which starts one run for every set of parameters in `configs`, logs the parameters and logs step by step the `val_acc` values given by `curve(config)`. Implement `best_with_mlflow(uri, experiment, metric)`, which uses `MlflowClient.search_runs` to fetch the best run in descending order of the metric and returns `(parameter dict, metric value)`. MLflow stores parameters as strings, so they have to be converted back to numbers before returning. The exercise needs `mlflow` installed. The data go into a local SQLite file, with no server to start and no network access."
+ },
+ "hints": [
+  {
+   "zh": "记录一侧用 `mlflow.set_tracking_uri(uri)`、`mlflow.set_experiment(experiment)`，然后在 `with mlflow.start_run():` 中调用 `mlflow.log_params(config)` 和 `mlflow.log_metric('val_acc', v, step=i)`。",
+   "en": "On the logging side use `mlflow.set_tracking_uri(uri)` and `mlflow.set_experiment(experiment)`, then call `mlflow.log_params(config)` and `mlflow.log_metric('val_acc', v, step=i)` inside `with mlflow.start_run():`."
+  },
+  {
+   "zh": "读取一侧用 `client = MlflowClient(tracking_uri=uri)`，`client.get_experiment_by_name(experiment).experiment_id`，再调用 `client.search_runs([exp_id], order_by=['metrics.val_acc DESC'], max_results=1)`。结果的 `data.params` 和 `data.metrics` 是字典。",
+   "en": "On the reading side use `client = MlflowClient(tracking_uri=uri)` and `client.get_experiment_by_name(experiment).experiment_id`, then call `client.search_runs([exp_id], order_by=['metrics.val_acc DESC'], max_results=1)`. `data.params` and `data.metrics` of the result are dicts."
+  }
+ ]
+}

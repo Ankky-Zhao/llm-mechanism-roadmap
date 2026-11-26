@@ -2952,5 +2952,159 @@
    "en": "A systematic behavioural study of knowledge conflicts, showing how the coherence of evidence and its overlap with what the model already knows affect the choice of the model."
   },
   "checked": "2026-11-25"
+ },
+ {
+  "topic": "rag",
+  "level": "core",
+  "type": "blog",
+  "lang": "en",
+  "title": "Evaluating Chunking Strategies for Retrieval (Chroma Research)",
+  "url": "https://research.trychroma.com/evaluating-chunking",
+  "hours": 1,
+  "why": {
+   "zh": "在词元层面比较多种分块策略的技术报告，可以看到分块方式和参数对检索效果的实际影响",
+   "en": "A technical report comparing chunking strategies at the level of tokens, showing how the method and its parameters affect retrieval in practice."
+  },
+  "checked": "2026-11-26"
+ },
+ {
+  "topic": "rag",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "Chroma documentation: Introduction",
+  "url": "https://docs.trychroma.com/docs/overview/introduction",
+  "hours": 0.5,
+  "why": {
+   "zh": "一个开源向量数据库的官方说明，可以了解向量数据库在索引之外提供哪些功能",
+   "en": "The official introduction of an open-source vector database, showing what such a database offers beyond the index."
+  },
+  "checked": "2026-11-26"
+ },
+ {
+  "topic": "rag",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Guidelines to choose an index (Faiss wiki)",
+  "url": "https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index",
+  "hours": 0.5,
+  "why": {
+   "zh": "按数据规模给出索引类型和参数的建议，练习 6 中簇数的取值依据来自这里",
+   "en": "Suggests index types and parameters by data size. The number of clusters in exercise 6 follows it."
+  },
+  "checked": "2026-11-26"
+ },
+ {
+  "topic": "rag",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs (Malkov & Yashunin)",
+  "url": "https://arxiv.org/abs/1603.09320",
+  "hours": 2,
+  "why": {
+   "zh": "HNSW 的原始论文，许多向量数据库的默认索引来自这里",
+   "en": "The original HNSW paper, the source of the default index of many vector databases."
+  },
+  "checked": "2026-11-26"
+ },
+ {
+  "topic": "agents",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "LlamaIndex framework documentation",
+  "url": "https://developers.llamaindex.ai/python/framework/",
+  "hours": 0.5,
+  "why": {
+   "zh": "LlamaIndex 的官方文档首页，说明它以上下文增强为核心的定位",
+   "en": "The front page of the official LlamaIndex documentation, stating its positioning around context augmentation."
+  },
+  "checked": "2026-11-26"
+ },
+ {
+  "topic": "mlops",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Hidden Technical Debt in Machine Learning Systems (Sculley et al., NeurIPS 2015)",
+  "url": "https://papers.nips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html",
+  "hours": 1,
+  "why": {
+   "zh": "说明机器学习系统长期维护代价的经典论文，“模型代码只占系统一小部分”的图出自这里",
+   "en": "The classic paper on the long-term maintenance cost of machine learning systems and the source of the figure in which model code is a small part of the system."
+  },
+  "checked": "2026-11-26"
+ },
+ {
+  "topic": "mlops",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "MLOps: Continuous delivery and automation pipelines in machine learning (Google Cloud)",
+  "url": "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+  "hours": 1,
+  "why": {
+   "zh": "给出 MLOps 的定义、三个成熟度等级以及持续训练的概念，条理清楚",
+   "en": "Gives a definition of MLOps, three maturity levels and the notion of continuous training in a clear structure."
+  },
+  "checked": "2026-11-26"
+ },
+ {
+  "topic": "mlops",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "MLflow Tracking documentation",
+  "url": "https://mlflow.org/docs/latest/ml/tracking/",
+  "hours": 1,
+  "why": {
+   "zh": "运行、实验、参数、指标和产物的官方定义与示例代码，练习 2 用到的接口在这里",
+   "en": "The official definitions of runs, experiments, parameters, metrics and artifacts with example code. The interface of exercise 2 is documented here."
+  },
+  "checked": "2026-11-26"
+ },
+ {
+  "topic": "mlops",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "MLflow Tracing documentation",
+  "url": "https://mlflow.org/docs/latest/genai/tracing/",
+  "hours": 0.75,
+  "why": {
+   "zh": "面向大模型应用和 agent 的追踪功能的官方说明",
+   "en": "The official description of tracing for LLM applications and agents."
+  },
+  "checked": "2026-11-26"
+ },
+ {
+  "topic": "mlops",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "DVC documentation",
+  "url": "https://doc.dvc.org/",
+  "hours": 1,
+  "why": {
+   "zh": "数据与模型版本管理工具的官方文档",
+   "en": "The official documentation of a tool for versioning data and models."
+  },
+  "checked": "2026-11-26"
+ },
+ {
+  "topic": "mlops",
+  "level": "deep",
+  "type": "course",
+  "lang": "en",
+  "title": "Made With ML (Goku Mohandas)",
+  "url": "https://madewithml.com/",
+  "hours": 20,
+  "why": {
+   "zh": "从设计、开发到部署和迭代的完整 MLOps 课程，适合想系统学习的读者",
+   "en": "A complete MLOps course from design and development to deployment and iteration, for readers who would like to study the subject systematically."
+  },
+  "checked": "2026-11-26"
  }
 ]

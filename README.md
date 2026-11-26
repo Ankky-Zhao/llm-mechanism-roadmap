@@ -4,20 +4,20 @@
 
 🌐 **在线页面 / Live page** · https://ankky-zhao.github.io/llm-mechanism-roadmap/
 
-一条中英双语的学习路线，用于理解大语言模型的内部机制。路线从单个标量的反向传播开始，到 activation patching 结束，共 10 个阶段、36 个模块。
+一条中英双语的学习路线，用于理解大语言模型的内部机制。路线从单个标量的反向传播开始，到 activation patching 结束，共 10 个阶段、37 个模块。
 
-A bilingual (Chinese and English) roadmap for understanding the internal mechanisms of large language models. It starts with backpropagation on a single scalar and ends with activation patching, in 10 stages and 36 modules.
+A bilingual (Chinese and English) roadmap for understanding the internal mechanisms of large language models. It starts with backpropagation on a single scalar and ends with activation patching, in 10 stages and 37 modules.
 
 | | |
 |---|---|
-| 模块 / Modules | 36（10 个阶段 / 10 stages） |
-| 练习 / Exercises | 110（代码练习与推导练习 / coding and derivation） |
-| 推荐资源 / Resources | 211（每条附推荐理由 / each with a reason） |
-| 术语 / Glossary terms | 183 |
+| 模块 / Modules | 37（10 个阶段 / 10 stages） |
+| 练习 / Exercises | 114（代码练习与推导练习 / coding and derivation） |
+| 推荐资源 / Resources | 222（每条附推荐理由 / each with a reason） |
+| 术语 / Glossary terms | 198 |
 | “为什么”问题 / Why-questions | 190 余个 / more than 190 |
 | 面试题 / Interview questions | 43（检索于 2026-11-25 / retrieved on 2026-11-25） |
-| Notebook | 36（每个模块一个，可在 Colab 打开 / one per module, opens in Colab） |
-| 预计学习时间 / Estimated time | 约 78 小时 / about 78 hours |
+| Notebook | 37（每个模块一个，可在 Colab 打开 / one per module, opens in Colab） |
+| 预计学习时间 / Estimated time | 约 81 小时 / about 81 hours |
 
 姊妹路线 / Sibling roadmaps · [Agent Atlas](https://github.com/Ankky-Zhao/llm-agent-roadmap)（LLM agents）· [Web Scraping Roadmap](https://github.com/Ankky-Zhao/web-scraping-roadmap)
 
@@ -53,8 +53,8 @@ A bilingual (Chinese and English) roadmap for understanding the internal mechani
 | 03 分词与上下文 | 手写 BPE 分词，分析上下文窗口的限制，观察分词引起的典型问题 | 3.1 BPE 与 SentencePiece · 3.2 上下文窗口 · 3.3 分词带来的问题 |
 | 04 训练原理 | 依次推导预训练、指令微调、RLHF、DPO 的损失函数，实现 LoRA，讨论缩放定律 | 4.1 预训练目标与数据 · 4.2 指令微调 · 4.3 RLHF · 4.4 DPO · 4.5 LoRA · 4.6 缩放定律与涌现 |
 | 05 推理与解码 | 实现各种采样策略、KV cache 和保证输出格式的约束解码 | 5.1 采样策略 · 5.2 KV cache 与 prefill/decode · 5.3 结构化输出与约束解码 |
-| 06 模型生态 | 比较闭源模型与开放权重模型，梳理常见许可证允许和禁止的用途 | 6.1 闭源与开放权重模型 · 6.2 许可证与使用限制 |
-| 07 应用模式 | 不依赖框架实现 prompt 技巧、RAG 和 agent 循环，再与框架实现对比 | 7.1 提示工程与上下文学习 · 7.2 RAG · 7.3 智能体系统 |
+| 06 模型与工具生态 | 比较闭源模型与开放权重模型，梳理常见许可证允许和禁止的用途，介绍 MLOps 的环节和 MLflow 等工具 | 6.1 闭源与开放权重模型 · 6.2 许可证与使用限制 · 6.3 MLOps 与 LLMOps 工具 |
+| 07 应用模式 | 不依赖框架实现 prompt 技巧、RAG（含分块与向量索引）和 agent 循环，再与框架实现对比 | 7.1 提示工程与上下文学习 · 7.2 RAG · 7.3 智能体系统 |
 | 08 评估与负责任使用 | 实现常用指标和 LLM 评委，分析幻觉、偏见与隐私，介绍欧盟、中国和美国的监管要求 | 8.1 评估方法 · 8.2 幻觉、偏见与隐私 · 8.3 欧盟人工智能法 · 8.4 中国与美国的监管 |
 | 09 可解释性与机制分析 | 实现注意力可视化、logit lens、activation patching、线性探针和引导向量 | 9.1 注意力模式可视化 · 9.2 Logit lens 与直接 logit 归因 · 9.3 激活修补 · 9.4 线性探针与引导向量 |
 
@@ -76,7 +76,7 @@ A bilingual (Chinese and English) roadmap for understanding the internal mechani
 
 - **“为什么”专栏。** 汇总各模块的“为什么”问题，共 190 余个，可按阶段浏览。
 - **面试题库。** 目前收录 43 题，只收录实际检索到的题目，不自行编写。每题标注公司、岗位、地区和来源链接，并区分原始面经与整理合集。题目和参考答案均为中英双语，可按公司、地区和模块筛选。
-- **术语表。** 183 个术语，每个术语指向解释它的模块。
+- **术语表。** 198 个术语，每个术语指向解释它的模块。
 - **学习进度。** 勾选记录保存在浏览器本地（localStorage），不上传数据。
 
 ### 如何使用
@@ -176,8 +176,8 @@ The whole is presented before the parts. Stage 0 walks one generation from start
 | 03 Tokenization and context | Writes BPE tokenization by hand, analyses the limits of the context window and observes typical problems caused by tokenization | 3.1 BPE and SentencePiece · 3.2 The context window · 3.3 Problems caused by tokenization |
 | 04 How models are trained | Derives the losses of pretraining, instruction tuning, RLHF and DPO in turn, implements LoRA and discusses scaling laws | 4.1 Pretraining objective and data · 4.2 Instruction tuning · 4.3 RLHF · 4.4 DPO · 4.5 LoRA · 4.6 Scaling laws and emergence |
 | 05 Inference and decoding | Implements the sampling strategies, the KV cache and constrained decoding that guarantees the output format | 5.1 Sampling strategies · 5.2 KV cache, prefill and decode · 5.3 Structured output and constrained decoding |
-| 06 Model ecosystem | Compares closed and open-weight models and sorts out what common licenses allow and forbid | 6.1 Closed and open-weight models · 6.2 Licenses and usage restrictions |
-| 07 Application patterns | Implements prompting techniques, RAG and an agent loop without a framework, then compares with framework versions | 7.1 Prompt engineering and in-context learning · 7.2 RAG · 7.3 Agent systems |
+| 06 Models and tooling | Compares closed and open-weight models, sorts out what common licenses allow and forbid, and introduces the stages of MLOps and tools such as MLflow | 6.1 Closed and open-weight models · 6.2 Licenses and usage restrictions · 6.3 MLOps and LLMOps tooling |
+| 07 Application patterns | Implements prompting techniques, RAG (with chunking and vector indexes) and an agent loop without a framework, then compares with framework versions | 7.1 Prompt engineering and in-context learning · 7.2 RAG · 7.3 Agent systems |
 | 08 Evaluation and responsible use | Implements common metrics and an LLM judge, analyses hallucination, bias and privacy, and introduces regulation in the European Union, China and the United States | 8.1 Evaluation methods · 8.2 Hallucination, bias and privacy · 8.3 The EU AI Act · 8.4 Regulation in China and the United States |
 | 09 Interpretability | Implements attention visualization, the logit lens, activation patching, linear probes and steering vectors | 9.1 Visualizing attention · 9.2 The logit lens and direct logit attribution · 9.3 Activation patching · 9.4 Linear probes and steering vectors |
 
@@ -199,7 +199,7 @@ The whole is presented before the parts. Stage 0 walks one generation from start
 
 - **Why column.** The why-questions of the modules in one place, more than 190 in total, browsable by stage.
 - **Interview bank.** 43 questions at present. Only questions that were actually found are included, and none were written for the bank. Each question lists the company, role, region and source links, and is labelled as either a first-hand interview report or a curated collection. Questions and reference answers are bilingual and can be filtered by company, region and module.
-- **Glossary.** 183 terms, each pointing to the module that explains it.
+- **Glossary.** 198 terms, each pointing to the module that explains it.
 - **Progress.** Checkmarks are stored locally in the browser (localStorage). No data is uploaded.
 
 ### How to use it

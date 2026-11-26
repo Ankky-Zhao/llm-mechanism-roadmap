@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "mlops",
+ "level": 1,
+ "minutes": 35,
+ "title": {
+  "zh": "手写一个实验跟踪器",
+  "en": "An experiment tracker by hand"
+ },
+ "prompt": {
+  "zh": "实验跟踪工具的核心是一种很简单的数据结构。实现 `RunStore`，把每次运行保存为 `root/<run_id>/run.json`。`start_run(params)` 新建一次运行并返回编号，状态为 `running`。`log_metric(run_id, name, value, step)` 追加一条记录，同一指标可以记录多次，形成一条曲线。`end_run(run_id, status='finished')` 更新状态。`get_run(run_id)` 返回 `{\"id\", \"params\", \"status\", \"metrics\"}`，其中 `metrics[name]` 是按记录顺序排列的 `[step, value]` 列表。`best_run(name, mode)` 在已结束的运行中，按该指标最后一次记录的值返回最好的一次，`mode` 为 `max` 或 `min`，没有记录该指标的运行不参与比较。数据必须写入磁盘，测试会用一个新的 `RunStore` 对象读取同一个目录。",
+  "en": "The core of an experiment tracking tool is a very simple data structure. Implement `RunStore`, which saves every run as `root/<run_id>/run.json`. `start_run(params)` creates a run and returns its id, with status `running`. `log_metric(run_id, name, value, step)` appends one record, and a metric can be logged many times to form a curve. `end_run(run_id, status='finished')` updates the status. `get_run(run_id)` returns `{\"id\", \"params\", \"status\", \"metrics\"}`, where `metrics[name]` is the list of `[step, value]` pairs in the order of logging. `best_run(name, mode)` returns, among the finished runs, the best one by the last logged value of that metric, with `mode` being `max` or `min`, and runs that never logged the metric take no part. The data have to be written to disk. The tests read the same directory with a fresh `RunStore` object."
+ },
+ "hints": [
+  {
+   "zh": "写两个内部函数，一个读取某次运行的 JSON，一个把它写回。其余方法都是“读取、修改、写回”。",
+   "en": "Write two internal helpers, one that reads the JSON of a run and one that writes it back. Every other method is read, modify, write back."
+  },
+  {
+   "zh": "运行编号可以用 `uuid.uuid4().hex[:8]`。`best_run` 中遍历 `root` 下的各个目录。",
+   "en": "A run id can be `uuid.uuid4().hex[:8]`. In `best_run`, iterate over the directories under `root`."
+  }
+ ]
+}
