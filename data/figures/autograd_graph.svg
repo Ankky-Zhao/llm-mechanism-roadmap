@@ -1,0 +1,35 @@
+<svg viewBox="0 0 700 300" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<defs><marker id="ar1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" class="f-ink"/></marker></defs>
+<line x1="128.0" y1="60" x2="192.0" y2="105" class="s-muted" stroke-width="1.5" marker-end="url(#ar1)"/>
+<line x1="128.0" y1="150" x2="192.0" y2="105" class="s-muted" stroke-width="1.5" marker-end="url(#ar1)"/>
+<line x1="308.0" y1="105" x2="372.0" y2="172" class="s-muted" stroke-width="1.5" marker-end="url(#ar1)"/>
+<line x1="128.0" y1="240" x2="372.0" y2="172" class="s-muted" stroke-width="1.5" marker-end="url(#ar1)"/>
+<line x1="488.0" y1="172" x2="552.0" y2="116" class="s-muted" stroke-width="1.5" marker-end="url(#ar1)"/>
+<path d="M128.0,60 C288.0,2 392.0,58 552.0,108" class="s-muted" fill="none" stroke-width="1.5" marker-end="url(#ar1)"/>
+<rect x="12.0" y="31.0" width="116" height="58" rx="8" class="f-surface s-line"/>
+<text x="70" y="51" text-anchor="middle" font-size="13" class="f-muted mono">a</text>
+<text x="44" y="76" text-anchor="middle" font-size="15" class="f-ink mono" font-weight="600">2</text>
+<text x="96" y="76" text-anchor="middle" font-size="15" class="f-accent mono" font-weight="600">−2</text>
+<rect x="12.0" y="121.0" width="116" height="58" rx="8" class="f-surface s-line"/>
+<text x="70" y="141" text-anchor="middle" font-size="13" class="f-muted mono">b</text>
+<text x="44" y="166" text-anchor="middle" font-size="15" class="f-ink mono" font-weight="600">−3</text>
+<text x="96" y="166" text-anchor="middle" font-size="15" class="f-accent mono" font-weight="600">4</text>
+<rect x="12.0" y="211.0" width="116" height="58" rx="8" class="f-surface s-line"/>
+<text x="70" y="231" text-anchor="middle" font-size="13" class="f-muted mono">c</text>
+<text x="44" y="256" text-anchor="middle" font-size="15" class="f-ink mono" font-weight="600">10</text>
+<text x="96" y="256" text-anchor="middle" font-size="15" class="f-accent mono" font-weight="600">2</text>
+<rect x="192.0" y="76.0" width="116" height="58" rx="8" class="f-surface s-line"/>
+<text x="250" y="96" text-anchor="middle" font-size="13" class="f-muted mono">e = a·b</text>
+<text x="224" y="121" text-anchor="middle" font-size="15" class="f-ink mono" font-weight="600">−6</text>
+<text x="276" y="121" text-anchor="middle" font-size="15" class="f-accent mono" font-weight="600">2</text>
+<rect x="372.0" y="143.0" width="116" height="58" rx="8" class="f-surface s-line"/>
+<text x="430" y="163" text-anchor="middle" font-size="13" class="f-muted mono">d = e + c</text>
+<text x="404" y="188" text-anchor="middle" font-size="15" class="f-ink mono" font-weight="600">4</text>
+<text x="456" y="188" text-anchor="middle" font-size="15" class="f-accent mono" font-weight="600">2</text>
+<rect x="552.0" y="87.0" width="116" height="58" rx="8" class="f-surface s-line"/>
+<text x="610" y="107" text-anchor="middle" font-size="13" class="f-muted mono">L = d·a</text>
+<text x="584" y="132" text-anchor="middle" font-size="15" class="f-ink mono" font-weight="600">8</text>
+<text x="636" y="132" text-anchor="middle" font-size="15" class="f-accent mono" font-weight="600">1</text>
+<rect x="250" y="262" width="12" height="12" rx="2" class="f-ink"/><text x="268" y="273" text-anchor="start" font-size="12.5" class="f-muted" data-l="zh">前向的值</text><text x="268" y="273" text-anchor="start" font-size="12.5" class="f-muted" data-l="en">forward value</text>
+<rect x="400" y="262" width="12" height="12" rx="2" class="f-accent"/><text x="418" y="273" text-anchor="start" font-size="12.5" class="f-muted" data-l="zh">反向的梯度 ∂L/∂·</text><text x="418" y="273" text-anchor="start" font-size="12.5" class="f-muted" data-l="en">backward gradient ∂L/∂·</text>
+</svg>

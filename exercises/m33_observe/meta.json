@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "token_issues",
+ "level": 1,
+ "minutes": 25,
+ "network": true,
+ "title": {
+  "zh": "观察字母、数字和中文的分词",
+  "en": "Observe how letters, digits and Chinese are tokenized"
+ },
+ "prompt": {
+  "zh": "用 tiktoken 写五个观察用的小函数，在 GPT-2 的编码和较新的 o200k 编码上对比。测试覆盖五个现象，即同一个词带不带空格切法不同、把字母分开写后每个字母成为一个 token、数字被切成不规则的片段且多一位就错位、中文的 token 数因分词器而异、GPT-2 中一个汉字可能被切到不同的 token 里。",
+  "en": "Write five small inspection functions with tiktoken and compare the GPT-2 encoding with the newer o200k encoding. The tests cover five phenomena, namely that a word is cut differently with and without a space, that letters written apart each become a token, that numbers are cut into irregular pieces that shift with one more digit, that the token count of Chinese depends on the tokenizer, and that in GPT-2 one Chinese character may be split across tokens."
+ },
+ "hints": [
+  {
+   "zh": "`enc.decode_single_token_bytes(t)` 返回一个 token 的原始字节。这里用字节而不是字符串，是因为有些 token 单独解码不是合法的 UTF-8。",
+   "en": "`enc.decode_single_token_bytes(t)` returns the raw bytes of one token. Bytes are used here and not strings because some tokens alone are not valid UTF-8."
+  },
+  {
+   "zh": "`digit_groups` 就是每个 token 的字节长度。数字都是单字节字符，所以字节数等于位数。",
+   "en": "`digit_groups` is the byte length of every token. Digits are single-byte characters, so the number of bytes equals the number of digits."
+  },
+  {
+   "zh": "`letters_are_tokens` 比较的是 `spell_out(word)` 的 token 是否正好是每个字母前面加一个空格。",
+   "en": "`letters_are_tokens` checks whether the tokens of `spell_out(word)` are exactly each letter with a space in front."
+  }
+ ]
+}

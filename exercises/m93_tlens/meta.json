@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "patching",
+ "network": true,
+ "requires": [
+  "m93_patch"
+ ],
+ "level": 2,
+ "minutes": 30,
+ "title": {
+  "zh": "用 TransformerLens 复现并核对",
+  "en": "Reproduce and cross-check with TransformerLens"
+ },
+ "prompt": {
+  "zh": "用 TransformerLens 4 的 `run_with_cache` 和 `run_with_hooks` 重写残差流修补，并与练习 1 的结果比较。需要先安装 `transformer_lens`。测试检查该库给出的 logits、残差流和头输出与 Hugging Face 模型一致，以及两种实现得到的修补结果相同。运行时间约两分钟。",
+  "en": "Rewrite residual stream patching with `run_with_cache` and `run_with_hooks` of TransformerLens 4 and compare with the result of exercise 1. `transformer_lens` has to be installed first. The tests check that the logits, residual stream and head outputs given by the library agree with the Hugging Face model, and that the two implementations yield the same patching result. The run takes about two minutes."
+ },
+ "hints": [
+  {
+   "zh": "钩子函数的签名是 `fn(act, hook)`，返回修改后的激活。`hook.name` 是它所挂位置的名字，可以直接用来从缓存中取对应的干净激活。",
+   "en": "A hook function has the signature `fn(act, hook)` and returns the modified activation. `hook.name` is the name of the place it is attached to and can be used directly to fetch the matching clean activation from the cache."
+  },
+  {
+   "zh": "`bridge.run_with_hooks(corrupt_ids, fwd_hooks=[(name, fn)])` 返回 logits，并在结束时自动移除钩子。",
+   "en": "`bridge.run_with_hooks(corrupt_ids, fwd_hooks=[(name, fn)])` returns the logits and removes the hook automatically at the end."
+  }
+ ]
+}

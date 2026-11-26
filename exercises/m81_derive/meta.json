@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "evaluation",
+ "level": 2,
+ "minutes": 20,
+ "title": {
+  "zh": "手算 kappa 与置信区间",
+  "en": "Kappa and confidence intervals by hand"
+ },
+ "prompt": {
+  "zh": "在纸上完成，可以使用计算器。\n(a) 两位标注者对 50 条回答标注“正确”或“错误”。两人都标为正确的有 30 条，都标为错误的有 10 条，甲标正确而乙标错误的有 6 条，甲标错误而乙标正确的有 4 条。计算 $p_o$、$p_e$ 和 $\\kappa$。\n(b) 一个模型在 200 道题上的正确率是 0.75。用正态近似计算 95% 置信区间。\n(c) 另一个模型在同样的 200 道题上的正确率是 0.78。仅凭这两个数字，能否认为第二个模型更好？还需要什么信息？\n(d) 一个评委的读数满足 $m_1 = s + b$、$m_2 = -s + b$。测得 $m_1 = 3.2$、$m_2 = 1.8$。求 $s$ 和 $b$，并说明评委在两种顺序下各选了哪个位置、它对内容的判断是什么。",
+  "en": "Work on paper. A calculator may be used.\n(a) Two annotators label 50 answers as correct or wrong. Both say correct for 30, both say wrong for 10, the first says correct and the second wrong for 6, and the first says wrong and the second correct for 4. Compute $p_o$, $p_e$ and $\\kappa$.\n(b) A model has an accuracy of 0.75 on 200 questions. Compute the 95% confidence interval with the normal approximation.\n(c) Another model has an accuracy of 0.78 on the same 200 questions. From these two numbers alone, can the second model be considered better? What further information is needed?\n(d) The readings of a judge satisfy $m_1 = s + b$ and $m_2 = -s + b$. Measured are $m_1 = 3.2$ and $m_2 = 1.8$. Find $s$ and $b$ and say which position the judge chose in each order and what its judgement of the content is."
+ },
+ "hints": [
+  {
+   "zh": "(a) 甲标正确的比例是 36/50，乙标正确的比例是 34/50。",
+   "en": "(a) The first annotator says correct for 36/50 and the second for 34/50."
+  },
+  {
+   "zh": "(b) $\\text{SE} = \\sqrt{p(1-p)/n}$。",
+   "en": "(b) $\\text{SE} = \\sqrt{p(1-p)/n}$."
+  }
+ ],
+ "solution": {
+  "zh": "(a) $p_o = (30 + 10)/50 = 0.8$。甲标正确的比例为 0.72，乙为 0.68。$p_e = 0.72 \\times 0.68 + 0.28 \\times 0.32 = 0.4896 + 0.0896 = 0.5792$。$\\kappa = (0.8 - 0.5792)/(1 - 0.5792) \\approx 0.525$。\n\n(b) $\\text{SE} = \\sqrt{0.75 \\times 0.25 / 200} \\approx 0.0306$。区间为 $0.75 \\pm 1.96 \\times 0.0306$，即约 0.69 到 0.81。\n\n(c) 不能。3 个百分点的差别小于单个正确率的区间半宽 6 个百分点。由于两个模型是在同一批题目上测试的，应当做配对比较，这需要知道每道题上两个模型各自的对错，例如只有第一个模型答对的题数和只有第二个模型答对的题数。如果两者在绝大多数题目上结果相同，只在少数题目上有差别，配对比较可能给出比单独看两个区间更明确的结论。\n\n(d) 两式相加得 $2b = 5.0$，$b = 2.5$。两式相减得 $2s = 1.4$，$s = 0.7$。两种顺序下 $m$ 都为正，评委都选了位置 A，表面上看它在正确答案位于 B 时判错了。扣除位置偏好后 $s > 0$，说明它对内容的判断是偏向正确答案的，只是这个倾向比位置偏好弱得多。",
+  "en": "(a) $p_o = (30 + 10)/50 = 0.8$. The first annotator says correct for 0.72 and the second for 0.68. $p_e = 0.72 \\times 0.68 + 0.28 \\times 0.32 = 0.4896 + 0.0896 = 0.5792$. $\\kappa = (0.8 - 0.5792)/(1 - 0.5792) \\approx 0.525$.\n\n(b) $\\text{SE} = \\sqrt{0.75 \\times 0.25 / 200} \\approx 0.0306$. The interval is $0.75 \\pm 1.96 \\times 0.0306$, about 0.69 to 0.81.\n\n(c) No. A difference of 3 percentage points is smaller than the half-width of 6 points of the interval of a single accuracy. Since the two models were tested on the same questions, a paired comparison is called for, which requires knowing for every question whether each model was right, for example the number of questions only the first model answered correctly and the number only the second did. If the two agree on nearly all questions and differ on a few, the paired comparison may give a clearer conclusion than the two intervals viewed separately.\n\n(d) Adding the two equations gives $2b = 5.0$, so $b = 2.5$. Subtracting gives $2s = 1.4$, so $s = 0.7$. $m$ is positive in both orders, so the judge chose position A both times and, on the surface, judged wrongly when the right answer was at B. With the position preference removed, $s > 0$ shows that its judgement of the content leans towards the right answer, only far more weakly than its preference for a position."
+ }
+}

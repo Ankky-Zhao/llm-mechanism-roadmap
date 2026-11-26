@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "sft",
+ "level": 3,
+ "minutes": 40,
+ "network": true,
+ "title": {
+  "zh": "微调一次 GPT-2 并观察遗忘",
+  "en": "Fine-tune GPT-2 once and observe forgetting"
+ },
+ "prompt": {
+  "zh": "用 8 条问答把只会续写的 GPT-2 small 微调成会按固定格式回答的模型，CPU 上约半分钟。需要实现带掩码的训练样本构造和训练循环。测试会检查三件事，即微调前模型不会按格式回答、微调后对训练集之外的问题也能按格式回答、模型在普通文本上的困惑度上升。运行后请对比打印出的微调前后的输出。",
+  "en": "Fine-tune GPT-2 small, which only continues text, on 8 question-answer pairs into a model that answers in a fixed format, in about half a minute on a CPU. The construction of masked training examples and the training loop have to be implemented. The tests check three things, namely that before fine-tuning the model does not answer in the format, that afterwards it does so even for a question outside the training set, and that its perplexity on ordinary text rises. Compare the printed outputs before and after."
+ },
+ "hints": [
+  {
+   "zh": "`build_example` 中分别对提示和回答分词再相加。标签在提示部分是 `[-100] * len(prompt_ids)`，在回答部分就是回答的 token 本身。",
+   "en": "In `build_example` tokenize the prompt and the answer separately and concatenate. The labels are `[-100] * len(prompt_ids)` over the prompt and the answer tokens themselves over the answer."
+  },
+  {
+   "zh": "训练循环开始前调用一次 `collate` 得到整批数据，每一步用同一批。循环内依次是前向求损失、`opt.zero_grad()`、`loss.backward()`、`opt.step()`。",
+   "en": "Call `collate` once before the loop to get the whole batch and use the same batch at every step. Inside the loop come the forward pass and loss, `opt.zero_grad()`, `loss.backward()` and `opt.step()`."
+  },
+  {
+   "zh": "训练前调用 `model.train()`，结束后调用 `model.eval()`，否则 dropout 会影响后面的生成。",
+   "en": "Call `model.train()` before training and `model.eval()` afterwards, or dropout will affect the generation that follows."
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "constrained",
+ "level": 3,
+ "minutes": 40,
+ "title": {
+  "zh": "把 JSON Schema 的子集编译成状态机",
+  "en": "Compile a subset of JSON Schema into a state machine"
+ },
+ "prompt": {
+  "zh": "实现四种构件（固定文本、多选一、整数、有长度上限的字符串），再用它们把一个只含简单字段的对象模式编译成字符级状态机。测试会检查每种构件接受和拒绝的字符串，并在状态机上随机行走 300 次，确认它接受的每个字符串都能被 `json.loads` 解析并且符合模式。",
+  "en": "Implement four building blocks (fixed text, one of several options, an integer, a string with a maximum length) and use them to compile an object schema with simple fields into a character-level state machine. The tests check which strings each block accepts and rejects and perform 300 random walks on the state machine, confirming that every string it accepts is parsed by `json.loads` and conforms to the schema."
+ },
+ "hints": [
+  {
+   "zh": "`b.step(states, chars)` 让 `states` 中的每个状态都经由 `chars` 中的任一字符到达同一个新状态，并返回只含这个新状态的集合。",
+   "en": "`b.step(states, chars)` leads every state in `states` through any character in `chars` to one new shared state and returns the set containing just that state."
+  },
+  {
+   "zh": "整数可以在读完 1 位、2 位直到最大位数之后结束，所以要把这些状态都放进返回的集合里。字符串同理，结束引号可以从任意长度的状态出发。",
+   "en": "An integer may end after 1 digit, 2 digits and so on up to the maximum, so all of these states go into the returned set. Likewise for the string, whose closing quote may start from the state of any length."
+  },
+  {
+   "zh": "`compile_schema` 中每个字段先接一段固定文本 `(\", \" if i else \"\") + json.dumps(name) + \": \"`，再接对应类型的构件。",
+   "en": "In `compile_schema` every field first appends the fixed text `(\", \" if i else \"\") + json.dumps(name) + \": \"` and then the block for its type."
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "licenses",
+ "level": 2,
+ "minutes": 25,
+ "title": {
+  "zh": "许可证情景判断",
+  "en": "License scenarios"
+ },
+ "prompt": {
+  "zh": "根据本模块正文中引用的许可证条款，对下面每个情景给出初步判断并说明依据。这些判断用于练习阅读条款，不构成法律意见。\n(a) 一家初创公司想把 `Qwen/Qwen3.8-27B`（Apache 2.0）微调后作为付费产品的一部分，并把微调后的权重提供给客户。\n(b) 一名博士生用 `mistralai/Mistral-Large-Instruct-2411`（Mistral 研究许可证）做论文实验。毕业后她加入一家公司，想用同一个模型做内部的概念验证。\n(c) 一个研究组在 `meta-llama/Llama-3.3-70B-Instruct` 上微调出一个地理问答模型，准备以 GeoQA-70B 的名字发布到 Hub。\n(d) 一名研究者在 `google/gemma-3-27b-it` 上完成了全部实验，同事建议换用 Gemma 4 以便更自由地发布衍生模型。这个建议有依据吗？\n(e) 一名研究者想研究模型在回答地理问题时内部各层的激活，手头有某个闭源模型的 API 额度和一块 24 GB 的显卡。她应当怎样安排？",
+  "en": "Using the license terms quoted in the text of this module, give a first judgement for each scenario below and state its basis. These judgements serve as practice in reading terms and are not legal advice.\n(a) A start-up wants to fine-tune `Qwen/Qwen3.8-27B` (Apache 2.0), use it as part of a paid product and provide the fine-tuned weights to customers.\n(b) A doctoral student runs thesis experiments with `mistralai/Mistral-Large-Instruct-2411` (Mistral AI Research License). After graduating she joins a company and wants to use the same model for an internal proof of concept.\n(c) A research group fine-tunes a geographic question-answering model from `meta-llama/Llama-3.3-70B-Instruct` and plans to publish it on the Hub under the name GeoQA-70B.\n(d) A researcher has completed all experiments on `google/gemma-3-27b-it`, and a colleague suggests switching to Gemma 4 in order to release derived models more freely. Is there a basis for this suggestion?\n(e) A researcher wants to study the activations in the layers of a model while it answers geographic questions and has API credit for a closed model and a 24 GB GPU. How should she proceed?"
+ },
+ "hints": [
+  {
+   "zh": "(b) 注意研究许可证对“研究用途”的定义排除了哪些活动。",
+   "en": "(b) Note which activities the definition of research purposes in the research license excludes."
+  },
+  {
+   "zh": "(c) 查看 Llama 3.3 协议中关于衍生模型命名的要求。",
+   "en": "(c) Look at the requirement on naming derived models in the Llama 3.3 agreement."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 初步判断为可以。Apache 2.0 不限制商用，允许修改和再分发。向客户提供权重属于再分发，需要附上许可证副本、保留原有的声明、标明所做的修改。该许可证不授予商标权，产品宣传中使用 Qwen 的名称和标识需要另行确认。\n\n(b) 论文实验属于学术研究，符合该许可证允许的研究用途。公司内部的概念验证则不在许可范围之内，该许可证明确把员工在日常工作中的使用和以创收为目的的活动（包括测试和概念验证）排除在研究用途之外。公司需要向 Mistral 另行取得商用许可，或者改用许可证允许商用的模型。\n\n(c) 这个名字不符合要求。Llama 3.3 的协议规定，使用该模型训练或微调并对外发布的模型，名称必须以 Llama 开头。发布时还要附上协议副本，在相关页面的显著位置标注 Built with Llama，并遵守可接受使用政策。可以改为以 Llama 开头的名称，例如 Llama-3.3-GeoQA-70B。\n\n(d) 有依据。根据 Hub 的元数据和 Google 的许可页面，Gemma 4 采用 Apache 2.0，而 Gemma 3 采用自定义的 Gemma 使用条款，后者要求把使用限制传递给下游并保留了发布者限制违规使用的权利。不过更换模型意味着重做实验，是否值得取决于发布衍生模型的需要有多强。已经完成的 Gemma 3 实验在其条款下写进论文通常没有障碍。\n\n(e) 读取内部激活需要持有权重，闭源模型的 API 做不到这一点。可以选用许可证允许研究用途、并且以某种精度能放进 24 GB 显存的开放权重模型做机制分析，例如一个 270 亿参数的模型以 4 位量化后约 14 GB。需要注意的是量化会改变激活值，论文中应当说明所用的精度。闭源模型可以用于行为层面的对照实验，即比较输入和输出，不涉及内部状态。",
+  "en": "(a) A first judgement is that this is allowed. Apache 2.0 does not restrict commercial use and permits modification and redistribution. Providing weights to customers is redistribution, which requires including a copy of the license, keeping existing notices and marking the changes made. The license grants no trademark rights, so using the name and marks of Qwen in product promotion needs separate confirmation.\n\n(b) Thesis experiments are academic research and fall under the research purposes the license allows. An internal proof of concept at a company is outside the license, which explicitly excludes use by employees in their daily tasks and revenue-generating activities (including testing and proofs of concept) from research purposes. The company has to obtain a separate commercial license from Mistral or switch to a model whose license allows commercial use.\n\n(c) This name does not meet the requirement. The Llama 3.3 agreement provides that a model trained or fine-tuned with the model and then distributed must carry a name beginning with Llama. The release must also include a copy of the agreement, prominently display Built with Llama on a related page and comply with the acceptable use policy. The name can be changed to one beginning with Llama, such as Llama-3.3-GeoQA-70B.\n\n(d) There is a basis. According to the Hub metadata and the license page of Google, Gemma 4 is under Apache 2.0, whereas Gemma 3 is under the custom Gemma Terms of Use, which require passing use restrictions downstream and reserve the right of the publisher to restrict violating usage. Switching models means redoing the experiments, however, and whether that is worthwhile depends on how strongly derived models need to be released. Reporting the completed Gemma 3 experiments in a paper under its terms usually meets no obstacle.\n\n(e) Reading internal activations requires the weights, which the API of a closed model cannot provide. Mechanism analysis can be done with an open-weight model whose license allows research use and which fits into 24 GB at some precision, for example a model with 27 billion parameters at 4 bits, about 14 GB. Note that quantization changes the activations, and the paper should state the precision used. The closed model can serve for behavioural comparison experiments, that is, comparing inputs and outputs without reference to internal states."
+ }
+}

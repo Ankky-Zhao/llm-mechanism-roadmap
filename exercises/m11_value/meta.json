@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "autograd",
+ "level": 1,
+ "minutes": 40,
+ "title": {
+  "zh": "手写迷你 autograd",
+  "en": "A mini autograd by hand"
+ },
+ "prompt": {
+  "zh": "补全 `Value` 类里的 6 个 TODO。前 5 个是各运算的局部导数，第 6 个是 `backward()` 的拓扑排序与反向遍历。测试会用同样的表达式分别在你的 `Value` 和 PyTorch 上计算，并逐个比较梯度。",
+  "en": "Fill in the 6 TODOs in the `Value` class. The first five are the local derivatives of each operation, the sixth is the topological sort and reverse traversal in `backward()`. The tests evaluate the same expressions with your `Value` and with PyTorch and compare every gradient."
+ },
+ "hints": [
+  {
+   "zh": "每个 `_backward` 都是同一个句式，即 `输入.grad += 局部导数 * out.grad`。局部导数查推导里的那张表。",
+   "en": "Every `_backward` has the same shape, `input.grad += local_derivative * out.grad`. Look up the local derivative in the table from the derivation."
+  },
+  {
+   "zh": "一定用 `+=`。测试里的 `a + a` 和 `(a+b)*(a+b)*a` 专门检查一个节点被多次使用的情况。",
+   "en": "Use `+=`. The tests `a + a` and `(a+b)*(a+b)*a` check nodes that are used more than once."
+  },
+  {
+   "zh": "`backward()` 里用深度优先遍历，一个节点在它的所有输入都入列之后再入列，得到的列表倒过来就是需要的顺序。",
+   "en": "In `backward()` use a depth-first traversal that appends a node after all of its inputs. The reversed list is the order you need."
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "dpo",
+ "level": 3,
+ "minutes": 30,
+ "title": {
+  "zh": "从 Bradley-Terry 模型推导 DPO 损失",
+  "en": "Derive the DPO loss from the Bradley-Terry model"
+ },
+ "prompt": {
+  "zh": "这是大模型岗位面试中的常见推导题。合上上面的推导，在纸上完成。\n(a) 已知 $\\pi^{*}(y \\mid x) = \\pi_{\\text{ref}}(y \\mid x) \\exp(r(x, y)/\\beta) / Z(x)$。解出 $r(x, y)$。\n(b) 把 (a) 的结果代入 $P(y_w \\succ y_l \\mid x) = \\sigma(r(x, y_w) - r(x, y_l))$，说明 $Z(x)$ 为什么消失，以及这一点为什么重要。\n(c) 写出 DPO 损失。\n(d) 证明策略等于参考模型时损失为 $\\ln 2$。\n(e) 写出损失对 $\\theta$ 的梯度，并解释权重 $\\sigma(-u)$ 的作用。",
+  "en": "This is a common derivation in interviews for LLM roles. Close the derivation above and work on paper.\n(a) Given $\\pi^{*}(y \\mid x) = \\pi_{\\text{ref}}(y \\mid x) \\exp(r(x, y)/\\beta) / Z(x)$, solve for $r(x, y)$.\n(b) Substitute the result of (a) into $P(y_w \\succ y_l \\mid x) = \\sigma(r(x, y_w) - r(x, y_l))$, and say why $Z(x)$ disappears and why this matters.\n(c) Write the DPO loss.\n(d) Show that the loss is $\\ln 2$ when the policy equals the reference model.\n(e) Write the gradient of the loss with respect to $\\theta$ and explain the role of the weight $\\sigma(-u)$."
+ },
+ "hints": [
+  {
+   "zh": "(a) 两边取对数。",
+   "en": "(a) Take logs on both sides."
+  },
+  {
+   "zh": "(e) $\\dfrac{d}{du}\\big[-\\log\\sigma(u)\\big] = -\\sigma(-u)$。",
+   "en": "(e) $\\dfrac{d}{du}\\big[-\\log\\sigma(u)\\big] = -\\sigma(-u)$."
+  }
+ ],
+ "solution": {
+  "zh": "(a) $\\log \\pi^{*} = \\log \\pi_{\\text{ref}} + r/\\beta - \\log Z$，所以 $r(x, y) = \\beta \\log \\dfrac{\\pi^{*}(y \\mid x)}{\\pi_{\\text{ref}}(y \\mid x)} + \\beta \\log Z(x)$。\n\n(b) $r(x, y_w) - r(x, y_l) = \\beta \\log \\dfrac{\\pi^{*}(y_w \\mid x)}{\\pi_{\\text{ref}}(y_w \\mid x)} - \\beta \\log \\dfrac{\\pi^{*}(y_l \\mid x)}{\\pi_{\\text{ref}}(y_l \\mid x)}$。两个回答对应同一个提示 $x$，$\\beta \\log Z(x)$ 在相减时抵消。$Z(x)$ 需要对所有可能的回答求和，无法计算，它的消失使偏好概率可以只用策略和参考模型的对数概率表示。\n\n(c) $\\mathcal{L}_{\\text{DPO}} = -\\mathbb{E}\\Big[\\log \\sigma\\Big(\\beta \\log \\dfrac{\\pi_\\theta(y_w \\mid x)}{\\pi_{\\text{ref}}(y_w \\mid x)} - \\beta \\log \\dfrac{\\pi_\\theta(y_l \\mid x)}{\\pi_{\\text{ref}}(y_l \\mid x)}\\Big)\\Big]$。\n\n(d) $\\pi_\\theta = \\pi_{\\text{ref}}$ 时两个对数比都是 0，$\\sigma(0) = \\tfrac12$，损失为 $-\\log \\tfrac12 = \\ln 2$。\n\n(e) 记括号内为 $u$，则 $\\nabla_\\theta \\mathcal{L} = -\\beta\\, \\mathbb{E}\\big[\\sigma(-u)\\big(\\nabla_\\theta \\log \\pi_\\theta(y_w \\mid x) - \\nabla_\\theta \\log \\pi_\\theta(y_l \\mid x)\\big)\\big]$。$\\sigma(-u)$ 在隐含奖励把这一对排错时接近 1，在排对且差距大时接近 0，所以更新主要集中在模型还没有排对的样本上。",
+  "en": "(a) $\\log \\pi^{*} = \\log \\pi_{\\text{ref}} + r/\\beta - \\log Z$, so $r(x, y) = \\beta \\log \\dfrac{\\pi^{*}(y \\mid x)}{\\pi_{\\text{ref}}(y \\mid x)} + \\beta \\log Z(x)$.\n\n(b) $r(x, y_w) - r(x, y_l) = \\beta \\log \\dfrac{\\pi^{*}(y_w \\mid x)}{\\pi_{\\text{ref}}(y_w \\mid x)} - \\beta \\log \\dfrac{\\pi^{*}(y_l \\mid x)}{\\pi_{\\text{ref}}(y_l \\mid x)}$. Both responses belong to the same prompt $x$, so $\\beta \\log Z(x)$ cancels in the subtraction. $Z(x)$ requires a sum over all possible responses and cannot be computed, and its disappearance lets the preference probability be expressed with log-probabilities of the policy and the reference model alone.\n\n(c) $\\mathcal{L}_{\\text{DPO}} = -\\mathbb{E}\\Big[\\log \\sigma\\Big(\\beta \\log \\dfrac{\\pi_\\theta(y_w \\mid x)}{\\pi_{\\text{ref}}(y_w \\mid x)} - \\beta \\log \\dfrac{\\pi_\\theta(y_l \\mid x)}{\\pi_{\\text{ref}}(y_l \\mid x)}\\Big)\\Big]$.\n\n(d) With $\\pi_\\theta = \\pi_{\\text{ref}}$ both log-ratios are 0, $\\sigma(0) = \\tfrac12$ and the loss is $-\\log \\tfrac12 = \\ln 2$.\n\n(e) Calling the argument $u$, $\\nabla_\\theta \\mathcal{L} = -\\beta\\, \\mathbb{E}\\big[\\sigma(-u)\\big(\\nabla_\\theta \\log \\pi_\\theta(y_w \\mid x) - \\nabla_\\theta \\log \\pi_\\theta(y_l \\mid x)\\big)\\big]$. $\\sigma(-u)$ is near 1 when the implicit reward ranks the pair wrongly and near 0 when it ranks it correctly by a wide margin, so updates concentrate on the examples the model has not yet ranked correctly."
+ }
+}

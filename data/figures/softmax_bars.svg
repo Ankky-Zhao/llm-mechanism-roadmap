@@ -1,0 +1,26 @@
+<svg viewBox="0 0 700 250" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" class="f-ink"/></marker></defs>
+<text x="18" y="26" text-anchor="start" font-size="12.5" class="f-muted mono">“The capital of France is”</text>
+<text x="150" y="62" text-anchor="start" font-size="13" class="f-ink">logits z</text>
+<text x="320" y="62" text-anchor="start" font-size="13" class="f-ink" data-l="zh">概率 p</text><text x="320" y="62" text-anchor="start" font-size="13" class="f-ink" data-l="en">probability p</text>
+<text x="470" y="62" text-anchor="start" font-size="13" class="f-ink" data-l="zh">标签 y</text><text x="470" y="62" text-anchor="start" font-size="13" class="f-ink" data-l="en">label y</text>
+<text x="590" y="62" text-anchor="start" font-size="13" class="f-ink" data-l="zh">梯度 p − y</text><text x="590" y="62" text-anchor="start" font-size="13" class="f-ink" data-l="en">gradient p − y</text>
+<text x="18" y="101" font-size="13.5" class="f-ink mono">Paris</text>
+<rect x="150" y="87" width="80.0" height="18" rx="3" class="f-muted2"/><text x="238.0" y="101" font-size="12.5" class="f-ink mono">2.0</text>
+<rect x="320" y="87" width="72.5" height="18" rx="3" class="f-accent"/><text x="400.5" y="101" font-size="12.5" class="f-ink mono">0.659</text>
+<text x="478" y="101" font-size="13.5" class="f-ink mono">1</text>
+<rect x="590" y="87" width="37.5" height="18" rx="3" class="f-pin"/><text x="635.5" y="101" font-size="12.5" class="f-ink mono">-0.341</text>
+<text x="18" y="147" font-size="13.5" class="f-ink mono">London</text>
+<rect x="150" y="133" width="40.0" height="18" rx="3" class="f-muted2"/><text x="198.0" y="147" font-size="12.5" class="f-ink mono">1.0</text>
+<rect x="320" y="133" width="26.7" height="18" rx="3" class="f-accent"/><text x="354.7" y="147" font-size="12.5" class="f-ink mono">0.242</text>
+<text x="478" y="147" font-size="13.5" class="f-ink mono">0</text>
+<rect x="590" y="133" width="26.7" height="18" rx="3" class="f-accent2"/><text x="624.7" y="147" font-size="12.5" class="f-ink mono">+0.242</text>
+<text x="18" y="193" font-size="13.5" class="f-ink mono">Rome</text>
+<rect x="150" y="179" width="4.0" height="18" rx="3" class="f-muted2"/><text x="162.0" y="193" font-size="12.5" class="f-ink mono">0.1</text>
+<rect x="320" y="179" width="10.8" height="18" rx="3" class="f-accent"/><text x="338.8" y="193" font-size="12.5" class="f-ink mono">0.099</text>
+<text x="478" y="193" font-size="13.5" class="f-ink mono">0</text>
+<rect x="590" y="179" width="10.8" height="18" rx="3" class="f-accent2"/><text x="608.8" y="193" font-size="12.5" class="f-ink mono">+0.099</text>
+<line x1="246" y1="142" x2="306" y2="142" class="s-muted" stroke-width="1.5" marker-end="url(#ar3)"/>
+<text x="276" y="132" text-anchor="middle" font-size="11.5" class="f-muted mono">softmax</text>
+<text x="18" y="236" text-anchor="start" font-size="12.5" class="f-muted mono" data-l="zh">损失 = −ln 0.659 = 0.417</text><text x="18" y="236" text-anchor="start" font-size="12.5" class="f-muted mono" data-l="en">loss = −ln 0.659 = 0.417</text>
+</svg>

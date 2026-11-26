@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "logit_lens",
+ "network": true,
+ "level": 2,
+ "minutes": 40,
+ "title": {
+  "zh": "实现 logit lens",
+  "en": "Implement the logit lens"
+ },
+ "prompt": {
+  "zh": "用前向钩子取出最后一个位置上嵌入之后和每个块之后的残差流，用最终的 LayerNorm 和输出矩阵解码，并计算某个 token 在各层的名次以及各层分布与最终分布之间的 KL 散度。测试检查取出的状态与模型报告的一致、最后一行解码结果等于模型输出的 logits，以及 Paris 的名次随层数的变化。请查看打印出的逐层结果和 9 条提示的对比。",
+  "en": "Capture with forward hooks the residual stream at the last position after the embedding and after every block, decode it with the final LayerNorm and the output matrix, and compute the rank of a token at every layer and the KL divergence between the distribution of every layer and the final one. The tests check that the captured states agree with those the model reports, that decoding the last row gives the logits the model outputs, and how the rank of Paris changes with depth. Look at the printed layer-wise results and the comparison of 9 prompts."
+ },
+ "hints": [
+  {
+   "zh": "前向钩子的签名是 `hook(module, args, output)`。`model.transformer.drop` 的输出是张量，块的输出可能是元组，写成 `out[0] if isinstance(out, tuple) else out`。",
+   "en": "A forward hook has the signature `hook(module, args, output)`. The output of `model.transformer.drop` is a tensor and the output of a block can be a tuple, so write `out[0] if isinstance(out, tuple) else out`."
+  },
+  {
+   "zh": "钩子按前向计算的顺序被调用，往同一个列表里 `append` 即可得到按层排列的 13 个状态。运行完成后对每个句柄调用 `remove()`。",
+   "en": "Hooks are called in the order of the forward pass, so appending to one list gives the 13 states in layer order. Call `remove()` on every handle after the run."
+  },
+  {
+   "zh": "名次是 `(logits > logits[:, token_id][:, None]).sum(-1) + 1`。",
+   "en": "The rank is `(logits > logits[:, token_id][:, None]).sum(-1) + 1`."
+  }
+ ]
+}

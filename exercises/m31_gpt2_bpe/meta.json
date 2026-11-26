@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "bpe",
+ "level": 3,
+ "minutes": 35,
+ "network": true,
+ "title": {
+  "zh": "用真实的合并规则复现 GPT-2 分词器",
+  "en": "Reproduce GPT-2's tokenizer from its real merge rules"
+ },
+ "prompt": {
+  "zh": "GPT-2 的五万条合并规则保存在 `merges.txt` 中。实现对单个预分词单位应用这些规则的函数，再接上预分词，得到完整的分词结果。测试会在英文、数字、中文和代码上与 Hugging Face 的分词器逐 token 对比，并核对编号与 tiktoken 一致。",
+  "en": "The fifty thousand merge rules of GPT-2 are stored in `merges.txt`. Implement the function that applies them to a single pre-token, then combine it with pre-tokenization to obtain the full tokenization. The tests compare token by token with the Hugging Face tokenizer on English, digits, Chinese and code, and check that the ids agree with tiktoken."
+ },
+ "hints": [
+  {
+   "zh": "每一轮先收集当前所有的相邻对 `set(zip(symbols, symbols[1:]))`，从中选出 `ranks` 值最小的一对。",
+   "en": "Each round first collects all adjacent pairs, `set(zip(symbols, symbols[1:]))`, and picks the one with the smallest value in `ranks`."
+  },
+  {
+   "zh": "选出的这一对要把所有出现的位置都合并，写法与上一题的 `merge` 相同，只是这里合并的结果是两个字符串相加。",
+   "en": "Every occurrence of the chosen pair is merged, written like `merge` in the previous exercise, except that here the merged result is the concatenation of two strings."
+  },
+  {
+   "zh": "`gpt2_tokenize` 只需对预分词返回的每个 `(片段, 位置)` 取第一个元素调用 `bpe_word`，再把结果依次接起来。",
+   "en": "`gpt2_tokenize` only has to call `bpe_word` on the first element of every `(piece, span)` returned by the pre-tokenizer and concatenate the results."
+  }
+ ]
+}

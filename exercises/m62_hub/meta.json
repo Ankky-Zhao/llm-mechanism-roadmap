@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "licenses",
+ "level": 1,
+ "minutes": 25,
+ "network": true,
+ "title": {
+  "zh": "从 Hub 读取并分类许可证",
+  "en": "Read and classify licenses from the Hub"
+ },
+ "prompt": {
+  "zh": "实现一个把许可证标识符归入六个粗略类别的函数，再用 `huggingface_hub` 读取模型卡元数据中的许可证信息。测试先在固定的输入上检查分类，再读取三个较早发布的模型的真实元数据，随后对 19 个模型做一次调查并打印结果。打印的表格反映的是运行当时的状态，可能与本页表格中记录的不同，这正是需要每次都查的原因。",
+  "en": "Implement a function that sorts license identifiers into six coarse categories, and read the license information in model-card metadata with `huggingface_hub`. The tests first check the classification on fixed inputs, then read the real metadata of three older models, and then survey 19 models and print the result. The printed table reflects the state at the time of the run and may differ from the table recorded on this page, which is exactly why it has to be checked every time."
+ },
+ "hints": [
+  {
+   "zh": "先把标识符和名称都转成小写，`name` 可能是 `None`，可以写成 `(name or '').lower()`。",
+   "en": "Convert both identifier and name to lower case. `name` may be `None`, so write `(name or '').lower()`."
+  },
+  {
+   "zh": "`info.card_data` 可能是 `None`。取字段用 `card.get('license')`，缺失时得到 `None`。",
+   "en": "`info.card_data` may be `None`. Read fields with `card.get('license')`, which gives `None` when missing."
+  },
+  {
+   "zh": "`info.gated` 的取值是 `False`、`'auto'` 或 `'manual'`，用 `bool(info.gated)` 转成布尔值。",
+   "en": "`info.gated` is `False`, `'auto'` or `'manual'`, converted to a boolean with `bool(info.gated)`."
+  }
+ ]
+}

@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "models",
+ "level": 2,
+ "minutes": 35,
+ "network": true,
+ "title": {
+  "zh": "8 位与 4 位量化对比",
+  "en": "8-bit and 4-bit quantization compared"
+ },
+ "prompt": {
+  "zh": "实现对称量化的两种做法，即整个张量共用一个缩放系数和每个通道各用一个，并把它们应用到 GPT-2 各层的权重矩阵上。测试会检查舍入误差的方差接近 $s^2/12$、单个异常值对两种做法的影响，并比较 GPT-2 在四种设置下的困惑度。运行后请查看打印出的五个困惑度。",
+  "en": "Implement symmetric quantization in two ways, one scale for the whole tensor and one per channel, and apply them to the weight matrices of all GPT-2 layers. The tests check that the variance of the rounding error is close to $s^2/12$, examine the effect of a single outlier on the two ways, and compare the perplexity of GPT-2 under four settings. Look at the five printed perplexities."
+ },
+ "hints": [
+  {
+   "zh": "`qmax = 2 ** (bits - 1) - 1`，量化是 `torch.clamp(torch.round(w / scale), -qmax, qmax)`。",
+   "en": "`qmax = 2 ** (bits - 1) - 1`, and quantization is `torch.clamp(torch.round(w / scale), -qmax, qmax)`."
+  },
+  {
+   "zh": "按通道时，`channel_dim=1` 表示每一列一个缩放系数，最大值要沿另一个维度取，即 `w.abs().amax(dim=0, keepdim=True)`。",
+   "en": "Per channel, `channel_dim=1` means one scale per column, and the maximum is taken along the other dimension, that is `w.abs().amax(dim=0, keepdim=True)`."
+  },
+  {
+   "zh": "写回权重用 `p.copy_(dequantize(q, s))`，整个函数已经在 `torch.no_grad()` 之下。",
+   "en": "Write the weights back with `p.copy_(dequantize(q, s))`. The whole function already runs under `torch.no_grad()`."
+  }
+ ]
+}

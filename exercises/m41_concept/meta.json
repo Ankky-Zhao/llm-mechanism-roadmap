@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "pretraining",
+ "level": 1,
+ "minutes": 20,
+ "title": {
+  "zh": "预训练的规模估算与概念题",
+  "en": "Scale estimates and concept questions on pretraining"
+ },
+ "prompt": {
+  "zh": "在纸上完成。\n(a) 上下文长度 $T = 1024$，batch 大小为 512。每一步有多少个 token 参与训练？产生多少个训练信号？\n(b) 语料共有 $3 \\times 10^{11}$ 个 token。按 (a) 的设置，把语料过一遍需要多少步？\n(c) 词表大小为 10 万的模型，训练刚开始时损失应当在什么数值附近？\n(d) 证明 Adam 第一步的更新量等于 $-\\eta \\cdot \\mathrm{sign}(g_1)$（忽略 $\\epsilon$ 和权重衰减）。\n(e) 用两三句话解释模型为什么有知识截止时间。",
+  "en": "Work on paper.\n(a) The context length is $T = 1024$ and the batch size 512. How many tokens take part in each step? How many training signals arise?\n(b) The corpus has $3 \\times 10^{11}$ tokens. With the setting of (a), how many steps does one pass over the corpus take?\n(c) Around what value should the loss of a model with a vocabulary of 100 thousand start?\n(d) Show that the first update of Adam equals $-\\eta \\cdot \\mathrm{sign}(g_1)$ (ignoring $\\epsilon$ and weight decay).\n(e) Explain in two or three sentences why a model has a knowledge cutoff."
+ },
+ "hints": [
+  {
+   "zh": "(a) 每个位置都预测它的下一个 token。",
+   "en": "(a) Every position predicts its next token."
+  },
+  {
+   "zh": "(d) 写出 $m_1$、$v_1$ 以及它们的偏差修正。",
+   "en": "(d) Write out $m_1$, $v_1$ and their bias corrections."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 每步有 $1024 \\times 512 = 524288$ 个 token，每个位置产生一个训练信号，所以也是 524288 个。\n\n(b) $3 \\times 10^{11} / 524288 \\approx 5.7 \\times 10^{5}$，约 57 万步。\n\n(c) $\\ln 10^{5} = 5 \\ln 10 \\approx 11.51$。\n\n(d) $m_1 = (1 - \\beta_1) g_1$，修正后 $\\hat m_1 = g_1$。$v_1 = (1 - \\beta_2) g_1^2$，修正后 $\\hat v_1 = g_1^2$。所以更新量为 $-\\eta\\, g_1 / \\sqrt{g_1^2} = -\\eta\\, g_1 / |g_1| = -\\eta\\, \\mathrm{sign}(g_1)$。\n\n(e) 模型的知识全部来自训练语料，语料的收集在某个时间点结束。训练完成后参数不再变化，所以此后发生的事情模型无从得知，除非在推理时把相关信息写进输入。",
+  "en": "(a) Each step has $1024 \\times 512 = 524288$ tokens, and every position gives one training signal, so 524288 as well.\n\n(b) $3 \\times 10^{11} / 524288 \\approx 5.7 \\times 10^{5}$, about 570 thousand steps.\n\n(c) $\\ln 10^{5} = 5 \\ln 10 \\approx 11.51$.\n\n(d) $m_1 = (1 - \\beta_1) g_1$, and after correction $\\hat m_1 = g_1$. $v_1 = (1 - \\beta_2) g_1^2$, and after correction $\\hat v_1 = g_1^2$. The update is therefore $-\\eta\\, g_1 / \\sqrt{g_1^2} = -\\eta\\, g_1 / |g_1| = -\\eta\\, \\mathrm{sign}(g_1)$.\n\n(e) All of a model's knowledge comes from its training corpus, whose collection ends at some point in time. After training the parameters no longer change, so the model cannot know what happened afterwards unless the information is written into the input at inference."
+ }
+}

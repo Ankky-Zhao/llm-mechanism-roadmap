@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "norm_ffn",
+ "level": 2,
+ "minutes": 25,
+ "network": true,
+ "title": {
+  "zh": "复现 GPT-2 的 MLP 并实现 SwiGLU",
+  "en": "Reproduce GPT-2's MLP and implement SwiGLU"
+ },
+ "prompt": {
+  "zh": "用权重复现 GPT-2 的 MLP 层。再实现 SwiGLU，并算出让它与标准 FFN 参数量相同的隐藏宽度。",
+  "en": "Reproduce the MLP layer of GPT-2 from its weights. Then implement SwiGLU and compute the hidden width at which it has the same number of parameters as the standard FFN."
+ },
+ "hints": [
+  {
+   "zh": "GPT-2 的 GELU 用的是 tanh 近似，需要写成 `F.gelu(z, approximate=\"tanh\")`，否则数值会有微小差别。",
+   "en": "GPT-2 uses the tanh approximation of GELU, written `F.gelu(z, approximate=\"tanh\")`. Without it the numbers differ slightly."
+  },
+  {
+   "zh": "SiLU 是 `g * torch.sigmoid(g)`。",
+   "en": "SiLU is `g * torch.sigmoid(g)`."
+  },
+  {
+   "zh": "由 $3dh = 8d^2$ 得 $h = 8d/3$，用整数除法 `8 * d // 3`。",
+   "en": "From $3dh = 8d^2$ follows $h = 8d/3$. Use integer division, `8 * d // 3`."
+  }
+ ]
+}

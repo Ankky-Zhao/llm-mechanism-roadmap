@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "rlhf",
+ "level": 3,
+ "minutes": 30,
+ "title": {
+  "zh": "推导带 KL 约束目标的最优策略",
+  "en": "Derive the optimal policy of the KL-constrained objective"
+ },
+ "prompt": {
+  "zh": "这是 RLHF 和 DPO 共同的理论基础，面试中常被要求推导。合上上面的推导，在纸上完成。\n(a) 从 $J(\\pi) = \\mathbb{E}_{y \\sim \\pi}[r(y)] - \\beta D_{\\mathrm{KL}}(\\pi \\| \\pi_{\\text{ref}})$ 出发，证明 $J(\\pi) = -\\beta D_{\\mathrm{KL}}(\\pi \\| \\pi^{*}) + \\beta \\log Z$，并写出 $\\pi^{*}$ 和 $Z$。\n(b) 说明 $\\beta \\to 0$ 和 $\\beta \\to \\infty$ 时 $\\pi^{*}$ 分别趋向什么。\n(c) 由 Bradley-Terry 模型 $P(a \\succ b) = \\sigma(r_a - r_b)$ 出发，写出一组比较数据的负对数似然。\n(d) PPO 中取 $\\epsilon = 0.2$。某个回答的概率之比为 $\\rho = 1.5$。分别计算 $A = 2$ 和 $A = -2$ 时该样本对裁剪目标的贡献，并解释两者的区别。",
+  "en": "This is the shared theoretical basis of RLHF and DPO and is often asked for in interviews. Close the derivation above and work on paper.\n(a) Starting from $J(\\pi) = \\mathbb{E}_{y \\sim \\pi}[r(y)] - \\beta D_{\\mathrm{KL}}(\\pi \\| \\pi_{\\text{ref}})$, show that $J(\\pi) = -\\beta D_{\\mathrm{KL}}(\\pi \\| \\pi^{*}) + \\beta \\log Z$ and write out $\\pi^{*}$ and $Z$.\n(b) State what $\\pi^{*}$ tends to as $\\beta \\to 0$ and as $\\beta \\to \\infty$.\n(c) Starting from the Bradley-Terry model $P(a \\succ b) = \\sigma(r_a - r_b)$, write the negative log-likelihood of a set of comparisons.\n(d) Take $\\epsilon = 0.2$ in PPO. The probability ratio of some response is $\\rho = 1.5$. Compute the contribution of this sample to the clipped objective for $A = 2$ and for $A = -2$, and explain the difference."
+ },
+ "hints": [
+  {
+   "zh": "(a) 把 $r(y)$ 写成 $\\beta \\log e^{r(y)/\\beta}$，与 KL 中的对数合并。",
+   "en": "(a) Write $r(y)$ as $\\beta \\log e^{r(y)/\\beta}$ and merge it with the log in the KL."
+  },
+  {
+   "zh": "(d) 分别计算 $\\rho A$ 和 $\\mathrm{clip}(\\rho, 0.8, 1.2) A$，取较小的一个。",
+   "en": "(d) Compute $\\rho A$ and $\\mathrm{clip}(\\rho, 0.8, 1.2) A$ and take the smaller."
+  }
+ ],
+ "solution": {
+  "zh": "(a) $$J(\\pi) = \\sum_y \\pi(y)\\Big[r(y) - \\beta \\log\\frac{\\pi(y)}{\\pi_{\\text{ref}}(y)}\\Big] = -\\beta \\sum_y \\pi(y) \\log\\frac{\\pi(y)}{\\pi_{\\text{ref}}(y)\\, e^{r(y)/\\beta}}$$ 令 $Z = \\sum_y \\pi_{\\text{ref}}(y) e^{r(y)/\\beta}$，$\\pi^{*}(y) = \\pi_{\\text{ref}}(y) e^{r(y)/\\beta} / Z$，则分母等于 $Z \\pi^{*}(y)$，于是 $$J(\\pi) = -\\beta \\sum_y \\pi(y) \\log\\frac{\\pi(y)}{\\pi^{*}(y)} + \\beta \\log Z = -\\beta D_{\\mathrm{KL}}(\\pi \\| \\pi^{*}) + \\beta \\log Z$$ KL 非负，所以 $\\pi = \\pi^{*}$ 时 $J$ 取最大值 $\\beta \\log Z$。\n\n(b) $\\beta \\to 0$ 时 $e^{r/\\beta}$ 中奖励最高的一项占绝对优势，$\\pi^{*}$ 把全部概率放在奖励最高的回答上。$\\beta \\to \\infty$ 时 $e^{r/\\beta} \\to 1$，$\\pi^{*} \\to \\pi_{\\text{ref}}$。\n\n(c) $\\mathcal{L} = -\\sum_{j} \\log \\sigma\\big(r_{w_j} - r_{l_j}\\big)$，其中 $w_j$ 和 $l_j$ 是第 $j$ 次比较中被偏好的和未被偏好的回答。\n\n(d) $A = 2$ 时，$\\rho A = 3$，裁剪后为 $1.2 \\times 2 = 2.4$，取较小值 $2.4$。这个好回答的概率已经提高了 50%，超出上限的部分不再计入，梯度为 0。$A = -2$ 时，$\\rho A = -3$，裁剪后为 $-2.4$，取较小值 $-3$。这个差回答的概率反而被提高了，没有被裁剪，完整的惩罚会把它拉回来。",
+  "en": "(a) $$J(\\pi) = \\sum_y \\pi(y)\\Big[r(y) - \\beta \\log\\frac{\\pi(y)}{\\pi_{\\text{ref}}(y)}\\Big] = -\\beta \\sum_y \\pi(y) \\log\\frac{\\pi(y)}{\\pi_{\\text{ref}}(y)\\, e^{r(y)/\\beta}}$$ With $Z = \\sum_y \\pi_{\\text{ref}}(y) e^{r(y)/\\beta}$ and $\\pi^{*}(y) = \\pi_{\\text{ref}}(y) e^{r(y)/\\beta} / Z$ the denominator equals $Z \\pi^{*}(y)$, so $$J(\\pi) = -\\beta \\sum_y \\pi(y) \\log\\frac{\\pi(y)}{\\pi^{*}(y)} + \\beta \\log Z = -\\beta D_{\\mathrm{KL}}(\\pi \\| \\pi^{*}) + \\beta \\log Z$$ KL is non-negative, so $J$ reaches its maximum $\\beta \\log Z$ at $\\pi = \\pi^{*}$.\n\n(b) As $\\beta \\to 0$ the term with the highest reward dominates $e^{r/\\beta}$ and $\\pi^{*}$ puts all probability on the response with the highest reward. As $\\beta \\to \\infty$, $e^{r/\\beta} \\to 1$ and $\\pi^{*} \\to \\pi_{\\text{ref}}$.\n\n(c) $\\mathcal{L} = -\\sum_{j} \\log \\sigma\\big(r_{w_j} - r_{l_j}\\big)$, where $w_j$ and $l_j$ are the preferred and the other response of comparison $j$.\n\n(d) For $A = 2$, $\\rho A = 3$ and the clipped value is $1.2 \\times 2 = 2.4$, so the smaller is $2.4$. The probability of this good response has already risen by 50%, the part beyond the bound no longer counts and the gradient is 0. For $A = -2$, $\\rho A = -3$ and the clipped value is $-2.4$, so the smaller is $-3$. The probability of this poor response was raised, nothing is clipped and the full penalty pulls it back."
+ }
+}

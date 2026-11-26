@@ -1,0 +1,185 @@
+<svg viewBox="0 0 700 300" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<text x="470.0" y="16" text-anchor="middle" font-size="12" class="f-ink" font-weight="600" data-l="zh">嵌入之后（0）和各个块之后（1 至 12）解码时，答案的名次</text><text x="470.0" y="16" text-anchor="middle" font-size="12" class="f-ink" font-weight="600" data-l="en">Rank of the answer when decoding after the embedding (0) and after each block (1 to 12)</text>
+<text x="277.0" y="36" text-anchor="middle" font-size="10.5" class="f-muted">0</text>
+<text x="309.0" y="36" text-anchor="middle" font-size="10.5" class="f-muted">1</text>
+<text x="341.0" y="36" text-anchor="middle" font-size="10.5" class="f-muted">2</text>
+<text x="373.0" y="36" text-anchor="middle" font-size="10.5" class="f-muted">3</text>
+<text x="405.0" y="36" text-anchor="middle" font-size="10.5" class="f-muted">4</text>
+<text x="437.0" y="36" text-anchor="middle" font-size="10.5" class="f-muted">5</text>
+<text x="469.0" y="36" text-anchor="middle" font-size="10.5" class="f-muted">6</text>
+<text x="501.0" y="36" text-anchor="middle" font-size="10.5" class="f-muted">7</text>
+<text x="533.0" y="36" text-anchor="middle" font-size="10.5" class="f-muted">8</text>
+<text x="565.0" y="36" text-anchor="middle" font-size="10.5" class="f-muted">9</text>
+<text x="597.0" y="36" text-anchor="middle" font-size="10.5" class="f-muted">10</text>
+<text x="629.0" y="36" text-anchor="middle" font-size="10.5" class="f-muted">11</text>
+<text x="661.0" y="36" text-anchor="middle" font-size="10.5" class="f-muted">12</text>
+<text x="252" y="63" text-anchor="end" font-size="10.5" class="f-ink">… Eiffel Tower … city of → Paris</text>
+<rect x="262" y="44" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="276.5" y="63" text-anchor="middle" font-size="10.5" class="f-muted">22k</text>
+<rect x="294" y="44" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="308.5" y="63" text-anchor="middle" font-size="10.5" class="f-muted">6k</text>
+<rect x="326" y="44" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="340.5" y="63" text-anchor="middle" font-size="10.5" class="f-muted">5k</text>
+<rect x="358" y="44" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="372.5" y="63" text-anchor="middle" font-size="10.5" class="f-muted">2k</text>
+<rect x="390" y="44" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="404.5" y="63" text-anchor="middle" font-size="10.5" class="f-muted">838</text>
+<rect x="422" y="44" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="436.5" y="63" text-anchor="middle" font-size="10.5" class="f-muted">449</text>
+<rect x="454" y="44" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="468.5" y="63" text-anchor="middle" font-size="10.5" class="f-muted">255</text>
+<rect x="486" y="44" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="500.5" y="63" text-anchor="middle" font-size="10.5" class="f-muted">145</text>
+<rect x="518" y="44" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="532.5" y="63" text-anchor="middle" font-size="10.5" class="f-muted">96</text>
+<rect x="550" y="44" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="564.5" y="63" text-anchor="middle" font-size="10.5" class="f-muted">13</text>
+<rect x="582" y="44" width="29" height="30" rx="4" class="f-soft s-accent"/>
+<text x="596.5" y="63" text-anchor="middle" font-size="10.5" class="f-ink">2</text>
+<rect x="614" y="44" width="29" height="30" rx="4" class="f-accent"/>
+<text x="628.5" y="63" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="646" y="44" width="29" height="30" rx="4" class="f-accent"/>
+<text x="660.5" y="63" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<text x="252" y="97" text-anchor="end" font-size="10.5" class="f-ink">… in the city of New → York</text>
+<rect x="262" y="78" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="276.5" y="97" text-anchor="middle" font-size="10.5" class="f-muted">195</text>
+<rect x="294" y="78" width="29" height="30" rx="4" class="f-accent"/>
+<text x="308.5" y="97" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="326" y="78" width="29" height="30" rx="4" class="f-accent"/>
+<text x="340.5" y="97" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="358" y="78" width="29" height="30" rx="4" class="f-accent"/>
+<text x="372.5" y="97" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="390" y="78" width="29" height="30" rx="4" class="f-accent"/>
+<text x="404.5" y="97" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="422" y="78" width="29" height="30" rx="4" class="f-accent"/>
+<text x="436.5" y="97" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="454" y="78" width="29" height="30" rx="4" class="f-accent"/>
+<text x="468.5" y="97" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="486" y="78" width="29" height="30" rx="4" class="f-accent"/>
+<text x="500.5" y="97" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="518" y="78" width="29" height="30" rx="4" class="f-accent"/>
+<text x="532.5" y="97" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="550" y="78" width="29" height="30" rx="4" class="f-accent"/>
+<text x="564.5" y="97" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="582" y="78" width="29" height="30" rx="4" class="f-accent"/>
+<text x="596.5" y="97" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="614" y="78" width="29" height="30" rx="4" class="f-accent"/>
+<text x="628.5" y="97" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="646" y="78" width="29" height="30" rx="4" class="f-accent"/>
+<text x="660.5" y="97" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<text x="252" y="131" text-anchor="end" font-size="10.5" class="f-ink">Apple was founded by Steve → Jobs</text>
+<rect x="262" y="112" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="276.5" y="131" text-anchor="middle" font-size="10.5" class="f-muted">2k</text>
+<rect x="294" y="112" width="29" height="30" rx="4" class="f-soft s-accent"/>
+<text x="308.5" y="131" text-anchor="middle" font-size="10.5" class="f-ink">2</text>
+<rect x="326" y="112" width="29" height="30" rx="4" class="f-soft s-accent"/>
+<text x="340.5" y="131" text-anchor="middle" font-size="10.5" class="f-ink">4</text>
+<rect x="358" y="112" width="29" height="30" rx="4" class="f-soft s-accent"/>
+<text x="372.5" y="131" text-anchor="middle" font-size="10.5" class="f-ink">2</text>
+<rect x="390" y="112" width="29" height="30" rx="4" class="f-soft s-accent"/>
+<text x="404.5" y="131" text-anchor="middle" font-size="10.5" class="f-ink">2</text>
+<rect x="422" y="112" width="29" height="30" rx="4" class="f-soft s-accent"/>
+<text x="436.5" y="131" text-anchor="middle" font-size="10.5" class="f-ink">6</text>
+<rect x="454" y="112" width="29" height="30" rx="4" class="f-soft s-accent"/>
+<text x="468.5" y="131" text-anchor="middle" font-size="10.5" class="f-ink">2</text>
+<rect x="486" y="112" width="29" height="30" rx="4" class="f-accent"/>
+<text x="500.5" y="131" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="518" y="112" width="29" height="30" rx="4" class="f-accent"/>
+<text x="532.5" y="131" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="550" y="112" width="29" height="30" rx="4" class="f-accent"/>
+<text x="564.5" y="131" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="582" y="112" width="29" height="30" rx="4" class="f-accent"/>
+<text x="596.5" y="131" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="614" y="112" width="29" height="30" rx="4" class="f-accent"/>
+<text x="628.5" y="131" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="646" y="112" width="29" height="30" rx="4" class="f-accent"/>
+<text x="660.5" y="131" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<text x="252" y="165" text-anchor="end" font-size="10.5" class="f-ink">… Brandenburg Gate … city of → Berlin</text>
+<rect x="262" y="146" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="276.5" y="165" text-anchor="middle" font-size="10.5" class="f-muted">21k</text>
+<rect x="294" y="146" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="308.5" y="165" text-anchor="middle" font-size="10.5" class="f-muted">10k</text>
+<rect x="326" y="146" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="340.5" y="165" text-anchor="middle" font-size="10.5" class="f-muted">8k</text>
+<rect x="358" y="146" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="372.5" y="165" text-anchor="middle" font-size="10.5" class="f-muted">4k</text>
+<rect x="390" y="146" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="404.5" y="165" text-anchor="middle" font-size="10.5" class="f-muted">1k</text>
+<rect x="422" y="146" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="436.5" y="165" text-anchor="middle" font-size="10.5" class="f-muted">2k</text>
+<rect x="454" y="146" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="468.5" y="165" text-anchor="middle" font-size="10.5" class="f-muted">1k</text>
+<rect x="486" y="146" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="500.5" y="165" text-anchor="middle" font-size="10.5" class="f-muted">1k</text>
+<rect x="518" y="146" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="532.5" y="165" text-anchor="middle" font-size="10.5" class="f-muted">428</text>
+<rect x="550" y="146" width="29" height="30" rx="4" class="f-soft s-accent"/>
+<text x="564.5" y="165" text-anchor="middle" font-size="10.5" class="f-ink">3</text>
+<rect x="582" y="146" width="29" height="30" rx="4" class="f-accent"/>
+<text x="596.5" y="165" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="614" y="146" width="29" height="30" rx="4" class="f-accent"/>
+<text x="628.5" y="165" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="646" y="146" width="29" height="30" rx="4" class="f-accent"/>
+<text x="660.5" y="165" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<text x="252" y="199" text-anchor="end" font-size="10.5" class="f-ink">… John gave a drink to → Mary</text>
+<rect x="262" y="180" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="276.5" y="199" text-anchor="middle" font-size="10.5" class="f-muted">43k</text>
+<rect x="294" y="180" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="308.5" y="199" text-anchor="middle" font-size="10.5" class="f-muted">5k</text>
+<rect x="326" y="180" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="340.5" y="199" text-anchor="middle" font-size="10.5" class="f-muted">4k</text>
+<rect x="358" y="180" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="372.5" y="199" text-anchor="middle" font-size="10.5" class="f-muted">2k</text>
+<rect x="390" y="180" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="404.5" y="199" text-anchor="middle" font-size="10.5" class="f-muted">1k</text>
+<rect x="422" y="180" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="436.5" y="199" text-anchor="middle" font-size="10.5" class="f-muted">2k</text>
+<rect x="454" y="180" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="468.5" y="199" text-anchor="middle" font-size="10.5" class="f-muted">1k</text>
+<rect x="486" y="180" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="500.5" y="199" text-anchor="middle" font-size="10.5" class="f-muted">1k</text>
+<rect x="518" y="180" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="532.5" y="199" text-anchor="middle" font-size="10.5" class="f-muted">316</text>
+<rect x="550" y="180" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="564.5" y="199" text-anchor="middle" font-size="10.5" class="f-muted">24</text>
+<rect x="582" y="180" width="29" height="30" rx="4" class="f-soft s-accent"/>
+<text x="596.5" y="199" text-anchor="middle" font-size="10.5" class="f-ink">2</text>
+<rect x="614" y="180" width="29" height="30" rx="4" class="f-accent"/>
+<text x="628.5" y="199" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="646" y="180" width="29" height="30" rx="4" class="f-accent"/>
+<text x="660.5" y="199" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<text x="252" y="233" text-anchor="end" font-size="10.5" class="f-ink">… Colosseum … city of → Rome</text>
+<rect x="262" y="214" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="276.5" y="233" text-anchor="middle" font-size="10.5" class="f-muted">38k</text>
+<rect x="294" y="214" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="308.5" y="233" text-anchor="middle" font-size="10.5" class="f-muted">7k</text>
+<rect x="326" y="214" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="340.5" y="233" text-anchor="middle" font-size="10.5" class="f-muted">3k</text>
+<rect x="358" y="214" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="372.5" y="233" text-anchor="middle" font-size="10.5" class="f-muted">959</text>
+<rect x="390" y="214" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="404.5" y="233" text-anchor="middle" font-size="10.5" class="f-muted">521</text>
+<rect x="422" y="214" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="436.5" y="233" text-anchor="middle" font-size="10.5" class="f-muted">160</text>
+<rect x="454" y="214" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="468.5" y="233" text-anchor="middle" font-size="10.5" class="f-muted">55</text>
+<rect x="486" y="214" width="29" height="30" rx="4" class="f-surface s-line"/>
+<text x="500.5" y="233" text-anchor="middle" font-size="10.5" class="f-muted">12</text>
+<rect x="518" y="214" width="29" height="30" rx="4" class="f-soft s-accent"/>
+<text x="532.5" y="233" text-anchor="middle" font-size="10.5" class="f-ink">4</text>
+<rect x="550" y="214" width="29" height="30" rx="4" class="f-accent"/>
+<text x="564.5" y="233" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="582" y="214" width="29" height="30" rx="4" class="f-accent"/>
+<text x="596.5" y="233" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="614" y="214" width="29" height="30" rx="4" class="f-accent"/>
+<text x="628.5" y="233" text-anchor="middle" font-size="10.5" class="f-on">1</text>
+<rect x="646" y="214" width="29" height="30" rx="4" class="f-soft s-accent"/>
+<text x="660.5" y="233" text-anchor="middle" font-size="10.5" class="f-ink">5</text>
+<rect x="262" y="253" width="16" height="14" rx="3" class="f-accent"/>
+<text x="284" y="264" text-anchor="start" font-size="10.5" class="f-muted" data-l="zh">第 1 名</text><text x="284" y="264" text-anchor="start" font-size="10.5" class="f-muted" data-l="en">rank 1</text>
+<rect x="352" y="253" width="16" height="14" rx="3" class="f-soft s-accent"/>
+<text x="374" y="264" text-anchor="start" font-size="10.5" class="f-muted" data-l="zh">第 2 至 10 名</text><text x="374" y="264" text-anchor="start" font-size="10.5" class="f-muted" data-l="en">rank 2 to 10</text>
+<rect x="472" y="253" width="16" height="14" rx="3" class="f-surface s-line"/>
+<text x="494" y="264" text-anchor="start" font-size="10.5" class="f-muted" data-l="zh">10 名以外（k 表示千）</text><text x="494" y="264" text-anchor="start" font-size="10.5" class="f-muted" data-l="en">beyond 10 (k for thousand)</text>
+<text x="350" y="290" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">最后一行中 Rome 在第 9 至 11 层之后是第 1 名，最后一层之后降到第 5 名</text><text x="350" y="290" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">In the last row Rome is rank 1 after layers 9 to 11 and falls to rank 5 after the last layer</text>
+</svg>

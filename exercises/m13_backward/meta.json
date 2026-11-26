@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "softmax_grad",
+ "level": 3,
+ "minutes": 40,
+ "title": {
+  "zh": "手写 softmax 交叉熵的反向传播",
+  "en": "Backpropagation through softmax cross-entropy by hand"
+ },
+ "prompt": {
+  "zh": "不使用 autograd，写出 softmax 的雅可比矩阵、平均交叉熵对 logits 的梯度，以及一层线性层 `logits = x @ W.T + b` 的全部梯度。测试在 `torch.no_grad()` 下调用你的函数，并与 autograd 的结果对比。",
+  "en": "Without autograd, write the softmax Jacobian, the gradient of the mean cross-entropy with respect to the logits, and all gradients of a linear layer `logits = x @ W.T + b`. The tests call your functions under `torch.no_grad()` and compare with autograd."
+ },
+ "hints": [
+  {
+   "zh": "雅可比矩阵是 `torch.diag(p) - torch.outer(p, p)`。",
+   "en": "The Jacobian is `torch.diag(p) - torch.outer(p, p)`."
+  },
+  {
+   "zh": "`ce_grad_logits` 先算 `p`，在正确类别的位置减 1，再除以 `N`。除以 `N` 是因为损失对 batch 取了平均。",
+   "en": "In `ce_grad_logits` compute `p`, subtract 1 at the correct class, then divide by `N`. The division comes from averaging the loss over the batch."
+  },
+  {
+   "zh": "线性层的三个梯度可以靠形状推出来。`dW` 的形状是 `(V, D)`，只能是 `dlogits.T @ x`。`db` 的形状是 `(V,)`，是 `dlogits` 按行求和。`dx` 的形状是 `(N, D)`，是 `dlogits @ W`。",
+   "en": "The three gradients of the linear layer follow from the shapes. `dW` is `(V, D)`, so it must be `dlogits.T @ x`. `db` is `(V,)`, the sum of `dlogits` over rows. `dx` is `(N, D)`, which is `dlogits @ W`."
+  }
+ ]
+}

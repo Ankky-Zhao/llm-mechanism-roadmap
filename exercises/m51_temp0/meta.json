@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "sampling",
+ "level": 2,
+ "minutes": 30,
+ "network": true,
+ "title": {
+  "zh": "复现温度为 0 时的不一致",
+  "en": "Reproduce inconsistency at temperature 0"
+ },
+ "prompt": {
+  "zh": "实现一个同时记录每一步第一名与第二名 logit 差距的贪心解码。测试先确认同一精度下重复运行的结果完全相同，再把同一份权重转换成 16 位浮点数重新运行，找出两者输出分叉的位置。运行后请查看打印的结果，注意分叉处的差距有多小。在 CPU 上以 16 位精度运行较慢，整个测试大约需要半分钟。",
+  "en": "Implement greedy decoding that also records the gap between the logits of the first and second candidate at every step. The tests first confirm that repeated runs at the same precision give identical results and then rerun with the same weights converted to 16-bit floating point and locate where the two outputs split. Look at the printed results and note how small the gap is at the split. Running at 16-bit precision on a CPU is slow, and the whole test takes about half a minute."
+ },
+ "hints": [
+  {
+   "zh": "`torch.topk(logits.float(), 2).values` 给出最大的两个 logit。",
+   "en": "`torch.topk(logits.float(), 2).values` gives the two largest logits."
+  },
+  {
+   "zh": "循环的写法与 0.1 的贪心解码相同，每一步多记录一个差距。",
+   "en": "The loop is that of greedy decoding in 0.1, recording one gap more per step."
+  }
+ ]
+}

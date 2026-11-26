@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "positional",
+ "level": 1,
+ "minutes": 25,
+ "title": {
+  "zh": "正弦位置编码与置换等变检测",
+  "en": "Sinusoidal encoding and a permutation-equivariance check"
+ },
+ "prompt": {
+  "zh": "按公式实现正弦位置编码，再写一个函数检测某个运算是否置换等变。测试会验证两个位置编码的点积只取决于距离，并确认不带位置信息的自注意力分不清顺序，加上位置编码后可以。",
+  "en": "Implement the sinusoidal encoding from the formula and write a function that checks whether an operation is permutation equivariant. The tests verify that the dot product of two encodings depends only on their distance, and confirm that self-attention without positional information cannot tell order while it can once the encoding is added."
+ },
+ "hints": [
+  {
+   "zh": "频率可以写成 `base ** (-torch.arange(0, d, 2, dtype=torch.float64) / d)`，形状是 `(d/2,)`。",
+   "en": "The frequencies can be written as `base ** (-torch.arange(0, d, 2, dtype=torch.float64) / d)` with shape `(d/2,)`."
+  },
+  {
+   "zh": "偶数列用 `pe[:, 0::2] = torch.sin(...)`，奇数列用 `pe[:, 1::2] = torch.cos(...)`。",
+   "en": "Fill even columns with `pe[:, 0::2] = torch.sin(...)` and odd columns with `pe[:, 1::2] = torch.cos(...)`."
+  },
+  {
+   "zh": "置换等变的定义是先打乱再计算，等于先计算再打乱，即 `f(x[perm])` 与 `f(x)[perm]` 相等。",
+   "en": "Permutation equivariance means shuffling then computing equals computing then shuffling, that is `f(x[perm])` equals `f(x)[perm]`."
+  }
+ ]
+}

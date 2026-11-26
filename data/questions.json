@@ -1,0 +1,1185 @@
+[
+ {
+  "id": "q001",
+  "module": "attention",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "字节跳动",
+   "B站",
+   "美团"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "Attention 为什么要做 scaled，不做会怎么样，为什么用根号 d_k？",
+   "en": "Why is attention scaled, what happens without it, and why by the square root of d_k?"
+  },
+  "a": {
+   "zh": "点积是 $d_k$ 项之和。查询和键的各分量若独立、均值为 0、方差为 1，点积的方差就是 $d_k$，标准差是 $\\sqrt{d_k}$。维度越大，点积的数值越分散，softmax 越接近 one-hot，梯度几乎只流向一个位置，其余位置的梯度接近 0，训练变得不稳定。除以 $\\sqrt{d_k}$ 把方差拉回 1，使 softmax 工作在梯度适中的区间。用 $\\sqrt{d_k}$ 而不用 $d_k$，是因为要归一的是标准差。面试中常见的追问是还有什么办法，可以回答可学习的温度，或者对查询和键先做归一化再乘以一个可学习的缩放（余弦注意力）。推导见 2.1。",
+   "en": "A dot product is a sum of $d_k$ terms. If the components of query and key are independent with mean 0 and variance 1, the dot product has variance $d_k$ and standard deviation $\\sqrt{d_k}$. The larger the dimension, the more spread out the dot products, the closer the softmax is to one-hot, and the gradient flows almost to a single position while the others get nearly none, which destabilizes training. Dividing by $\\sqrt{d_k}$ brings the variance back to 1 and keeps the softmax in a range with moderate gradients. The square root is used and not $d_k$ because the quantity to be normalized is the standard deviation. A common follow-up asks for alternatives, to which a learnable temperature, or normalizing query and key and multiplying by a learnable scale (cosine attention), can be named. The derivation is in 2.1."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 大厂面经｜字节大模型算法岗",
+    "url": "https://www.nowcoder.com/feed/main/detail/5e1ebd8041044003a0b55469961a9b6f"
+   },
+   {
+    "title": "牛客 · 字节抖音搜算法面经（已意向）",
+    "url": "https://www.nowcoder.com/feed/main/detail/ab91d20caf2944cc9884aaa9dd820002"
+   },
+   {
+    "title": "牛客话题页 · 大模型面经（列有多篇面经的正文摘要）",
+    "url": "https://www.nowcoder.com/creation/subject/8603768d1f224b6bbaa48c6b32880a1a"
+   },
+   {
+    "title": "GitCode · 2026 最新字节大模型岗面经汇总（多平台整理，2026-04-19）",
+    "url": "https://gitcode.csdn.net/69e4e8d50a2f6a37c5a0e363.html"
+   }
+  ]
+ },
+ {
+  "id": "q002",
+  "module": "attention",
+  "region": "cn",
+  "source_type": "collection",
+  "companies": [
+   "百度"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "Attention 计算中 Q、K、V 分别代表什么？如果只保留 QK 或者 KV，是否可行，为什么？",
+   "en": "What do Q, K and V stand for in attention? Would keeping only QK or only KV work, and why?"
+  },
+  "a": {
+   "zh": "Q 是当前位置发出的查询，K 是每个位置供匹配的索引，V 是每个位置被读取时交出的内容。QK 决定从哪里读，V（连同输出矩阵）决定读到什么。只保留 QK，相当于让匹配用的向量同时充当内容，模型不能再把“因为什么被选中”和“被选中后提供什么”分开表示，表达能力下降。只保留 KV 而没有独立的 Q，注意力分数就不再依赖当前位置的需求，所有位置会得到同一种读取方式。9.1 的推导 1 把这两部分分别称为 QK 回路和 OV 回路，可以用来组织回答。",
+   "en": "Q is the query sent by the current position, K the index every position offers for matching, and V the content every position hands over when read. QK decides where to read, and V (with the output matrix) decides what is read. Keeping QK alone makes the matching vector double as content, so the model can no longer represent separately why a position is selected and what it supplies once selected, and expressiveness falls. Keeping KV without an independent Q makes the attention score independent of what the current position needs, and all positions would read in the same way. Derivation 1 of 9.1 calls the two parts the QK circuit and the OV circuit, which can structure the answer."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 百度大模型算法岗面经（2026-08 多场，账号整理）",
+    "url": "https://www.nowcoder.com/discuss/927017322374533120"
+   }
+  ]
+ },
+ {
+  "id": "q003",
+  "module": "multihead",
+  "region": "cn",
+  "source_type": "collection",
+  "companies": [
+   "字节跳动",
+   "百度"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "MHA、MQA、GQA、MLA 的区别是什么？",
+   "en": "What are the differences among MHA, MQA, GQA and MLA?"
+  },
+  "a": {
+   "zh": "四者的差别在于键和值有多少份。MHA 每个头有自己的 K 和 V。MQA 让所有头共用一组 K 和 V，KV cache 缩小到原来的头数分之一，质量有所下降。GQA 取折中，把头分成若干组，组内共用，Llama 2 之后的许多模型采用它。MLA 是 DeepSeek 提出的做法，把 K 和 V 压缩到一个低维的潜变量再缓存，使用时恢复。它们解决的是同一个问题，即长上下文推理时 KV cache 占用的内存。2.2 介绍了多头，5.2 给出了缓存大小的估算。MLA 的细节本路线没有展开，面试前需要另外阅读 DeepSeek-V2 的论文。",
+   "en": "The four differ in how many copies of keys and values exist. MHA gives every head its own K and V. MQA lets all heads share one set of K and V, shrinking the KV cache by a factor of the number of heads at some cost in quality. GQA is the compromise, with heads split into groups that share, and many models since Llama 2 use it. MLA, proposed by DeepSeek, compresses K and V into a low-dimensional latent that is cached and expanded when used. All address the same problem, the memory taken by the KV cache in long-context inference. Module 2.2 introduces multiple heads and 5.2 gives the estimate of the cache size. The details of MLA are not covered in this roadmap and call for reading the DeepSeek-V2 paper before an interview."
+  },
+  "sources": [
+   {
+    "title": "GitCode · 2026 最新字节大模型岗面经汇总（多平台整理，2026-04-19）",
+    "url": "https://gitcode.csdn.net/69e4e8d50a2f6a37c5a0e363.html"
+   },
+   {
+    "title": "牛客 · 百度大模型算法岗面经（2026-08 多场，账号整理）",
+    "url": "https://www.nowcoder.com/discuss/927017322374533120"
+   },
+   {
+    "title": "GitHub · wdndev/llm_interview_note",
+    "url": "https://github.com/wdndev/llm_interview_note"
+   }
+  ]
+ },
+ {
+  "id": "q004",
+  "module": "causal_arch",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "字节跳动",
+   "网易"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "Decoder 里为什么要用 mask 遮住未来的信息？训练时为什么要 mask，推理时也需要吗？",
+   "en": "Why does the decoder mask future information? Why mask in training, and is it needed in inference too?"
+  },
+  "a": {
+   "zh": "训练时整段序列一次送入，每个位置都要预测自己的下一个 token。如果位置 $i$ 能看到 $i+1$，答案就直接泄露了，模型学不到任何东西。掩码把注意力分数矩阵对角线以上的部分设为负无穷，softmax 之后这些位置的权重为 0。这样一次前向计算就得到了所有位置的训练信号。推理时序列是逐个 token 生成的，未来的 token 根本不存在，从信息上说没有可泄露的内容。但掩码仍然保留，原因是要让每个位置的计算与训练时一致，并且保证已有位置的表示不随后面追加的 token 而改变，这是 KV cache 成立的前提。见 2.3 和 5.2。",
+   "en": "In training the whole sequence is fed at once and every position has to predict its next token. If position $i$ could see $i+1$, the answer would leak and the model would learn nothing. The mask sets the part of the attention score matrix above the diagonal to minus infinity, so these positions get weight 0 after the softmax. One forward pass thus yields a training signal for all positions. In inference tokens are generated one at a time and future tokens do not exist, so in terms of information there is nothing to leak. The mask is kept nonetheless, so that the computation at every position matches training and the representations of existing positions do not change when tokens are appended, which is what the KV cache relies on. See 2.3 and 5.2."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 大厂面经｜字节大模型算法岗",
+    "url": "https://www.nowcoder.com/feed/main/detail/5e1ebd8041044003a0b55469961a9b6f"
+   },
+   {
+    "title": "牛客话题页 · 大模型面经（列有多篇面经的正文摘要）",
+    "url": "https://www.nowcoder.com/creation/subject/8603768d1f224b6bbaa48c6b32880a1a"
+   },
+   {
+    "title": "GitCode · 2026 最新字节大模型岗面经汇总（多平台整理，2026-04-19）",
+    "url": "https://gitcode.csdn.net/69e4e8d50a2f6a37c5a0e363.html"
+   }
+  ]
+ },
+ {
+  "id": "q005",
+  "module": "causal_arch",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "字节跳动",
+   "美团"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "为什么现在的生成大模型都使用 Decoder-only？Encoder-Decoder、Causal Decoder、Prefix Decoder 有什么区别？",
+   "en": "Why do current generative models all use decoder-only? How do encoder-decoder, causal decoder and prefix decoder differ?"
+  },
+  "a": {
+   "zh": "三者的区别在注意力的可见范围。Encoder-Decoder 的输入部分双向可见，输出部分单向，并通过交叉注意力读取输入。Causal Decoder 全部单向。Prefix Decoder 用同一组参数，对前缀部分双向、对生成部分单向。Decoder-only 成为主流有几个常被提到的理由。训练目标统一为预测下一个 token，任何文本都可以直接作为训练数据。每个位置都提供训练信号，数据利用率高。结构简单，同一套参数既理解输入也生成输出，便于放大。单向结构天然支持 KV cache。还有一种理论上的说法，认为双向注意力矩阵更容易退化为低秩。应当说明这些理由的强度不同，前几条是工程上的事实，最后一条是有争议的解释。见 2.3。",
+   "en": "The three differ in what attention may see. In an encoder-decoder the input part is bidirectional and the output part unidirectional, reading the input through cross-attention. A causal decoder is unidirectional throughout. A prefix decoder uses one set of parameters, bidirectional over the prefix and unidirectional over the generated part. Several reasons are commonly given for decoder-only becoming standard. The training objective is uniformly next-token prediction, so any text serves directly as training data. Every position supplies a training signal, which uses data efficiently. The structure is simple, with one set of parameters both reading the input and generating the output, which scales easily. The unidirectional structure supports the KV cache by construction. There is also a theoretical argument that bidirectional attention matrices degenerate to low rank more easily. It should be said that these reasons differ in strength. The first few are engineering facts and the last is a contested interpretation. See 2.3."
+  },
+  "sources": [
+   {
+    "title": "GitCode · 2026 最新字节大模型岗面经汇总（多平台整理，2026-04-19）",
+    "url": "https://gitcode.csdn.net/69e4e8d50a2f6a37c5a0e363.html"
+   },
+   {
+    "title": "牛客 · 美团到店-大模型算法面经（2024-08-30）",
+    "url": "https://www.nowcoder.com/feed/main/detail/e63b60a0727f4117a3c8ed9381719d66"
+   },
+   {
+    "title": "GitHub · wdndev/llm_interview_note",
+    "url": "https://github.com/wdndev/llm_interview_note"
+   }
+  ]
+ },
+ {
+  "id": "q006",
+  "module": "norm_ffn",
+  "region": "cn",
+  "source_type": "collection",
+  "companies": [
+   "字节跳动",
+   "阿里巴巴"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "Pre-norm 和 Post-norm 的区别和各自的优缺点是什么？",
+   "en": "What is the difference between Pre-Norm and Post-Norm, and what are their pros and cons?"
+  },
+  "a": {
+   "zh": "Post-Norm 把归一化放在残差相加之后，$x_{l+1} = \\operatorname{Norm}(x_l + F(x_l))$。Pre-Norm 把它放在子层的输入上，$x_{l+1} = x_l + F(\\operatorname{Norm}(x_l))$。Pre-Norm 的残差通路上没有任何变换，梯度可以原样传回底层，深层模型不需要精细的 warm-up 也能稳定训练，这是它成为主流的原因。它的代价是残差流的范数随层数增长，最后需要再加一个归一化，并且有研究认为在层数较少时 Post-Norm 的最终效果略好。9.2 中实测 GPT-2 的残差流范数从 4.7 增长到 444，是 Pre-Norm 这一特点的直接表现。见 2.5。",
+   "en": "Post-Norm applies normalization after the residual addition, $x_{l+1} = \\operatorname{Norm}(x_l + F(x_l))$. Pre-Norm applies it to the input of the sublayer, $x_{l+1} = x_l + F(\\operatorname{Norm}(x_l))$. With Pre-Norm nothing transforms the residual path, gradients pass unchanged to the bottom layers, and deep models train stably without delicate warm-up, which is why it became standard. Its price is that the norm of the residual stream grows with depth, so one more normalization is needed at the end, and some studies find the final quality of Post-Norm slightly better for shallow models. The measurement in 9.2, where the residual stream norm of GPT-2 grows from 4.7 to 444, shows this trait of Pre-Norm directly. See 2.5."
+  },
+  "sources": [
+   {
+    "title": "GitCode · 2026 最新字节大模型岗面经汇总（多平台整理，2026-04-19）",
+    "url": "https://gitcode.csdn.net/69e4e8d50a2f6a37c5a0e363.html"
+   },
+   {
+    "title": "CSDN · 阿里大模型算法岗面试（转述一位淘天集团面试者的面经）",
+    "url": "https://blog.csdn.net/2301_78285120/article/details/142675337"
+   },
+   {
+    "title": "GitHub · amitshekhariitbhu/ai-engineering-interview-questions",
+    "url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+   }
+  ]
+ },
+ {
+  "id": "q007",
+  "module": "norm_ffn",
+  "region": "cn",
+  "source_type": "collection",
+  "companies": [
+   "百度"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "Transformer 中 Attention 和 FFN 哪个部分参数量更大，为什么？",
+   "en": "Which has more parameters in a Transformer, attention or the FFN, and why?"
+  },
+  "a": {
+   "zh": "通常是 FFN。注意力子层有 $W_Q, W_K, W_V, W_O$ 四个 $d \\times d$ 的矩阵，约 $4d^2$ 个参数。FFN 先把维度扩大到 $4d$ 再缩回来，两个矩阵共约 $8d^2$ 个参数，是注意力的两倍，所以 FFN 约占每层参数的三分之二。使用 SwiGLU 的模型把中间维度调到约 $\\tfrac{8}{3}d$ 并使用三个矩阵，总量仍约为 $8d^2$。使用 GQA 时注意力的参数还会更少。6.1 的练习对一个真实模型逐项数过参数，可以用来核对。",
+   "en": "Usually the FFN. The attention sublayer has the four $d \\times d$ matrices $W_Q, W_K, W_V, W_O$, about $4d^2$ parameters. The FFN expands the dimension to $4d$ and contracts it again, two matrices with about $8d^2$ parameters, twice the attention, so the FFN holds about two thirds of the parameters of a layer. Models with SwiGLU set the hidden dimension to about $\\tfrac{8}{3}d$ and use three matrices, again about $8d^2$ in total. With GQA the attention has fewer parameters still. The exercise of 6.1 counts the parameters of a real model item by item and can serve as a check."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 百度大模型算法岗面经（2026-08 多场，账号整理）",
+    "url": "https://www.nowcoder.com/discuss/927017322374533120"
+   }
+  ]
+ },
+ {
+  "id": "q008",
+  "module": "norm_ffn",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "字节跳动"
+  ],
+  "role": "广告算法 / ads algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "序列中每个 token 的 embedding 在经过很多层 self-attention 之后会变得相似，原因是什么？",
+   "en": "The embeddings of the tokens in a sequence become similar after many layers of self-attention. Why?"
+  },
+  "a": {
+   "zh": "每一次自注意力都是对各位置表示的加权平均，平均会使向量彼此靠近。只叠加注意力而没有其他结构时，各位置的表示会迅速收敛到同一个向量，这一现象称为过度平滑或秩坍缩。实际的 Transformer 没有完全坍缩，靠的是残差连接和前馈子层。残差连接使每个位置保留自己原来的表示，注意力的输出只是加上去的一项。前馈子层对每个位置单独做非线性变换，可以重新拉开差别。这道题的要点是说明注意力本身是一种平滑操作，并指出哪些结构在抵消它。相关内容见 2.5 和 9.2 关于残差流的讨论。",
+   "en": "Every application of self-attention is a weighted average of the representations of the positions, and averaging draws vectors together. With attention stacked alone and nothing else, the representations of the positions converge quickly to one vector, a phenomenon called over-smoothing or rank collapse. A real Transformer does not collapse fully thanks to residual connections and feed-forward sublayers. The residual connection lets every position keep its own representation, with the output of attention being merely an added term. The feed-forward sublayer transforms every position separately and nonlinearly and can pull them apart again. The point of the question is to state that attention is a smoothing operation in itself and to name the structures that counteract it. See 2.5 and the discussion of the residual stream in 9.2."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 这周的一些面经（2024-09，多家公司）",
+    "url": "https://www.nowcoder.com/feed/main/detail/1447b0a1590e496eb0488a531c40d025"
+   }
+  ]
+ },
+ {
+  "id": "q009",
+  "module": "positional",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "美团"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "百川、千问、LLaMA 的 Position Embedding 是怎么做的，有什么区别？",
+   "en": "How do Baichuan, Qwen and LLaMA implement position embeddings, and how do they differ?"
+  },
+  "a": {
+   "zh": "这几个模型的主流版本都使用旋转位置编码 RoPE。RoPE 不把位置向量加到输入上，而是在每一层计算注意力时，把查询和键的每两个维度看作一个二维向量，按位置乘以一个角度做旋转。两个位置的点积因此只依赖于它们的相对距离。它不增加参数，对长度的外推比可学习的绝对位置编码好，这是它被广泛采用的原因。这道题的原帖作者说面试官想听的就是 RoPE。各模型之间的差别主要在基数和长上下文扩展的做法上，回答时应当只说自己确认过的细节。推导见 2.4。",
+   "en": "The mainstream versions of these models all use rotary position embeddings, RoPE. RoPE does not add a position vector to the input. When attention is computed in every layer, each pair of dimensions of query and key is treated as a two-dimensional vector and rotated by an angle proportional to the position. The dot product of two positions then depends only on their relative distance. It adds no parameters and extrapolates to longer lengths better than learned absolute positions, which is why it is so widely used. The author of the original post notes that RoPE was what the interviewer wanted to hear. The models differ mainly in the base and in how long context is extended, and an answer should state only details one has confirmed. The derivation is in 2.4."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 美团到店-大模型算法面经（2024-08-30）",
+    "url": "https://www.nowcoder.com/feed/main/detail/e63b60a0727f4117a3c8ed9381719d66"
+   },
+   {
+    "title": "GitCode · 2026 最新字节大模型岗面经汇总（多平台整理，2026-04-19）",
+    "url": "https://gitcode.csdn.net/69e4e8d50a2f6a37c5a0e363.html"
+   }
+  ]
+ },
+ {
+  "id": "q010",
+  "module": "context_window",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "美团"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "LLaMA 的输入可以是无限长吗？输入变长会有哪些变化？",
+   "en": "Can the input of LLaMA be infinitely long? What changes as the input grows?"
+  },
+  "a": {
+   "zh": "不可以。限制来自三个方面。计算上，注意力的开销随长度平方增长，KV cache 的内存随长度线性增长。训练上，模型只见过不超过训练长度的序列，RoPE 虽然在形式上可以算出任意位置的旋转，超出训练范围的相对距离模型并没有学过，质量会明显下降。效果上，即使在窗口之内，长输入中间部分的信息也更容易被忽略。输入变长时，首 token 延迟上升，每步生成变慢，内存占用增加，对远处信息的利用变差。见 3.2 和 2.6。",
+   "en": "No. The limits come from three sides. Computationally, the cost of attention grows with the square of the length and the memory of the KV cache linearly. In training, the model has seen only sequences up to the training length. Although RoPE can formally compute the rotation for any position, relative distances beyond the training range were never learned and quality falls markedly. In effect, even within the window, information in the middle of a long input is more easily ignored. As the input grows, time to first token rises, every generation step slows, memory use increases and distant information is used less well. See 3.2 and 2.6."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 美团到店-大模型算法面经（2024-08-30）",
+    "url": "https://www.nowcoder.com/feed/main/detail/e63b60a0727f4117a3c8ed9381719d66"
+   }
+  ]
+ },
+ {
+  "id": "q011",
+  "module": "ce_mle_ppl",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "字节跳动"
+  ],
+  "role": "搜索算法 / search algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "PPL 是怎么计算的，物理含义是什么？",
+   "en": "How is perplexity computed, and what does it mean?"
+  },
+  "a": {
+   "zh": "困惑度是平均交叉熵的指数，$\\mathrm{PPL} = \\exp\\big(-\\tfrac{1}{N}\\sum_i \\log p(x_i \\mid x_{<i})\\big)$。它的含义是模型在每个位置上平均相当于在多少个等可能的候选中做选择。PPL 为 1 表示完全确定，等于词表大小表示与均匀猜测无异。需要补充两点。PPL 依赖于分词方式，不同词表的模型之间不能直接比较。PPL 低只说明模型对这段文本的概率估计好，不等于生成质量或任务表现好。见 1.2。",
+   "en": "Perplexity is the exponential of the mean cross-entropy, $\\mathrm{PPL} = \\exp\\big(-\\tfrac{1}{N}\\sum_i \\log p(x_i \\mid x_{<i})\\big)$. It means the number of equally likely candidates among which the model is in effect choosing at every position on average. A PPL of 1 means full certainty, and a PPL equal to the vocabulary size is no better than uniform guessing. Two points should be added. PPL depends on the tokenization, so models with different vocabularies cannot be compared directly. A low PPL shows that the model estimates the probability of this text well and does not amount to good generation quality or task performance. See 1.2."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 字节抖音搜算法面经（已意向）",
+    "url": "https://www.nowcoder.com/feed/main/detail/ab91d20caf2944cc9884aaa9dd820002"
+   }
+  ]
+ },
+ {
+  "id": "q012",
+  "module": "sampling",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "阿里巴巴",
+   "字节跳动",
+   "美团"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "Decoder 文本生成有哪几种方法？top-p 和 top-k 同时存在时如何处理？",
+   "en": "What methods of text generation does a decoder have? How are top-p and top-k handled when both are set?"
+  },
+  "a": {
+   "zh": "常见的方法有贪心解码、束搜索、温度采样、top-k 采样和 top-p（核）采样。贪心和束搜索是确定性的，适合翻译这类答案比较确定的任务，在开放式生成中容易重复。采样类方法先用温度调整分布的尖锐程度，再截掉尾部的低概率 token。top-k 和 top-p 同时设置时，它们依次作为过滤器作用在 logits 上。在 Hugging Face 的实现中，顺序是温度、top-k、top-p，top-p 是在 top-k 留下的 token 重新归一化之后的分布上计算的，最终保留的是两者的交集。顺序会影响结果，各个库不完全相同，回答时应当说明自己指的是哪个实现。5.1 的练习实现了这些过滤器并与官方实现逐一对比。",
+   "en": "Common methods are greedy decoding, beam search, temperature sampling, top-k sampling and top-p (nucleus) sampling. Greedy and beam search are deterministic and suit tasks with fairly determinate answers such as translation, while they tend to repeat in open-ended generation. Sampling methods first adjust the sharpness of the distribution with the temperature and then cut off the tail of low-probability tokens. When top-k and top-p are both set, they act on the logits one after the other as filters. In the Hugging Face implementation the order is temperature, top-k, top-p, with top-p computed on the distribution renormalized over the tokens top-k left, and what remains is the intersection of the two. The order affects the result and differs between libraries, so an answer should say which implementation is meant. The exercises of 5.1 implement these filters and compare them with the official implementation one by one."
+  },
+  "sources": [
+   {
+    "title": "CSDN · 阿里大模型算法岗面试（转述一位淘天集团面试者的面经）",
+    "url": "https://blog.csdn.net/2301_78285120/article/details/142675337"
+   },
+   {
+    "title": "牛客 · 大厂面经｜字节大模型算法岗",
+    "url": "https://www.nowcoder.com/feed/main/detail/5e1ebd8041044003a0b55469961a9b6f"
+   },
+   {
+    "title": "牛客话题页 · 大模型面经（列有多篇面经的正文摘要）",
+    "url": "https://www.nowcoder.com/creation/subject/8603768d1f224b6bbaa48c6b32880a1a"
+   }
+  ]
+ },
+ {
+  "id": "q013",
+  "module": "sampling",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "美团"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "LLM 复读机现象的原因是什么？怎么解决？",
+   "en": "What causes an LLM to repeat itself, and how can it be fixed?"
+  },
+  "a": {
+   "zh": "模型一旦生成了一段重复的内容，这段内容就进入了上下文，使再次重复的概率更高，形成自我强化。贪心解码和束搜索总是选择概率最高的续写，最容易落入这种循环，Holtzman 等人的核采样论文对此有系统的分析。训练数据中本身存在的重复文本和过低的温度也会加重这一现象。解决办法分几层。解码时使用采样并设置适当的温度和 top-p，或加上重复惩罚、禁止重复的 n-gram。数据上清洗掉重复的样本。应用层可以检测到循环后截断并重新生成。重复惩罚过强会使模型回避本应重复的词，例如专有名词，需要按任务调整。见 5.1。",
+   "en": "Once a model has produced a repeated passage, the passage enters the context and raises the probability of repeating again, a self-reinforcing loop. Greedy decoding and beam search pick the most probable continuation every time and fall into such loops most easily, as analysed systematically in the nucleus sampling paper of Holtzman et al. Repetitive text in the training data and too low a temperature make it worse. Remedies come in layers. In decoding, sampling with a suitable temperature and top-p, or a repetition penalty, or blocking repeated n-grams. In the data, removing repetitive samples. At the application level, detecting a loop, truncating and regenerating. Too strong a repetition penalty makes the model avoid words that should recur, such as proper names, and has to be tuned per task. See 5.1."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 美团到店-大模型算法面经（2024-08-30）",
+    "url": "https://www.nowcoder.com/feed/main/detail/e63b60a0727f4117a3c8ed9381719d66"
+   },
+   {
+    "title": "牛客话题页 · 大模型面经（列有多篇面经的正文摘要）",
+    "url": "https://www.nowcoder.com/creation/subject/8603768d1f224b6bbaa48c6b32880a1a"
+   }
+  ]
+ },
+ {
+  "id": "q014",
+  "module": "kv_cache",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "字节跳动",
+   "百度",
+   "快手"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "KV Cache 是什么，为什么能提升推理速度？为什么只缓存 K 和 V，不缓存 Q？空间复杂度是多少？",
+   "en": "What is the KV cache and why does it speed up inference? Why are only K and V cached and not Q? What is its space complexity?"
+  },
+  "a": {
+   "zh": "生成第 $t$ 个 token 时，前 $t-1$ 个位置在各层的键和值与上一步完全相同，因为因果掩码使它们不受后来的 token 影响。把它们缓存起来，每一步就只需要计算最新一个位置，单步的计算量从与序列长度成正比降为常数级的前向计算加一次对缓存的注意力。不缓存 Q 是因为旧位置的查询只用于计算旧位置自己的输出，而这些输出已经算完，以后不再需要。新位置只需要自己的 Q 去和所有的 K 匹配、读取所有的 V。空间复杂度是 $2 \\times L \\times T \\times d$ 个数，即层数乘长度乘维度的两倍，使用 GQA 时按键值头数的比例缩小。5.2 的练习给一个小模型加上了缓存并验证结果不变。",
+   "en": "When token $t$ is generated, the keys and values of the first $t-1$ positions in every layer are exactly those of the previous step, since the causal mask shields them from later tokens. Caching them leaves only the newest position to compute at every step, reducing the cost of a step from proportional to the sequence length to a constant-size forward pass plus one attention over the cache. Q is not cached because the queries of old positions serve only to compute the outputs of those positions, which are finished and never needed again. The new position needs only its own Q to match all the K and read all the V. The space complexity is $2 \\times L \\times T \\times d$ numbers, twice the product of layers, length and dimension, reduced in proportion to the number of key-value heads with GQA. The exercise of 5.2 adds a cache to a small model and verifies that the result is unchanged."
+  },
+  "sources": [
+   {
+    "title": "GitCode · 2026 最新字节大模型岗面经汇总（多平台整理，2026-04-19）",
+    "url": "https://gitcode.csdn.net/69e4e8d50a2f6a37c5a0e363.html"
+   },
+   {
+    "title": "牛客 · 百度大模型算法岗面经（2026-08 多场，账号整理）",
+    "url": "https://www.nowcoder.com/discuss/927017322374533120"
+   },
+   {
+    "title": "牛客 · 2025 春招实习面经汇总（作者本人的多场面试）",
+    "url": "https://www.nowcoder.com/discuss/736868736837173248"
+   }
+  ]
+ },
+ {
+  "id": "q015",
+  "module": "kv_cache",
+  "region": "cn",
+  "source_type": "collection",
+  "companies": [
+   "百度"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "什么是 PD 分离（Prefill 和 Decode 分离）？为什么大模型推理系统需要它？",
+   "en": "What is the separation of prefill and decode, and why do LLM inference systems need it?"
+  },
+  "a": {
+   "zh": "推理分为两个阶段。Prefill 一次处理整段提示词，所有位置并行计算，是计算密集的，决定首 token 延迟。Decode 每步只处理一个 token，计算量小，但每一步都要读取全部缓存，受内存带宽限制，决定生成速度。两个阶段对硬件的需求不同。把它们放在同一批次里，一个长提示词的 prefill 会拖慢同批其他请求的 decode，造成延迟抖动。PD 分离把两个阶段交给不同的实例或资源池，prefill 完成后把 KV cache 传给负责 decode 的实例。两类资源的配比取决于流量中提示词与输出的长度分布。5.2 讲了两个阶段的区别，资源调度的部分超出了本路线的范围。",
+   "en": "Inference has two phases. Prefill processes the whole prompt at once, with all positions computed in parallel, is compute-bound and determines the time to first token. Decode processes one token per step with little computation, yet every step reads the whole cache, is limited by memory bandwidth and determines the generation speed. The two phases place different demands on hardware. In one batch, the prefill of a long prompt slows the decode of the other requests in the batch and causes latency jitter. Separating the two hands them to different instances or resource pools, with the KV cache passed to the decode instance once prefill is done. The ratio of the two kinds of resources depends on the distribution of prompt and output lengths in the traffic. Module 5.2 covers the difference between the two phases, and resource scheduling is beyond the scope of this roadmap."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 百度大模型算法岗面经（2026-08 多场，账号整理）",
+    "url": "https://www.nowcoder.com/discuss/927017322374533120"
+   }
+  ]
+ },
+ {
+  "id": "q016",
+  "module": "kv_cache",
+  "region": "cn",
+  "source_type": "collection",
+  "companies": [
+   "字节跳动"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "为什么现在的大模型在推理阶段都是左 padding？",
+   "en": "Why do current large models pad on the left during inference?"
+  },
+  "a": {
+   "zh": "生成是从序列的最后一个位置接着往下写的。批量推理时各条输入长度不同，需要补齐。如果在右边补，短输入的真实内容和新生成的 token 之间就隔着一段 padding，模型在训练中没有见过这种情况，而且每条输入的“最后一个真实位置”各不相同，取 logits 和续写都很麻烦。在左边补，所有输入的最后一个位置对齐在同一列，新 token 直接接在真实内容之后，配合注意力掩码屏蔽 padding 即可。使用相对位置编码（如 RoPE）时，左侧多出的 padding 不改变真实 token 之间的相对距离。训练时一般仍用右 padding，因为损失可以按掩码忽略 padding 位置。",
+   "en": "Generation continues from the last position of a sequence. In batched inference the inputs differ in length and have to be padded. With padding on the right, a stretch of padding would sit between the real content of a short input and the newly generated tokens, a situation the model has not seen in training, and the last real position would differ per input, complicating both the reading of logits and the continuation. With padding on the left the last positions of all inputs align in one column, new tokens follow the real content directly, and an attention mask hides the padding. With relative position encodings such as RoPE, extra padding on the left does not change the relative distances among the real tokens. Training usually still pads on the right, since the loss can ignore padded positions through a mask."
+  },
+  "sources": [
+   {
+    "title": "GitCode · 2026 最新字节大模型岗面经汇总（多平台整理，2026-04-19）",
+    "url": "https://gitcode.csdn.net/69e4e8d50a2f6a37c5a0e363.html"
+   }
+  ]
+ },
+ {
+  "id": "q017",
+  "module": "lora",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "字节跳动",
+   "阿里巴巴"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "LoRA 的初始化是怎么做的？先 0 还是先高斯分布，可以交换吗？秩怎么选，lora_alpha 的作用是什么？",
+   "en": "How is LoRA initialized? Which matrix is zero and which Gaussian, and can they be swapped? How is the rank chosen, and what does lora_alpha do?"
+  },
+  "a": {
+   "zh": "LoRA 把权重的更新写成 $\\Delta W = \\tfrac{\\alpha}{r} B A$。标准做法是 $A$ 用随机高斯初始化，$B$ 初始化为 0，这样训练开始时 $\\Delta W = 0$，模型的行为与原模型完全相同。两者可以交换，只要有一个为 0 即可保证起点不变。不能都为 0，否则两个矩阵的梯度都是 0，无法开始训练。也不宜都非零，那样一开始就给模型加了一个随机扰动。$\\alpha$ 控制更新的整体幅度，实际的缩放系数是 $\\alpha / r$，改变 $r$ 时通常保持这个比值的量级，以免需要重新调学习率。秩的选择没有通用答案，常见做法是从 8 或 16 开始，按验证集效果增减。任务与预训练分布差别越大，需要的秩往往越高。4.5 的练习实现了 LoRA 层并检验了初始时输出不变。",
+   "en": "LoRA writes the weight update as $\\Delta W = \\tfrac{\\alpha}{r} B A$. The standard practice initializes $A$ with random Gaussian values and $B$ with zeros, so that $\\Delta W = 0$ at the start of training and the model behaves exactly like the original. The two can be swapped, as one of them being zero suffices to keep the starting point. Both cannot be zero, since the gradients of both matrices would then be zero and training could not begin. Both being nonzero is also unsuitable, as it would add a random perturbation to the model from the start. $\\alpha$ controls the overall magnitude of the update, the effective scale being $\\alpha / r$, and when $r$ is changed the order of this ratio is usually kept so that the learning rate need not be retuned. There is no universal answer for the rank. A common practice starts from 8 or 16 and adjusts by validation performance, and the further the task lies from the pretraining distribution, the higher the rank tends to be needed. The exercise of 4.5 implements a LoRA layer and checks that the output is unchanged at initialization."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 大厂面经｜字节大模型算法岗",
+    "url": "https://www.nowcoder.com/feed/main/detail/5e1ebd8041044003a0b55469961a9b6f"
+   },
+   {
+    "title": "CSDN · 阿里大模型算法岗面试（转述一位淘天集团面试者的面经）",
+    "url": "https://blog.csdn.net/2301_78285120/article/details/142675337"
+   },
+   {
+    "title": "牛客 · 大模型算法实习面经-字节跳动",
+    "url": "https://www.nowcoder.com/feed/main/detail/41e59b1a6f734d63ab81d91e289f8949"
+   }
+  ]
+ },
+ {
+  "id": "q018",
+  "module": "lora",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "字节跳动"
+  ],
+  "role": "大模型算法实习 / LLM algorithm intern",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "QLoRA 降低训练资源成本的核心逻辑是什么？为什么选择 NF4 与 FP16 的组合？",
+   "en": "What is the core logic by which QLoRA lowers the cost of training? Why the combination of NF4 and FP16?"
+  },
+  "a": {
+   "zh": "QLoRA 把冻结的基座权重量化到 4 比特存放，只有 LoRA 的两个小矩阵保持高精度并参与训练。前向计算时把 4 比特权重还原为 16 比特参与运算，梯度只流向 LoRA 参数。显存中占大头的基座权重因此缩小到约四分之一。选择 NF4 是因为预训练权重近似服从均值为 0 的正态分布，NF4 按正态分布的分位数设置量化级别，使每个级别被使用的概率大致相等，比均匀间隔的 4 比特量化误差更小。计算用 16 比特是为了在精度和速度之间取平衡。6.1 的练习比较了不同量化方式下困惑度的变化，可以为“量化级别怎样设置影响误差”提供直观的数据。NF4 的具体构造本路线没有展开，需要阅读 QLoRA 论文。",
+   "en": "QLoRA stores the frozen base weights quantized to 4 bits, and only the two small LoRA matrices stay at high precision and are trained. In the forward pass the 4-bit weights are restored to 16 bits for computation, and gradients flow to the LoRA parameters alone. The base weights, which take most of the memory, thus shrink to about a quarter. NF4 is chosen because pretrained weights are approximately normally distributed around 0. NF4 sets the quantization levels at quantiles of the normal distribution so that every level is used with about equal probability, giving a smaller error than 4-bit quantization with uniform spacing. Computing in 16 bits balances precision and speed. The exercise of 6.1 compares the change in perplexity under different quantization schemes, which gives concrete data on how the placement of quantization levels affects the error. The exact construction of NF4 is not covered in this roadmap and requires reading the QLoRA paper."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 大模型算法实习面经-字节跳动",
+    "url": "https://www.nowcoder.com/feed/main/detail/41e59b1a6f734d63ab81d91e289f8949"
+   },
+   {
+    "title": "GitCode · 2026 最新字节大模型岗面经汇总（多平台整理，2026-04-19）",
+    "url": "https://gitcode.csdn.net/69e4e8d50a2f6a37c5a0e363.html"
+   }
+  ]
+ },
+ {
+  "id": "q019",
+  "module": "sft",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "美团"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "SFT 导致的通用能力遗忘应该怎么解决？",
+   "en": "How should the loss of general abilities caused by SFT be handled?"
+  },
+  "a": {
+   "zh": "微调只在新任务的数据上优化，参数会朝着降低新任务损失的方向移动，没有任何力量约束它保持原有的能力。常用的办法有几类。在微调数据中混入一部分通用数据。降低学习率、减少训练轮数或提前停止。只训练一小部分参数，例如使用 LoRA，把改动限制在低秩子空间里。加入正则项，惩罚参数或输出偏离原模型。需要说明的是，这些办法都是在新任务的效果与原有能力之间做权衡，没有哪一种可以完全避免遗忘。4.5 的练习观察到 LoRA 微调同样会产生遗忘，程度对超参数很敏感。见 4.2。",
+   "en": "Fine-tuning optimizes on the data of the new task alone, the parameters move in the direction that lowers the loss of the new task, and nothing constrains them to keep earlier abilities. Common remedies fall into several kinds. Mixing some general data into the fine-tuning data. Lowering the learning rate, training for fewer epochs or stopping early. Training only a small part of the parameters, for example with LoRA, which confines the change to a low-rank subspace. Adding a regularizer that penalizes deviation of the parameters or outputs from the original model. It should be said that all of these trade performance on the new task against earlier abilities, and none avoids forgetting entirely. The exercise of 4.5 observes that LoRA fine-tuning forgets as well, to a degree that is sensitive to hyperparameters. See 4.2."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 美团到店-大模型算法面经（2024-08-30）",
+    "url": "https://www.nowcoder.com/feed/main/detail/e63b60a0727f4117a3c8ed9381719d66"
+   }
+  ]
+ },
+ {
+  "id": "q020",
+  "module": "rlhf",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "美团"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "讲讲 RLHF 的具体过程，涉及几个模型？PPO 的四个模型是什么？",
+   "en": "Describe the process of RLHF. How many models are involved? What are the four models of PPO?"
+  },
+  "a": {
+   "zh": "RLHF 分三步。先做有监督微调得到一个能对话的模型。再收集人对成对回答的偏好，训练一个奖励模型给回答打分。最后用强化学习优化策略，使它生成的回答得分更高。PPO 阶段通常提到四个模型。策略模型（actor）是被训练的语言模型。价值模型（critic）估计当前状态的期望回报，用来计算优势函数。奖励模型给完整的回答打分，参数冻结。参考模型是训练开始前策略的一份冻结副本，用来计算 KL 惩罚，防止策略偏离太远而去钻奖励模型的空子。策略和价值模型有时共享主干。见 4.3。",
+   "en": "RLHF has three steps. Supervised fine-tuning yields a model that can hold a dialogue. Human preferences between pairs of answers are collected and a reward model is trained to score answers. Reinforcement learning then optimizes the policy so that its answers score higher. Four models are usually named for the PPO stage. The policy model (actor) is the language model being trained. The value model (critic) estimates the expected return of the current state and serves to compute the advantage. The reward model scores complete answers, with frozen parameters. The reference model is a frozen copy of the policy from before training, used for the KL penalty that keeps the policy from drifting far and exploiting weaknesses of the reward model. Policy and value model sometimes share a backbone. See 4.3."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 美团到店-大模型算法面经（2024-08-30）",
+    "url": "https://www.nowcoder.com/feed/main/detail/e63b60a0727f4117a3c8ed9381719d66"
+   },
+   {
+    "title": "牛客话题页 · 大模型面经（列有多篇面经的正文摘要）",
+    "url": "https://www.nowcoder.com/creation/subject/8603768d1f224b6bbaa48c6b32880a1a"
+   }
+  ]
+ },
+ {
+  "id": "q021",
+  "module": "dpo",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "美团",
+   "B站",
+   "字节跳动"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "为什么做了 SFT 还要做 PPO 或 DPO？DPO 和 PPO 相比的优势在哪里？",
+   "en": "Why PPO or DPO after SFT? What are the advantages of DPO over PPO?"
+  },
+  "a": {
+   "zh": "SFT 让模型模仿示范回答，它只知道什么是好的回答，不知道一个回答比另一个好在哪里，也无法利用“这个回答不好”这样的信号。偏好对齐使用成对比较的数据，直接优化人更喜欢的方向，可以压低那些语法正确但不受欢迎的回答的概率。DPO 相对 PPO 的优势是简单和稳定。PPO 需要先训练奖励模型，再在训练中反复采样生成，同时维护价值模型，超参数多，容易不稳定。DPO 从同一个目标出发，推导出一个只依赖偏好数据的分类式损失，不需要奖励模型，也不需要在线采样，训练过程与普通微调相似。它的局限是只能利用已有的离线数据，无法像 PPO 那样对策略新生成的回答获得反馈。推导见 4.4。",
+   "en": "SFT makes the model imitate demonstration answers. It learns what a good answer looks like and not in what respect one answer is better than another, and it cannot use a signal such as this answer is bad. Preference alignment uses pairwise comparison data and optimizes directly toward what people prefer, which lowers the probability of answers that are grammatical yet unwelcome. The advantages of DPO over PPO are simplicity and stability. PPO requires training a reward model first, repeated sampling during training and a value model alongside, with many hyperparameters and a tendency to instability. DPO starts from the same objective and derives a classification-style loss that depends on the preference data alone, needing neither a reward model nor online sampling, with a training process much like ordinary fine-tuning. Its limitation is that it can use only existing offline data and gets no feedback on answers newly generated by the policy, as PPO does. The derivation is in 4.4."
+  },
+  "sources": [
+   {
+    "title": "牛客话题页 · 大模型面经（列有多篇面经的正文摘要）",
+    "url": "https://www.nowcoder.com/creation/subject/8603768d1f224b6bbaa48c6b32880a1a"
+   },
+   {
+    "title": "GitCode · 2026 最新字节大模型岗面经汇总（多平台整理，2026-04-19）",
+    "url": "https://gitcode.csdn.net/69e4e8d50a2f6a37c5a0e363.html"
+   }
+  ]
+ },
+ {
+  "id": "q022",
+  "module": "scaling",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "美团"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "模型涌现现象的原因是什么？",
+   "en": "What is the cause of emergent abilities in models?"
+  },
+  "a": {
+   "zh": "这是一个没有定论的问题，回答时应当区分现象和解释。现象是某些能力在模型规模跨过某个范围时表现突然提升。已有的解释有几种。一种认为是度量造成的，许多任务用完全匹配来评分，一个需要连续做对多步的任务，即使每一步的正确率平滑上升，整体正确率也会呈现突变。4.6 的练习用一个简单的模型复现了这一点。另一种认为模型内部确实发生了从记忆到泛化的转变，小模型上的 grokking 研究为此提供了一些证据。还有一种从组合的角度解释，认为复杂能力依赖若干基础能力同时达到一定水平。目前这些解释都只覆盖了部分现象。",
+   "en": "This is an open question, and an answer should separate the phenomenon from its explanations. The phenomenon is that some abilities improve abruptly as model scale crosses some range. Several explanations exist. One attributes it to the metric. Many tasks are scored by exact match, and for a task that requires several consecutive steps to be right, overall accuracy shows an abrupt change even when the accuracy of every step rises smoothly. The exercise of 4.6 reproduces this with a simple model. Another holds that a transition from memorization to generalization does occur inside the model, for which studies of grokking in small models offer some evidence. A further one explains it by composition, with complex abilities depending on several basic abilities reaching a certain level together. At present each of these covers only part of the phenomena."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 美团到店-大模型算法面经（2024-08-30）",
+    "url": "https://www.nowcoder.com/feed/main/detail/e63b60a0727f4117a3c8ed9381719d66"
+   }
+  ]
+ },
+ {
+  "id": "q023",
+  "module": "models",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "网易",
+   "字节跳动"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "训练一个 7B 模型要占用多少显存？14B 模型 FP16 权重大概多大，训练时还要加哪些开销？",
+   "en": "How much GPU memory does training a 7B model take? How large are the FP16 weights of a 14B model, and what else adds to the cost in training?"
+  },
+  "a": {
+   "zh": "权重本身的大小是参数量乘以每个参数的字节数。7B 参数用 FP16 约 14 GB，14B 约 28 GB，用 INT8 再减半。推理时还要加上 KV cache 和激活，前者随上下文长度和批量线性增长。全参数训练的开销要大得多。除权重外还有同样大小的梯度，Adam 优化器为每个参数保存一阶和二阶动量两份状态，通常以 FP32 存放，再加上反向传播需要保留的各层激活，后者与批量大小和序列长度成正比。粗略估计，全参数训练的显存是权重的数倍，7B 模型需要数十 GB 以上。使用 LoRA 时梯度和优化器状态只对应很少的参数，开销主要剩下权重和激活。面试中应当把估算的各项分开说明，而不是只报一个总数。相关估算见 6.1 和 5.2。",
+   "en": "The size of the weights is the number of parameters times the bytes per parameter. With FP16, 7B parameters take about 14 GB and 14B about 28 GB, halved again with INT8. Inference adds the KV cache and activations, the former growing linearly with context length and batch size. Full fine-tuning costs far more. Besides the weights there are gradients of the same size, the Adam optimizer keeps two states per parameter for the first and second moments, usually stored in FP32, and the activations of every layer have to be kept for backpropagation, in proportion to batch size and sequence length. As a rough estimate, full training takes several times the memory of the weights, tens of GB and more for a 7B model. With LoRA, gradients and optimizer states cover very few parameters, leaving mainly weights and activations. In an interview the items of the estimate should be stated separately and not reported as a single total. Related estimates are in 6.1 and 5.2."
+  },
+  "sources": [
+   {
+    "title": "牛客话题页 · 大模型面经（列有多篇面经的正文摘要）",
+    "url": "https://www.nowcoder.com/creation/subject/8603768d1f224b6bbaa48c6b32880a1a"
+   },
+   {
+    "title": "GitCode · 2026 最新字节大模型岗面经汇总（多平台整理，2026-04-19）",
+    "url": "https://gitcode.csdn.net/69e4e8d50a2f6a37c5a0e363.html"
+   }
+  ]
+ },
+ {
+  "id": "q024",
+  "module": "rag",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "美团"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "RAG 和微调的区别是什么，优劣分别是什么？",
+   "en": "How do RAG and fine-tuning differ, and what are the strengths and weaknesses of each?"
+  },
+  "a": {
+   "zh": "RAG 在推理时把检索到的资料放进上下文，模型的参数不变。微调通过训练改变参数。RAG 适合知识经常更新、需要注明出处或涉及私有文档的场合，更新知识只需要更新索引，缺点是效果受检索质量限制，上下文变长使推理变慢变贵，并且模型未必采用检索到的内容。微调适合改变模型的行为方式，例如输出格式、语气或某类任务的做法，推理时不增加上下文，缺点是需要数据和训练成本，知识更新要重新训练，并可能遗忘原有能力。两者解决的问题不同，常常一起使用。7.2 的练习测得一个小模型在给出检索结果后答对 16/20，其中 3 题是检索正确而回答错误，可以作为“检索到了不等于用上了”的例子。",
+   "en": "RAG places retrieved material into the context at inference time and leaves the parameters unchanged. Fine-tuning changes the parameters by training. RAG suits cases where knowledge changes often, sources have to be cited or private documents are involved. Updating knowledge takes only an update of the index. Its drawbacks are that quality is bounded by retrieval, that the longer context makes inference slower and costlier, and that the model does not necessarily adopt what was retrieved. Fine-tuning suits changing how a model behaves, such as output format, tone or the way a class of tasks is done, and adds no context at inference. Its drawbacks are the cost of data and training, retraining for every update of knowledge, and possible loss of earlier abilities. The two solve different problems and are often used together. The exercise of 7.2 finds a small model answering 16 of 20 correctly with retrieved passages, 3 of the errors occurring with correct retrieval, an example that retrieved is not the same as used."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 美团到店-大模型算法面经（2024-08-30）",
+    "url": "https://www.nowcoder.com/feed/main/detail/e63b60a0727f4117a3c8ed9381719d66"
+   },
+   {
+    "title": "GitHub · llmgenai/LLMInterviewQuestions",
+    "url": "https://github.com/llmgenai/LLMInterviewQuestions"
+   },
+   {
+    "title": "GitHub · amitshekhariitbhu/ai-engineering-interview-questions",
+    "url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+   }
+  ]
+ },
+ {
+  "id": "q025",
+  "module": "rag",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "字节跳动"
+  ],
+  "role": "大模型算法实习 / LLM algorithm intern",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "分别说明 Embedding 模型与 Rerank 模型处理文本语料的核心流程。",
+   "en": "Describe the core procedure by which an embedding model and a rerank model each process text."
+  },
+  "a": {
+   "zh": "Embedding 模型是双塔结构。查询和文档分别独立地编码成向量，文档的向量可以事先算好存入索引，检索时只需要编码查询并做向量相似度搜索，速度快，适合从大量文档中召回候选。它的局限是查询和文档在编码时互不可见，只能通过一个向量比较。Rerank 模型是交叉编码器。它把查询和一篇文档拼在一起送入模型，让两者的 token 在每一层互相注意，输出一个相关性分数。它更准确，但每一对都要做一次完整的前向计算，无法预先计算，只能用于对召回的几十到几百篇候选重新排序。常见的流程是先用 Embedding 模型（常与 BM25 混合）召回，再用 Rerank 模型精排。7.2 的练习实现了这一流程。",
+   "en": "An embedding model is a bi-encoder. Query and document are encoded independently into vectors, the document vectors can be computed in advance and stored in an index, and retrieval takes only encoding the query and a vector similarity search, which is fast and suits recalling candidates from many documents. Its limitation is that query and document do not see each other during encoding and are compared through one vector alone. A rerank model is a cross-encoder. It feeds the query and one document together into the model, lets the tokens of both attend to each other in every layer and outputs a relevance score. It is more accurate, yet every pair takes a full forward pass and nothing can be precomputed, so it serves only to reorder the tens to hundreds of recalled candidates. A common pipeline recalls with an embedding model (often mixed with BM25) and then reranks with a rerank model. The exercises of 7.2 implement this pipeline."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 大模型算法实习面经-字节跳动",
+    "url": "https://www.nowcoder.com/feed/main/detail/41e59b1a6f734d63ab81d91e289f8949"
+   }
+  ]
+ },
+ {
+  "id": "q026",
+  "module": "hallucination",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "美团",
+   "字节跳动"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "大模型产生幻觉的根本原因是什么？如何缓解？",
+   "en": "What is the root cause of hallucination in large models, and how can it be mitigated?"
+  },
+  "a": {
+   "zh": "模型的训练目标是让续写在统计上像训练数据，而不是让内容为真。它没有区分“知道”和“不知道”的内置机制，对没有学到的事实，仍然会按最可能的形式生成一个看上去合理的答案。训练数据中的错误、解码时的随机性，以及模型被训练成总要给出回答，都会加重这一点。缓解办法分几层。用检索或工具提供依据，并要求回答限定在依据之内。在提示中允许并鼓励模型表示不确定。对同一问题多次采样，用一致性识别不可靠的回答。生成之后用蕴含模型或另一个模型核对回答是否得到依据支持。这些办法都只能降低比例。已有研究还表明，即使依据就在上下文中，模型也可能按自己的记忆作答。见 8.2。",
+   "en": "The training objective makes continuations statistically resemble the training data and does not make their content true. The model has no built-in mechanism separating what it knows from what it does not, and for facts it never learned it still generates a plausible-looking answer in the most likely form. Errors in the training data, randomness in decoding and the model having been trained to give an answer in every case add to this. Mitigation comes in layers. Supplying grounds through retrieval or tools and requiring answers to stay within them. Allowing and encouraging the model in the prompt to express uncertainty. Sampling several answers to one question and using their consistency to spot unreliable ones. Checking after generation with an entailment model or another model whether the answer is supported by the grounds. All of these only lower the rate. Published studies further show that a model may answer from its own memory even with the grounds present in its context. See 8.2."
+  },
+  "sources": [
+   {
+    "title": "牛客话题页 · 大模型面经（列有多篇面经的正文摘要）",
+    "url": "https://www.nowcoder.com/creation/subject/8603768d1f224b6bbaa48c6b32880a1a"
+   }
+  ]
+ },
+ {
+  "id": "q027",
+  "module": "agents",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "美团"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "Function call 怎么组织文本的格式喂给模型？怎么把下游的工具、插件变成模型可以理解的方式？",
+   "en": "How is the text for function calling formatted for the model? How are downstream tools and plugins turned into something the model can understand?"
+  },
+  "a": {
+   "zh": "模型只能读写文本，工具调用是在文本层面约定出来的。每个工具用一段结构化的描述表示，包括名称、功能说明和参数的 JSON Schema，这些描述被对话模板写进系统提示词。模型需要调用工具时，按约定的格式输出一段文本，例如包在特殊标记里的 JSON，其中写明工具名和参数。应用程序解析这段文本，执行真正的函数，再把返回值作为一条工具消息按模板拼回上下文，模型接着往下生成。模型能够遵守这种格式，是因为在微调阶段见过大量这种格式的样本。7.3 实现了工具注册、解析和循环。",
+   "en": "A model reads and writes text alone, and tool calling is a convention at the level of text. Every tool is represented by a structured description with its name, a statement of its function and a JSON Schema of its parameters, and the chat template writes these descriptions into the system prompt. When the model needs a tool it outputs text in the agreed format, such as JSON wrapped in special markers, naming the tool and its arguments. The application parses this text, executes the real function and appends the return value to the context as a tool message following the template, and the model continues generating. The model keeps to the format because it saw many samples of it during fine-tuning. Module 7.3 implements tool registration, parsing and the loop."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 美团到店-大模型算法面经（2024-08-30）",
+    "url": "https://www.nowcoder.com/feed/main/detail/e63b60a0727f4117a3c8ed9381719d66"
+   }
+  ]
+ },
+ {
+  "id": "q028",
+  "module": "agents",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "美团"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "模型安全相关是怎么做的，有哪些注入的手段？",
+   "en": "How is model security handled, and what means of injection exist?"
+  },
+  "a": {
+   "zh": "注入之所以可能，是因为系统提示词、用户输入、检索到的文档和工具返回的结果最终都拼接成同一段文本，模型没有可靠的办法区分哪些是指令、哪些是数据。常见的手段有直接注入，即用户在输入中要求模型忽略之前的指令。间接注入，把指令藏在网页、文档或工具返回的内容里，由模型在处理这些内容时读到。还有通过角色扮演、编码或多轮铺垫绕过限制的越狱。防护需要多层配合，包括对输入和输出做过滤，限制工具的权限并对高风险操作要求人工确认，把不可信的内容明确标记并在提示中说明其中的指令不应执行，以及对模型做对抗训练。目前没有哪一层可以单独解决问题。7.3 的练习观察到，一个小模型在三种问法下都说出了系统提示词中要求保密的门禁码，而工具结果中夹带的一条指令在那一次测试中没有被执行，单次测试不足以说明它不受其他写法影响。",
+   "en": "Injection is possible because system prompt, user input, retrieved documents and tool results all end up concatenated into one text, and the model has no reliable way of telling instructions from data. Common means are direct injection, where the user asks the model in the input to ignore earlier instructions. Indirect injection, where instructions are hidden in web pages, documents or tool results and read by the model while it processes them. And jailbreaks that get around restrictions through role play, encodings or a build-up over several turns. Defence takes several layers together, including filtering of inputs and outputs, restricting the permissions of tools and requiring human confirmation for high-risk actions, marking untrusted content clearly and stating in the prompt that instructions inside it are not to be executed, and adversarial training of the model. No single layer solves the problem at present. The exercise of 7.3 observes a small model revealing under three ways of asking a door code that the system prompt told it to keep secret, while an instruction carried in a tool result was not followed in the one test made, which does not suffice to show that other wordings would have no effect."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 美团到店-大模型算法面经（2024-08-30）",
+    "url": "https://www.nowcoder.com/feed/main/detail/e63b60a0727f4117a3c8ed9381719d66"
+   }
+  ]
+ },
+ {
+  "id": "q029",
+  "module": "evaluation",
+  "region": "cn",
+  "source_type": "collection",
+  "companies": [
+   "字节跳动"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "LLM-as-a-Judge 的上限和风险是什么？它适合做什么，不适合做什么？",
+   "en": "What are the ceiling and the risks of LLM-as-a-judge? What is it suited for and what not?"
+  },
+  "a": {
+   "zh": "用模型做评委，优点是便宜、快，可以评估没有标准答案的开放式输出。它的上限受评委模型自身能力的限制，评委判断不了自己也不会的问题。已知的风险包括位置偏差，即偏向成对比较中的某一个位置。对冗长回答的偏好。对自己或同系列模型输出的偏好。以及对提示措辞敏感。它适合做大规模的初筛、回归测试和相对比较，前提是事先用一批人工标注验证过它与人的一致性。它不适合作为高风险决策的唯一依据，也不适合评估事实是否正确这类需要外部依据的问题。使用时应当交换位置重复评判并报告一致性。8.1 的练习中，一个小模型在 24 次比较中 24 次选择了第一个位置，交换位置去偏之后才可用。",
+   "en": "A model as judge is cheap and fast and can evaluate open-ended outputs without reference answers. Its ceiling is set by the ability of the judge model itself, which cannot judge questions it cannot handle. Known risks include position bias, a preference for one position in a pairwise comparison. A preference for verbose answers. A preference for the outputs of itself or of models of its family. And sensitivity to the wording of the prompt. It suits large-scale screening, regression tests and relative comparisons, provided its agreement with people has been validated beforehand on a set of human annotations. It does not suit as the sole basis of high-stakes decisions, nor for questions such as factual correctness that need external grounds. In use, judgements should be repeated with positions swapped and agreement reported. In the exercise of 8.1 a small model chose the first position in 24 of 24 comparisons and became usable only after debiasing by swapping positions."
+  },
+  "sources": [
+   {
+    "title": "GitCode · 2026 最新字节大模型岗面经汇总（多平台整理，2026-04-19）",
+    "url": "https://gitcode.csdn.net/69e4e8d50a2f6a37c5a0e363.html"
+   }
+  ]
+ },
+ {
+  "id": "q030",
+  "module": "pipeline",
+  "region": "cn",
+  "source_type": "report",
+  "companies": [
+   "京东"
+  ],
+  "role": "NLP 算法 / NLP algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "一个 LLM 推理的时候，如何从 prompt 到 response？怎样把 response 从输出中分离出来？",
+   "en": "How does an LLM get from prompt to response during inference, and how is the response separated from the output?"
+  },
+  "a": {
+   "zh": "对话先由模板拼成一段文本，各个角色的内容用特殊标记隔开，末尾加上表示助手开始回答的标记。这段文本被分词成 token 序列送入模型，模型逐个生成后续的 token，直到生成结束标记或达到长度上限。模型的输出序列包含了输入的全部 token 和新生成的 token。分离回答的做法是记录输入的 token 数，只取其后的部分解码，并去掉结束标记。不宜先解码成字符串再按文本查找，因为解码后的文本未必与原始提示词逐字相同。原帖作者说面试官想问的就是这一点。0.1 的流程图可以帮助建立对这一过程的具体印象。",
+   "en": "A dialogue is first assembled by a template into one text, with the content of every role separated by special markers and a marker at the end indicating that the assistant begins to answer. The text is tokenized into a sequence that is fed to the model, which generates the following tokens one at a time until an end marker is produced or a length limit is reached. The output sequence of the model contains all tokens of the input and the newly generated ones. The response is separated by recording the number of input tokens, decoding only what follows and removing the end marker. Decoding to a string first and searching in the text is unsuitable, since the decoded text need not match the original prompt character for character. The author of the original post says this was the point the interviewer was after. The flow chart of 0.1 helps to form a concrete picture of the process."
+  },
+  "sources": [
+   {
+    "title": "牛客 · 这周的一些面经（2024-09，多家公司）",
+    "url": "https://www.nowcoder.com/feed/main/detail/1447b0a1590e496eb0488a531c40d025"
+   }
+  ]
+ },
+ {
+  "id": "q031",
+  "module": "autograd",
+  "region": "cn",
+  "source_type": "collection",
+  "companies": [
+   "阿里巴巴"
+  ],
+  "role": "大模型算法 / LLM algorithm",
+  "orig_lang": "zh",
+  "q": {
+   "zh": "SFT 过程中有哪些参数比较重要，为什么需要 warm-up？",
+   "en": "Which parameters matter most in SFT, and why is warm-up needed?"
+  },
+  "a": {
+   "zh": "影响最大的通常是学习率及其调度、训练轮数、批量大小和序列长度，使用 LoRA 时还有秩和缩放系数。warm-up 指在训练开始的一小段时间内把学习率从接近 0 逐步升到设定值。需要它有两个原因。Adam 一类的优化器靠梯度的滑动平均来估计每个参数的步长，最初几步样本太少，估计很不准，此时用大学习率容易走出一步很大的错误更新。训练刚开始时损失曲面在当前点附近往往比较陡，新加入的层（如 LoRA 或分类头）是随机初始化的，梯度很大，大步长会破坏预训练得到的权重。先用小学习率让优化器的统计量和新参数稳定下来，再提高步长更安全。本路线没有单独讲优化器，1.1 的自动求导和 4.2 的微调练习涉及相关内容。",
+   "en": "The largest influence usually comes from the learning rate and its schedule, the number of epochs, the batch size and the sequence length, and with LoRA the rank and the scaling factor as well. Warm-up means raising the learning rate gradually from near 0 to its set value over a short initial stretch of training. It is needed for two reasons. Optimizers of the Adam family estimate the step size of every parameter from moving averages of the gradients, and in the first few steps the estimates rest on too few samples and are very inaccurate, so a large learning rate easily produces one large wrong update. At the start of training the loss surface near the current point is often steep, and newly added layers (such as LoRA or a classification head) are randomly initialized with large gradients, so large steps damage the pretrained weights. Letting the statistics of the optimizer and the new parameters settle at a small learning rate before raising the step size is safer. This roadmap has no separate module on optimizers, and the automatic differentiation of 1.1 and the fine-tuning exercises of 4.2 touch on related material."
+  },
+  "sources": [
+   {
+    "title": "CSDN · 阿里大模型算法岗面试（转述一位淘天集团面试者的面经）",
+    "url": "https://blog.csdn.net/2301_78285120/article/details/142675337"
+   }
+  ]
+ },
+ {
+  "id": "q032",
+  "module": "multihead",
+  "region": "intl",
+  "source_type": "report",
+  "companies": [
+   "Anthropic",
+   "OpenAI"
+  ],
+  "role": "ML / research engineer",
+  "orig_lang": "en",
+  "q": {
+   "zh": "从零实现多头注意力，不能使用 torch.nn.MultiheadAttention。有的公司还要求在同一小时内加上 KV cache 和 GQA。",
+   "en": "Implement multi-head attention from scratch, without torch.nn.MultiheadAttention. Some places also want KV cache and GQA handled in the same hour."
+  },
+  "a": {
+   "zh": "这是一道实现题，考查的是对形状和细节的掌握。需要写出的步骤是，用线性层得到 Q、K、V，把最后一维拆成头数和每头的维度并调换轴，计算缩放点积并加上因果掩码，softmax，加权求和，再把各头拼回并通过输出线性层。加 KV cache 时，前向函数改为只接收新的 token，把新算出的 K 和 V 沿序列维拼接到缓存上，此时不再需要掩码。GQA 则是让 K 和 V 的头数少于 Q，计算前把它们按组重复。常见的错误包括忘记缩放、掩码加在 softmax 之后、拆头时用错了 reshape 的顺序。这条路线的 2.2 和 5.2 两个练习正是这两部分，各自带有与官方实现对比的测试，面试前可以在不看答案的情况下限时重写一遍。",
+   "en": "This is an implementation task that tests command of shapes and details. The steps to write are obtaining Q, K and V with linear layers, splitting the last dimension into heads and head size and swapping axes, computing the scaled dot product and adding the causal mask, the softmax, the weighted sum, and merging the heads and applying the output linear layer. For the KV cache the forward function takes the new token alone and concatenates the newly computed K and V onto the cache along the sequence axis, with no mask needed any more. GQA gives K and V fewer heads than Q and repeats them by group before the computation. Common mistakes include forgetting the scaling, adding the mask after the softmax, and the wrong order of reshape when splitting heads. The exercises of 2.2 and 5.2 of this roadmap are exactly these two parts, each with tests against the official implementation, and can be rewritten against the clock without looking at the solution before an interview."
+  },
+  "sources": [
+   {
+    "title": "Blind · Recent ML interview loops at OpenAI, Anthropic, Databricks, Mercor: what I learned",
+    "url": "https://www.teamblind.com/post/recent-ml-interview-loops-at-openai-anthropic-databricks-mercor-what-i-learned-xl3yizf4"
+   },
+   {
+    "title": "PracHub · LLM & Generative AI interview questions",
+    "url": "https://prachub.com/topic/machine-learning-interview/llm?page=31"
+   }
+  ]
+ },
+ {
+  "id": "q033",
+  "module": "kv_cache",
+  "region": "intl",
+  "source_type": "collection",
+  "companies": [],
+  "role": "AI / LLM engineer",
+  "orig_lang": "en",
+  "q": {
+   "zh": "为什么 LLM 的第一个 token 比其余的慢？为什么 prefill 受计算限制而 decode 受内存带宽限制？",
+   "en": "Why is the first token slower than the rest in an LLM? Why is prefill compute-bound and decode memory-bandwidth-bound?"
+  },
+  "a": {
+   "zh": "第一个输出 token 出现之前，模型要对整段提示词做一次完整的前向计算，这一阶段称为 prefill，耗时随提示词长度增长。之后每个 token 只需要处理一个新位置，其余位置的键和值从 KV cache 读取。Prefill 中所有位置并行计算，矩阵很大，GPU 的算力被充分利用，瓶颈在计算。Decode 每步的计算量很小，却要把全部权重和整个缓存从显存读一遍，时间主要花在读取数据上，瓶颈在内存带宽。这也解释了批量处理对 decode 的吞吐提升很大，因为同样读一遍权重可以服务多条请求。5.2 的练习实测了两个阶段的耗时。",
+   "en": "Before the first output token appears, the model runs one full forward pass over the whole prompt, a phase called prefill whose duration grows with the prompt length. Every token after that requires processing one new position alone, with the keys and values of the others read from the KV cache. In prefill all positions are computed in parallel with large matrices, the compute of the GPU is fully used, and computation is the bottleneck. In decode every step computes little and yet has to read all weights and the whole cache from memory once, so time goes mainly into reading data and memory bandwidth is the bottleneck. This also explains why batching raises decode throughput so much, since one pass over the weights then serves several requests. The exercise of 5.2 measures the time of the two phases."
+  },
+  "sources": [
+   {
+    "title": "GitHub · amitshekhariitbhu/ai-engineering-interview-questions",
+    "url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+   }
+  ]
+ },
+ {
+  "id": "q034",
+  "module": "kv_cache",
+  "region": "intl",
+  "source_type": "collection",
+  "companies": [
+   "Anthropic"
+  ],
+  "role": "AI / software engineer",
+  "orig_lang": "en",
+  "q": {
+   "zh": "为单个 GPU 设计一个服务同步用户的推理批处理系统。",
+   "en": "Design an inference batching system for a single GPU serving synchronous users."
+  },
+  "a": {
+   "zh": "这是一道系统设计题，可以从机制出发组织回答。批处理之所以有效，是因为 decode 阶段受内存带宽限制，一批请求共享一次对权重的读取。需要讨论的要点包括，请求到达后等待多久凑成一批，这是吞吐与延迟之间的权衡。静态批处理要等一批全部生成完才能接收新请求，连续批处理允许在每一步之后把已完成的请求换出、把新请求换入，后者是目前推理框架的常见做法。各请求长度不同，需要 padding 和掩码，或按长度分桶。KV cache 的内存决定了能同时容纳多少请求，可以用 5.2 中的公式估算。长提示词的 prefill 会阻塞同批请求的 decode，需要限制或拆分。还应当提到流式返回、超时与取消，以及以首 token 延迟和每秒 token 数作为度量。调度算法的细节不在本路线的范围内。",
+   "en": "This is a system design question, and the answer can be organized from the mechanism. Batching works because the decode phase is bound by memory bandwidth, and a batch of requests shares one pass over the weights. Points to discuss include how long to wait after a request arrives to form a batch, a trade-off between throughput and latency. Static batching has to wait for a whole batch to finish before accepting new requests, whereas continuous batching swaps finished requests out and new ones in after every step, the common practice of current inference frameworks. Requests differ in length and need padding and masks, or bucketing by length. The memory of the KV cache determines how many requests fit at once and can be estimated with the formula of 5.2. The prefill of a long prompt blocks the decode of the other requests in the batch and has to be limited or split. Streaming, timeouts and cancellation should be mentioned as well, with time to first token and tokens per second as metrics. The details of scheduling algorithms are outside the scope of this roadmap."
+  },
+  "sources": [
+   {
+    "title": "Exponent · 45+ AI Engineer Interview Questions (candidate-reported, republished by Penn Career Services, 2026-06-25)",
+    "url": "https://careerservices.upenn.edu/blog/2026/06/25/45-ai-engineer-interview-questions-answers-2026-guide/"
+   }
+  ]
+ },
+ {
+  "id": "q035",
+  "module": "hallucination",
+  "region": "intl",
+  "source_type": "collection",
+  "companies": [
+   "Anthropic"
+  ],
+  "role": "AI / software engineer",
+  "orig_lang": "en",
+  "q": {
+   "zh": "一个模型给出自信但事实错误的回答，如何调查并缓解？",
+   "en": "Investigate and mitigate a model giving confident but factually wrong answers."
+  },
+  "a": {
+   "zh": "回答可以分成调查和缓解两部分。调查时先确定范围，收集出错的样例并分类，是某一类问题、某个时间段的知识，还是检索没有返回正确的资料。再区分来源，模型不知道而编造、模型的记忆本身有误、上下文中有正确依据但没有被采用，三种情况的处理办法不同。然后建立一个可重复的评测集，用来衡量之后每一项改动的效果。缓解措施与来源对应，包括补充检索或工具，要求引用依据并在依据不足时拒答，用多次采样的一致性或蕴含模型检测不可靠的回答，以及调整提示或微调使模型表达不确定。还应当说明“自信”是语气上的，模型的措辞与它实际的正确率没有可靠的对应关系。8.2 的练习实现了一致性检测和蕴含检测。",
+   "en": "The answer can be split into investigation and mitigation. Investigation first fixes the scope, collecting and classifying failing examples, whether they concern one type of question, knowledge of one period, or retrieval failing to return the right material. The source is then distinguished. The model not knowing and making something up, the memory of the model being wrong, and correct grounds being present in the context yet not adopted are three cases that call for different handling. A repeatable evaluation set is then built to measure the effect of every later change. Mitigations correspond to the source, including adding retrieval or tools, requiring citations and refusal where grounds are insufficient, detecting unreliable answers by the consistency of several samples or by an entailment model, and adjusting the prompt or fine-tuning so that the model expresses uncertainty. It should also be said that confidence here is a matter of tone, and that the wording of a model has no reliable relation to its actual accuracy. The exercises of 8.2 implement consistency and entailment checks."
+  },
+  "sources": [
+   {
+    "title": "Exponent · 45+ AI Engineer Interview Questions (candidate-reported, republished by Penn Career Services, 2026-06-25)",
+    "url": "https://careerservices.upenn.edu/blog/2026/06/25/45-ai-engineer-interview-questions-answers-2026-guide/"
+   }
+  ]
+ },
+ {
+  "id": "q036",
+  "module": "rag",
+  "region": "intl",
+  "source_type": "collection",
+  "companies": [],
+  "role": "AI / LLM engineer",
+  "orig_lang": "en",
+  "q": {
+   "zh": "你的 RAG 系统在拿到了正确上下文的情况下仍然产生幻觉，如何修复？",
+   "en": "Your RAG system is hallucinating despite having the right context. How do you fix it?"
+  },
+  "a": {
+   "zh": "先确认问题确实出在生成而不在检索，办法是检查出错样例的上下文中是否真的包含答案。确认之后，原因通常有几类。上下文太长，答案位于中间而被忽略。检索结果中混有相互矛盾或无关的内容。上下文中的信息与模型的记忆冲突，模型按记忆作答。提示没有明确要求以上下文为准。对应的办法是减少并重排检索结果，把最相关的放在开头或结尾，去掉矛盾的片段，在提示中要求只依据给出的资料作答并引用原文，在资料不足时拒答，以及在生成后用蕴含模型核对回答是否得到支持。关于知识冲突的研究（如 Xie 等，2023）报告过第三类情形，模型读到了上下文并不保证采用它。",
+   "en": "It is first confirmed that the problem lies in generation and not in retrieval, by checking whether the context of the failing examples really contains the answer. Once confirmed, the causes are usually of several kinds. The context is too long and the answer sits in the middle and is ignored. The retrieved results contain contradictory or irrelevant material. Information in the context conflicts with the memory of the model, and the model answers from memory. The prompt does not state that the context prevails. The matching remedies are to reduce and reorder the retrieved results with the most relevant at the start or end, to remove contradictory passages, to require in the prompt that answers rest on the given material alone with quotations and that the model refuses when the material is insufficient, and to check after generation with an entailment model whether the answer is supported. Studies of knowledge conflicts (for example Xie et al., 2023) report the third kind of case, so a model having read the context does not guarantee that it adopts it."
+  },
+  "sources": [
+   {
+    "title": "GitHub · amitshekhariitbhu/ai-engineering-interview-questions",
+    "url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+   }
+  ]
+ },
+ {
+  "id": "q037",
+  "module": "models",
+  "region": "intl",
+  "source_type": "collection",
+  "companies": [],
+  "role": "LLM engineer",
+  "orig_lang": "en",
+  "q": {
+   "zh": "为什么量化不会明显降低 LLM 的准确率？",
+   "en": "Why does quantization not decrease the accuracy of an LLM?"
+  },
+  "a": {
+   "zh": "这个问法需要先纠正，量化会降低准确率，只是在 8 比特左右时通常很小。原因有几点。训练好的权重大多集中在 0 附近的一个窄范围内，用 256 个级别表示已经相当精细。模型的输出是大量权重共同作用的结果，各个权重的舍入误差方向随机，在求和时很大程度上相互抵消。模型本身对小扰动有一定的鲁棒性。到 4 比特及以下时误差明显增大，少数数值很大的权重如果被截断，影响尤其严重，因此需要按通道量化、保留离群值或使用更精细的方法。6.1 的练习在 GPT-2 上测得，8 比特时困惑度从 16.84 变为 16.8 到 18.0，4 比特时按张量量化升到 2674，按通道量化为 23.3，可以作为具体的数据。",
+   "en": "The wording needs a correction first. Quantization does lower accuracy, though usually very little at around 8 bits. There are several reasons. Trained weights mostly lie in a narrow range around 0, which 256 levels represent quite finely. The output of the model results from many weights acting together, and the rounding errors of the individual weights point in random directions and cancel to a large extent in the sums. The model is itself somewhat robust to small perturbations. At 4 bits and below the error grows markedly, and clipping the few weights of large magnitude is especially harmful, which calls for per-channel quantization, keeping outliers or more refined methods. The exercise of 6.1 measures on GPT-2 that perplexity moves from 16.84 to between 16.8 and 18.0 at 8 bits, and at 4 bits rises to 2674 with per-tensor quantization against 23.3 with per-channel quantization, which can serve as concrete figures."
+  },
+  "sources": [
+   {
+    "title": "GitHub · llmgenai/LLMInterviewQuestions",
+    "url": "https://github.com/llmgenai/LLMInterviewQuestions"
+   }
+  ]
+ },
+ {
+  "id": "q038",
+  "module": "sampling",
+  "region": "intl",
+  "source_type": "collection",
+  "companies": [],
+  "role": "LLM engineer",
+  "orig_lang": "en",
+  "q": {
+   "zh": "解释 temperature 参数以及如何设置它。",
+   "en": "Explain the temperature parameter and how to set it."
+  },
+  "a": {
+   "zh": "温度 $T$ 在 softmax 之前除 logits，$p_i \\propto \\exp(z_i / T)$。$T < 1$ 使分布更尖锐，高概率 token 更占优。$T > 1$ 使分布更平坦，低概率 token 更容易被选中。$T \\to 0$ 时退化为贪心解码。温度不改变各 token 的排序，只改变它们之间的差距。设置取决于任务。需要确定、可重复的输出时用低温度，例如抽取、分类和代码。需要多样性时用较高的温度，例如创意写作。常与 top-p 配合使用，由 top-p 截掉尾部，温度调节剩余部分的随机程度。还应当知道温度为 0 时输出也未必逐次相同，批处理和浮点运算的顺序会带来微小差异，在两个 token 的 logit 非常接近时足以改变选择。见 5.1。",
+   "en": "The temperature $T$ divides the logits before the softmax, $p_i \\propto \\exp(z_i / T)$. $T < 1$ sharpens the distribution in favour of high-probability tokens. $T > 1$ flattens it, making low-probability tokens more likely to be chosen. As $T \\to 0$ it reduces to greedy decoding. The temperature does not change the ranking of the tokens, only the gaps between them. The setting depends on the task. Low temperatures serve where determinate, repeatable output is needed, as in extraction, classification and code. Higher temperatures serve where diversity is wanted, as in creative writing. It is often combined with top-p, which cuts off the tail while the temperature tunes the randomness of what remains. It should also be known that output at temperature 0 need not be identical from run to run, since batching and the order of floating-point operations cause tiny differences that suffice to change the choice when the logits of two tokens are very close. See 5.1."
+  },
+  "sources": [
+   {
+    "title": "GitHub · llmgenai/LLMInterviewQuestions",
+    "url": "https://github.com/llmgenai/LLMInterviewQuestions"
+   },
+   {
+    "title": "GitHub · amitshekhariitbhu/ai-engineering-interview-questions",
+    "url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+   }
+  ]
+ },
+ {
+  "id": "q039",
+  "module": "context_window",
+  "region": "intl",
+  "source_type": "collection",
+  "companies": [],
+  "role": "AI / LLM engineer",
+  "orig_lang": "en",
+  "q": {
+   "zh": "为什么 LLM 的上下文窗口是有限的？RAG 中的“lost in the middle”问题是什么？",
+   "en": "Why is the context window limited in LLMs? What is the lost-in-the-middle problem in RAG systems?"
+  },
+  "a": {
+   "zh": "窗口有限来自计算和训练两方面。注意力的计算量随长度平方增长，KV cache 的内存随长度线性增长。模型只在不超过某个长度的序列上训练过，位置编码对更长的序列没有学到可靠的行为。Lost in the middle 指即使在窗口之内，模型对上下文不同位置的信息利用程度也不均匀，位于开头和结尾的内容更容易被用上，位于中间的更容易被忽略。对 RAG 的含义是，检索结果并非越多越好，文档的排列顺序会影响回答，通常把最相关的放在开头或结尾，并控制总长度。还可以补充，标称的窗口长度是能接收的上限，不等于在这个长度上仍能可靠地使用其中的信息。见 3.2。",
+   "en": "The limit comes from computation and from training. The cost of attention grows with the square of the length and the memory of the KV cache linearly. The model was trained on sequences up to some length alone, and the position encoding has learned no reliable behaviour for longer ones. Lost in the middle means that even within the window the model does not use information at different places of the context evenly. Content at the start and end is used more readily and content in the middle is ignored more easily. For RAG this implies that more retrieved results are not necessarily better and that the order of the documents affects the answer, so the most relevant are usually placed at the start or end and the total length is kept in check. It can be added that the nominal window length is the upper limit of what can be received and does not mean that information can still be used reliably at that length. See 3.2."
+  },
+  "sources": [
+   {
+    "title": "GitHub · amitshekhariitbhu/ai-engineering-interview-questions",
+    "url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+   }
+  ]
+ },
+ {
+  "id": "q040",
+  "module": "agents",
+  "region": "intl",
+  "source_type": "collection",
+  "companies": [],
+  "role": "AI / agent engineer",
+  "orig_lang": "en",
+  "q": {
+   "zh": "智能体怎样决定是调用工具还是凭自己的知识回答？",
+   "en": "How does an agent decide when to call a tool versus answering from its own knowledge?"
+  },
+  "a": {
+   "zh": "模型内部没有一个单独的决策模块。是否调用工具，体现为模型在回答开头生成工具调用标记还是普通文本的概率，这个概率由训练和提示共同决定。影响它的因素包括工具描述写得是否清楚、与当前问题是否匹配，系统提示词中关于何时使用工具的说明，以及模型在微调中见过的样例。它并不是通过判断自己是否知道答案来决定的，模型对自己知识边界的估计并不可靠，因此会出现本该查询却直接回答，或已经知道却多余调用的情况。工程上可以通过强制调用、在提示中给出明确的规则，或对某类问题先经过路由来控制。调用之后模型是否采用工具返回的结果，是另一个问题。见 7.3。",
+   "en": "The model contains no separate decision module. Whether a tool is called shows up as the probability that the model begins its reply with a tool-call marker or with ordinary text, a probability shaped jointly by training and by the prompt. Factors that affect it include whether the tool descriptions are clearly written and match the question at hand, what the system prompt says about when to use tools, and the examples the model saw during fine-tuning. It does not decide by judging whether it knows the answer. The estimate a model has of the limits of its own knowledge is unreliable, which leads to cases where it answers directly when it should have looked something up, or calls a tool needlessly when it already knows. In engineering this can be controlled by forcing a call, by explicit rules in the prompt, or by routing certain kinds of questions first. Whether the model adopts the result returned by the tool after calling it is a separate question. See 7.3."
+  },
+  "sources": [
+   {
+    "title": "GitHub · amitshekhariitbhu/ai-engineering-interview-questions",
+    "url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+   }
+  ]
+ },
+ {
+  "id": "q041",
+  "module": "evaluation",
+  "region": "intl",
+  "source_type": "collection",
+  "companies": [],
+  "role": "AI / LLM engineer",
+  "orig_lang": "en",
+  "q": {
+   "zh": "新版本模型在所有基准上得分更高，用户却说它变差了。为什么会这样，怎样找到问题？",
+   "en": "Your new model version scores higher on every benchmark, but users say it got worse. Why does this happen, and how do you find the problem?"
+  },
+  "a": {
+   "zh": "基准衡量的与用户在意的可能不是同一件事。常见的原因有以下几种。基准的题目分布与真实使用的分布不同。基准题目可能已经出现在训练数据中，分数反映了记忆。基准多为一问一答，用户的体验还取决于语气、长度、格式、拒答的频率和延迟。新版本可能在平均水平上提高，却在某一类用户常用的任务上退步，被平均数掩盖。提示词或系统设置是针对旧版本调过的，换了模型之后不再合适。寻找问题的办法是收集用户反馈中的具体样例并分类，从真实流量中抽样构造评测集，对新旧版本做成对的盲测，并按任务类型和用户群体分组查看指标而不只看总体平均。8.1 讨论了评测中的这些问题，其中的统计练习说明了差异是否显著需要怎样判断。",
+   "en": "What benchmarks measure and what users care about may not be the same thing. Common causes are the following. The distribution of benchmark items differs from that of real use. Benchmark items may have appeared in the training data, so scores reflect memorization. Benchmarks are mostly single question and answer, whereas the experience of users also depends on tone, length, format, how often the model refuses, and latency. The new version may improve on average and regress on one kind of task users rely on, hidden by the mean. Prompts or system settings were tuned for the old version and no longer fit the new model. The way to find the problem is to collect and classify concrete examples from user feedback, to build an evaluation set sampled from real traffic, to run paired blind comparisons of the old and the new version, and to look at metrics grouped by task type and user group and not at the overall mean alone. Module 8.1 discusses these problems of evaluation, and its statistics exercise shows how to judge whether a difference is significant."
+  },
+  "sources": [
+   {
+    "title": "GitHub · amitshekhariitbhu/ai-engineering-interview-questions",
+    "url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+   }
+  ]
+ },
+ {
+  "id": "q042",
+  "module": "rlhf",
+  "region": "intl",
+  "source_type": "collection",
+  "companies": [],
+  "role": "LLM engineer",
+  "orig_lang": "en",
+  "q": {
+   "zh": "RLHF 中的 reward hacking 问题是什么？",
+   "en": "What is the reward hacking issue in RLHF?"
+  },
+  "a": {
+   "zh": "奖励模型是从有限的人工偏好数据中学出来的，它只是人的偏好的一个近似，在训练数据覆盖不到的地方会有错误。策略模型在强化学习中被优化为使奖励模型的打分最高，它会找到并利用这些错误，生成奖励模型打高分而人并不认为好的回答，例如过分冗长、反复附和用户，或带有某些讨巧的措辞。这就是 reward hacking。缓解的办法是在目标中加入对参考模型的 KL 惩罚，限制策略偏离初始模型的程度，以及提前停止、定期用新的人工标注更新奖励模型、使用多个奖励模型取保守估计。它是古德哈特定律的一个例子，一个度量一旦成为优化目标，就不再是好的度量。见 4.3。",
+   "en": "The reward model is learned from a limited set of human preference data. It is only an approximation of human preference and errs where the training data give no coverage. In reinforcement learning the policy is optimized to maximize the score of the reward model, and it finds and exploits these errors, producing answers the reward model scores highly and people do not consider good, such as excessive length, repeated agreement with the user, or certain ingratiating phrasings. This is reward hacking. Mitigations are a KL penalty against a reference model in the objective, which limits how far the policy drifts from the initial model, early stopping, updating the reward model regularly with new human annotations, and conservative estimates from several reward models. It is an instance of the law of Goodhart, by which a measure ceases to be a good measure once it becomes the target of optimization. See 4.3."
+  },
+  "sources": [
+   {
+    "title": "GitHub · llmgenai/LLMInterviewQuestions",
+    "url": "https://github.com/llmgenai/LLMInterviewQuestions"
+   }
+  ]
+ },
+ {
+  "id": "q043",
+  "module": "attention",
+  "region": "intl",
+  "source_type": "collection",
+  "companies": [
+   "TikTok"
+  ],
+  "role": "Data scientist",
+  "orig_lang": "en",
+  "q": {
+   "zh": "比较 LSTM 和 Transformer 在长序列上的表现。",
+   "en": "Contrast LSTM and Transformer for long sequences."
+  },
+  "a": {
+   "zh": "LSTM 按顺序逐步处理，两个相距 $n$ 步的位置之间的信息要经过 $n$ 次状态更新，梯度在长距离上容易衰减，门控机制缓解了这一点却没有消除。它无法在序列方向上并行，训练慢。它的优点是每一步的计算量和内存与序列长度无关，状态大小固定。Transformer 中任意两个位置通过注意力直接相连，路径长度是 1，长距离依赖更容易学习，并且训练时所有位置并行。代价是注意力的计算和内存随长度平方增长，并且需要额外的位置编码来提供顺序信息。因此在很长的序列上，Transformer 的瓶颈是成本，LSTM 的瓶颈是信息能否保留。见 2.1 和 2.6。",
+   "en": "An LSTM processes step by step in order, information between two positions $n$ steps apart passes through $n$ state updates, and gradients tend to decay over long distances, which gating eases without removing. It cannot be parallelized along the sequence and trains slowly. Its advantage is that computation and memory per step do not depend on the sequence length, with a state of fixed size. In a Transformer any two positions are connected directly through attention with a path length of 1, long-range dependencies are learned more easily, and all positions are processed in parallel in training. The price is that computation and memory of attention grow with the square of the length, and that a separate position encoding is needed to supply order. On very long sequences the bottleneck of the Transformer is therefore cost and that of the LSTM is whether information is retained. See 2.1 and 2.6."
+  },
+  "sources": [
+   {
+    "title": "PracHub · LLM & Generative AI interview questions",
+    "url": "https://prachub.com/topic/machine-learning-interview/llm?page=31"
+   }
+  ]
+ }
+]

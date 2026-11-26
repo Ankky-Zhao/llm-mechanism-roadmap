@@ -1,0 +1,11 @@
+torch>=2.4
+transformers>=4.40
+tiktoken
+sentencepiece
+peft
+huggingface_hub
+faiss-cpu  # optional, used only by one check in module 7.2
+langchain-core  # used only by the comparison exercise of module 7.3
+scikit-learn  # used only to cross-check one function in module 8.1
+matplotlib
+transformer_lens  # optional, used only by the cross-check exercise of module 9.3 (version 4 or later)

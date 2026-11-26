@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "eu_ai_act",
+ "level": 1,
+ "minutes": 15,
+ "title": {
+  "zh": "适用日期与罚款上限",
+  "en": "Dates of application and ceilings of fines"
+ },
+ "prompt": {
+  "zh": "把各项规则的适用日期整理成可以查询的函数，并计算第 99 条规定的罚款上限。表中的日期取自欧盟委员会页面 2026 年 10 月 19 日的版本，以后如有调整，只需要修改这张表。",
+  "en": "Turn the dates of application of the rules into functions that can be queried, and compute the ceilings of fines under Article 99. The dates in the table are taken from the version of the European Commission page of 19 October 2026, and only this table needs changing if they are adjusted later."
+ },
+ "hints": [
+  {
+   "zh": "`datetime.date` 对象可以直接比较和相减，`(a - b).days` 给出相差的天数。",
+   "en": "`datetime.date` objects can be compared and subtracted directly, and `(a - b).days` gives the difference in days."
+  },
+  {
+   "zh": "比例部分写成 `turnover_eur * percent / 100`。写成 `0.07 * turnover_eur` 会因浮点误差得到不整的数，这正是 5.1 中讨论过的现象。",
+   "en": "Write the share as `turnover_eur * percent / 100`. Writing `0.07 * turnover_eur` gives uneven numbers through floating-point error, the very phenomenon discussed in 5.1."
+  }
+ ]
+}

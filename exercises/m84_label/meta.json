@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "cn_us_regulation",
+ "level": 1,
+ "minutes": 20,
+ "title": {
+  "zh": "显式标识、隐式标识与平台核验",
+  "en": "Explicit labels, implicit labels and the platform check"
+ },
+ "prompt": {
+  "zh": "按照《人工智能生成合成内容标识办法》的思路，实现生成一侧的两种标识和传播平台一侧的三种情形判断。元数据的字段名是本练习自拟的，实际格式由强制性国家标准规定。测试会依次模拟标识完整、元数据丢失、标识被全部删除等情形。请留意第三种情形下平台已经无从判断，这说明了为什么规定禁止删除标识。",
+  "en": "Following the idea of the Measures for Labeling AI-Generated Synthetic Content, implement the two kinds of labels on the generating side and the distinction of three situations on the side of the distribution platform. The field names of the metadata are made up for this exercise, and the real format is laid down in a mandatory national standard. The tests simulate in turn an intact label, lost metadata and the removal of all labels. Note that in the third situation the platform has nothing left to go on, which shows why removing labels is prohibited."
+ },
+ "hints": [
+  {
+   "zh": "`platform_check` 按顺序判断，先看元数据，再看用户声明，最后看文本中是否出现显式提示。",
+   "en": "`platform_check` decides in order, first the metadata, then the declaration of the user, and last whether the visible notice occurs in the text."
+  },
+  {
+   "zh": "元数据可能不存在或为 `None`，可以写成 `meta = item.get('metadata') or {}`。",
+   "en": "The metadata may be missing or `None`, which `meta = item.get('metadata') or {}` handles."
+  }
+ ]
+}

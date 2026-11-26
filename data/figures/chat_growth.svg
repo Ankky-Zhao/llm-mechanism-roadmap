@@ -1,0 +1,30 @@
+<svg viewBox="0 0 700 270" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<text x="14" y="22" text-anchor="start" font-size="12.5" class="f-ink" data-l="zh">每轮用户 50 个 token，回答 200 个 token</text><text x="14" y="22" text-anchor="start" font-size="12.5" class="f-ink" data-l="en">50 user tokens and 200 answer tokens per turn</text>
+<text x="14" y="77" text-anchor="start" font-size="12" class="f-muted" data-l="zh">第 1 轮</text><text x="14" y="77" text-anchor="start" font-size="12" class="f-muted" data-l="en">turn 1</text>
+<rect x="80" y="62" width="0.0" height="22" rx="3" class="f-muted2"/>
+<rect x="80.0" y="62" width="20.0" height="22" rx="3" class="f-accent"/>
+<text x="108.0" y="77" font-size="12" class="f-ink mono">50</text>
+<text x="14" y="109" text-anchor="start" font-size="12" class="f-muted" data-l="zh">第 2 轮</text><text x="14" y="109" text-anchor="start" font-size="12" class="f-muted" data-l="en">turn 2</text>
+<rect x="80" y="94" width="100.0" height="22" rx="3" class="f-muted2"/>
+<rect x="180.0" y="94" width="20.0" height="22" rx="3" class="f-accent"/>
+<text x="208.0" y="109" font-size="12" class="f-ink mono">300</text>
+<text x="14" y="141" text-anchor="start" font-size="12" class="f-muted" data-l="zh">第 3 轮</text><text x="14" y="141" text-anchor="start" font-size="12" class="f-muted" data-l="en">turn 3</text>
+<rect x="80" y="126" width="200.0" height="22" rx="3" class="f-muted2"/>
+<rect x="280.0" y="126" width="20.0" height="22" rx="3" class="f-accent"/>
+<text x="308.0" y="141" font-size="12" class="f-ink mono">550</text>
+<text x="14" y="173" text-anchor="start" font-size="12" class="f-muted" data-l="zh">第 4 轮</text><text x="14" y="173" text-anchor="start" font-size="12" class="f-muted" data-l="en">turn 4</text>
+<rect x="80" y="158" width="300.0" height="22" rx="3" class="f-muted2"/>
+<rect x="380.0" y="158" width="20.0" height="22" rx="3" class="f-accent"/>
+<text x="408.0" y="173" font-size="12" class="f-ink mono">800</text>
+<text x="14" y="205" text-anchor="start" font-size="12" class="f-muted" data-l="zh">第 5 轮</text><text x="14" y="205" text-anchor="start" font-size="12" class="f-muted" data-l="en">turn 5</text>
+<rect x="80" y="190" width="400.0" height="22" rx="3" class="f-muted2"/>
+<rect x="480.0" y="190" width="20.0" height="22" rx="3" class="f-accent"/>
+<text x="508.0" y="205" font-size="12" class="f-ink mono">1050</text>
+<text x="14" y="237" text-anchor="start" font-size="12" class="f-muted" data-l="zh">第 6 轮</text><text x="14" y="237" text-anchor="start" font-size="12" class="f-muted" data-l="en">turn 6</text>
+<rect x="80" y="222" width="500.0" height="22" rx="3" class="f-muted2"/>
+<rect x="580.0" y="222" width="20.0" height="22" rx="3" class="f-accent"/>
+<text x="608.0" y="237" font-size="12" class="f-ink mono">1300</text>
+<rect x="80" y="246" width="14" height="12" rx="2" class="f-muted2"/><text x="100" y="257" text-anchor="start" font-size="12" class="f-muted" data-l="zh">重新发送的历史</text><text x="100" y="257" text-anchor="start" font-size="12" class="f-muted" data-l="en">history sent again</text>
+<rect x="300" y="246" width="14" height="12" rx="2" class="f-accent"/><text x="320" y="257" text-anchor="start" font-size="12" class="f-muted" data-l="zh">新的用户消息</text><text x="320" y="257" text-anchor="start" font-size="12" class="f-muted" data-l="en">new user message</text>
+<text x="686" y="257" text-anchor="end" font-size="12" class="f-muted" data-l="zh">数字为该轮的输入 token 数</text><text x="686" y="257" text-anchor="end" font-size="12" class="f-muted" data-l="en">numbers are input tokens of the turn</text>
+</svg>

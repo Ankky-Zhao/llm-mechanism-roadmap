@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "eu_ai_act",
+ "level": 2,
+ "minutes": 25,
+ "network": true,
+ "title": {
+  "zh": "模型卡检查清单脚本",
+  "en": "A model-card checklist script"
+ },
+ "prompt": {
+  "zh": "写一个脚本，解析模型卡的元数据和正文，检查它是否声明了许可证和语言，是否包含预期用途、局限、训练数据和评估四个部分。测试先在两份构造的模型卡上检查，再读取 Hub 上几个真实模型的模型卡并打印结果，其中包括本路线练习中使用过的几个模型。这个脚本检查的是相应的部分是否存在，不判断内容是否充分，也不是合规性测试。",
+  "en": "Write a script that parses the metadata and body of a model card and checks whether it declares a license and a language and contains the four parts on intended use, limitations, training data and evaluation. The tests first check two constructed model cards and then read the cards of several real models on the Hub and print the result, among them models used in the exercises of this roadmap. The script checks whether the parts exist. It does not judge whether their content is adequate and is not a test of compliance."
+ },
+ "hints": [
+  {
+   "zh": "`ModelCard(text)` 会自动分开元数据和正文，分别在 `card.data.to_dict()` 和 `card.text` 中。",
+   "en": "`ModelCard(text)` separates metadata and body automatically, available as `card.data.to_dict()` and `card.text`."
+  },
+  {
+   "zh": "判断某个部分是否存在，写成 `any(k in h for h in heads for k in keywords)`。",
+   "en": "Whether a part exists can be written as `any(k in h for h in heads for k in keywords)`."
+  }
+ ]
+}

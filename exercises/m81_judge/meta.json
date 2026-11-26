@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "evaluation",
+ "level": 2,
+ "minutes": 30,
+ "network": true,
+ "title": {
+  "zh": "LLM 评委的位置偏差实验",
+  "en": "Position bias of an LLM judge"
+ },
+ "prompt": {
+  "zh": "让一个 5 亿参数的模型在两个回答中选出正确的一个，每一对回答分别以两种顺序提交。实现读取评委对 A 与 B 的 logit 之差、统计位置偏差的四个比例，以及合并两种顺序的修正方法。",
+  "en": "A model of 0.5 billion parameters is asked to pick the correct one of two answers, and every pair is submitted in both orders. Implement reading the difference between the logits of the judge for A and B, the four fractions that describe position bias, and the correction that combines the two orders."
+ },
+ "hints": [
+  {
+   "zh": "与 7.1 的做法相同，渲染对话模板后做一次前向计算，读取最后一个位置的 logits，不需要生成。",
+   "en": "As in 7.1, render the chat template, run one forward pass and read the logits at the last position. No generation is needed."
+  },
+  {
+   "zh": "同一个回答在两种顺序下都胜出，等价于 `(m1 > 0) == (m2 < 0)`。",
+   "en": "The same answer winning in both orders is equivalent to `(m1 > 0) == (m2 < 0)`."
+  }
+ ]
+}

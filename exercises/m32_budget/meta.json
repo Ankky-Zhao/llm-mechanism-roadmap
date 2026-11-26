@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "context_window",
+ "level": 1,
+ "minutes": 25,
+ "network": true,
+ "title": {
+  "zh": "token 计费与窗口管理",
+  "en": "Token billing and window management"
+ },
+ "prompt": {
+  "zh": "实现四个小工具，即统计 token 数、计算多轮对话累计计费的输入和输出 token、按单价计算费用，以及在超出窗口时丢弃最早的消息。测试会验证轮数翻倍时累计输入约变为 4 倍。价格以参数传入，不绑定任何一家的实际定价。",
+  "en": "Implement four small tools, namely counting tokens, computing the input and output tokens billed over a multi-turn conversation, computing the cost from unit prices, and dropping the oldest messages when the window is exceeded. The tests verify that doubling the number of turns makes the cumulative input about four times as large. Prices are passed as arguments and are not tied to the actual pricing of any provider."
+ },
+ "hints": [
+  {
+   "zh": "用一个变量记录“到目前为止的历史长度”。每一轮先加上新的用户消息，把它计入累计输入，再加上这一轮的回答。",
+   "en": "Keep one variable for the length of the history so far. Each turn first adds the new user message, counts the history towards the cumulative input and then adds the answer of the turn."
+  },
+  {
+   "zh": "`fit_to_window` 维护一个保留下来的下标列表，只要总长度超限并且还有可以丢的消息，就删掉其中最早的一条。`keep_first` 为真时第 0 条不能删。",
+   "en": "`fit_to_window` keeps a list of retained indices. While the total exceeds the limit and something may still be dropped, remove the oldest droppable message. With `keep_first` set, index 0 may not be removed."
+  }
+ ]
+}

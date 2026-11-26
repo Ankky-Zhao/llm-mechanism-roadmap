@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "bpe",
+ "level": 1,
+ "minutes": 20,
+ "title": {
+  "zh": "用 SentencePiece 训练并观察",
+  "en": "Train and inspect with SentencePiece"
+ },
+ "prompt": {
+  "zh": "用 SentencePiece 在一小段文本上分别训练 BPE 和 unigram 两种模型，观察空格怎样被写成 `▁`，并手写一个不依赖库的还原函数。测试还会在没有空格的中文文本上训练，确认不需要预先分词。",
+  "en": "Train a BPE and a unigram model with SentencePiece on a small text, observe how spaces are written as `▁`, and write a detokenizer that does not use the library. The tests also train on Chinese text without spaces to confirm that no prior word segmentation is needed."
+ },
+ "hints": [
+  {
+   "zh": "训练结果写进内存里的 `io.BytesIO()`，再用 `model_proto=model.getvalue()` 创建处理器，不需要落盘。",
+   "en": "The trained model is written to an in-memory `io.BytesIO()` and the processor is created with `model_proto=model.getvalue()`, without touching the disk."
+  },
+  {
+   "zh": "还原时把所有片段直接拼接，把 `▁` 换成空格，再去掉最开头多出来的那个空格。",
+   "en": "To detokenize, join all pieces, replace `▁` by a space and remove the extra space at the very beginning."
+  }
+ ]
+}

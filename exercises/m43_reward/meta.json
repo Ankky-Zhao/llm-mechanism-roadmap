@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "rlhf",
+ "level": 2,
+ "minutes": 30,
+ "title": {
+  "zh": "用成对比较训练奖励模型",
+  "en": "Train a reward model from pairwise comparisons"
+ },
+ "prompt": {
+  "zh": "实现 Bradley-Terry 概率和成对损失，再用梯度下降训练一个线性的奖励模型。数据是模拟的，200 个“回答”各有一个隐藏的真实质量，4000 次比较按 Bradley-Terry 模型带噪声地生成。测试会检查学到的奖励在新的回答对上的排序与真实质量的一致率超过 95%。",
+  "en": "Implement the Bradley-Terry probability and the pairwise loss, then train a linear reward model by gradient descent. The data are simulated. Each of 200 responses has a hidden true quality, and 4000 comparisons are generated with noise from the Bradley-Terry model. The tests check that the learned reward ranks fresh pairs of responses like the true quality in more than 95% of cases."
+ },
+ "hints": [
+  {
+   "zh": "损失写成 `-F.logsigmoid(r_winner - r_loser).mean()`。先算 sigmoid 再取 log 在差值很负时会得到负无穷。",
+   "en": "Write the loss as `-F.logsigmoid(r_winner - r_loser).mean()`. Taking the sigmoid first and then the log gives negative infinity for very negative differences."
+  },
+  {
+   "zh": "训练时先算出所有回答的分数 `r = features @ w`，再用 `r[winners]` 和 `r[losers]` 取出每次比较中两个回答的分数。",
+   "en": "In training first compute the scores of all responses, `r = features @ w`, then pick the scores of the two responses of each comparison with `r[winners]` and `r[losers]`."
+  },
+  {
+   "zh": "手动做梯度下降时，把更新放在 `with torch.no_grad():` 里，并在每步之后把 `w.grad` 清零。",
+   "en": "For manual gradient descent put the update inside `with torch.no_grad():` and zero `w.grad` after every step."
+  }
+ ]
+}

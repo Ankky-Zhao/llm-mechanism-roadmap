@@ -1,0 +1,34 @@
+{
+ "kind": "code",
+ "module": "rag",
+ "level": 3,
+ "minutes": 40,
+ "network": true,
+ "requires": [
+  "m72_bm25",
+  "m72_hybrid",
+  "m72_rerank"
+ ],
+ "title": {
+  "zh": "基于自有文档的 mini-RAG",
+  "en": "A mini-RAG over your own documents"
+ },
+ "prompt": {
+  "zh": "把前三个练习的部件连接成完整的流程，即检索、融合、重排、拼接提示词、生成。测试在 20 个关于虚构小镇的问题上比较不使用检索和使用检索的正确率，并打印出检索命中而回答错误的例子。运行大约需要一分钟。完成后可以把 `CORPUS` 换成自己的文档，把问题换成自己的问题，流程不需要改动。",
+  "en": "Connect the parts of the first three exercises into a full pipeline of retrieval, fusion, reranking, prompt assembly and generation. The tests compare accuracy without and with retrieval on 20 questions about an invented town and print the cases in which retrieval hit and the answer is wrong. The run takes about a minute. Afterwards `CORPUS` can be replaced by your own documents and the questions by your own, with no change to the pipeline."
+ },
+ "hints": [
+  {
+   "zh": "段落编号从 1 开始，用 `enumerate(passages, start=1)`，每行的格式是 `[1] 段落`。",
+   "en": "Passages are numbered from 1 with `enumerate(passages, start=1)`, each line in the form `[1] passage`."
+  },
+  {
+   "zh": "`retrieve` 的五步对应五行代码，前几个练习的函数可以直接调用。",
+   "en": "The five steps of `retrieve` correspond to five lines of code, and the functions of the earlier exercises can be called directly."
+  },
+  {
+   "zh": "`chat` 中用 `return_dict=True` 得到 `input_ids` 和 `attention_mask`，再用 `model.generate(**enc, ...)`。",
+   "en": "In `chat` use `return_dict=True` to get `input_ids` and `attention_mask`, then `model.generate(**enc, ...)`."
+  }
+ ]
+}

@@ -1,0 +1,32 @@
+{
+ "kind": "derivation",
+ "module": "patching",
+ "level": 3,
+ "minutes": 35,
+ "title": {
+  "zh": "总效应、近似与实验设计",
+  "en": "Total effects, the approximation and experimental design"
+ },
+ "prompt": {
+  "zh": "在纸上完成。\n(a) 一个极简模型只有两个串联的组件，$a = f(x)$，$y = g(a)$，度量为 $m = y$。干净输入给出 $m = 1$，损坏输入给出 $m = 0$。分别修补 $a$ 和修补 $y$，各自的归一化效应是多少？它们的和说明了什么？\n(b) 设度量对某个激活是线性的，$M(a) = c^\\top a + c_0$。证明归因修补此时没有误差。\n(c) 忽略偏置和缩放，LayerNorm 可写为 $\\operatorname{LN}(x) = \\sqrt{d}\\,\\dfrac{x - \\mu(x)}{\\lVert x - \\mu(x) \\rVert}$。设 $x$ 的均值为 0。证明 $\\operatorname{LN}(x)$ 在 $x$ 方向上的方向导数为零，即 $\\dfrac{d}{d\\epsilon} \\operatorname{LN}\\big((1 + \\epsilon) x\\big) \\Big|_{\\epsilon = 0} = 0$，并说明这为什么会使残差流上的归因修补低估效应。\n(d) 要研究模型在工具返回的结果与自身记忆冲突时依据哪一方作答。设计一组干净输入和损坏输入，说明它们在哪里不同、度量取什么，以及修补残差流后预期能够回答什么问题。再指出这一设计看不到哪些计算。",
+  "en": "Work on paper.\n(a) A minimal model has two components in series, $a = f(x)$ and $y = g(a)$, with the metric $m = y$. The clean input gives $m = 1$ and the corrupted input $m = 0$. What is the normalized effect of patching $a$ and of patching $y$? What does their sum show?\n(b) Let the metric be linear in some activation, $M(a) = c^\\top a + c_0$. Prove that attribution patching has no error in this case.\n(c) Ignoring bias and scale, LayerNorm can be written as $\\operatorname{LN}(x) = \\sqrt{d}\\,\\dfrac{x - \\mu(x)}{\\lVert x - \\mu(x) \\rVert}$. Let $x$ have mean 0. Prove that the directional derivative of $\\operatorname{LN}(x)$ along $x$ is zero, that is $\\dfrac{d}{d\\epsilon} \\operatorname{LN}\\big((1 + \\epsilon) x\\big) \\Big|_{\\epsilon = 0} = 0$, and explain why this makes attribution patching on the residual stream underestimate effects.\n(d) The question is on which side a model relies when the result returned by a tool conflicts with its own memory. Design a set of clean and corrupted inputs, say where they differ and what the metric is, and state which question patching the residual stream is expected to answer. Then name the computations this design does not see."
+ },
+ "hints": [
+  {
+   "zh": "(a) 修补 $a$ 之后，$y$ 会被重新计算。",
+   "en": "(a) After $a$ is patched, $y$ is recomputed."
+  },
+  {
+   "zh": "(c) $(1 + \\epsilon) x$ 的均值仍为 0，范数为 $(1 + \\epsilon) \\lVert x \\rVert$。",
+   "en": "(c) $(1 + \\epsilon) x$ still has mean 0, and its norm is $(1 + \\epsilon) \\lVert x \\rVert$."
+  },
+  {
+   "zh": "(d) 可以参照间接宾语识别任务的做法，让两条输入只在一处不同。",
+   "en": "(d) The indirect object identification task can serve as a model, with the two inputs differing in one place."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 修补 $a$，即把 $a$ 设为 $f(x_c)$，随后 $y = g(f(x_c)) = 1$，效应为 1。修补 $y$，直接把 $y$ 设为 1，效应也是 1。两者之和为 2。两个组件位于同一条通路上，修补其中任何一个都恢复了整条通路，所以效应之和把这条通路计算了两次。单个组件的修补效应是总效应，不是可以相加的份额。\n\n(b) $M(a_c) - M(a_d) = c^\\top (a_c - a_d)$。梯度为 $\\nabla_a M = c$，与求值点无关。归因修补的估计是 $(a_c - a_d)^\\top c$，与真实的差值完全相同。误差只来自 $M$ 的非线性。\n\n(c) $x$ 的均值为 0 时，$\\operatorname{LN}\\big((1+\\epsilon) x\\big) = \\sqrt{d}\\, \\dfrac{(1+\\epsilon) x}{(1+\\epsilon) \\lVert x \\rVert} = \\sqrt{d}\\, \\dfrac{x}{\\lVert x \\rVert} = \\operatorname{LN}(x)$，与 $\\epsilon$ 无关，导数为零。LayerNorm 的输出不随输入的缩放而变化。残差流经过的每个子层都先做 LayerNorm，所以度量对残差流的梯度在 $x$ 方向上没有分量。干净与损坏的残差流之差 $a_c - a_d$ 中沿 $a_d$ 方向的那一部分与梯度的内积为零，被一阶近似完全忽略。实际修补时这一部分会改变归一化之后的向量，并不为零。差值越大、越接近整体替换，被忽略的部分越多。\n\n(d) 一种设计如下。选取模型能够凭记忆答对的事实，例如某座建筑所在的城市。干净输入的上下文中包含一条给出另一个答案的工具结果，随后是问题。损坏输入与它相同，只是工具结果中的答案换成了第三个城市，或者换成与记忆一致的答案。两条输入只在工具结果中答案 token 的位置上不同。度量取“工具给出的答案”与“记忆中的答案”的 logit 差。对每一层、每个位置修补残差流，可以回答工具结果中的答案信息在哪些层停留在它原来的位置，在哪些层被搬到最后一个位置，以及在最后一个位置上从哪一层开始决定输出。进一步修补注意力头可以找出负责搬运的头。\n\n这一设计看不到两条输入共有的计算，包括模型怎样从记忆中取出答案，以及怎样识别出上下文中有一条工具结果。要研究前者，需要另一组输入，使记忆中的答案不同而工具结果相同，例如替换问题中的主语。9.5 的综合项目将按这一思路展开。",
+  "en": "(a) Patching $a$ sets $a$ to $f(x_c)$, after which $y = g(f(x_c)) = 1$, an effect of 1. Patching $y$ sets $y$ to 1 directly, again an effect of 1. The two sum to 2. The two components lie on one pathway, and patching either restores the whole pathway, so the sum counts the pathway twice. The patching effect of a single component is a total effect and not a share that can be added.\n\n(b) $M(a_c) - M(a_d) = c^\\top (a_c - a_d)$. The gradient is $\\nabla_a M = c$, independent of the point of evaluation. The estimate of attribution patching is $(a_c - a_d)^\\top c$, identical to the true difference. Errors come from the nonlinearity of $M$ alone.\n\n(c) With $x$ of mean 0, $\\operatorname{LN}\\big((1+\\epsilon) x\\big) = \\sqrt{d}\\, \\dfrac{(1+\\epsilon) x}{(1+\\epsilon) \\lVert x \\rVert} = \\sqrt{d}\\, \\dfrac{x}{\\lVert x \\rVert} = \\operatorname{LN}(x)$, independent of $\\epsilon$, so the derivative is zero. The output of LayerNorm does not change with the scale of its input. Every sublayer the residual stream passes through applies LayerNorm first, so the gradient of the metric with respect to the residual stream has no component along $x$. The part of the difference $a_c - a_d$ between clean and corrupted residual stream that lies along $a_d$ has zero inner product with the gradient and is ignored entirely by the first-order approximation. In real patching this part changes the normalized vector and is not zero. The larger the difference and the closer to a wholesale replacement, the more is ignored.\n\n(d) One design is as follows. Facts are chosen that the model answers correctly from memory, such as the city of some building. The context of the clean input contains a tool result that gives another answer, followed by the question. The corrupted input is the same except that the answer in the tool result is replaced by a third city, or by the answer that agrees with memory. The two inputs differ only at the position of the answer token in the tool result. The metric is the logit difference between the answer given by the tool and the answer from memory. Patching the residual stream for every layer and position answers in which layers the answer information of the tool result stays at its original position, in which layers it is carried to the last position, and from which layer on it decides the output at the last position. Patching attention heads further identifies the heads that do the carrying.\n\nThis design does not see the computation the two inputs share, including how the model retrieves the answer from memory and how it recognizes that the context contains a tool result. Studying the former takes another set of inputs in which the remembered answer differs while the tool result stays the same, for example by replacing the subject of the question. The capstone of 9.5 proceeds along these lines."
+ }
+}

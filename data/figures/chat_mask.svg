@@ -1,0 +1,15 @@
+<svg viewBox="0 0 700 250" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<rect x="14" y="14" width="184" height="26" rx="5" class="f-surface s-line"/><text x="25" y="31.5" font-size="12.5" class="f-ink mono">&lt;|im_start|&gt;system</text>
+<text x="686" y="31.5" text-anchor="end" font-size="12" class="f-muted">labels = −100</text>
+<rect x="14" y="47" width="256" height="26" rx="5" class="f-surface s-line"/><text x="25" y="64.5" font-size="12.5" class="f-ink mono">You are concise.&lt;|im_end|&gt;</text>
+<text x="686" y="64.5" text-anchor="end" font-size="12" class="f-muted">labels = −100</text>
+<rect x="14" y="80" width="166" height="26" rx="5" class="f-surface s-line"/><text x="25" y="97.5" font-size="12.5" class="f-ink mono">&lt;|im_start|&gt;user</text>
+<text x="686" y="97.5" text-anchor="end" font-size="12" class="f-muted">labels = −100</text>
+<rect x="14" y="113" width="382" height="26" rx="5" class="f-surface s-line"/><text x="25" y="130.5" font-size="12.5" class="f-ink mono">What is the capital of Poland?&lt;|im_end|&gt;</text>
+<text x="686" y="130.5" text-anchor="end" font-size="12" class="f-muted">labels = −100</text>
+<rect x="14" y="146" width="211" height="26" rx="5" class="f-surface s-line"/><text x="25" y="163.5" font-size="12.5" class="f-ink mono">&lt;|im_start|&gt;assistant</text>
+<text x="686" y="163.5" text-anchor="end" font-size="12" class="f-muted">labels = −100</text>
+<rect x="14" y="179" width="175" height="26" rx="5" class="f-accent"/><text x="25" y="196.5" font-size="12.5" class="f-on mono">Warsaw.&lt;|im_end|&gt;</text>
+<text x="686" y="196.5" text-anchor="end" font-size="12" class="f-accent" data-l="zh">计算损失</text><text x="686" y="196.5" text-anchor="end" font-size="12" class="f-accent" data-l="en">loss computed</text>
+<text x="14" y="236" text-anchor="start" font-size="12" class="f-muted" data-l="zh">推理时输入到 &lt;|im_start|&gt;assistant 为止，由模型续写最后一行。</text><text x="14" y="236" text-anchor="start" font-size="12" class="f-muted" data-l="en">At inference the input ends at &lt;|im_start|&gt;assistant and the model writes the last line.</text>
+</svg>

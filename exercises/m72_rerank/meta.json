@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "rag",
+ "level": 2,
+ "minutes": 25,
+ "network": true,
+ "requires": [
+  "m72_bm25",
+  "m72_hybrid"
+ ],
+ "title": {
+  "zh": "双编码器召回加交叉编码器重排",
+  "en": "Bi-encoder retrieval plus cross-encoder reranking"
+ },
+ "prompt": {
+  "zh": "实现用交叉编码器给问题和段落的配对打分，并对前若干个候选重新排序。测试比较重排前后的 Recall@1、Recall@3 和 MRR，并分别统计第一阶段检索和重排所用的时间。",
+  "en": "Implement scoring pairs of question and passage with a cross-encoder and reordering the first few candidates. The tests compare Recall@1, Recall@3 and MRR before and after reranking, and time the first-stage retrieval and the reranking separately."
+ },
+ "hints": [
+  {
+   "zh": "成对输入的写法是 `tokenizer([query] * n, passages, padding=True, truncation=True, return_tensors='pt')`。",
+   "en": "Pairs are passed as `tokenizer([query] * n, passages, padding=True, truncation=True, return_tensors='pt')`."
+  },
+  {
+   "zh": "模型输出的 logits 形状是 `(n, 1)`，取 `[:, 0]`。",
+   "en": "The logits of the model have shape `(n, 1)`. Take `[:, 0]`."
+  }
+ ]
+}

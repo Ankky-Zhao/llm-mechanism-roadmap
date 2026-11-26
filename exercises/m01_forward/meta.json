@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "pipeline",
+ "level": 1,
+ "minutes": 30,
+ "network": true,
+ "title": {
+  "zh": "手动走完一次前向计算",
+  "en": "Walk through one forward pass by hand"
+ },
+ "prompt": {
+  "zh": "不直接调用 `model(input_ids)`，而是用 GPT-2 的各个部件依次完成嵌入、12 层 block、最后的归一化和 unembedding，得到 logits。然后取最后一个位置，算出概率最高的 5 个 token。测试会把你的 logits 与模型自己的输出逐项比较。",
+  "en": "Without calling `model(input_ids)`, use the parts of GPT-2 to do the embedding, the 12 blocks, the final normalization and the unembedding in turn and obtain the logits. Then take the last position and compute the 5 most probable tokens. The tests compare your logits with the model's own output entry by entry."
+ },
+ "hints": [
+  {
+   "zh": "位置编号用 `torch.arange(T)` 生成，`t.wte(input_ids)` 和 `t.wpe(positions)` 的结果直接相加，形状会自动广播。",
+   "en": "Create the positions with `torch.arange(T)`. Add `t.wte(input_ids)` and `t.wpe(positions)` directly and broadcasting takes care of the shapes."
+  },
+  {
+   "zh": "循环里写 `x = run_block(block, x)`。12 层结束后是 `model.lm_head(t.ln_f(x))`。",
+   "en": "Inside the loop write `x = run_block(block, x)`. After the 12 layers comes `model.lm_head(t.ln_f(x))`."
+  },
+  {
+   "zh": "logits 的形状是 `(1, T, 50257)`。预测下一个 token 只用最后一行，即 `logits[0, -1]`。",
+   "en": "The logits have shape `(1, T, 50257)`. Only the last row predicts the next token, `logits[0, -1]`."
+  }
+ ]
+}

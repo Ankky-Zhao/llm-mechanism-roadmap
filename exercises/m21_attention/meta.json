@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "attention",
+ "level": 1,
+ "minutes": 30,
+ "title": {
+  "zh": "实现缩放点积注意力",
+  "en": "Implement scaled dot-product attention"
+ },
+ "prompt": {
+  "zh": "按公式实现注意力，返回输出和注意力权重，并支持布尔掩码。测试会与 `F.scaled_dot_product_attention` 对比，包括带掩码的情形。",
+  "en": "Implement attention from the formula, return both the output and the attention weights, and support a boolean mask. The tests compare with `F.scaled_dot_product_attention`, including the masked case."
+ },
+ "hints": [
+  {
+   "zh": "转置最后两个维度用 `k.transpose(-2, -1)`，这样函数对带批量维度和不带批量维度的输入都适用。",
+   "en": "Transpose the last two dimensions with `k.transpose(-2, -1)` so the function works with and without batch dimensions."
+  },
+  {
+   "zh": "掩码用 `scores.masked_fill(~mask, float('-inf'))`，在 softmax 之前执行。",
+   "en": "Apply the mask with `scores.masked_fill(~mask, float('-inf'))` before the softmax."
+  },
+  {
+   "zh": "$d_k$ 取 `q.shape[-1]`，除的是它的平方根。",
+   "en": "$d_k$ is `q.shape[-1]`, and the division is by its square root."
+  }
+ ]
+}

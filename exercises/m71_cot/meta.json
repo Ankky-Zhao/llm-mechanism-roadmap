@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "prompting",
+ "level": 2,
+ "minutes": 30,
+ "network": true,
+ "title": {
+  "zh": "直接作答与逐步推理对比",
+  "en": "Direct answers and step-by-step reasoning compared"
+ },
+ "prompt": {
+  "zh": "实现从回答中提取最终数字的函数，以及两种提问方式。直接作答时用预填充的办法强制回答以 Answer 开头，使模型没有机会先推理。测试用 8 道两步算术题比较两种方式的正确率，运行大约需要一分半钟。",
+  "en": "Implement a function that extracts the final number from a reply, and two ways of asking. For the direct answer, a prefill forces the reply to begin with Answer, leaving the model no chance to reason first. The tests compare the accuracy of the two ways on 8 two-step arithmetic problems, which takes about a minute and a half."
+ },
+ "hints": [
+  {
+   "zh": "先用 `re.findall` 找所有 `Answer:` 后面的数字，找到就取最后一个，找不到再取全文的最后一个数字。",
+   "en": "First find all numbers after `Answer:` with `re.findall` and take the last one if there is any, otherwise take the last number in the whole text."
+  },
+  {
+   "zh": "预填充的做法是把 `'Answer:'` 直接接在 `apply_chat_template(..., tokenize=False)` 返回的字符串后面，再分词。",
+   "en": "The prefill appends `'Answer:'` directly to the string returned by `apply_chat_template(..., tokenize=False)` before tokenising."
+  },
+  {
+   "zh": "只解码新生成的部分，即 `out[0, ids.shape[1]:]`。",
+   "en": "Decode only the newly generated part, `out[0, ids.shape[1]:]`."
+  }
+ ]
+}

@@ -1,0 +1,65 @@
+<svg viewBox="0 0 700 250" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<text x="180" y="26" text-anchor="middle" font-size="13.5" class="f-ink" font-weight="600" data-l="zh">没有缓存</text><text x="180" y="26" text-anchor="middle" font-size="13.5" class="f-ink" font-weight="600" data-l="en">without the cache</text>
+<text x="30" y="69" text-anchor="start" font-size="11.5" class="f-muted" data-l="zh">第 1 步</text><text x="30" y="69" text-anchor="start" font-size="11.5" class="f-muted" data-l="en">step 1</text>
+<rect x="88" y="50" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="122" y="50" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="156" y="50" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="190" y="50" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="224" y="50" width="28" height="28" rx="5" class="f-accent"/>
+<text x="30" y="113" text-anchor="start" font-size="11.5" class="f-muted" data-l="zh">第 2 步</text><text x="30" y="113" text-anchor="start" font-size="11.5" class="f-muted" data-l="en">step 2</text>
+<rect x="88" y="94" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="122" y="94" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="156" y="94" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="190" y="94" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="224" y="94" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="258" y="94" width="28" height="28" rx="5" class="f-accent"/>
+<text x="30" y="157" text-anchor="start" font-size="11.5" class="f-muted" data-l="zh">第 3 步</text><text x="30" y="157" text-anchor="start" font-size="11.5" class="f-muted" data-l="en">step 3</text>
+<rect x="88" y="138" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="122" y="138" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="156" y="138" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="190" y="138" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="224" y="138" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="258" y="138" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="292" y="138" width="28" height="28" rx="5" class="f-accent"/>
+<text x="520" y="26" text-anchor="middle" font-size="13.5" class="f-ink" font-weight="600" data-l="zh">有缓存</text><text x="520" y="26" text-anchor="middle" font-size="13.5" class="f-ink" font-weight="600" data-l="en">with the cache</text>
+<text x="370" y="69" text-anchor="start" font-size="11.5" class="f-muted" data-l="zh">第 1 步</text><text x="370" y="69" text-anchor="start" font-size="11.5" class="f-muted" data-l="en">step 1</text>
+<rect x="428" y="50" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="442" y="68" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="462" y="50" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="476" y="68" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="496" y="50" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="510" y="68" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="530" y="50" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="544" y="68" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="564" y="50" width="28" height="28" rx="5" class="f-accent"/>
+<text x="370" y="113" text-anchor="start" font-size="11.5" class="f-muted" data-l="zh">第 2 步</text><text x="370" y="113" text-anchor="start" font-size="11.5" class="f-muted" data-l="en">step 2</text>
+<rect x="428" y="94" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="442" y="112" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="462" y="94" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="476" y="112" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="496" y="94" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="510" y="112" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="530" y="94" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="544" y="112" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="564" y="94" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="578" y="112" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="598" y="94" width="28" height="28" rx="5" class="f-accent"/>
+<text x="370" y="157" text-anchor="start" font-size="11.5" class="f-muted" data-l="zh">第 3 步</text><text x="370" y="157" text-anchor="start" font-size="11.5" class="f-muted" data-l="en">step 3</text>
+<rect x="428" y="138" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="442" y="156" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="462" y="138" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="476" y="156" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="496" y="138" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="510" y="156" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="530" y="138" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="544" y="156" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="564" y="138" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="578" y="156" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="598" y="138" width="28" height="28" rx="5" class="f-surface s-line"/>
+<text x="612" y="156" text-anchor="middle" font-size="10" class="f-muted mono">K,V</text>
+<rect x="632" y="138" width="28" height="28" rx="5" class="f-accent"/>
+<rect x="150" y="204" width="16" height="16" rx="3" class="f-accent"/>
+<text x="174" y="217" text-anchor="start" font-size="12" class="f-muted" data-l="zh">本步计算的位置</text><text x="174" y="217" text-anchor="start" font-size="12" class="f-muted" data-l="en">positions computed in this step</text>
+<rect x="400" y="204" width="16" height="16" rx="3" class="f-surface s-line"/>
+<text x="424" y="217" text-anchor="start" font-size="12" class="f-muted" data-l="zh">从缓存读取键和值</text><text x="424" y="217" text-anchor="start" font-size="12" class="f-muted" data-l="en">keys and values read from the cache</text>
+</svg>

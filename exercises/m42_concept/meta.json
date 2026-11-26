@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "sft",
+ "level": 1,
+ "minutes": 15,
+ "title": {
+  "zh": "指令微调概念题",
+  "en": "Concept questions on instruction tuning"
+ },
+ "prompt": {
+  "zh": "不看上面的内容回答。\n(a) 一段对话依次是 system 消息 20 个 token、用户消息 15 个、回答 60 个、用户消息 10 个、回答 45 个（均已包含各自的模板标记）。在只对回答计算损失的设置下，有多少比例的 token 产生损失？\n(b) 如果对所有 token 都计算损失，可能带来什么问题？\n(c) 为什么回答的结束标记必须计入损失？\n(d) 推理时为什么要在输入末尾加上回答的开头标记，训练时却不需要？\n(e) 列出两种减轻微调遗忘的办法。",
+  "en": "Answer without looking at the text above.\n(a) A dialogue consists, in order, of a system message of 20 tokens, a user message of 15, a response of 60, a user message of 10 and a response of 45 (each including its template markers). With the loss on responses only, what share of the tokens produces a loss?\n(b) What problem may arise if the loss is computed on all tokens?\n(c) Why must the end marker of a response count towards the loss?\n(d) Why is the opening marker of a response appended to the input at inference but not needed in training?\n(e) List two ways of reducing forgetting in fine-tuning."
+ },
+ "hints": [
+  {
+   "zh": "(a) 先算总 token 数，再算两段回答的 token 数。",
+   "en": "(a) First compute the total number of tokens, then the tokens of the two responses."
+  },
+  {
+   "zh": "(d) 想一想训练数据里回答本身是否已经在文本中。",
+   "en": "(d) Consider whether the response is already in the text of the training data."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 总数为 $20 + 15 + 60 + 10 + 45 = 150$，回答共 $105$ 个，比例为 70%。严格来说回答开头的角色标记不计损失，实际比例略低。\n\n(b) 模型会花一部分学习去预测用户的发言，这不是目标，还可能使模型在推理时倾向于在回答之后接着替用户写下一轮。\n\n(c) 模型需要学会在回答完成时输出结束标记，生成才会停止。不计入损失的话，模型没有学过何时结束，会一直写下去直到达到长度上限。\n\n(d) 训练数据中回答的开头标记和内容都已经在文本里，模型在前一个位置自然会看到它。推理时文本以用户消息结束，需要人为加上回答的开头，告诉模型接下来该由助手发言。\n\n(e) 例如使用较小的学习率和较少的训练步数，在微调数据中混入通用数据，或者冻结原有权重、只训练少量新增参数（LoRA）。",
+  "en": "(a) The total is $20 + 15 + 60 + 10 + 45 = 150$, the responses have $105$, so the share is 70%. Strictly the role header at the start of a response carries no loss, which makes the actual share slightly lower.\n\n(b) The model spends part of its learning on predicting the user's utterances, which is not the goal and may make it inclined to write the user's next turn after its response at inference.\n\n(c) The model has to learn to emit the end marker when the response is complete, or generation never stops. Without the loss it has never learned when to end and keeps writing until the length limit.\n\n(d) In the training data the opening marker and the content of the response are already in the text, so the model sees them at the previous position anyway. At inference the text ends with the user message, and the opening of the response has to be added to tell the model that the assistant speaks next.\n\n(e) For example a small learning rate with few training steps, mixing general data into the fine-tuning data, or freezing the original weights and training only a few added parameters (LoRA)."
+ }
+}

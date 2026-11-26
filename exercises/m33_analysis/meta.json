@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "token_issues",
+ "level": 2,
+ "minutes": 20,
+ "title": {
+  "zh": "失败案例分析",
+  "en": "Analysing failure cases"
+ },
+ "prompt": {
+  "zh": "根据上一题观察到的切分结果回答。\n(a) 用户问 strawberry 里有几个字母 r。在 GPT-2 的分词下，这个词（不带前导空格）进入模型时是什么样子？模型的输入里有没有直接给出它的拼写？\n(b) 给出两种让模型更容易答对这道题的办法，并说明各自为什么有效。\n(c) 用 o200k 编码时，`1234567` 和 `12345678` 分别被切成什么？指出为什么这种切法对加法不利。\n(d) 一位同学说“模型数不清字母，完全是分词造成的”。根据本模块的内容，这个说法需要怎样修正？",
+  "en": "Answer from the tokenizations observed in the previous exercise.\n(a) A user asks how many letters r are in strawberry. Under GPT-2's tokenization, what does this word (without a leading space) look like when it enters the model? Is its spelling given directly anywhere in the input?\n(b) Give two ways of making it easier for the model to answer this question correctly, and say why each works.\n(c) With the o200k encoding, how are `1234567` and `12345678` cut? Point out why this cutting is unfavourable for addition.\n(d) A fellow student says that models cannot count letters purely because of tokenization. How should this statement be corrected in the light of this module?"
+ },
+ "hints": [
+  {
+   "zh": "(b) 一种办法改变输入的写法，另一种办法把计数交给别的东西来做。",
+   "en": "(b) One way changes how the input is written, the other hands the counting to something else."
+  },
+  {
+   "zh": "(c) 想一想个位数字落在哪个 token 里，以及它是否随数字长度变化。",
+   "en": "(c) Consider which token holds the units digit and whether this changes with the length of the number."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 它是三个 token，即 st、raw、berry，进入模型的是这三个 token 的编号和对应的向量。输入中没有任何地方直接写出这些 token 由哪些字母组成，拼写只能靠模型从训练中间接学到。\n\n(b) 其一，让模型先把单词逐个字母拼出来再计数，或者直接在提问时把字母用空格分开。这样每个字母是一个单独的 token，字母对模型可见，计数变成对可见的 token 逐个核对。其二，让模型调用代码执行工具，用一行程序来数。这把模型不擅长的精确计数交给了确定性的程序。\n\n(c) 分别是 123、456、7 和 123、456、78。前两个 token 完全相同，但在两个数里代表的数量级不同，个位数字在一个数里单独成一个 token，在另一个数里与十位合在一起。加法需要按数位对齐并从右往左进位，这种从左往右的切分使对齐关系随数字长度变化。\n\n(d) 分词是重要原因之一，它使字符层面的信息不直接可见。但已有研究的结论并不一致，有的研究发现错误与 token 数量的相关性较弱，而与单词长度和字母重复次数的相关性更强，模型能认出字母，困难在于计数。更准确的说法是分词与模型不擅长逐项计数这两个因素共同起作用。",
+  "en": "(a) It is three tokens, st, raw and berry, and what enters the model are the ids of these three tokens and their vectors. Nowhere in the input is it written directly which letters these tokens consist of. The spelling has to be learned indirectly from training.\n\n(b) First, have the model spell the word letter by letter before counting, or separate the letters with spaces in the question. Each letter is then a token of its own, the letters are visible to the model and counting becomes checking visible tokens one by one. Second, let the model call a code-execution tool and count with a line of code. This hands exact counting, which the model is not good at, to a deterministic program.\n\n(c) They are 123, 456, 7 and 123, 456, 78. The first two tokens are identical yet stand for different orders of magnitude in the two numbers, and the units digit is a token of its own in one number and joined with the tens digit in the other. Addition needs alignment by place value and carries from right to left, and this left-to-right cutting makes the alignment change with the length of the number.\n\n(d) Tokenization is one important cause, as it makes character-level information not directly visible. Yet existing studies do not agree. Some find that errors correlate only weakly with the number of tokens and more strongly with the length of the word and the repetition of letters, that models can recognize the letters and that the difficulty lies in counting. A more accurate statement is that tokenization and the weakness of models at item-by-item counting act together."
+ }
+}

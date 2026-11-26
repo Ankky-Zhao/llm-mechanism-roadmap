@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LLM Mechanism Roadmap</title>
+<meta name="description" content="A bilingual (中文 / English) roadmap for understanding how large language models work: derivations, runnable exercises with tests, why-questions and an interview bank.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" onload="window.__katexCss=1">
+<style>
+:root{
+  --bg:#F6F7F4; --surface:#FFFFFF; --surface-2:#EEF1EC; --ink:#151A1E; --muted:#5B6670; --line:#D6DCD8; --line-soft:#E6EAE6;
+  --accent:#1E6B4F; --accent-ink:#175640; --accent-soft:#DDEEE5; --accent-2:#3E5A8C; --accent-2-soft:#E1E8F4;
+  --pin:#B4641E; --pin-soft:#F7E8D8; --done:#2E7D4F; --code-bg:#F1F3EF;
+  --shadow:0 1px 2px rgba(21,26,30,.05),0 10px 30px -18px rgba(21,26,30,.28);
+  --display:"Sora","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --body:"Source Sans 3","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0F1412; --surface:#171D1A; --surface-2:#1F2622; --ink:#E7ECE8; --muted:#97A39C; --line:#2B3530; --line-soft:#222B26;
+  --accent:#5FC199; --accent-ink:#8ED9B8; --accent-soft:#173226; --accent-2:#8FA9DC; --accent-2-soft:#1D2739;
+  --pin:#E2A05E; --pin-soft:#33261A; --done:#7BD19E; --code-bg:#121815;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -18px rgba(0,0,0,.7);}}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-ink);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:currentColor}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 96px}
+h1,h2,h3,h4,h5{font-family:var(--display);text-wrap:balance;letter-spacing:-.01em}
+.mono{font-family:var(--mono)}
+.mono,pre,code,svg .mono{font-variant-ligatures:none;font-feature-settings:"liga" 0,"calt" 0}
+code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+.top .in{max-width:1080px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-weight:700;font-size:16px;display:flex;align-items:center;gap:8px;color:var(--ink);border:0}
+.brand i{width:10px;height:10px;border-radius:50%;border:3px solid var(--accent);display:inline-block}
+.topnav{display:flex;gap:2px 16px;flex-wrap:wrap;font-size:14px;margin-left:auto}
+.topnav a{color:var(--muted);border:0}
+.topnav a:hover{color:var(--ink)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:var(--surface);color:var(--ink);padding:5px 11px;cursor:pointer;font:inherit;font-size:13px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+@media (max-width:760px){.topnav{display:none}.seg{margin-left:auto}}
+
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:40px;align-items:end;padding:52px 0 34px;border-bottom:1px solid var(--line)}
+@media (max-width:860px){.hero{grid-template-columns:1fr;gap:24px;padding-top:34px}}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
+h1{font-size:clamp(32px,4.8vw,54px);line-height:1.06;margin:10px 0 16px;font-weight:700}
+h1 span{color:var(--accent)}
+.lede{font-size:18px;color:var(--muted);max-width:58ch;margin:0 0 22px}
+.stats{display:flex;flex-wrap:wrap;gap:8px 28px}
+.stat b{font-family:var(--display);font-size:26px;font-weight:600;display:block;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
+.panel h4{margin:0 0 8px;font-size:14px;font-weight:600}
+.num{font-family:var(--mono);font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
+.bar{height:8px;background:var(--surface-2);border-radius:4px;overflow:hidden;margin:6px 0 14px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.sib{display:grid;gap:6px}
+.sib a{display:block;padding:8px 12px;border:1px solid var(--line-soft);border-radius:8px;font-size:14px;color:var(--ink)}
+.sib a:hover{border-color:var(--accent)}
+.sib a span{display:block;color:var(--muted);font-size:12.5px}
+
+section.sec{padding-top:54px}
+.sec-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;margin-bottom:8px}
+.sec-h h2{font-size:28px;margin:0;font-weight:600}
+.sec-h .k{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.08em}
+.sec-p{color:var(--muted);max-width:74ch;margin:0 0 20px}
+
+/* overview map */
+.ov{display:grid;gap:8px}
+.ov-row{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:grid;grid-template-columns:210px minmax(0,1fr);gap:10px;align-items:center}
+@media (max-width:700px){.ov-row{grid-template-columns:1fr}}
+.ov-row .ln{font-size:14px;font-weight:600;font-family:var(--display)}
+.ov-row .ln small{font-family:var(--mono);font-size:11.5px;color:var(--muted);font-weight:400;margin-right:8px}
+.nodes{display:flex;flex-wrap:wrap;gap:6px}
+.node{display:inline-block;padding:4px 10px;border-radius:7px;font-size:13.5px;border:1px solid transparent}
+.node.ready{background:var(--accent-soft);color:var(--accent-ink);font-weight:500}
+.node.ready:hover{border-color:var(--accent)}
+.node.planned{color:var(--muted);border:1px dashed var(--line)}
+.legend{font-size:13px;color:var(--muted);display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;align-items:center}
+
+/* stage + module */
+.stage{margin-top:38px}
+.stage-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;border-top:2px solid var(--ink);padding-top:12px}
+.stage-h h3{font-size:23px;margin:0;font-weight:600}
+.stage-h .wk{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.stage-h p{width:100%;margin:2px 0 0;color:var(--muted);font-size:15px;max-width:80ch}
+.tri{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+@media (max-width:820px){.tri{grid-template-columns:1fr}}
+.tri div{padding:10px 14px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 8px 8px 0;font-size:14.5px}
+.tri b,.mwhy b,.terms b{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);font-weight:500;display:block;margin-bottom:2px}
+.mwhy{margin-top:16px;padding:10px 16px;border-left:3px solid var(--pin);background:var(--pin-soft);border-radius:0 8px 8px 0;font-size:15px;max-width:none}
+.mwhy b{color:var(--pin)}
+.mplain{border-left-color:var(--accent);background:var(--accent-soft)}
+.mplain b{color:var(--accent-ink)}
+.asof{margin-top:10px;font-size:13px;color:var(--muted);font-family:var(--mono);letter-spacing:.01em}
+.tblwrap{overflow-x:auto;margin:18px 0 6px}
+table.tbl{border-collapse:collapse;font-size:13.5px;width:100%;min-width:560px}
+table.tbl th,table.tbl td{text-align:left;padding:7px 12px 7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+table.tbl th{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+table.tbl td code{font-size:12.5px}
+.tblwrap .cap{font-size:13px;color:var(--muted);margin:8px 0 0;max-width:86ch}
+.mwhy p{margin:0;max-width:86ch}
+.terms{margin-top:12px;font-size:14px}
+.terms a{display:inline-block;margin:3px 6px 0 0;padding:2px 10px;border:1px solid var(--line);border-radius:999px;color:var(--ink);font-size:13px}
+.terms a:hover{border-color:var(--accent)}
+.gt:target{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.gt .more{display:block}
+.gl-search{width:100%;max-width:420px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:8px 12px;font:inherit;font-size:15px;margin-bottom:14px}
+.gl{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:8px}
+.gt{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14.5px}
+.gt b{font-family:var(--display);font-weight:600;font-size:15px}
+.gt .alt{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:8px}
+.gt p{margin:3px 0 0;color:var(--ink)}
+.gt a,.gt .to{font-family:var(--mono);font-size:11.5px;color:var(--muted);display:inline-block;margin-top:4px}
+.module{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-top:16px;box-shadow:var(--shadow)}
+.module>summary{list-style:none;cursor:pointer;padding:18px 22px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 14px;align-items:baseline}
+.module>summary::-webkit-details-marker{display:none}
+.module>summary .n{font-family:var(--mono);font-size:13px;color:var(--accent-ink)}
+.module>summary h4{font-size:20px;margin:0;font-weight:600}
+.module>summary .meta{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.module>summary .sm{grid-column:2/4;color:var(--muted);font-size:14.5px;margin:0}
+.module>summary .chev{display:inline-block;transition:transform .2s;margin-left:8px}
+.module[open]>summary .chev{transform:rotate(90deg)}
+.module[open]>summary{border-bottom:1px solid var(--line-soft)}
+.mbody{padding:6px 22px 24px}
+@media (max-width:600px){.module>summary{padding:14px 16px}.mbody{padding:4px 16px 18px}}
+.planned-card{background:transparent;border:1px dashed var(--line);border-radius:12px;margin-top:12px;padding:12px 18px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 14px;align-items:baseline}
+.planned-card .n{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.planned-card h4{font-size:16.5px;margin:0;font-weight:600}
+.planned-card ul{grid-column:2;margin:2px 0 0;padding-left:18px;color:var(--muted);font-size:14px}
+.blk{margin-top:26px}
+.blk>h5{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;font-weight:500;display:flex;gap:10px;align-items:center}
+.blk>h5::after{content:"";flex:1;height:1px;background:var(--line-soft)}
+.goals{background:var(--accent-soft);border-radius:8px;padding:10px 16px;font-size:14.5px;margin-top:16px}
+.goals b{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);font-weight:500}
+.goals ul{margin:4px 0 0;padding-left:18px}
+.prose p{margin:0 0 12px;max-width:76ch}
+figure{margin:18px 0 6px}
+figure .frame{background:var(--bg);border:1px solid var(--line-soft);border-radius:10px;padding:10px;overflow-x:auto}
+figure svg{display:block;width:100%;min-width:560px;height:auto;font-family:var(--body)}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:8px;max-width:76ch}
+svg .f-ink{fill:var(--ink)} svg .f-muted{fill:var(--muted)} svg .f-accent{fill:var(--accent)} svg .f-pin{fill:var(--pin)} svg .f-surface{fill:var(--surface)}
+svg .f-soft{fill:var(--accent-soft)} svg .f-on{fill:var(--bg)}
+svg .f-muted2{fill:var(--line)} svg .f-accent2{fill:var(--accent-2)}
+svg .s-line{stroke:var(--line)} svg .s-muted{stroke:var(--muted)} svg .s-accent{stroke:var(--accent)} svg .s-pin{stroke:var(--pin)} svg .f-pinsoft{fill:var(--pin-soft)}
+svg .mono{font-family:var(--mono)}
+[data-lang="zh"] [data-l="en"],[data-lang="en"] [data-l="zh"]{display:none}
+
+.deriv{border:1px solid var(--line-soft);border-radius:10px;margin-top:12px;overflow:hidden}
+.deriv>summary{cursor:pointer;padding:10px 16px;font-weight:600;font-family:var(--display);font-size:15.5px;background:var(--surface-2)}
+.deriv ol{list-style:none;margin:0;padding:4px 16px 10px;counter-reset:st}
+.deriv li{counter-increment:st;display:grid;grid-template-columns:28px minmax(0,1fr);gap:0 8px;padding:12px 0;border-top:1px dashed var(--line-soft)}
+.deriv li:first-child{border-top:0}
+.deriv li::before{content:counter(st);font-family:var(--mono);font-size:12px;color:var(--accent-ink);background:var(--accent-soft);width:22px;height:22px;border-radius:50%;display:grid;place-items:center;margin-top:4px}
+.deriv .tex{overflow-x:auto;overflow-y:hidden;padding:2px 0 6px}
+.deriv .note{font-size:14.5px;color:var(--muted);margin:0;max-width:74ch}
+.deriv .src{font-size:13px;color:var(--muted);padding:0 16px 12px}
+.katex{font-size:1.05em}
+math{font-size:1.05em}
+
+.tier{border-top:1px solid var(--line-soft);padding-top:8px;margin-top:8px}
+.tier:first-of-type{border-top:0;padding-top:0}
+.tier-h{font-size:13px;font-weight:600;display:flex;gap:10px;align-items:center;margin-bottom:2px}
+.tier-h .dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.tier-h span{font-weight:400;color:var(--muted);font-size:12.5px}
+.res{display:grid;grid-template-columns:22px minmax(0,1fr);gap:0 10px;padding:6px 0;align-items:start}
+.res input,.exdone input{margin:5px 0 0;width:16px;height:16px;accent-color:var(--done);cursor:pointer}
+.res .t{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
+.res .t a{font-weight:500}
+.res.done .t a{color:var(--muted);text-decoration:line-through}
+.tag{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 5px;line-height:1.6;white-space:nowrap}
+.tag.zh{color:var(--accent-2);border-color:var(--accent-2)}
+.tag.pin{color:var(--pin);border-color:var(--pin);background:var(--pin-soft)}
+.tag.acc{color:var(--accent-ink);border-color:var(--accent);background:var(--accent-soft)}
+.res .w{font-size:13.5px;color:var(--muted);margin:1px 0 0}
+
+.ex{border:1px solid var(--line);border-radius:10px;margin-top:14px;padding:16px 18px}
+.ex-h{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+.ex-h h6{font-family:var(--display);font-size:16.5px;margin:0;font-weight:600}
+.ex-h .exdone{margin-left:auto;font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center;cursor:pointer}
+.ex-h .exdone input{margin:0}
+.ex .prompt{margin:8px 0 10px;font-size:15px;max-width:76ch}
+.ex .prompt p{margin:0 0 8px}
+pre{background:var(--code-bg);border:1px solid var(--line-soft);border-radius:8px;padding:12px 14px;overflow:auto;font-family:var(--mono);font-size:12.8px;line-height:1.55;margin:0;max-height:520px;tab-size:4}
+pre .c{color:var(--muted);font-style:italic} pre .k{color:var(--accent-2)} pre .s{color:var(--pin)} pre .todo{color:var(--pin);font-weight:500;font-style:normal;background:var(--pin-soft);border-radius:3px}
+.codewrap{position:relative;margin-top:6px}
+.codewrap .lab{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.copy{font-family:var(--mono);font-size:11px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:5px;padding:2px 8px;cursor:pointer}
+.copy:hover{color:var(--ink);border-color:var(--ink)}
+.fold{margin-top:8px;border:1px solid var(--line-soft);border-radius:8px}
+.fold>summary{cursor:pointer;padding:7px 12px;font-size:14px;font-weight:500}
+.fold>div{padding:4px 12px 12px;font-size:14.5px}
+.fold>div p{margin:0 0 8px}
+.fold.hint>summary{color:var(--pin)}
+.fold.sol>summary{color:var(--accent-ink)}
+.colab{display:inline-flex;align-items:center;gap:8px;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:6px 12px;color:var(--ink);background:var(--surface);margin-top:4px}
+.colab:hover{border-color:var(--accent)}
+.runline{font-size:13.5px;color:var(--muted);margin:6px 0 0}
+
+.faq{border-top:1px dashed var(--line-soft);padding:12px 0}
+.faq:first-of-type{border-top:0;padding-top:0}
+.faq h6{font-family:var(--body);font-size:15.5px;margin:0 0 4px;font-weight:600}
+.faq h6::before{content:"Q";font-family:var(--mono);font-size:11px;color:var(--pin);border:1px solid var(--pin);border-radius:4px;padding:0 5px;margin-right:8px;vertical-align:1px}
+.faq p{margin:0;font-size:15px;color:var(--ink);max-width:76ch}
+.faq .to{font-size:12.5px;font-family:var(--mono);color:var(--muted);margin-top:4px;display:inline-block}
+
+.whygrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:10px}
+.why{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;display:flex;flex-direction:column;gap:6px;color:var(--ink)}
+a.why:hover{border-color:var(--accent)}
+.why.planned{background:transparent;border-style:dashed;color:var(--muted)}
+.why .to{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:auto}
+h3.sub{font-size:17px;margin:22px 0 10px;font-weight:600}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 16px}
+.controls .lbl{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:4px 12px;font:inherit;font-size:13px;cursor:pointer;line-height:1.3}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+select.sel{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:5px 8px;font:inherit;font-size:13px}
+.empty{border:1px dashed var(--line);border-radius:12px;padding:20px 22px;color:var(--muted);max-width:80ch}
+.qa{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:10px}
+.qa .qh{display:flex;flex-wrap:wrap;gap:6px;align-items:baseline;margin-bottom:4px}
+.qa .qt{font-weight:600;margin:0 0 4px}
+.qa .tr{color:var(--muted);font-size:14.5px;margin:0 0 6px}
+.qa .srcs{font-size:13px;color:var(--muted)}
+
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted);max-width:80ch}
+@media (prefers-reduced-motion:reduce){.bar i,.chev{transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="top"><div class="in">
+  <a class="brand" href="#top"><i></i><span data-i="brand"></span></a>
+  <nav class="topnav" aria-label="sections">
+    <a href="#how" data-i="nav_how"></a><a href="#map" data-i="nav_map"></a><a href="#path" data-i="nav_path"></a><a href="#why" data-i="nav_why"></a><a href="#glossary" data-i="nav_gl"></a><a href="#interview" data-i="nav_iv"></a><a id="ghLink" href="#">GitHub</a>
+  </nav>
+  <div class="seg" id="langSeg" role="group" aria-label="language"><button data-lang="zh">中文</button><button data-lang="en">English</button></div>
+</div></div>
+
+<div class="wrap" id="top">
+  <header class="hero">
+    <div>
+      <div class="eyebrow" data-i="eyebrow"></div>
+      <h1 id="title"></h1>
+      <p class="lede" id="lede"></p>
+      <div class="stats">
+        <div class="stat"><b id="sMods"></b><span data-i="st_mods"></span></div>
+        <div class="stat"><b id="sEx"></b><span data-i="st_ex"></span></div>
+        <div class="stat"><b id="sRes"></b><span data-i="st_res"></span></div>
+        <div class="stat"><b id="sWhy"></b><span data-i="st_why"></span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h4 data-i="prog_h"></h4>
+      <div class="num"><span id="pEx"></span><span id="pRes"></span></div>
+      <div class="bar"><i id="pBar"></i></div>
+      <h4 data-i="sib_h"></h4>
+      <div class="sib" id="sib"></div>
+    </div>
+  </header>
+
+  <section class="sec" id="how">
+    <div class="sec-h"><span class="k">01</span><h2 data-i="how_h"></h2></div>
+    <p class="sec-p" data-i="how_p0"></p>
+    <p class="sec-p" data-i="how_p1"></p>
+    <p class="sec-p" data-i="how_p2"></p>
+    <p class="sec-p" data-i="how_p3"></p>
+  </section>
+
+  <section class="sec" id="map">
+    <div class="sec-h"><span class="k">02</span><h2 data-i="map_h"></h2></div>
+    <p class="sec-p" data-i="map_p"></p>
+    <div class="ov" id="ov"></div>
+    <div class="legend"><span class="node ready" data-i="lg_ready"></span><span class="node planned" data-i="lg_planned"></span></div>
+  </section>
+
+  <section class="sec" id="path">
+    <div class="sec-h"><span class="k">03</span><h2 data-i="path_h"></h2></div>
+    <p class="sec-p" data-i="path_p"></p>
+    <div id="stages"></div>
+  </section>
+
+  <section class="sec" id="why">
+    <div class="sec-h"><span class="k">04</span><h2 data-i="why_h"></h2></div>
+    <p class="sec-p" data-i="why_p"></p>
+    <h3 class="sub" data-i="why_done"></h3>
+    <div class="whygrid" id="whyDone"></div>
+    <h3 class="sub" data-i="why_plan"></h3>
+    <div class="whygrid" id="whyPlan"></div>
+  </section>
+
+  <section class="sec" id="glossary">
+    <div class="sec-h"><span class="k">05</span><h2 data-i="gl_h"></h2></div>
+    <p class="sec-p" data-i="gl_p"></p>
+    <input class="gl-search" id="glSearch" type="search" autocomplete="off">
+    <div class="gl" id="glList"></div>
+  </section>
+
+  <section class="sec" id="interview">
+    <div class="sec-h"><span class="k">06</span><h2 data-i="iv_h"></h2></div>
+    <p class="sec-p" data-i="iv_p"></p>
+    <div class="controls" id="ivCtl" hidden>
+      <span class="lbl" data-i="iv_region"></span>
+      <button class="chip" data-region="all" aria-pressed="true" data-i="iv_all"></button>
+      <button class="chip" data-region="cn" aria-pressed="false" data-i="iv_cn"></button>
+      <button class="chip" data-region="intl" aria-pressed="false" data-i="iv_intl"></button>
+      <select class="sel" id="ivCompany" aria-label="company"></select>
+      <select class="sel" id="ivModule" aria-label="module"></select>
+      <select class="sel" id="ivType" aria-label="source type"></select>
+    </div>
+    <div id="ivList"></div>
+  </section>
+
+  <footer class="foot">
+    <p data-i="foot1"></p>
+    <p data-i="foot2"></p>
+  </footer>
+</div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  const D = JSON.parse(document.getElementById('data').textContent);
+  const UI = {
+    brand:{zh:'大模型机制学习路线',en:'LLM Mechanism Roadmap'},
+    eyebrow:{zh:'推导 · 练习 · 为什么 · 面试题',en:'Derivations · exercises · why-questions · interviews'},
+    nav_how:{zh:'用法',en:'How to use'}, nav_map:{zh:'总览',en:'Overview'}, nav_path:{zh:'学习路线',en:'Path'}, nav_why:{zh:'为什么',en:'Why'}, nav_iv:{zh:'面试题库',en:'Interviews'}, nav_gl:{zh:'术语表',en:'Glossary'},
+    gl_h:{zh:'术语表',en:'Glossary'}, gl_p:{zh:'基础术语的简短解释，中英对照。每条指向详细讲解它的模块，并附一条核实过的资源用于深入学习。',en:'Short explanations of basic terms in both languages. Each points to the module that covers it in detail and gives one verified resource for going deeper.'}, gl_ph:{zh:'搜索术语，例如 logits',en:'Search a term, for example logits'}, s_why:{zh:'为什么需要这个阶段',en:'Why this stage is needed'}, s_what:{zh:'这个阶段在做什么',en:'What this stage does'}, s_meaning:{zh:'对整个 LLM 的意义',en:'What it means for the LLM as a whole'}, m_why:{zh:'为什么要学这个',en:'Why learn this'}, m_plain:{zh:'打个比方',en:'An everyday picture'}, m_terms:{zh:'本模块出现的术语（点击查看解释）',en:'Terms in this module (click for the explanation)'}, gl_more:{zh:'深入学习',en:'Go deeper'},
+    st_mods:{zh:'个模块已完成',en:'modules ready'}, st_ex:{zh:'个带测试的练习',en:'tested exercises'}, st_res:{zh:'条核实过的资源',en:'verified resources'}, st_why:{zh:'个“为什么”已解答',en:'why-questions answered'},
+    prog_h:{zh:'我的进度（保存在本机浏览器）',en:'My progress (stored in this browser)'}, sib_h:{zh:'姊妹路线',en:'Sibling roadmaps'},
+    how_h:{zh:'怎么用',en:'How to use this'},
+    how_p0:{zh:'整体采用总分结构。阶段 0 先用一张流程图把一次生成从头到尾走一遍，后面每个阶段展开其中的一段，并在开头回答三个问题，即为什么需要这个阶段、它在做什么、它对整个 LLM 的意义。每个模块开头也会说明为什么要学它。没有系统学过模型内部机制的读者建议从阶段 0 开始。遇到不认识的术语可以查页面上的术语表。',en:'The structure goes from the whole to the parts. Stage 0 walks through one generation from start to finish with a single diagram. Every later stage opens up one part of it and begins by answering three questions, namely why the stage is needed, what it does and what it means for the LLM as a whole. Every module also begins by saying why it is worth learning. Readers who have not studied model internals systematically should start with stage 0. Unknown terms can be looked up in the glossary on this page.'},
+    how_p1:{zh:'每个模块的结构相同。先是通俗讲解和一张图，然后是逐步的公式推导，每一步都说明在做什么。接着是推荐资源、代码练习和推导练习，最后是“常见疑问”，用刚学到的原理解释实际使用中遇到的现象。',en:'Every module has the same structure. A plain explanation with one figure, then step-by-step derivations where each step says what it does. Then recommended resources, coding and derivation exercises, and finally common questions that use the new principles to explain what you see in practice.'},
+    how_p2:{zh:'练习给出函数框架和 TODO，配有自动检查。建议先自己写，卡住时按顺序展开提示，最后再看参考答案。所有参考答案都在持续集成里实际运行并通过测试，未完成的框架则确认不能通过，以保证测试确实在检查内容。',en:'Exercises give a function skeleton with TODOs and automatic checks. Try first, open the hints in order when stuck, and read the reference solution last. Every reference solution is run against its tests in continuous integration, and every unfinished skeleton is confirmed to fail, so the tests do check something.'},
+    how_p3:{zh:'练习可以在 CPU 或免费的 Colab 上几分钟内跑完。每个模块顶部有 Colab 链接，也可以克隆仓库后在本地运行。',en:'Exercises run in minutes on a CPU or on free Colab. Each module links to a Colab notebook, and the repository can also be cloned and run locally.'},
+    map_h:{zh:'路线总览',en:'Overview'},
+    map_p:{zh:'一个总览阶段加九个展开阶段，另有“为什么”专栏、术语表和面试题库。内容分批发布，已完成的模块可以点击进入。',en:'One overview stage and nine stages that open it up, plus the why column, the glossary and the interview bank. Content is released in batches, and finished modules are clickable.'},
+    lg_ready:{zh:'已完成',en:'Ready'}, lg_planned:{zh:'计划中',en:'Planned'},
+    path_h:{zh:'学习路线',en:'The learning path'},
+    path_p:{zh:'点击模块展开。计划中的模块先列出练习标题。',en:'Click a module to open it. Planned modules list their exercise titles.'},
+    why_h:{zh:'“为什么”专栏',en:'The why column'},
+    why_p:{zh:'实际使用大模型时遇到的现象，用机制来解释。每个问题都放在能解释它的那个模块末尾，这里是汇总。',en:'Things you notice when using LLMs, explained by mechanism. Each question lives at the end of the module that explains it. This is the index.'},
+    why_done:{zh:'已解答',en:'Answered'}, why_plan:{zh:'随后续阶段解答',en:'Answered in later stages'},
+    iv_h:{zh:'面试题库',en:'Interview bank'},
+    iv_p:{zh:'国内外大模型相关岗位的面试题，按模块归类，标注公司、岗位类型、来源和检索到的独立来源数。来源数是样本内计数，不代表真实面试频率。',en:'Interview questions for LLM-related roles in China and abroad, grouped by module and labelled with company, role, source and the number of independent sources found. That count is a within-sample count and does not represent real interview frequency.'},
+    iv_region:{zh:'地区',en:'Region'}, iv_all:{zh:'全部',en:'All'}, iv_cn:{zh:'国内',en:'China'}, iv_intl:{zh:'海外',en:'International'},
+    any_company:{zh:'全部公司',en:'All companies'}, any_module:{zh:'全部模块',en:'All modules'}, any_type:{zh:'全部来源类型',en:'All source types'},
+    st_report:{zh:'原始面经',en:'First-hand report'}, st_collection:{zh:'整理合集',en:'Curated collection'}, st_official:{zh:'官方材料',en:'Official material'},
+    orig:{zh:'原题',en:'Original'}, trans:{zh:'译文',en:'Translation'}, answer:{zh:'参考要点',en:'Key points'}, sources:{zh:'来源',en:'Sources'}, nsrc:{zh:'个来源',en:'sources'},
+    goals:{zh:'学完之后',en:'After this module'}, b_explain:{zh:'讲解',en:'Explanation'}, b_deriv:{zh:'公式与推导',en:'Formulas and derivations'}, b_res:{zh:'推荐资源',en:'Resources'}, b_ex:{zh:'练习',en:'Exercises'}, b_faq:{zh:'常见疑问',en:'Common questions'},
+    lv_intro:{zh:'入门',en:'Intro'}, lv_core:{zh:'掌握',en:'Core'}, lv_deep:{zh:'深入',en:'Deep'},
+    lvd_intro:{zh:'先建立直觉',en:'build intuition first'}, lvd_core:{zh:'要能复述',en:'be able to reproduce'}, lvd_deep:{zh:'原始出处与延伸',en:'original sources and beyond'},
+    t_official:{zh:'官方文档',en:'docs'}, t_course:{zh:'课程',en:'course'}, t_video:{zh:'视频',en:'video'}, t_blog:{zh:'博客',en:'blog'}, t_paper:{zh:'论文',en:'paper'}, t_code:{zh:'代码',en:'code'}, t_book:{zh:'书',en:'book'},
+    k_code:{zh:'代码',en:'code'}, k_derivation:{zh:'推导',en:'derivation'}, min:{zh:'分钟',en:'min'}, level:{zh:'难度',en:'level'},
+    starter:{zh:'函数框架',en:'Starter code'}, tests:{zh:'自动检查（接在你的代码后面运行）',en:'Automatic checks (run after your code)'}, hint:{zh:'提示',en:'Hint'}, solution:{zh:'参考答案',en:'Reference solution'},
+    copy:{zh:'复制',en:'Copy'}, copied:{zh:'已复制',en:'Copied'}, done:{zh:'已完成',en:'done'},
+    colab:{zh:'在 Colab 中打开本模块的练习',en:'Open this module\'s exercises in Colab'},
+    needs:{zh:'需要先完成',en:'Requires'}, net:{zh:'需要联网下载模型',en:'downloads a model'},
+    src:{zh:'出处',en:'Source'}, planned:{zh:'计划中',en:'planned'}, see:{zh:'见模块',en:'see module'},
+    p_ex:{zh:'练习',en:'exercises'}, p_res:{zh:'资源',en:'resources'},
+    foot1:{zh:'内容以 CC BY 4.0 发布，代码以 MIT 发布。资源链接于 __DATE__ 逐条访问核实。发现错误或想补充内容，欢迎在 GitHub 提交 issue 或 PR。',en:'Content is released under CC BY 4.0 and code under MIT. Resource links were each visited and verified on __DATE__. Corrections and additions are welcome as issues or pull requests on GitHub.'},
+    foot2:{zh:'整理者 Anqi (Ankky) Zhao · TUM。各资源与论文的版权归原作者所有。',en:'Curated by Anqi (Ankky) Zhao · TUM. Resources and papers remain the property of their authors.'}
+  };
+  let lang = 'zh';
+  const store = {
+    get(){ try { return JSON.parse(localStorage.getItem('lmr:v1')) || {res:{},ex:{}}; } catch(e){ return {res:{},ex:{}}; } },
+    set(v){ try { localStorage.setItem('lmr:v1', JSON.stringify(v)); } catch(e){} }
+  };
+  let prog = store.get(); prog.res = prog.res || {}; prog.ex = prog.ex || {};
+  try { const l = localStorage.getItem('lmr:lang'); if (l === 'en' || l === 'zh') lang = l; else if (!/^zh/i.test(navigator.language || 'zh')) lang = 'en'; } catch(e){}
+
+  const $ = (s, r) => (r || document).querySelector(s);
+  const t = o => o == null ? '' : (typeof o === 'string' ? o : (o[lang] || o.zh || o.en || ''));
+  const u = k => t(UI[k]);
+  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  // tiny markup: paragraphs, `code`, **bold**. Math stays as $...$ for KaTeX.
+  function md(s){
+    return esc(s).split(/\n\n+/).map(p => '<p>' + p.replace(/\n/g,'<br>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>') + '</p>').join('');
+  }
+  const inline = s => md(s).replace(/^<p>|<\/p>$/g,'');
+  function py(src){
+    const re = /(#[^\n]*)|("""[\s\S]*?"""|"(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*')|\b(def|class|return|import|from|as|for|in|if|else|elif|while|not|and|or|is|None|True|False|lambda|with|try|except|finally|raise|assert|pass|self)\b/g;
+    let out = '', last = 0, m;
+    while ((m = re.exec(src))) {
+      out += esc(src.slice(last, m.index));
+      if (m[1]) out += '<span class="c' + (/TODO/.test(m[1]) ? ' todo' : '') + '">' + esc(m[1]) + '</span>';
+      else if (m[2]) out += '<span class="s">' + esc(m[2]) + '</span>';
+      else out += '<span class="k">' + m[3] + '</span>';
+      last = re.lastIndex;
+    }
+    return out + esc(src.slice(last));
+  }
+  const kOut = () => window.__katexCss ? 'htmlAndMathml' : 'mathml';
+  function typeset(el){
+    if (!window.katex) return;
+    el.querySelectorAll('[data-tex]').forEach(n => {
+      try { katex.render(n.getAttribute('data-tex'), n, {displayMode:true, throwOnError:false, output:kOut()}); } catch(e){ n.textContent = n.getAttribute('data-tex'); }
+      n.removeAttribute('data-tex');
+    });
+    if (window.renderMathInElement) renderMathInElement(el, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}], throwOnError:false, output:kOut(), ignoredTags:['script','noscript','style','textarea','pre','code']});
+  }
+
+  const M = D.modules, EX = D.exercises, RES = D.resources, Q = D.questions || [];
+  const GL = {}; (D.glossary || []).forEach(g => { GL[g.term.en] = g; });
+  const gid = n => 'g-' + n.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const RT = {}; RES.forEach(r => { RT[r.url] = r.title; });
+  const ready = Object.keys(M).filter(k => M[k].status === 'ready');
+  const exOf = k => (M[k].exercises || []).map(id => Object.assign({id}, EX[id]));
+  const resOf = k => RES.filter(r => r.topic === k);
+  const allEx = ready.flatMap(exOf), allRes = RES.filter(r => M[r.topic] && M[r.topic].status === 'ready');
+
+  function moduleBody(k){
+    const m = M[k]; let h = '';
+    h += '<div class="mwhy"><b>' + u('m_why') + '</b>' + md(t(m.why)) + '</div>';
+    if (m.plain) h += '<div class="mwhy mplain"><b>' + u('m_plain') + '</b>' + md(t(m.plain)) + '</div>';
+    if (m.asof) h += '<div class="asof">' + inline(t(m.asof)) + '</div>';
+    if (m.terms && m.terms.length) h += '<div class="terms"><b>' + u('m_terms') + '</b>' + m.terms.map(n => { const g = GL[n]; return g ? '<a href="#' + gid(n) + '">' + esc(g.term[lang]) + '</a>' : ''; }).join('') + '</div>';
+    h += '<div class="goals"><b>' + u('goals') + '</b><ul>' + m.goals.map(g => '<li>' + inline(t(g)) + '</li>').join('') + '</ul></div>';
+    h += '<div class="blk"><h5>' + u('b_explain') + '</h5><div class="prose">' + m.explain.map(p => md(t(p))).join('') + '</div>';
+    if (m.figure) h += '<figure><div class="frame">' + (D.figures[m.figure.file] || '') + '</div><figcaption>' + inline(t(m.figure.caption)) + '</figcaption></figure>';
+    if (m.table) h += '<div class="tblwrap"><table class="tbl"><thead><tr>' + m.table.head.map(c => '<th>' + esc(t(c)) + '</th>').join('') + '</tr></thead><tbody>' + m.table.rows.map(r => '<tr>' + r.map(c => '<td>' + inline(typeof c === 'string' ? c : t(c)) + '</td>').join('') + '</tr>').join('') + '</tbody></table><p class="cap">' + inline(t(m.table.caption)) + '</p></div>';
+    h += '</div>';
+    if (m.derivations.length) h += '<div class="blk"><h5>' + u('b_deriv') + '</h5>' + m.derivations.map((d, i) =>
+      '<details class="deriv"' + (i === 0 ? ' open' : '') + '><summary>' + esc(t(d.title)) + '</summary><ol>' +
+      d.steps.map(s => '<li><div><div class="tex" data-tex="' + esc(s.tex) + '"></div><p class="note">' + inline(t(s.note)) + '</p></div></li>').join('') + '</ol>' +
+      (d.source ? '<div class="src">' + u('src') + ' · <a href="' + esc(d.source.url) + '" target="_blank" rel="noopener">' + esc(d.source.text) + '</a></div>' : '') + '</details>').join('') + '</div>';
+    // resources
+    const rs = resOf(k);
+    h += '<div class="blk"><h5>' + u('b_res') + '</h5>' + ['intro','core','deep'].map(lv => {
+      const xs = rs.filter(r => r.level === lv); if (!xs.length) return '';
+      return '<div class="tier"><div class="tier-h"><i class="dot" style="opacity:' + ({intro:.45,core:.75,deep:1})[lv] + '"></i>' + u('lv_' + lv) + '<span>' + u('lvd_' + lv) + '</span></div>' + xs.map(r =>
+        '<div class="res' + (prog.res[r.url] ? ' done' : '') + '"><input type="checkbox" data-res="' + esc(r.url) + '"' + (prog.res[r.url] ? ' checked' : '') + ' aria-label="' + u('done') + '"><div><div class="t"><a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.title) + '</a><span class="tag">' + u('t_' + r.type) + '</span>' + (r.lang === 'zh' ? '<span class="tag zh">中文</span>' : '') + '<span class="tag" style="border:0;padding:0">' + r.hours + ' h</span></div><p class="w">' + esc(t(r.why)) + '</p></div></div>').join('') + '</div>';
+    }).join('') + '</div>';
+    // exercises
+    const xs = exOf(k);
+    h += '<div class="blk"><h5>' + u('b_ex') + '</h5><a class="colab" href="' + esc(D.site.colab_base + m.notebook) + '" target="_blank" rel="noopener">▶ ' + u('colab') + '</a><p class="runline mono">python scripts/run_tests.py ' + xs.filter(e => e.kind === 'code').map(e => e.id).join(' ') + '</p>' + xs.map((e, i) => {
+      let x = '<div class="ex" id="ex-' + e.id + '"><div class="ex-h"><span class="tag ' + (e.kind === 'code' ? 'acc' : 'pin') + '">' + u('k_' + e.kind) + '</span><h6>' + (i + 1) + '. ' + esc(t(e.title)) + '</h6><span class="tag" style="border:0">' + u('level') + ' ' + '●'.repeat(e.level) + '○'.repeat(3 - e.level) + ' · ' + e.minutes + ' ' + u('min') + '</span>' +
+        (e.network ? '<span class="tag">' + u('net') + '</span>' : '') +
+        '<label class="exdone"><input type="checkbox" data-ex="' + e.id + '"' + (prog.ex[e.id] ? ' checked' : '') + '>' + u('done') + '</label></div>';
+      if (e.requires) x += '<p class="runline">' + u('needs') + ' ' + e.requires.map(r => '<a href="#ex-' + r + '">' + esc(t(EX[r].title)) + '</a>').join(', ') + '</p>';
+      x += '<div class="prompt">' + md(t(e.prompt)) + '</div>';
+      if (e.kind === 'code') {
+        x += '<div class="codewrap"><div class="lab"><span>' + u('starter') + '</span><button class="copy" data-copy="starter:' + e.id + '">' + u('copy') + '</button></div><pre>' + py(e.starter) + '</pre></div>';
+        x += '<details class="fold"><summary>' + u('tests') + '</summary><div><div class="codewrap"><div class="lab"><span>tests.py</span><button class="copy" data-copy="tests:' + e.id + '">' + u('copy') + '</button></div><pre>' + py(e.tests) + '</pre></div></div></details>';
+      }
+      x += e.hints.map((hh, j) => '<details class="fold hint"><summary>' + u('hint') + ' ' + (j + 1) + '</summary><div>' + md(t(hh)) + '</div></details>').join('');
+      x += '<details class="fold sol"><summary>' + u('solution') + '</summary><div>' + (e.kind === 'code'
+        ? '<div class="codewrap"><div class="lab"><span>solution.py</span><button class="copy" data-copy="solution:' + e.id + '">' + u('copy') + '</button></div><pre>' + py(e.solution) + '</pre></div>'
+        : md(t(e.solution))) + '</div></details></div>';
+      return x;
+    }).join('') + '</div>';
+    h += '<div class="blk"><h5>' + u('b_faq') + '</h5>' + m.faq.map(f => '<div class="faq"><h6>' + esc(t(f.q)) + '</h6>' + md(t(f.a)) + '</div>').join('') + '</div>';
+    return h;
+  }
+
+  function fill(det){
+    const body = det.querySelector('.mbody');
+    if (body.dataset.lang === lang) return;
+    body.innerHTML = moduleBody(det.dataset.k); body.dataset.lang = lang; typeset(body);
+  }
+
+  function render(){
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.documentElement.dataset.lang = lang;
+    document.querySelectorAll('[data-i]').forEach(n => { n.textContent = u(n.dataset.i).replace(/__DATE__/g, D.site.updated); });
+    document.querySelectorAll('#langSeg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
+    document.title = t(D.site.name);
+    const nm = t(D.site.name), cut = lang === 'zh' ? nm.indexOf('机制') : nm.indexOf('Mechanism');
+    const w = lang === 'zh' ? '机制' : 'Mechanism';
+    $('#title').innerHTML = esc(nm.slice(0, cut)) + '<span>' + w + '</span>' + esc(nm.slice(cut + w.length));
+    $('#lede').textContent = t(D.site.tagline);
+    $('#ghLink').href = D.site.repo;
+    const nFaq = ready.reduce((a, k) => a + M[k].faq.length, 0);
+    $('#sMods').textContent = ready.length + ' / ' + Object.keys(M).length;
+    $('#sEx').textContent = allEx.length; $('#sRes').textContent = allRes.length; $('#sWhy').textContent = nFaq;
+    $('#sib').innerHTML = D.site.siblings.map(s => '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(t(s.name)) + '<span>' + esc(t(s.note)) + '</span></a>').join('');
+    // overview
+    $('#ov').innerHTML = D.stages.map((s, i) => '<div class="ov-row"><div class="ln"><small>' + s.num + '</small>' + esc(t(s.name)) + '</div><div class="nodes">' + s.modules.map(k =>
+      M[k].status === 'ready' ? '<a class="node ready" href="#m-' + k + '">' + M[k].num + ' ' + esc(t(M[k].title)) + '</a>' : '<span class="node planned">' + M[k].num + ' ' + esc(t(M[k].title)) + '</span>').join('') + '</div></div>').join('');
+    // stages
+    const openSet = new Set([...document.querySelectorAll('details.module[open]')].map(d => d.dataset.k));
+    $('#stages').innerHTML = D.stages.map((s, i) => '<div class="stage" id="' + s.id + '"><div class="stage-h"><span class="wk">' + s.num + '</span><h3>' + esc(t(s.name)) + '</h3><p>' + esc(t(s.note)) + '</p></div>' + '<div class="tri"><div><b>' + u('s_why') + '</b>' + esc(t(s.why)) + '</div><div><b>' + u('s_what') + '</b>' + esc(t(s.what)) + '</div><div><b>' + u('s_meaning') + '</b>' + esc(t(s.meaning)) + '</div></div>' + s.modules.map(k => {
+      const m = M[k];
+      if (m.status !== 'ready') return '<div class="planned-card"><span class="n">' + m.num + '</span><h4>' + esc(t(m.title)) + ' <span class="tag">' + u('planned') + '</span></h4><ul>' + m.planned_exercises.map(e => '<li>' + esc(t(e)) + '</li>').join('') + '</ul></div>';
+      const ne = (m.exercises || []).length;
+      return '<details class="module" id="m-' + k + '" data-k="' + k + '"><summary><span class="n">' + m.num + '</span><h4>' + esc(t(m.title)) + '<span class="chev">›</span></h4><span class="meta">' + ne + ' ' + u('p_ex') + ' · ~' + m.minutes + ' ' + u('min') + '</span><p class="sm">' + esc(t(m.summary)) + '</p></summary><div class="mbody"></div></details>';
+    }).join('') + '</div>').join('');
+    document.querySelectorAll('details.module').forEach(d => {
+      d.addEventListener('toggle', () => { if (d.open) fill(d); });
+      if (openSet.has(d.dataset.k)) d.open = true;
+    });
+    // why column
+    $('#whyDone').innerHTML = ready.flatMap(k => M[k].faq.map(f => '<a class="why" href="#m-' + k + '" data-open="' + k + '"><span>' + esc(t(f.q)) + '</span><span class="to">' + M[k].num + ' ' + esc(t(M[k].title)) + '</span></a>')).join('');
+    $('#whyPlan').innerHTML = D.whys_planned.filter(w => M[w.module].status !== 'ready').map(w => '<div class="why planned"><span>' + esc(t(w.q)) + '</span><span class="to">' + M[w.module].num + ' ' + esc(t(M[w.module].title)) + '</span></div>').join('');
+    renderGl(); renderIv(); updateProg(); route();
+  }
+
+  function renderGl(){
+    const q = ($('#glSearch').value || '').trim().toLowerCase();
+    $('#glSearch').placeholder = u('gl_ph');
+    const other = lang === 'zh' ? 'en' : 'zh';
+    const xs = (D.glossary || []).filter(g => !q || (g.term.zh + ' ' + g.term.en + ' ' + g.def.zh + ' ' + g.def.en).toLowerCase().includes(q));
+    $('#glList').innerHTML = xs.map(g => { const m = M[g.module]; const to = m ? m.num + ' ' + esc(t(m.title)) : '';
+      return '<div class="gt" id="' + gid(g.term.en) + '"><b>' + esc(g.term[lang]) + '</b>' + (g.term.zh !== g.term.en ? '<span class="alt">' + esc(g.term[other]) + '</span>' : '') + '<p>' + esc(g.def[lang]) + '</p>' + (m ? (m.status === 'ready' ? '<a href="#m-' + g.module + '">→ ' + to + '</a>' : '<span class="to">→ ' + to + ' · ' + u('planned') + '</span>') : '') + (g.link ? '<a class="more" href="' + esc(g.link) + '" target="_blank" rel="noopener">' + u('gl_more') + ' · ' + esc(RT[g.link] || g.link) + '</a>' : '') + '</div>'; }).join('');
+  }
+  $('#glSearch').addEventListener('input', renderGl);
+
+  // interview bank
+  const ivState = {region:'all', company:'', module:'', type:''};
+  function renderIv(){
+    const ctl = $('#ivCtl'), list = $('#ivList');
+    if (!Q.length) { ctl.hidden = true; list.innerHTML = '<div class="empty">' + esc(t(D.interview.note)) + '</div>'; return; }
+    ctl.hidden = false;
+    const companies = [...new Set(Q.flatMap(q => q.companies || []))].sort();
+    const mods = [...new Set(Q.map(q => q.module))].filter(k => M[k]);
+    $('#ivCompany').innerHTML = '<option value="">' + u('any_company') + '</option>' + companies.map(c => '<option' + (c === ivState.company ? ' selected' : '') + '>' + esc(c) + '</option>').join('');
+    $('#ivModule').innerHTML = '<option value="">' + u('any_module') + '</option>' + mods.map(k => '<option value="' + k + '"' + (k === ivState.module ? ' selected' : '') + '>' + M[k].num + ' ' + esc(t(M[k].title)) + '</option>').join('');
+    $('#ivType').innerHTML = '<option value="">' + u('any_type') + '</option>' + ['report','collection','official'].map(k => '<option value="' + k + '"' + (k === ivState.type ? ' selected' : '') + '>' + u('st_' + k) + '</option>').join('');
+    ctl.querySelectorAll('[data-region]').forEach(b => b.setAttribute('aria-pressed', b.dataset.region === ivState.region));
+    const xs = Q.filter(q => (ivState.region === 'all' || q.region === ivState.region) && (!ivState.company || (q.companies || []).includes(ivState.company)) && (!ivState.module || q.module === ivState.module) && (!ivState.type || q.source_type === ivState.type));
+    list.innerHTML = '<p class="tr" style="margin:0 0 14px">' + esc(t(D.interview.note)) + '</p>' + xs.map(q => {
+      const o = q.orig_lang || 'en', other = o === 'zh' ? 'en' : 'zh';
+      return '<div class="qa"><div class="qh">' + (q.companies || []).map(c => '<span class="tag acc">' + esc(c) + '</span>').join('') + (q.role ? '<span class="tag">' + esc(q.role) + '</span>' : '') + '<span class="tag pin">' + u('st_' + q.source_type) + '</span><span class="tag">' + (q.sources || []).length + ' ' + u('nsrc') + '</span>' + (M[q.module] ? '<a class="tag" href="#m-' + q.module + '">' + M[q.module].num + ' ' + esc(t(M[q.module].title)) + '</a>' : '') + '</div><p class="qt">' + esc(q.q[o]) + '</p><p class="tr">' + u('trans') + ' · ' + esc(q.q[other]) + '</p><details class="fold sol"><summary>' + u('answer') + '</summary><div>' + md(t(q.a)) + '</div></details><div class="srcs">' + u('sources') + ' · ' + (q.sources || []).map(s => '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.title) + '</a>').join(' · ') + '</div></div>';
+    }).join('') || '<div class="empty">0</div>';
+    typeset(list);
+  }
+  $('#ivCtl').addEventListener('click', e => { const b = e.target.closest('[data-region]'); if (b) { ivState.region = b.dataset.region; renderIv(); } });
+  $('#ivCtl').addEventListener('change', e => { ivState.company = $('#ivCompany').value; ivState.module = $('#ivModule').value; ivState.type = $('#ivType').value; renderIv(); });
+
+  function updateProg(){
+    const de = allEx.filter(e => prog.ex[e.id]).length, dr = allRes.filter(r => prog.res[r.url]).length;
+    $('#pEx').textContent = u('p_ex') + ' ' + de + ' / ' + allEx.length;
+    $('#pRes').textContent = u('p_res') + ' ' + dr + ' / ' + allRes.length;
+    const tot = allEx.length + allRes.length;
+    $('#pBar').style.width = (tot ? Math.round(100 * (de + dr) / tot) : 0) + '%';
+  }
+  function route(){
+    const id = (location.hash || '').slice(1); if (!id) return;
+    let el = document.getElementById(id);
+    if (!el && id.indexOf('ex-') === 0 && EX[id.slice(3)]) { const d = document.getElementById('m-' + EX[id.slice(3)].module); if (d) { d.open = true; fill(d); el = document.getElementById(id); } }
+    if (el && el.matches('details.module')) { el.open = true; fill(el); }
+    if (el) el.scrollIntoView();
+  }
+
+  document.addEventListener('change', e => {
+    const r = e.target.dataset && e.target.dataset.res, x = e.target.dataset && e.target.dataset.ex;
+    if (r) { prog.res[r] = e.target.checked ? 1 : 0; e.target.closest('.res').classList.toggle('done', e.target.checked); }
+    if (x) prog.ex[x] = e.target.checked ? 1 : 0;
+    if (r || x) { store.set(prog); updateProg(); }
+  });
+  document.addEventListener('click', e => {
+    const c = e.target.closest('[data-copy]');
+    if (c) {
+      const [what, id] = c.dataset.copy.split(':');
+      const done = () => { c.textContent = u('copied'); setTimeout(() => { c.textContent = u('copy'); }, 1400); };
+      try { navigator.clipboard.writeText(EX[id][what]).then(done, () => {}); } catch(err){}
+      return;
+    }
+    const b = e.target.closest('#langSeg button');
+    if (b) { lang = b.dataset.lang; try { localStorage.setItem('lmr:lang', lang); } catch(err){} render(); }
+  });
+  window.addEventListener('hashchange', route);
+  render();
+  // KaTeX's stylesheet may arrive after first render (or not at all where it is blocked): re-typeset open modules once the page has loaded.
+  window.addEventListener('load', () => { document.querySelectorAll('details.module[open] .mbody').forEach(b => { b.dataset.lang = ''; fill(b.parentElement); }); });
+})();
+</script>
+</body>
+</html>

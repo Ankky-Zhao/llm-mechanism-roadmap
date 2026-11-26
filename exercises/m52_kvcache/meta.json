@@ -1,0 +1,32 @@
+{
+ "kind": "code",
+ "module": "kv_cache",
+ "level": 3,
+ "minutes": 40,
+ "requires": [
+  "m22_mha",
+  "m25_minigpt"
+ ],
+ "title": {
+  "zh": "给 mini-GPT 加上 KV cache",
+  "en": "Add a KV cache to mini-GPT"
+ },
+ "prompt": {
+  "zh": "沿用 2.2 的 `MultiHeadAttention` 和 2.5 的 `MiniGPT`，实现一次只处理一个 token 的前向计算，并把先前位置的键和值保存在缓存里。测试会检查每个位置的 logits 与完整前向计算一致，带缓存的生成与不带缓存的生成结果相同，并统计两种方式各处理了多少个位置。",
+  "en": "Reusing `MultiHeadAttention` from 2.2 and `MiniGPT` from 2.5, implement a forward pass that processes one token at a time and keeps the keys and values of earlier positions in a cache. The tests check that the logits at every position agree with the full forward pass, that generation with the cache equals generation without it, and count how many positions each way processes."
+ },
+ "hints": [
+  {
+   "zh": "缓存的形状是 `(B, n_head, t, d_head)`，新的键和值沿 `dim=2` 拼接。",
+   "en": "The cache has shape `(B, n_head, t, d_head)`, and new keys and values are concatenated along `dim=2`."
+  },
+  {
+   "zh": "这里不需要因果掩码，因为缓存中只有当前位置和它之前的位置，没有未来的位置可以屏蔽。",
+   "en": "No causal mask is needed here, since the cache holds only the current position and those before it, and there are no future positions to mask."
+  },
+  {
+   "zh": "位置嵌入用 `model.pos_emb(torch.tensor([pos]))`。忘记加位置或者位置编号错位，是这个练习中最常见的错误。",
+   "en": "The positional embedding is `model.pos_emb(torch.tensor([pos]))`. Forgetting the position or shifting its index is the most common mistake in this exercise."
+  }
+ ]
+}

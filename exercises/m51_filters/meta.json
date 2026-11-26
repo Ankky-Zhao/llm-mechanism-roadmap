@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "sampling",
+ "level": 2,
+ "minutes": 30,
+ "title": {
+  "zh": "实现 temperature、top-k 和 top-p",
+  "en": "Implement temperature, top-k and top-p"
+ },
+ "prompt": {
+  "zh": "实现三种对 logits 的处理以及把它们串起来的采样函数。测试会把结果与 Hugging Face 的官方实现逐个元素比较，并检查一个可以手算的例子。",
+  "en": "Implement the three operations on logits and the sampling function that chains them. The tests compare the results element by element with the official Hugging Face implementation and check a case that can be worked out by hand."
+ },
+ "hints": [
+  {
+   "zh": "top-k 中用 `logits.masked_fill(logits < kth, float('-inf'))`，其中 `kth` 是第 k 大的 logit。",
+   "en": "For top-k use `logits.masked_fill(logits < kth, float('-inf'))`, where `kth` is the k-th largest logit."
+  },
+  {
+   "zh": "top-p 中，排序后某个位置应当被去掉的条件是排在它前面的 token 的概率之和已经达到 `p`，即 `probs.cumsum(-1) - probs >= p`。",
+   "en": "For top-p, a sorted position is removed when the tokens ranked above it already have a total probability of at least `p`, that is `probs.cumsum(-1) - probs >= p`."
+  },
+  {
+   "zh": "恢复原来的顺序可以用 `torch.full_like(logits, float('-inf')).scatter(-1, order, sorted_logits)`。",
+   "en": "The original order is restored with `torch.full_like(logits, float('-inf')).scatter(-1, order, sorted_logits)`."
+  }
+ ]
+}

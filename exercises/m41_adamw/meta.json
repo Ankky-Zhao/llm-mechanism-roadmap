@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "pretraining",
+ "level": 2,
+ "minutes": 30,
+ "title": {
+  "zh": "手写 AdamW 与学习率调度",
+  "en": "AdamW and the learning-rate schedule by hand"
+ },
+ "prompt": {
+  "zh": "不使用 `torch.optim` 写出 AdamW 的一步更新，再实现带预热的余弦学习率调度。测试会连续 20 步与 `torch.optim.AdamW` 逐步对比，并验证第一步的更新量与梯度大小无关。",
+  "en": "Write one AdamW update without `torch.optim` and implement the cosine learning-rate schedule with warm-up. The tests compare with `torch.optim.AdamW` step by step for 20 steps and verify that the first update does not depend on the size of the gradient."
+ },
+ "hints": [
+  {
+   "zh": "按函数说明中的五行公式的顺序逐行写即可。权重衰减先做，并且用的是更新前的参数。",
+   "en": "Write the five formulas of the docstring line by line in the given order. Weight decay comes first and uses the parameter before the update."
+  },
+  {
+   "zh": "不要原地修改输入的张量，用 `p = p - ...` 而不是 `p -= ...`。",
+   "en": "Do not modify the input tensors in place. Write `p = p - ...` and not `p -= ...`."
+  },
+  {
+   "zh": "学习率调度分三段，即预热、余弦下降和结束之后。先判断处在哪一段。",
+   "en": "The schedule has three parts, warm-up, cosine decay and after the end. First decide which part the step is in."
+  }
+ ]
+}

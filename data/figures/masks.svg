@@ -1,0 +1,91 @@
+<svg viewBox="0 0 700 250" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<text x="40" y="26" font-size="13" font-weight="600" class="f-ink">decoder-only</text>
+<text x="40" y="44" text-anchor="start" font-size="11.5" class="f-muted" data-l="zh">因果掩码 · GPT</text><text x="40" y="44" text-anchor="start" font-size="11.5" class="f-muted" data-l="en">causal mask · GPT</text>
+<rect x="40" y="70" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="66" y="70" width="23" height="23" rx="3" class="f-surface s-line"/>
+<rect x="92" y="70" width="23" height="23" rx="3" class="f-surface s-line"/>
+<rect x="118" y="70" width="23" height="23" rx="3" class="f-surface s-line"/>
+<rect x="144" y="70" width="23" height="23" rx="3" class="f-surface s-line"/>
+<rect x="40" y="96" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="66" y="96" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="92" y="96" width="23" height="23" rx="3" class="f-surface s-line"/>
+<rect x="118" y="96" width="23" height="23" rx="3" class="f-surface s-line"/>
+<rect x="144" y="96" width="23" height="23" rx="3" class="f-surface s-line"/>
+<rect x="40" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="66" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="92" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="118" y="122" width="23" height="23" rx="3" class="f-surface s-line"/>
+<rect x="144" y="122" width="23" height="23" rx="3" class="f-surface s-line"/>
+<rect x="40" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="66" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="92" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="118" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="144" y="148" width="23" height="23" rx="3" class="f-surface s-line"/>
+<rect x="40" y="174" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="66" y="174" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="92" y="174" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="118" y="174" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="144" y="174" width="23" height="23" rx="3" class="f-accent s-line"/>
+<text x="105" y="218" text-anchor="middle" font-size="11" class="f-muted" data-l="zh">被读取的位置 →</text><text x="105" y="218" text-anchor="middle" font-size="11" class="f-muted" data-l="en">position being read →</text>
+<text x="270" y="26" font-size="13" font-weight="600" class="f-ink">encoder-only</text>
+<text x="270" y="44" text-anchor="start" font-size="11.5" class="f-muted" data-l="zh">无掩码 · BERT</text><text x="270" y="44" text-anchor="start" font-size="11.5" class="f-muted" data-l="en">no mask · BERT</text>
+<rect x="270" y="70" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="296" y="70" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="322" y="70" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="348" y="70" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="374" y="70" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="270" y="96" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="296" y="96" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="322" y="96" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="348" y="96" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="374" y="96" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="270" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="296" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="322" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="348" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="374" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="270" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="296" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="322" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="348" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="374" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="270" y="174" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="296" y="174" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="322" y="174" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="348" y="174" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="374" y="174" width="23" height="23" rx="3" class="f-accent s-line"/>
+<text x="335" y="218" text-anchor="middle" font-size="11" class="f-muted" data-l="zh">被读取的位置 →</text><text x="335" y="218" text-anchor="middle" font-size="11" class="f-muted" data-l="en">position being read →</text>
+<text x="490" y="26" font-size="13" font-weight="600" class="f-ink">cross-attention</text>
+<text x="490" y="44" text-anchor="start" font-size="11.5" class="f-muted" data-l="zh">decoder 读 encoder · T5</text><text x="490" y="44" text-anchor="start" font-size="11.5" class="f-muted" data-l="en">decoder reads encoder · T5</text>
+<rect x="490" y="70" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="516" y="70" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="542" y="70" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="568" y="70" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="594" y="70" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="620" y="70" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="646" y="70" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="490" y="96" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="516" y="96" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="542" y="96" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="568" y="96" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="594" y="96" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="620" y="96" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="646" y="96" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="490" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="516" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="542" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="568" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="594" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="620" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="646" y="122" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="490" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="516" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="542" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="568" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="594" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="620" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<rect x="646" y="148" width="23" height="23" rx="3" class="f-accent s-line"/>
+<text x="581" y="192" text-anchor="middle" font-size="11" class="f-muted" data-l="zh">被读取的位置 →</text><text x="581" y="192" text-anchor="middle" font-size="11" class="f-muted" data-l="en">position being read →</text>
+<g transform="translate(26,135) rotate(-90)"><text x="0" y="0" text-anchor="middle" font-size="11" class="f-muted" data-l="zh">发出 query 的位置 →</text><text x="0" y="0" text-anchor="middle" font-size="11" class="f-muted" data-l="en">position issuing the query →</text></g>
+<text x="40" y="240" text-anchor="start" font-size="12" class="f-muted" data-l="zh">深色表示允许读取。因果掩码下，每一行只能读到自己和左边的位置。</text><text x="40" y="240" text-anchor="start" font-size="12" class="f-muted" data-l="en">Dark cells are allowed. Under the causal mask each row reads only itself and the positions to its left.</text>
+</svg>

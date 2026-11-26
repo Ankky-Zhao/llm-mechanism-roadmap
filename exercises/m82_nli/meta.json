@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "hallucination",
+ "level": 2,
+ "minutes": 25,
+ "network": true,
+ "title": {
+  "zh": "基于 NLI 的有据性检查",
+  "en": "A groundedness check with NLI"
+ },
+ "prompt": {
+  "zh": "用一个自然语言推理模型判断一个句子是否被一段资料所支持，并把它扩展为对整段回答的有据性评分。测试用例中包含 7.2 的 mini-RAG 实际给出的三个错误回答。",
+  "en": "Use a natural language inference model to decide whether a sentence is supported by a piece of material, and extend this to a groundedness score for a whole answer. The test cases include the three wrong answers that the mini-RAG of 7.2 actually gave."
+ },
+ "hints": [
+  {
+   "zh": "类别的顺序因模型而异。用 `{v.lower(): k for k, v in model.config.id2label.items()}['entailment']` 找到蕴含对应的下标。",
+   "en": "The order of the classes differs between models. Find the index of entailment with `{v.lower(): k for k, v in model.config.id2label.items()}['entailment']`."
+  },
+  {
+   "zh": "整段回答的得分是各句得分的最小值，每一句的得分是它在各段落下蕴含概率的最大值。",
+   "en": "The score of the whole answer is the minimum of the sentence scores, and the score of a sentence is the maximum of its entailment probabilities over the passages."
+  }
+ ]
+}

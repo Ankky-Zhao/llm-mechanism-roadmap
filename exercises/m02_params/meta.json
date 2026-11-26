@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "lifecycle",
+ "level": 1,
+ "minutes": 20,
+ "network": true,
+ "title": {
+  "zh": "按部件统计 GPT-2 的参数量",
+  "en": "Count GPT-2's parameters by component"
+ },
+ "prompt": {
+  "zh": "遍历 GPT-2 的参数，按名字把它们归入 token 嵌入、位置嵌入、注意力、MLP 和 LayerNorm 五类并统计数量。再写出总参数量的公式，并用它算出 GPT-2 small 和 GPT-2 medium 的参数量。",
+  "en": "Walk over the parameters of GPT-2, sort them by name into token embedding, position embedding, attention, MLP and LayerNorm, and count each group. Then write the formula for the total and use it to compute the sizes of GPT-2 small and GPT-2 medium."
+ },
+ "hints": [
+  {
+   "zh": "参数名里带 `.attn.` 的属于注意力，带 `.mlp.` 的属于 MLP，以 `wte` 和 `wpe` 开头的是两张嵌入表，其余都是 LayerNorm。",
+   "en": "Names containing `.attn.` belong to attention and `.mlp.` to the MLP. Names starting with `wte` and `wpe` are the two embedding tables. Everything else is LayerNorm."
+  },
+  {
+   "zh": "公式照着上面的推导写即可。每层是 `4*d*d + 4*d` 加 `8*d*d + 5*d` 加 `4*d`，最后再加 `2*d`。",
+   "en": "Follow the derivation above. Each layer is `4*d*d + 4*d` plus `8*d*d + 5*d` plus `4*d`, with `2*d` added at the end."
+  }
+ ]
+}

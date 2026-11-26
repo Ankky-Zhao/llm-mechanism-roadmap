@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "rlhf",
+ "level": 3,
+ "minutes": 45,
+ "title": {
+  "zh": "KL 约束目标、闭式最优解与 PPO 裁剪",
+  "en": "The KL-constrained objective, its closed-form optimum and PPO clipping"
+ },
+ "prompt": {
+  "zh": "在只有 6 个候选回答的玩具问题上实现 RLHF 的核心部件，包括带 KL 约束的目标、它的闭式最优策略、PPO 的裁剪目标，以及一步基于采样的策略梯度更新。测试会验证闭式解的目标值等于 $\\beta \\log Z$ 且不低于 200 个随机策略，并检查用策略梯度迭代 400 步后收敛到闭式解。",
+  "en": "On a toy problem with only 6 candidate responses, implement the core parts of RLHF, namely the KL-constrained objective, its closed-form optimal policy, the clipped objective of PPO and one sampled policy-gradient update. The tests verify that the objective value of the closed form equals $\\beta \\log Z$ and is no lower than that of 200 random policies, and check that 400 policy-gradient steps converge to the closed form."
+ },
+ "hints": [
+  {
+   "zh": "闭式最优策略在对数空间里就是一行，即 `torch.softmax(logp_ref + rewards / beta, dim=-1)`。",
+   "en": "In log space the closed-form optimum is a single line, `torch.softmax(logp_ref + rewards / beta, dim=-1)`."
+  },
+  {
+   "zh": "PPO 目标先算 `ratio = torch.exp(logp_new - logp_old)`，再对 `ratio * A` 和 `torch.clamp(ratio, 1 - eps, 1 + eps) * A` 逐元素取 `torch.min`。",
+   "en": "For the PPO objective compute `ratio = torch.exp(logp_new - logp_old)` and take the element-wise `torch.min` of `ratio * A` and `torch.clamp(ratio, 1 - eps, 1 + eps) * A`."
+  },
+  {
+   "zh": "策略梯度一步中，回报 `R` 要 `.detach()`，否则梯度会通过 `R` 中的 `log pi` 多算一遍。代理损失是 `-(logp[y] * (R - R.mean())).mean()`。",
+   "en": "In the policy-gradient step the return `R` must be detached, or the gradient flows once more through the `log pi` inside `R`. The surrogate loss is `-(logp[y] * (R - R.mean())).mean()`."
+  }
+ ]
+}

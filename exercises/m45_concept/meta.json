@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "lora",
+ "level": 1,
+ "minutes": 15,
+ "title": {
+  "zh": "LoRA 参数量与概念题",
+  "en": "Parameter counts and concept questions on LoRA"
+ },
+ "prompt": {
+  "zh": "在纸上完成。\n(a) 权重矩阵为 $4096 \\times 4096$，取 $r = 16$。全量微调和 LoRA 的可训练参数各是多少，相差多少倍？\n(b) 证明 $BA$ 的秩不超过 $r$。\n(c) 如果把 $A$ 和 $B$ 都初始化为 0，会发生什么？\n(d) 一个 70 亿参数的基础模型要适配 10 个任务。全量微调和 LoRA 各需要保存多少参数？假设每个 LoRA 占基础模型的 0.2%。",
+  "en": "Work on paper.\n(a) The weight matrix is $4096 \\times 4096$ and $r = 16$. How many trainable parameters do full fine-tuning and LoRA have, and by what factor do they differ?\n(b) Show that the rank of $BA$ does not exceed $r$.\n(c) What happens if both $A$ and $B$ are initialized to 0?\n(d) A base model of 7 billion parameters is to be adapted to 10 tasks. How many parameters must be stored with full fine-tuning and with LoRA? Assume each LoRA takes 0.2% of the base model."
+ },
+ "hints": [
+  {
+   "zh": "(b) $BA$ 的每一列都是 $B$ 的各列的线性组合。",
+   "en": "(b) Every column of $BA$ is a linear combination of the columns of $B$."
+  },
+  {
+   "zh": "(c) 写出两个矩阵的梯度。",
+   "en": "(c) Write the gradients of the two matrices."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 全量微调为 $4096^2 = 16{,}777{,}216$。LoRA 为 $16 \\times (4096 + 4096) = 131{,}072$。相差 128 倍。\n\n(b) $BA$ 的每一列是 $B$ 的 $r$ 个列向量的线性组合，所以 $BA$ 的列空间包含在 $B$ 的列空间内，维数不超过 $r$。\n\n(c) $\\partial \\mathcal{L} / \\partial B \\propto G A^{\\top} = 0$，$\\partial \\mathcal{L} / \\partial A \\propto B^{\\top} G = 0$。两个梯度都是 0，参数停在原地，无法学习。所以需要其中一个不为 0。\n\n(d) 全量微调需要 10 份完整的权重，共 700 亿个参数。LoRA 需要一份基础模型加 10 个适配器，共 $70 + 10 \\times 0.14 = 71.4$ 亿个参数。",
+  "en": "(a) Full fine-tuning has $4096^2 = 16{,}777{,}216$. LoRA has $16 \\times (4096 + 4096) = 131{,}072$. The factor is 128.\n\n(b) Every column of $BA$ is a linear combination of the $r$ column vectors of $B$, so the column space of $BA$ lies within that of $B$ and has dimension at most $r$.\n\n(c) $\\partial \\mathcal{L} / \\partial B \\propto G A^{\\top} = 0$ and $\\partial \\mathcal{L} / \\partial A \\propto B^{\\top} G = 0$. Both gradients are 0, the parameters stay where they are and nothing is learned. One of the two therefore has to be non-zero.\n\n(d) Full fine-tuning needs 10 complete copies of the weights, 70 billion parameters in total. LoRA needs one base model plus 10 adapters, $7 + 10 \\times 0.014 = 7.14$ billion parameters in total."
+ }
+}

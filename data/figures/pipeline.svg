@@ -1,0 +1,45 @@
+<svg viewBox="0 0 700 250" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<defs><marker id="ar01" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" class="f-ink"/></marker></defs>
+<rect x="9" y="46" width="86" height="92" rx="8" class="f-surface s-line"/>
+<text font-weight="600" x="52.0" y="70" text-anchor="middle" font-size="12.5" class="f-ink" data-l="zh">文本</text><text font-weight="600" x="52.0" y="70" text-anchor="middle" font-size="12.5" class="f-ink" data-l="en">text</text>
+<text x="52.0" y="98" text-anchor="middle" font-size="10.5" class="f-muted mono">The capital</text>
+<text x="52.0" y="114" text-anchor="middle" font-size="10.5" class="f-muted mono">of France is</text>
+<line x1="96" y1="92.0" x2="107" y2="92.0" class="s-muted" stroke-width="1.5" marker-end="url(#ar01)"/>
+<rect x="108" y="46" width="86" height="92" rx="8" class="f-surface s-line"/>
+<text font-weight="600" x="151.0" y="70" text-anchor="middle" font-size="12.5" class="f-ink" data-l="zh">① 分词</text><text font-weight="600" x="151.0" y="70" text-anchor="middle" font-size="12.5" class="f-ink" data-l="en">① tokenize</text>
+<text x="151.0" y="98" text-anchor="middle" font-size="10.5" class="f-muted mono">464 3139</text>
+<text x="151.0" y="114" text-anchor="middle" font-size="10.5" class="f-muted mono">286 4881 318</text>
+<text x="151.0" y="158" text-anchor="middle" font-size="11" class="f-accent mono" data-l="zh">阶段 3</text><text x="151.0" y="158" text-anchor="middle" font-size="11" class="f-accent mono" data-l="en">stage 3</text>
+<line x1="195" y1="92.0" x2="206" y2="92.0" class="s-muted" stroke-width="1.5" marker-end="url(#ar01)"/>
+<rect x="207" y="46" width="86" height="92" rx="8" class="f-surface s-line"/>
+<text font-weight="600" x="250.0" y="70" text-anchor="middle" font-size="12.5" class="f-ink" data-l="zh">② 嵌入</text><text font-weight="600" x="250.0" y="70" text-anchor="middle" font-size="12.5" class="f-ink" data-l="en">② embed</text>
+<text x="250.0" y="98" text-anchor="middle" font-size="10.5" class="f-muted mono">5 × 768</text>
+<text x="250.0" y="114" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">个数</text><text x="250.0" y="114" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">numbers</text>
+<text x="250.0" y="158" text-anchor="middle" font-size="11" class="f-accent mono" data-l="zh">阶段 2</text><text x="250.0" y="158" text-anchor="middle" font-size="11" class="f-accent mono" data-l="en">stage 2</text>
+<line x1="294" y1="92.0" x2="305" y2="92.0" class="s-muted" stroke-width="1.5" marker-end="url(#ar01)"/>
+<rect x="306" y="46" width="86" height="92" rx="8" class="f-soft s-accent"/>
+<text font-weight="600" x="349.0" y="70" text-anchor="middle" font-size="12.5" class="f-ink" data-l="zh">③ 12 层</text><text font-weight="600" x="349.0" y="70" text-anchor="middle" font-size="12.5" class="f-ink" data-l="en">③ 12 layers</text>
+<text x="349.0" y="98" text-anchor="middle" font-size="10.5" class="f-muted mono">attention</text>
+<text x="349.0" y="114" text-anchor="middle" font-size="10.5" class="f-muted mono">+ MLP</text>
+<text x="349.0" y="158" text-anchor="middle" font-size="11" class="f-accent mono" data-l="zh">阶段 2</text><text x="349.0" y="158" text-anchor="middle" font-size="11" class="f-accent mono" data-l="en">stage 2</text>
+<line x1="393" y1="92.0" x2="404" y2="92.0" class="s-muted" stroke-width="1.5" marker-end="url(#ar01)"/>
+<rect x="405" y="46" width="86" height="92" rx="8" class="f-surface s-line"/>
+<text font-weight="600" x="448.0" y="70" text-anchor="middle" font-size="12.5" class="f-ink">④ logits</text>
+<text x="448.0" y="98" text-anchor="middle" font-size="10.5" class="f-muted mono">50257</text>
+<text x="448.0" y="114" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">个分数</text><text x="448.0" y="114" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">scores</text>
+<text x="448.0" y="158" text-anchor="middle" font-size="11" class="f-accent mono" data-l="zh">阶段 1 · 2</text><text x="448.0" y="158" text-anchor="middle" font-size="11" class="f-accent mono" data-l="en">stages 1 · 2</text>
+<line x1="492" y1="92.0" x2="503" y2="92.0" class="s-muted" stroke-width="1.5" marker-end="url(#ar01)"/>
+<rect x="504" y="46" width="86" height="92" rx="8" class="f-surface s-line"/>
+<text font-weight="600" x="547.0" y="70" text-anchor="middle" font-size="12.5" class="f-ink" data-l="zh">⑤ 概率</text><text font-weight="600" x="547.0" y="70" text-anchor="middle" font-size="12.5" class="f-ink" data-l="en">⑤ probabilities</text>
+<text x="547.0" y="98" text-anchor="middle" font-size="10.5" class="f-muted mono">softmax</text>
+<text x="547.0" y="158" text-anchor="middle" font-size="11" class="f-accent mono" data-l="zh">阶段 1</text><text x="547.0" y="158" text-anchor="middle" font-size="11" class="f-accent mono" data-l="en">stage 1</text>
+<line x1="591" y1="92.0" x2="602" y2="92.0" class="s-muted" stroke-width="1.5" marker-end="url(#ar01)"/>
+<rect x="603" y="46" width="86" height="92" rx="8" class="f-surface s-line"/>
+<text font-weight="600" x="646.0" y="70" text-anchor="middle" font-size="12.5" class="f-ink" data-l="zh">⑥ 选 token</text><text font-weight="600" x="646.0" y="70" text-anchor="middle" font-size="12.5" class="f-ink" data-l="en">⑥ choose</text>
+<text x="646.0" y="98" text-anchor="middle" font-size="10.5" class="f-muted mono">greedy /</text>
+<text x="646.0" y="114" text-anchor="middle" font-size="10.5" class="f-muted mono">sampling</text>
+<text x="646.0" y="158" text-anchor="middle" font-size="11" class="f-accent mono" data-l="zh">阶段 5</text><text x="646.0" y="158" text-anchor="middle" font-size="11" class="f-accent mono" data-l="en">stage 5</text>
+<path d="M646.0,168 L646.0,200 L151.0,200 L151.0,170" fill="none" class="s-muted" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ar01)"/>
+<text x="398.5" y="220" text-anchor="middle" font-size="12" class="f-muted" data-l="zh">把选出的 token 接到输入后面，再算下一个</text><text x="398.5" y="220" text-anchor="middle" font-size="12" class="f-muted" data-l="en">append the chosen token to the input and compute the next one</text>
+<text x="9" y="26" text-anchor="start" font-size="13" class="f-ink" data-l="zh">推理时的一步生成（GPT-2 small）</text><text x="9" y="26" text-anchor="start" font-size="13" class="f-ink" data-l="en">One generation step at inference time (GPT-2 small)</text>
+</svg>

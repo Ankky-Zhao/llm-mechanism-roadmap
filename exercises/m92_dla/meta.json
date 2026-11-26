@@ -1,0 +1,32 @@
+{
+ "kind": "code",
+ "module": "logit_lens",
+ "network": true,
+ "requires": [
+  "m92_lens"
+ ],
+ "level": 3,
+ "minutes": 40,
+ "title": {
+  "zh": "直接 logit 归因",
+  "en": "Direct logit attribution"
+ },
+ "prompt": {
+  "zh": "用钩子取出构成残差流的 25 项，即嵌入以及每一层注意力子层和前馈子层的输出，再按推导 2 把两个 token 的 logit 差分解为各项的贡献。测试检查 25 项之和等于残差流，各项贡献之和加上常数等于模型实际的 logit 差。",
+  "en": "Capture with hooks the 25 terms that make up the residual stream, namely the embedding and the outputs of the attention sublayer and the feed-forward sublayer of every layer, and split the logit difference of two tokens into the contributions of the terms following derivation 2. The tests check that the 25 terms sum to the residual stream and that the contributions plus the constant equal the actual logit difference of the model."
+ },
+ "hints": [
+  {
+   "zh": "`block.attn` 的输出可能是元组，第一个元素是写入残差流的向量。`block.mlp` 的输出是张量。",
+   "en": "The output of `block.attn` can be a tuple whose first element is the vector written into the residual stream. The output of `block.mlp` is a tensor."
+  },
+  {
+   "zh": "$\\sigma$ 用完整的和来算，`total = parts.sum(0)`，`std = ((total - total.mean()) ** 2).mean().add(ln.eps).sqrt()`。",
+   "en": "Compute $\\sigma$ from the full sum, `total = parts.sum(0)`, `std = ((total - total.mean()) ** 2).mean().add(ln.eps).sqrt()`."
+  },
+  {
+   "zh": "每一项按自己的均值去中心化，`parts - parts.mean(-1, keepdim=True)`，再除以 `std`、乘以 `ln.weight`，最后与方向向量做内积。",
+   "en": "Centre every term by its own mean, `parts - parts.mean(-1, keepdim=True)`, divide by `std`, multiply by `ln.weight` and take the inner product with the direction."
+  }
+ ]
+}

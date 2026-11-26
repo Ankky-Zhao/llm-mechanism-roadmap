@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "evaluation",
+ "level": 2,
+ "minutes": 30,
+ "title": {
+  "zh": "Cohen's kappa 与 bootstrap 置信区间",
+  "en": "Cohen's kappa and bootstrap confidence intervals"
+ },
+ "prompt": {
+  "zh": "实现 Cohen's kappa、均值的自助法置信区间，以及两个系统的配对自助比较。测试会把 kappa 与 scikit-learn 的结果核对，并比较 8、20 和 1000 个样本时置信区间的宽度。",
+  "en": "Implement Cohen's kappa, the bootstrap confidence interval of a mean, and the paired bootstrap comparison of two systems. The tests check kappa against scikit-learn and compare the width of the confidence interval for 8, 20 and 1000 samples."
+ },
+ "hints": [
+  {
+   "zh": "偶然一致率是对所有标签求和，`(a.count(c) / n) * (b.count(c) / n)`。",
+   "en": "Chance agreement sums over all labels, `(a.count(c) / n) * (b.count(c) / n)`."
+  },
+  {
+   "zh": "重抽样用 `rng.choice(values)` 抽 `len(values)` 次，注意是有放回的。",
+   "en": "Resampling draws `len(values)` times with `rng.choice(values)`. Note that this is with replacement."
+  },
+  {
+   "zh": "配对比较中，每次重抽样先抽出一组下标，两个系统都用这一组下标。",
+   "en": "In the paired comparison every resample first draws one set of indices, which both systems use."
+  }
+ ]
+}

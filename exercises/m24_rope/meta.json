@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "positional",
+ "level": 3,
+ "minutes": 40,
+ "title": {
+  "zh": "实现 RoPE 并验证相对位置性质",
+  "en": "Implement RoPE and verify the relative-position property"
+ },
+ "prompt": {
+  "zh": "实现旋转位置编码。测试会用复数乘法写的独立参考实现核对你的结果，并验证三条性质，即位置 0 不变、旋转不改变向量长度、把所有位置平移 1000 之后注意力分数不变。",
+  "en": "Implement rotary position embedding. The tests check your result against an independent reference written with complex multiplication and verify three properties, namely that position 0 is unchanged, that the rotation keeps vector lengths, and that shifting every position by 1000 leaves the attention scores unchanged."
+ },
+ "hints": [
+  {
+   "zh": "角度矩阵是 `positions[:, None] * theta`，形状 `(T, d/2)`，每一行对应一个位置，每一列对应一对分量。",
+   "en": "The angle matrix is `positions[:, None] * theta` of shape `(T, d/2)`, one row per position and one column per pair."
+  },
+  {
+   "zh": "用 `x[..., 0::2]` 和 `x[..., 1::2]` 取出每一对的两个分量，分别套用旋转公式。",
+   "en": "Take the two components of every pair with `x[..., 0::2]` and `x[..., 1::2]` and apply the rotation formula to them."
+  },
+  {
+   "zh": "交错合并可以写成 `torch.stack([a, b], dim=-1).flatten(-2)`，这样 `a` 落在偶数位置，`b` 落在奇数位置。",
+   "en": "Interleave with `torch.stack([a, b], dim=-1).flatten(-2)`, which puts `a` at even and `b` at odd positions."
+  }
+ ]
+}

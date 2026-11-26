@@ -1,0 +1,32 @@
+{
+ "kind": "code",
+ "module": "lora",
+ "level": 3,
+ "minutes": 40,
+ "network": true,
+ "requires": [
+  "m42_sft"
+ ],
+ "title": {
+  "zh": "用 LoRA 微调 GPT-2 并与全量微调对比",
+  "en": "Fine-tune GPT-2 with LoRA and compare with full fine-tuning"
+ },
+ "prompt": {
+  "zh": "给 GPT-2 每一层注意力的投影矩阵加上自己写的 LoRA，用 4.2 中同样的 8 条问答训练 12 步。测试会检查可训练参数只占 0.24%，并且与 PEFT 库的统计一致，模型学会了按格式回答，原有权重逐位未变，移除 LoRA 后模型完全恢复。运行后请把打印出的困惑度变化与 4.2 的结果对比。",
+  "en": "Add your own LoRA to the attention projection of every GPT-2 layer and train for 12 steps on the same 8 question-answer pairs as in 4.2. The tests check that only 0.24% of the parameters are trainable, in agreement with the count of the PEFT library, that the model learns to answer in the format, that the original weights are unchanged bit for bit, and that removing the LoRA restores the model completely. Compare the printed change in perplexity with the result of 4.2."
+ },
+ "hints": [
+  {
+   "zh": "GPT-2 的 `Conv1D` 权重形状是 `(输入, 输出)`，与 `nn.Linear` 相反。所以这里 `A` 是 `(d_in, r)`，`B` 是 `(r, d_out)`，前向是 `x @ self.A @ self.B`，不需要转置。",
+   "en": "The weight of GPT-2's `Conv1D` has shape `(in, out)`, the reverse of `nn.Linear`. Here `A` is therefore `(d_in, r)` and `B` is `(r, d_out)`, and the forward pass is `x @ self.A @ self.B` without transposes."
+  },
+  {
+   "zh": "`add_lora` 中先冻结全部参数，再替换每层的 `c_attn`。顺序不能反，否则新建的 A 和 B 也会被冻结。",
+   "en": "In `add_lora` freeze all parameters first and then replace the `c_attn` of every layer. The order matters, or the newly created A and B would be frozen as well."
+  },
+  {
+   "zh": "训练循环与 4.2 的 `sft_train` 相同，区别只是优化器只接收 `requires_grad` 为真的参数。",
+   "en": "The training loop is that of `sft_train` from 4.2, except that the optimizer receives only the parameters with `requires_grad` set."
+  }
+ ]
+}

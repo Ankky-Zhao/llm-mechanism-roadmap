@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "causal_arch",
+ "level": 1,
+ "minutes": 15,
+ "title": {
+  "zh": "架构选择与掩码自测",
+  "en": "Self-check on architectures and masks"
+ },
+ "prompt": {
+  "zh": "不看上面的内容回答。\n(a) 下面四个任务各自最自然的架构是哪一类？情感分类，英译中，多轮聊天，为检索生成文本向量。\n(b) 序列长度为 5 时，因果掩码下分数矩阵中有多少个位置是允许的？长度为 $T$ 时呢？\n(c) 如果先做 softmax，再把未来位置的权重改成 0，会出什么问题？\n(d) encoder-decoder 模型中，encoder 的输入有 7 个 token，decoder 已生成 4 个 token。交叉注意力的权重矩阵是什么形状？",
+  "en": "Answer without looking at the text above.\n(a) Which class of architecture is the most natural for each of these four tasks? Sentiment classification, English to Chinese translation, multi-turn chat, producing text vectors for retrieval.\n(b) With a sequence of length 5, how many entries of the score matrix are allowed under the causal mask? And with length $T$?\n(c) What goes wrong if softmax is applied first and the weights of future positions are set to 0 afterwards?\n(d) In an encoder-decoder model the encoder input has 7 tokens and the decoder has generated 4 tokens. What is the shape of the cross-attention weight matrix?"
+ },
+ "hints": [
+  {
+   "zh": "(b) 数一数下三角（含对角线）有多少个元素。",
+   "en": "(b) Count the entries of the lower triangle including the diagonal."
+  },
+  {
+   "zh": "(d) 行对应发出 query 的位置，列对应提供 key 的位置。",
+   "en": "(d) Rows correspond to the positions that issue queries, columns to the positions that provide keys."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 情感分类用 encoder-only。英译中用 encoder-decoder。多轮聊天用 decoder-only。检索向量传统上用 encoder-only。需要说明的是，这四个任务如今都可以由 decoder-only 的大模型完成，这里问的是结构上最直接的对应。\n\n(b) 允许的位置有 $1 + 2 + 3 + 4 + 5 = 15$ 个，总共 25 个。长度为 $T$ 时是 $T(T+1)/2$。\n\n(c) 每一行剩下的权重之和小于 1，而且越靠前的位置被去掉的越多，输出向量的大小会随位置变化。把掩码加在 softmax 之前，权重会在允许的位置上重新归一化。\n\n(d) 形状是 $(4, 7)$。query 来自 decoder 的 4 个位置，key 和 value 来自 encoder 的 7 个位置。",
+  "en": "(a) Sentiment classification uses encoder-only. English to Chinese translation uses encoder-decoder. Multi-turn chat uses decoder-only. Retrieval vectors traditionally use encoder-only. Note that all four tasks can now be done by decoder-only large models. The question asks for the most direct structural match.\n\n(b) $1 + 2 + 3 + 4 + 5 = 15$ entries are allowed out of 25. With length $T$ the count is $T(T+1)/2$.\n\n(c) The remaining weights in each row sum to less than 1, and earlier positions lose more, so the size of the output vector would vary with position. Applying the mask before softmax renormalizes the weights over the allowed positions.\n\n(d) The shape is $(4, 7)$. The queries come from the 4 decoder positions and the keys and values from the 7 encoder positions."
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "causal_arch",
+ "level": 2,
+ "minutes": 30,
+ "network": true,
+ "title": {
+  "zh": "实现因果掩码并用扰动测试验证",
+  "en": "Implement the causal mask and verify it by perturbation"
+ },
+ "prompt": {
+  "zh": "实现下三角掩码和带掩码的 softmax。然后写一个通用的检测函数，把某个位置之后的输入换成随机值，观察它之前的输出是否变化。测试会在一个两层小模型上确认带掩码时变化为 0、不带掩码时有变化，最后在真实的 GPT-2 上验证 12 层叠加后仍然没有泄漏。",
+  "en": "Implement the lower-triangular mask and a masked softmax. Then write a general detector that replaces the input after some position with random values and observes whether the outputs before it change. The tests confirm on a small two-layer model that the change is 0 with the mask and nonzero without it, and finally verify on the real GPT-2 that nothing leaks through 12 stacked layers."
+ },
+ "hints": [
+  {
+   "zh": "`torch.tril(torch.ones(T, T, dtype=torch.bool))` 直接给出下三角的布尔矩阵。",
+   "en": "`torch.tril(torch.ones(T, T, dtype=torch.bool))` gives the lower-triangular boolean matrix directly."
+  },
+  {
+   "zh": "`future_leak` 中先 `x2 = x.clone()`，再替换 `x2[pos:]`。浮点输入用 `torch.randn_like`，整数输入用 `torch.randint_like(x[pos:], 50257)`，可以用 `x.is_floating_point()` 区分。",
+   "en": "In `future_leak` start with `x2 = x.clone()` and replace `x2[pos:]`. Use `torch.randn_like` for float input and `torch.randint_like(x[pos:], 50257)` for integer input, telling them apart with `x.is_floating_point()`."
+  },
+  {
+   "zh": "返回 `(f(x)[:pos] - f(x2)[:pos]).abs().max().item()`。",
+   "en": "Return `(f(x)[:pos] - f(x2)[:pos]).abs().max().item()`."
+  }
+ ]
+}

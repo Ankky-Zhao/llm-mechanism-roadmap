@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "patching",
+ "network": true,
+ "level": 3,
+ "minutes": 50,
+ "title": {
+  "zh": "修补残差流",
+  "en": "Patch the residual stream"
+ },
+ "prompt": {
+  "zh": "实现保存激活的 `run_with_cache`、归一化度量，以及把干净运行中某一层某个位置的残差流换入损坏运行的 `patch_residual`，再对所有层和位置计算修补效应。数据是代码中给出的 8 对间接宾语识别句子。测试检查缓存与模型实际计算的一致、修补一层的全部位置可以完全恢复干净运行、修补两次运行相同的位置没有效果，以及效应在层和位置上的分布。运行时间约 35 秒。",
+  "en": "Implement `run_with_cache`, which stores activations, the normalized metric, and `patch_residual`, which moves the residual stream of one layer and position from the clean run into the corrupted run, and then compute the patching effect for all layers and positions. The data are the 8 pairs of indirect object identification sentences given in the code. The tests check that the cache agrees with what the model computes, that patching all positions of a layer fully restores the clean run, that patching a position at which the two runs agree has no effect, and how the effect is distributed over layers and positions. The run takes about 35 seconds."
+ },
+ "hints": [
+  {
+   "zh": "在循环中注册钩子时，用默认参数把当前的层号固定下来，写成 `lambda m, a, out, l=l: ...`。",
+   "en": "When registering hooks in a loop, fix the current layer number with a default argument, as in `lambda m, a, out, l=l: ...`."
+  },
+  {
+   "zh": "前向钩子返回一个值时，这个值会替换模块的输出。块的输出是元组时，需要返回同样结构的元组，`(x,) + tuple(out[1:])`。",
+   "en": "When a forward hook returns a value, the value replaces the output of the module. If the output of a block is a tuple, a tuple of the same structure has to be returned, `(x,) + tuple(out[1:])`."
+  },
+  {
+   "zh": "`x[:, pos] = clean_cache[('resid', layer)][:, pos]` 对整数位置和 `slice(None)` 都适用。修改之前先 `clone()`。",
+   "en": "`x[:, pos] = clean_cache[('resid', layer)][:, pos]` works for an integer position and for `slice(None)` alike. Call `clone()` before modifying."
+  }
+ ]
+}

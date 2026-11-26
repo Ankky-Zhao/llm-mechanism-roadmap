@@ -1,0 +1,32 @@
+{
+ "kind": "code",
+ "module": "bpe",
+ "level": 2,
+ "minutes": 45,
+ "title": {
+  "zh": "手写 BPE 的训练、编码与解码",
+  "en": "BPE training, encoding and decoding by hand"
+ },
+ "prompt": {
+  "zh": "实现字节级 BPE 的五个函数。测试先用 aaabdaaabac 这个经典例子核对三次合并的结果，再在一段 856 字节的文本上用不同的词表大小训练，检查编码后能无损解码，并核对 token 数随词表增大而减少的具体数值。",
+  "en": "Implement the five functions of byte-level BPE. The tests first check the three merges of the classic example aaabdaaabac, then train with several vocabulary sizes on a text of 856 bytes, check that encoding can be decoded without loss, and verify the exact token counts as the vocabulary grows."
+ },
+ "hints": [
+  {
+   "zh": "统计相邻对用 `zip(ids, ids[1:])`。普通的字典会保持键的插入顺序，正好满足“先出现的优先”的要求。",
+   "en": "Count adjacent pairs with `zip(ids, ids[1:])`. A plain dict keeps the insertion order of keys, which gives the first-appearance tie-breaking required here."
+  },
+  {
+   "zh": "`merge` 用下标逐个扫描。当前位置和下一个位置正好是要合并的那一对时，写入新编号并跳过两个位置，否则原样写入并前进一个位置。",
+   "en": "`merge` scans with an index. When the current and the next item are the pair to merge, append the new id and skip two items. Otherwise append the item and advance by one."
+  },
+  {
+   "zh": "编码时每一轮要找的是当前序列里“最早学到”的那条合并，即 `min(counts, key=lambda p: merges.get(p, float('inf')))`。如果找到的这一对不在 `merges` 里，说明已经没有可以合并的了。",
+   "en": "Each round of encoding looks for the merge that was learned earliest among the pairs present, `min(counts, key=lambda p: merges.get(p, float('inf')))`. If that pair is not in `merges`, nothing more can be merged."
+  },
+  {
+   "zh": "解码时先建立 `{编号: 字节串}` 的表。按 `merges` 的顺序遍历，每条合并的字节串是两个组成部分的字节串相加。",
+   "en": "For decoding first build a table `{id: bytes}`. Walk through `merges` in order, where the bytes of each merge are the concatenation of the bytes of its two parts."
+  }
+ ]
+}

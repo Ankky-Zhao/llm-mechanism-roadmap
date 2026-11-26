@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "dpo",
+ "level": 2,
+ "minutes": 30,
+ "title": {
+  "zh": "实现 DPO 损失",
+  "en": "Implement the DPO loss"
+ },
+ "prompt": {
+  "zh": "实现整段回答的对数概率、DPO 损失和隐含奖励。测试会检查五条性质，包括策略等于参考模型时损失恰好是 $\\ln 2$，以及被排错的回答对得到更大的梯度。",
+  "en": "Implement the log-probability of a whole response, the DPO loss and the implicit reward. The tests check five properties, including that the loss is exactly $\\ln 2$ when the policy equals the reference model, and that a wrongly ranked pair receives the larger gradient."
+ },
+ "hints": [
+  {
+   "zh": "整段回答的对数概率是各个 token 对数概率之和。先用 `gather` 取出每个位置上目标 token 的对数概率，乘以掩码后沿序列维度求和。",
+   "en": "The log-probability of a whole response is the sum of the log-probabilities of its tokens. Pick the log-probability of the target token at every position with `gather`, multiply by the mask and sum along the sequence dimension."
+  },
+  {
+   "zh": "损失是 `-F.logsigmoid(beta * ((pi_w - ref_w) - (pi_l - ref_l))).mean()`。",
+   "en": "The loss is `-F.logsigmoid(beta * ((pi_w - ref_w) - (pi_l - ref_l))).mean()`."
+  }
+ ]
+}

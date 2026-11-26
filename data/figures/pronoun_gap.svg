@@ -1,0 +1,36 @@
+<svg viewBox="0 0 700 300" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<line x1="330" y1="20" x2="330" y2="252" class="s-muted" stroke-width="1.2"/>
+<text x="118" y="38" text-anchor="end" font-size="12.5" class="f-ink mono">nurse</text>
+<rect x="150.7" y="26" width="179.3" height="16" rx="3" class="f-pin"/>
+<text x="336.0" y="38" text-anchor="start" font-size="11" class="f-muted mono">-1.63</text>
+<text x="118" y="61" text-anchor="end" font-size="12.5" class="f-ink mono">librarian</text>
+<rect x="275.0" y="49" width="55.0" height="16" rx="3" class="f-pin"/>
+<text x="336.0" y="61" text-anchor="start" font-size="11" class="f-muted mono">-0.50</text>
+<text x="118" y="84" text-anchor="end" font-size="12.5" class="f-ink mono">teacher</text>
+<rect x="305.8" y="72" width="24.2" height="16" rx="3" class="f-pin"/>
+<text x="336.0" y="84" text-anchor="start" font-size="11" class="f-muted mono">-0.22</text>
+<text x="118" y="107" text-anchor="end" font-size="12.5" class="f-ink mono">receptionist</text>
+<rect x="319.0" y="95" width="11.0" height="16" rx="3" class="f-pin"/>
+<text x="336.0" y="107" text-anchor="start" font-size="11" class="f-muted mono">-0.10</text>
+<text x="118" y="130" text-anchor="end" font-size="12.5" class="f-ink mono">secretary</text>
+<rect x="330.0" y="118" width="68.2" height="16" rx="3" class="f-accent"/>
+<text x="404.2" y="130" text-anchor="start" font-size="11" class="f-muted mono">+0.62</text>
+<text x="118" y="153" text-anchor="end" font-size="12.5" class="f-ink mono">doctor</text>
+<rect x="330.0" y="141" width="83.6" height="16" rx="3" class="f-accent"/>
+<text x="419.6" y="153" text-anchor="start" font-size="11" class="f-muted mono">+0.76</text>
+<text x="118" y="176" text-anchor="end" font-size="12.5" class="f-ink mono">carpenter</text>
+<rect x="330.0" y="164" width="207.9" height="16" rx="3" class="f-accent"/>
+<text x="543.9" y="176" text-anchor="start" font-size="11" class="f-muted mono">+1.89</text>
+<text x="118" y="199" text-anchor="end" font-size="12.5" class="f-ink mono">mechanic</text>
+<rect x="330.0" y="187" width="213.4" height="16" rx="3" class="f-accent"/>
+<text x="549.4" y="199" text-anchor="start" font-size="11" class="f-muted mono">+1.94</text>
+<text x="118" y="222" text-anchor="end" font-size="12.5" class="f-ink mono">pilot</text>
+<rect x="330.0" y="210" width="218.9" height="16" rx="3" class="f-accent"/>
+<text x="554.9" y="222" text-anchor="start" font-size="11" class="f-muted mono">+1.99</text>
+<text x="118" y="245" text-anchor="end" font-size="12.5" class="f-ink mono">engineer</text>
+<rect x="330.0" y="233" width="235.4" height="16" rx="3" class="f-accent"/>
+<text x="571.4" y="245" text-anchor="start" font-size="11" class="f-muted mono">+2.14</text>
+<text x="230" y="276" text-anchor="middle" font-size="12" class="f-pin" data-l="zh">更倾向于 she</text><text x="230" y="276" text-anchor="middle" font-size="12" class="f-pin" data-l="en">leans towards she</text>
+<text x="460" y="276" text-anchor="middle" font-size="12" class="f-accent" data-l="zh">更倾向于 he</text><text x="460" y="276" text-anchor="middle" font-size="12" class="f-accent" data-l="en">leans towards he</text>
+<text x="330" y="276" text-anchor="middle" font-size="11" class="f-muted mono">0</text>
+</svg>

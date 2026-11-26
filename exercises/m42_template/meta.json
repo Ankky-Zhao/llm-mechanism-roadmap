@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "sft",
+ "level": 1,
+ "minutes": 30,
+ "network": true,
+ "title": {
+  "zh": "手写对话模板与损失掩码",
+  "en": "A chat template and a loss mask by hand"
+ },
+ "prompt": {
+  "zh": "实现 ChatML 模板，并与一个真实的开放聊天模型（SmolLM2）自带的模板逐字符对比。再实现一个函数，标出哪些 token 属于回答、需要计算损失。测试会把标记为需要训练的 token 解码出来，确认正好是各条回答的内容加上结束标记。这个练习只下载分词器，不下载模型权重。",
+  "en": "Implement the ChatML template and compare it character by character with the template that ships with a real open chat model (SmolLM2). Then implement a function that marks which tokens belong to a response and need a loss. The tests decode the tokens marked for training and confirm that they are exactly the content of each response plus the end marker. This exercise downloads only the tokenizer, not the model weights."
+ },
+ "hints": [
+  {
+   "zh": "每条消息是 `f\"<|im_start|>{role}\\n{content}<|im_end|>\\n\"`，全部拼接起来。需要时在最后再加 `\"<|im_start|>assistant\\n\"`。",
+   "en": "Each message is `f\"<|im_start|>{role}\\n{content}<|im_end|>\\n\"`, all concatenated. When asked, append `\"<|im_start|>assistant\\n\"` at the end."
+  },
+  {
+   "zh": "掩码的做法是把每条消息拆成三段分别分词，即角色头、内容加结束标记、最后的换行。只有角色为 assistant 的第二段标记为 True。",
+   "en": "For the mask, split each message into three pieces and tokenize them separately, namely the role header, the content plus end marker, and the final newline. Only the second piece of an assistant message is marked True."
+  }
+ ]
+}

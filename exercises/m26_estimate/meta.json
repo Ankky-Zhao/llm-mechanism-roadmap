@@ -1,0 +1,32 @@
+{
+ "kind": "derivation",
+ "module": "complexity",
+ "level": 2,
+ "minutes": 20,
+ "title": {
+  "zh": "估算给定配置的计算量与显存",
+  "en": "Estimate compute and memory for a given configuration"
+ },
+ "prompt": {
+  "zh": "这类估算题在面试中常见。设模型有 $L = 32$ 层，$d = 4096$，$h = 32$ 个头。\n(a) 推导一层的乘法次数约为 $12 T d^2 + 2 T^2 d$。\n(b) 序列多长时平方项与线性项相等？\n(c) 输入 $T = 8192$ 个 token。若把所有层的注意力权重用半精度同时存下来，需要多少显存？只存一层呢？\n(d) 不用 KV cache 生成 $n$ 个 token，总计算量随 $n$ 以什么幂次增长？使用 KV cache 后呢？",
+  "en": "Estimates of this kind are common in interviews. Let the model have $L = 32$ layers, $d = 4096$ and $h = 32$ heads.\n(a) Derive that one layer takes about $12 T d^2 + 2 T^2 d$ multiplications.\n(b) At what sequence length are the quadratic and the linear term equal?\n(c) The input has $T = 8192$ tokens. How much memory is needed to hold the attention weights of all layers at once in half precision? And of a single layer?\n(d) Generating $n$ tokens without a KV cache, with what power of $n$ does the total computation grow? And with a KV cache?"
+ },
+ "hints": [
+  {
+   "zh": "(a) 分别数四个投影矩阵、分数矩阵、加权求和与 MLP。",
+   "en": "(a) Count the four projection matrices, the score matrix, the weighted sum and the MLP separately."
+  },
+  {
+   "zh": "(c) 每层有 $h \\cdot T^2$ 个数，半精度每个数 2 字节，$1\\ \\text{GiB} = 2^{30}$ 字节。",
+   "en": "(c) Each layer has $h \\cdot T^2$ numbers, half precision uses 2 bytes per number, and $1\\ \\text{GiB} = 2^{30}$ bytes."
+  },
+  {
+   "zh": "(d) 第 $t$ 步的代价分别是 $a t + b t^2$ 和 $a + b t$，对 $t$ 从 1 到 $n$ 求和。",
+   "en": "(d) The cost of step $t$ is $a t + b t^2$ and $a + b t$ respectively. Sum over $t$ from 1 to $n$."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 四个投影各 $T d^2$，共 $4 T d^2$。分数矩阵 $h \\cdot T^2 \\cdot d/h = T^2 d$。加权求和同样是 $T^2 d$。MLP 为 $T(4d^2 + 4d^2) = 8 T d^2$。合计 $12 T d^2 + 2 T^2 d$。\n\n(b) $12 T d^2 = 2 T^2 d$ 给出 $T = 6d = 24576$。\n\n(c) 一层是 $32 \\cdot 8192^2 \\cdot 2 = 2^5 \\cdot 2^{26} \\cdot 2 = 2^{32}$ 字节，即 4 GiB。32 层同时存是 128 GiB。推理时各层依次计算，不需要同时保存，实际实现还会分块计算而不存完整矩阵。\n\n(d) 不用缓存时总量约为 $\\tfrac{a}{2} n^2 + \\tfrac{b}{3} n^3$，最高是三次方。使用 KV cache 后约为 $a n + \\tfrac{b}{2} n^2$，最高是二次方。",
+  "en": "(a) The four projections take $T d^2$ each, $4 T d^2$ in total. The score matrix takes $h \\cdot T^2 \\cdot d/h = T^2 d$ and the weighted sum another $T^2 d$. The MLP takes $T(4d^2 + 4d^2) = 8 T d^2$. Together $12 T d^2 + 2 T^2 d$.\n\n(b) $12 T d^2 = 2 T^2 d$ gives $T = 6d = 24576$.\n\n(c) One layer is $32 \\cdot 8192^2 \\cdot 2 = 2^5 \\cdot 2^{26} \\cdot 2 = 2^{32}$ bytes, that is 4 GiB. All 32 layers at once are 128 GiB. At inference the layers are computed one after another and need not be held together, and real implementations compute in blocks without storing the full matrix.\n\n(d) Without a cache the total is about $\\tfrac{a}{2} n^2 + \\tfrac{b}{3} n^3$, cubic at the top. With a KV cache it is about $a n + \\tfrac{b}{2} n^2$, quadratic at the top."
+ }
+}

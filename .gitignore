@@ -1,0 +1,5 @@
+__pycache__/
+_site/
+.DS_Store
+link_report.md
+.ipynb_checkpoints/

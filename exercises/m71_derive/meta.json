@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "prompting",
+ "level": 1,
+ "minutes": 15,
+ "title": {
+  "zh": "投票与提示词的概念题",
+  "en": "Concept questions on voting and prompts"
+ },
+ "prompt": {
+  "zh": "在纸上完成。\n(a) 单条推理路径的正确率是 $p = 0.6$，各条路径相互独立，只有对错两种结果。采样 3 条并取多数时，正确的概率是多少？$p = 0.4$ 时呢？\n(b) 练习 2 中，标签颠倒时模型的遵循比例是 0%。如果一个模型完全不看示例、只凭随机猜测作答，这个比例应当是多少？0% 说明了什么？\n(c) 用标签词的 logit 做分类，相比让模型生成文本再解析，有哪些好处？有什么前提？\n(d) 一位同事只用一种提示词测试了两个模型，报告模型甲比模型乙高 3 个百分点。根据练习 1 的结果，这个结论还需要补充什么？",
+  "en": "Work on paper.\n(a) A single reasoning path is correct with $p = 0.6$, paths are independent and there are only two outcomes, right and wrong. What is the probability that the majority of 3 sampled paths is correct? And for $p = 0.4$?\n(b) In exercise 2 the follow rate of the model with flipped labels is 0%. What would this rate be for a model that ignores the examples entirely and answers by random guessing? What does 0% show?\n(c) What are the advantages of classifying by the logits of label words over generating text and parsing it? What is the precondition?\n(d) A colleague tested two models with a single prompt and reports that model A is 3 percentage points above model B. By the result of exercise 1, what does this conclusion still need?"
+ },
+ "hints": [
+  {
+   "zh": "(a) 3 条中至少 2 条正确，即 $3p^2(1-p) + p^3$。",
+   "en": "(a) At least 2 of 3 correct, that is $3p^2(1-p) + p^3$."
+  },
+  {
+   "zh": "(b) 比较“无视示例并随机作答”与“无视示例并按已有知识作答”。",
+   "en": "(b) Compare ignoring the examples and guessing with ignoring the examples and answering from prior knowledge."
+  }
+ ],
+ "solution": {
+  "zh": "(a) $3 \\times 0.6^2 \\times 0.4 + 0.6^3 = 0.432 + 0.216 = 0.648$，高于 0.6。$p = 0.4$ 时为 $3 \\times 0.16 \\times 0.6 + 0.064 = 0.352$，低于 0.4。投票放大的是已有的倾向，单条路径的正确率低于一半时反而更差。\n\n(b) 随机猜测时应当是 50% 左右。0% 表示模型的回答与颠倒后的标签系统地相反，也就是始终给出真实的情感标签。模型并非没有读到示例，而是在示例与已有知识冲突时完全采用了已有知识。\n\n(c) 好处是结果确定，不受采样影响，不需要解析自由文本，还能得到各个标签的相对概率。前提是能够读取 logits，这需要持有权重或者所用的 API 提供这一信息，并且每个标签的第一个 token 互不相同。\n\n(d) 练习 1 中同一个模型在五种问法下的正确率相差 44 个百分点，远大于 3 个百分点。只用一种提示词得到的差别可能只是这种提示词恰好更适合其中一个模型。需要补充多种提示词下的结果并给出范围，样本量较小时还应当说明差别是否超出了随机波动。",
+  "en": "(a) $3 \\times 0.6^2 \\times 0.4 + 0.6^3 = 0.432 + 0.216 = 0.648$, above 0.6. For $p = 0.4$ it is $3 \\times 0.16 \\times 0.6 + 0.064 = 0.352$, below 0.4. Voting amplifies an existing tendency and makes things worse when a single path is right less than half the time.\n\n(b) Random guessing would give about 50%. A rate of 0% means that the answers are systematically opposite to the flipped labels, that is, the model always gives the true sentiment label. The model has not failed to read the examples. Where examples and prior knowledge conflict, it adopts prior knowledge completely.\n\n(c) The advantages are a deterministic result unaffected by sampling, no parsing of free text, and relative probabilities of the labels. The precondition is access to the logits, which requires the weights or an API that provides this information, and that the first tokens of the labels differ from one another.\n\n(d) In exercise 1 the accuracy of one model differs by 44 percentage points across five ways of asking, far more than 3 points. A difference obtained with a single prompt may only mean that this prompt happens to suit one of the models better. Results under several prompts with their range are needed, and with a small sample it should also be stated whether the difference exceeds random variation."
+ }
+}

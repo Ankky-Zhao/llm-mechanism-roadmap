@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "prompting",
+ "level": 2,
+ "minutes": 30,
+ "network": true,
+ "title": {
+  "zh": "少样本构造器与自洽性投票",
+  "en": "Few-shot builder and self-consistency voting"
+ },
+ "prompt": {
+  "zh": "实现少样本提示词的拼接、用标签词的 logit 做分类，以及对多个答案的多数投票。测试随后让 GPT-2 用五种问法判断 16 条评论的情感，并检查全部示例标签相同时的偏向。运行后请查看打印出的表格，注意同一个任务在不同问法下正确率的差别。",
+  "en": "Implement the assembly of few-shot prompts, classification by the logits of label words, and majority voting over several answers. The tests then have GPT-2 judge the sentiment of 16 reviews with five ways of asking, and check the bias when all examples carry the same label. Look at the printed table and note how accuracy on the same task differs between the ways of asking."
+ },
+ "hints": [
+  {
+   "zh": "每个示例是 `template.format(x=dx) + ' ' + dy`，最后一块是不带标签的 `template.format(x=x)`，各块之间用 `'\\n\\n'` 连接。",
+   "en": "Each example is `template.format(x=dx) + ' ' + dy`, the last block is `template.format(x=x)` without a label, and the blocks are joined by `'\\n\\n'`."
+  },
+  {
+   "zh": "标签词前面要带一个空格再分词，取第一个 token，即 `tokenizer(' ' + label).input_ids[0]`。",
+   "en": "Tokenise the label word with a leading space and take the first token, `tokenizer(' ' + label).input_ids[0]`."
+  },
+  {
+   "zh": "投票可以用 `collections.Counter`，平局时返回列表中先出现的那个答案。",
+   "en": "Voting can use `collections.Counter`, returning on a tie the answer that appears first in the list."
+  }
+ ]
+}

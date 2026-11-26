@@ -1,0 +1,31 @@
+{
+ "kind": "code",
+ "module": "autograd",
+ "level": 2,
+ "minutes": 40,
+ "requires": [
+  "m11_value"
+ ],
+ "title": {
+  "zh": "用自己的 autograd 训练一个 MLP",
+  "en": "Train an MLP with your own autograd"
+ },
+ "prompt": {
+  "zh": "用上一题的 `Value` 实现神经元的前向计算和训练循环，让一个 2-4-1 的 tanh 网络学会 XOR。测试要求 300 步后均方误差低于 0.05，且四个输入的预测符号都正确。",
+  "en": "Using `Value` from the previous exercise, implement the forward pass of a neuron and the training loop so that a 2-4-1 tanh network learns XOR. The tests require a mean squared error below 0.05 after 300 steps and the correct sign for all four inputs."
+ },
+ "hints": [
+  {
+   "zh": "神经元的输出是 `(w1*x1 + w2*x2 + b).tanh()`。从 `self.b` 开始逐项相加即可，`Value` 已支持与浮点数相乘。",
+   "en": "A neuron outputs `(w1*x1 + w2*x2 + b).tanh()`. Start from `self.b` and add term by term. `Value` already supports multiplication by floats."
+  },
+  {
+   "zh": "训练循环每一步有四件事，顺序为前向求损失、把所有 `p.grad` 置 0、`loss.backward()`、`p.data -= lr * p.grad`。",
+   "en": "Each step of the loop does four things in this order, namely forward and loss, set every `p.grad` to 0, `loss.backward()`, `p.data -= lr * p.grad`."
+  },
+  {
+   "zh": "如果 loss 先降后升或者不收敛，优先检查是否忘了清零梯度。",
+   "en": "If the loss goes down and then up, or fails to converge, first check whether the gradients are being reset."
+  }
+ ]
+}

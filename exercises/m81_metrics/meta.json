@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "evaluation",
+ "level": 2,
+ "minutes": 35,
+ "title": {
+  "zh": "手写 EM、F1、BLEU、ROUGE-L",
+  "en": "EM, F1, BLEU and ROUGE-L by hand"
+ },
+ "prompt": {
+  "zh": "实现四个基于字面重合的指标。测试中的数值都可以手算核对。最后一组测试用同一个参考答案比较一个措辞相同而事实错误的回答和一个措辞不同而事实正确的回答，请查看打印出的表格。",
+  "en": "Implement four metrics based on surface overlap. All values in the tests can be checked by hand. The last group of tests compares, against one reference, an answer with the same wording and a wrong fact and an answer with other wording and the right fact. Look at the printed table."
+ },
+ "hints": [
+  {
+   "zh": "去冠词用 `re.sub(r'\\b(a|an|the)\\b', ' ', text)`，`\\b` 保证只匹配完整的词。",
+   "en": "Remove articles with `re.sub(r'\\b(a|an|the)\\b', ' ', text)`. The `\\b` makes sure that only whole words match."
+  },
+  {
+   "zh": "截断后的匹配数是 `sum(min(count, ref[g]) for g, count in cand.items())`。",
+   "en": "The clipped number of matches is `sum(min(count, ref[g]) for g, count in cand.items())`."
+  },
+  {
+   "zh": "最长公共子序列用二维表。`dp[i][j]` 在两个词相同时等于 `dp[i-1][j-1] + 1`，否则取 `dp[i-1][j]` 与 `dp[i][j-1]` 中较大的一个。",
+   "en": "The longest common subsequence uses a two-dimensional table. `dp[i][j]` equals `dp[i-1][j-1] + 1` when the two words are equal and otherwise the larger of `dp[i-1][j]` and `dp[i][j-1]`."
+  }
+ ]
+}

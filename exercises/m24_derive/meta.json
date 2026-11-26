@@ -1,0 +1,32 @@
+{
+ "kind": "derivation",
+ "module": "positional",
+ "level": 3,
+ "minutes": 25,
+ "title": {
+  "zh": "推导 RoPE 的旋转矩阵",
+  "en": "Derive the rotation matrix of RoPE"
+ },
+ "prompt": {
+  "zh": "合上上面的推导，在纸上完成。\n(a) 设 $R(\\alpha)$ 是二维旋转矩阵。证明 $\\langle R(m\\theta) q,\\ R(n\\theta) k \\rangle = q^{\\top} R((n-m)\\theta)\\, k$。\n(b) 证明正弦位置编码满足 $PE_{p+k} = M_k\\, PE_p$，并写出每一对分量对应的 $2 \\times 2$ 矩阵。\n(c) 取 $d = 8$。四对分量的频率 $\\theta_i$ 分别是多少？哪一对转得最快？\n(d) 用一句话说明为什么 RoPE 不需要位置嵌入表。",
+  "en": "Close the derivation above and work on paper.\n(a) Let $R(\\alpha)$ be the two-dimensional rotation matrix. Show that $\\langle R(m\\theta) q,\\ R(n\\theta) k \\rangle = q^{\\top} R((n-m)\\theta)\\, k$.\n(b) Show that the sinusoidal encoding satisfies $PE_{p+k} = M_k\\, PE_p$ and write the $2 \\times 2$ matrix for each pair of components.\n(c) Take $d = 8$. What are the frequencies $\\theta_i$ of the four pairs? Which pair rotates fastest?\n(d) Say in one sentence why RoPE needs no position embedding table."
+ },
+ "hints": [
+  {
+   "zh": "(a) 用两条性质，即 $R(\\alpha)^{\\top} = R(-\\alpha)$ 和 $R(\\alpha) R(\\beta) = R(\\alpha + \\beta)$。",
+   "en": "(a) Use two properties, $R(\\alpha)^{\\top} = R(-\\alpha)$ and $R(\\alpha) R(\\beta) = R(\\alpha + \\beta)$."
+  },
+  {
+   "zh": "(b) 对 $\\sin(\\omega(p+k))$ 和 $\\cos(\\omega(p+k))$ 用和角公式展开。",
+   "en": "(b) Expand $\\sin(\\omega(p+k))$ and $\\cos(\\omega(p+k))$ with the angle-sum identities."
+  },
+  {
+   "zh": "(c) $\\theta_i = 10000^{-2i/d}$，$i = 0, 1, 2, 3$。",
+   "en": "(c) $\\theta_i = 10000^{-2i/d}$ for $i = 0, 1, 2, 3$."
+  }
+ ],
+ "solution": {
+  "zh": "(a) $\\langle R(m\\theta) q, R(n\\theta) k \\rangle = q^{\\top} R(m\\theta)^{\\top} R(n\\theta) k = q^{\\top} R(-m\\theta) R(n\\theta) k = q^{\\top} R((n-m)\\theta) k$。\n\n(b) $\\sin\\omega(p+k) = \\sin\\omega p \\cos\\omega k + \\cos\\omega p \\sin\\omega k$，$\\cos\\omega(p+k) = \\cos\\omega p \\cos\\omega k - \\sin\\omega p \\sin\\omega k$。写成矩阵是 $$\\begin{pmatrix} \\sin\\omega(p+k) \\\\ \\cos\\omega(p+k) \\end{pmatrix} = \\begin{pmatrix} \\cos\\omega k & \\sin\\omega k \\\\ -\\sin\\omega k & \\cos\\omega k \\end{pmatrix}\\begin{pmatrix} \\sin\\omega p \\\\ \\cos\\omega p \\end{pmatrix}$$ 矩阵只含 $k$。$M_k$ 是由各对分量的这种矩阵组成的分块对角矩阵。\n\n(c) $\\theta_0 = 1$，$\\theta_1 = 10000^{-1/4} = 0.1$，$\\theta_2 = 0.01$，$\\theta_3 = 0.001$。第 0 对转得最快，每前进一个位置转 1 弧度，适合分辨相邻位置。最后一对转得最慢，适合分辨相距很远的位置。\n\n(d) 因为位置信息是通过由公式算出的旋转角度进入 query 和 key 的，不需要为每个位置存一个向量。",
+  "en": "(a) $\\langle R(m\\theta) q, R(n\\theta) k \\rangle = q^{\\top} R(m\\theta)^{\\top} R(n\\theta) k = q^{\\top} R(-m\\theta) R(n\\theta) k = q^{\\top} R((n-m)\\theta) k$.\n\n(b) $\\sin\\omega(p+k) = \\sin\\omega p \\cos\\omega k + \\cos\\omega p \\sin\\omega k$ and $\\cos\\omega(p+k) = \\cos\\omega p \\cos\\omega k - \\sin\\omega p \\sin\\omega k$. In matrix form $$\\begin{pmatrix} \\sin\\omega(p+k) \\\\ \\cos\\omega(p+k) \\end{pmatrix} = \\begin{pmatrix} \\cos\\omega k & \\sin\\omega k \\\\ -\\sin\\omega k & \\cos\\omega k \\end{pmatrix}\\begin{pmatrix} \\sin\\omega p \\\\ \\cos\\omega p \\end{pmatrix}$$ The matrix contains only $k$. $M_k$ is the block-diagonal matrix made of these matrices for all pairs.\n\n(c) $\\theta_0 = 1$, $\\theta_1 = 10000^{-1/4} = 0.1$, $\\theta_2 = 0.01$ and $\\theta_3 = 0.001$. Pair 0 rotates fastest, 1 radian per position, which suits telling neighbouring positions apart. The last pair rotates slowest, which suits telling far-apart positions apart.\n\n(d) Because position enters the queries and keys through rotation angles computed from a formula, no vector has to be stored per position."
+ }
+}

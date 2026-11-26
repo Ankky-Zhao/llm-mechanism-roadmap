@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "pretraining",
+ "level": 1,
+ "minutes": 25,
+ "title": {
+  "zh": "构造错位一格的 batch 与损失",
+  "en": "Build shifted batches and the loss"
+ },
+ "prompt": {
+  "zh": "实现预训练数据的取样、带忽略位置的逐 token 损失，以及两个小的估算函数。测试会验证目标正好是输入错开一位，损失与 `F.cross_entropy` 一致，并且均匀预测时损失等于 $\\ln V$。",
+  "en": "Implement sampling of pretraining data, the per-token loss with ignored positions and two small estimation functions. The tests verify that the target is exactly the input shifted by one, that the loss agrees with `F.cross_entropy`, and that a uniform prediction gives a loss of $\\ln V$."
+ },
+ "hints": [
+  {
+   "zh": "`x` 和 `y` 都用 `torch.stack` 把各个起点切出的片段叠起来，`y` 的切片比 `x` 整体右移一位。",
+   "en": "Stack the slices from each start position with `torch.stack` for both `x` and `y`, where the slice of `y` is shifted right by one."
+  },
+  {
+   "zh": "用 `log_probs.gather(-1, targets.unsqueeze(-1))` 取出目标位置的对数概率。目标为 $-100$ 时下标不合法，先用 `clamp(min=0)` 换成任意合法的下标，再用掩码把这些位置清零。",
+   "en": "Pick the log-probabilities of the targets with `log_probs.gather(-1, targets.unsqueeze(-1))`. An index of $-100$ is invalid, so first replace it with any valid index through `clamp(min=0)` and then zero these positions with the mask."
+  },
+  {
+   "zh": "取平均时分母是未被忽略的位置数，而不是全部位置数。",
+   "en": "The average divides by the number of positions that are not ignored, not by all positions."
+  }
+ ]
+}

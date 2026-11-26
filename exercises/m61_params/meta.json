@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "models",
+ "level": 2,
+ "minutes": 25,
+ "title": {
+  "zh": "从配置数出一个 Llama 式模型的参数量",
+  "en": "Count the parameters of a Llama-style model from its config"
+ },
+ "prompt": {
+  "zh": "0.2 中数过 GPT-2 的参数量。这里对目前更常见的结构做同样的事，并计算不同精度下的内存占用。测试会把结果与 Hub 上登记的 SmolLM2-135M 参数量逐位比较，并判断一个 270 亿参数的模型在几种显存下能以哪些精度运行。",
+  "en": "Module 0.2 counted the parameters of GPT-2. The same is done here for the architecture that is more common today, together with the memory at different precisions. The tests compare the result digit by digit with the parameter count of SmolLM2-135M registered on the Hub, and determine at which precisions a model with 27 billion parameters runs with several amounts of GPU memory."
+ },
+ "hints": [
+  {
+   "zh": "键和值的投影矩阵形状是 `d × d_kv`，其中 `d_kv = (d // n_heads) * n_kv_heads`。",
+   "en": "The projection matrices of keys and values have shape `d × d_kv`, with `d_kv = (d // n_heads) * n_kv_heads`."
+  },
+  {
+   "zh": "每个块的参数量是 `2*d*d + 2*d*d_kv + 3*d*m + 2*d`。",
+   "en": "The parameters of one block are `2*d*d + 2*d*d_kv + 3*d*m + 2*d`."
+  }
+ ]
+}

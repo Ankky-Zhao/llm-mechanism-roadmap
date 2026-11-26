@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "sampling",
+ "level": 1,
+ "minutes": 20,
+ "title": {
+  "zh": "手算温度与 top-p",
+  "en": "Temperature and top-p by hand"
+ },
+ "prompt": {
+  "zh": "在纸上完成，可以使用计算器。\n(a) 三个 token 的 logits 是 $(2, 1, 0)$。分别计算 $T = 1$ 和 $T = 0.5$ 时的概率分布。\n(b) 证明温度不改变 token 的排序。\n(c) 四个 token 的概率是 $(0.5, 0.3, 0.15, 0.05)$。$p = 0.7$ 和 $p = 0.9$ 时 top-p 各保留哪些 token？保留后重新归一化的概率是多少？\n(d) 某一步第一名与第二名的 logit 差为 0.004。如果数值误差使每个 logit 最多变化 0.001，贪心的选择会不会改变？最多变化 0.003 时呢？",
+  "en": "Work on paper. A calculator may be used.\n(a) Three tokens have the logits $(2, 1, 0)$. Compute the probability distributions for $T = 1$ and $T = 0.5$.\n(b) Show that temperature does not change the ranking of tokens.\n(c) Four tokens have the probabilities $(0.5, 0.3, 0.15, 0.05)$. Which tokens does top-p keep for $p = 0.7$ and for $p = 0.9$, and what are the renormalized probabilities?\n(d) At some step the logits of the first and second candidate differ by 0.004. If numerical error changes every logit by at most 0.001, can the greedy choice change? And with at most 0.003?"
+ },
+ "hints": [
+  {
+   "zh": "(a) $T = 0.5$ 相当于把 logits 变成 $(4, 2, 0)$。",
+   "en": "(a) $T = 0.5$ amounts to turning the logits into $(4, 2, 0)$."
+  },
+  {
+   "zh": "(d) 比较差距与 $2\\varepsilon$。",
+   "en": "(d) Compare the gap with $2\\varepsilon$."
+  }
+ ],
+ "solution": {
+  "zh": "(a) $T = 1$ 时，$e^2 : e^1 : e^0 = 7.389 : 2.718 : 1$，归一化得 $(0.665, 0.245, 0.090)$。$T = 0.5$ 时，$e^4 : e^2 : e^0 = 54.60 : 7.389 : 1$，归一化得 $(0.867, 0.117, 0.016)$。温度降低后分布更集中。\n\n(b) $T > 0$ 时，$z_i > z_j$ 等价于 $z_i / T > z_j / T$，而指数函数单调递增，所以 $p_i(T) > p_j(T)$。\n\n(c) $p = 0.7$ 时，$0.5 < 0.7$ 而 $0.5 + 0.3 \\ge 0.7$，保留前两个，归一化为 $(0.625, 0.375)$。$p = 0.9$ 时，$0.5 + 0.3 = 0.8 < 0.9$ 而 $0.95 \\ge 0.9$，保留前三个，归一化为 $(0.526, 0.316, 0.158)$。\n\n(d) 误差不超过 0.001 时，$2\\varepsilon = 0.002 < 0.004$，选择一定不变。误差不超过 0.003 时，$2\\varepsilon = 0.006 > 0.004$，选择有可能改变，是否改变取决于误差的具体取值。",
+  "en": "(a) For $T = 1$, $e^2 : e^1 : e^0 = 7.389 : 2.718 : 1$, normalized $(0.665, 0.245, 0.090)$. For $T = 0.5$, $e^4 : e^2 : e^0 = 54.60 : 7.389 : 1$, normalized $(0.867, 0.117, 0.016)$. A lower temperature concentrates the distribution.\n\n(b) For $T > 0$, $z_i > z_j$ is equivalent to $z_i / T > z_j / T$, and the exponential function is increasing, so $p_i(T) > p_j(T)$.\n\n(c) For $p = 0.7$, $0.5 < 0.7$ and $0.5 + 0.3 \\ge 0.7$, so the first two are kept, renormalized $(0.625, 0.375)$. For $p = 0.9$, $0.5 + 0.3 = 0.8 < 0.9$ and $0.95 \\ge 0.9$, so the first three are kept, renormalized $(0.526, 0.316, 0.158)$.\n\n(d) With an error of at most 0.001, $2\\varepsilon = 0.002 < 0.004$ and the choice cannot change. With at most 0.003, $2\\varepsilon = 0.006 > 0.004$ and the choice may change, depending on the actual values of the errors."
+ }
+}

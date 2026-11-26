@@ -1,0 +1,32 @@
+{
+ "kind": "code",
+ "module": "agents",
+ "level": 2,
+ "minutes": 30,
+ "network": true,
+ "requires": [
+  "m73_registry"
+ ],
+ "title": {
+  "zh": "用对话模板跑通一次工具调用",
+  "en": "Run a real tool call through a chat template"
+ },
+ "prompt": {
+  "zh": "实现从模型回复中解析工具调用、带工具描述的生成，以及一次完整的往返，即提问、解析调用、执行、把结果交还模型并得到最终回答。测试会打印对话模板渲染出的提示词片段，请留意工具描述在其中的位置。",
+  "en": "Implement parsing tool calls from a model reply, generation with tool descriptions, and one complete round trip of asking, parsing the call, executing it, handing the result back to the model and obtaining the final answer. The tests print a fragment of the prompt rendered by the chat template. Note where the tool descriptions sit in it."
+ },
+ "hints": [
+  {
+   "zh": "`re.findall(pattern, text, flags=re.S)` 返回所有标签对之间的内容，对每一段做 `json.loads`，失败时不要抛出异常。",
+   "en": "`re.findall(pattern, text, flags=re.S)` returns the content between all tag pairs. Apply `json.loads` to each and do not raise on failure."
+  },
+  {
+   "zh": "助手消息中的 `arguments` 要保持为字典，不要转成字符串，对话模板会负责把它写成 JSON。",
+   "en": "The `arguments` in the assistant message stay a dict and are not converted to a string. The chat template takes care of writing them as JSON."
+  },
+  {
+   "zh": "工具消息的 `content` 必须是字符串，`registry.call` 返回的正是字符串。",
+   "en": "The `content` of a tool message has to be a string, which is exactly what `registry.call` returns."
+  }
+ ]
+}

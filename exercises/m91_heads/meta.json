@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "attn_viz",
+ "network": true,
+ "requires": [
+  "m91_extract"
+ ],
+ "level": 2,
+ "minutes": 35,
+ "title": {
+  "zh": "找出前一 token 头和归纳头",
+  "en": "Find previous-token heads and induction heads"
+ },
+ "prompt": {
+  "zh": "实现两个打分函数。前一 token 得分是每个位置读取其前一个位置的平均权重。归纳得分在重复两遍的随机序列上计算，是第二遍的每个位置读取“上一次出现的同一 token 的后一个位置”的平均权重。测试先在手工构造的注意力模式上检查两个函数，再在 GPT-2 small 上检查找到的头。",
+  "en": "Implement two scoring functions. The previous-token score is the mean weight with which each position reads the position before it. The induction score is computed on a random sequence repeated twice and is the mean weight with which each position of the second copy reads the position after the previous occurrence of the same token. The tests check both functions on hand-made attention patterns and then check the heads found in GPT-2 small."
+ },
+ "hints": [
+  {
+   "zh": "用整数索引一次取出所有需要的项。`i = torch.arange(1, T)`，`att[:, :, i, i - 1]` 的形状是 `(L, H, T - 1)`。",
+   "en": "Take all required entries at once with integer indexing. With `i = torch.arange(1, T)`, `att[:, :, i, i - 1]` has shape `(L, H, T - 1)`."
+  },
+  {
+   "zh": "序列是起始符加两遍 $n$ 个 token。第二遍占据位置 $n+1$ 到 $2n$，位置 $i$ 上的 token 上一次出现在位置 $i - n$，它后面的位置是 $i - n + 1$。",
+   "en": "The sequence is the start token and two copies of $n$ tokens. The second copy occupies positions $n+1$ to $2n$, the token at position $i$ last occurred at position $i - n$, and the position after that is $i - n + 1$."
+  }
+ ]
+}

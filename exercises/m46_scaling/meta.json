@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "scaling",
+ "level": 2,
+ "minutes": 30,
+ "title": {
+  "zh": "幂律拟合与 Chinchilla 配比",
+  "en": "Power-law fitting and the Chinchilla allocation"
+ },
+ "prompt": {
+  "zh": "实现双对数坐标下的幂律拟合、Chinchilla 论文中的参数化损失，以及固定算力下最优的参数量和 token 数。测试会用带噪声的数据检验拟合，并通过扫描其他分配方式确认闭式解确实最优。运行后请查看打印出的三个算力档位下的最优配置。",
+  "en": "Implement power-law fitting in log-log coordinates, the parametric loss of the Chinchilla paper and the optimal numbers of parameters and tokens under a fixed compute budget. The tests check the fit on noisy data and confirm by scanning other allocations that the closed form is indeed optimal. Look at the printed optimal configurations for three compute budgets."
+ },
+ "hints": [
+  {
+   "zh": "幂律 $y = c\\,x^p$ 取对数后是 $\\log y = \\log c + p \\log x$，对 $\\log x$ 和 $\\log y$ 做一元线性回归，斜率是 $p$，截距取指数是 $c$。",
+   "en": "Taking logs of the power law $y = c\\,x^p$ gives $\\log y = \\log c + p \\log x$. A simple linear regression of $\\log y$ on $\\log x$ has slope $p$, and the exponential of the intercept is $c$."
+  },
+  {
+   "zh": "最优配比照函数说明中的三个公式写即可，先算 $G$。",
+   "en": "Write the optimal allocation from the three formulas of the docstring, computing $G$ first."
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "kv_cache",
+ "level": 2,
+ "minutes": 25,
+ "title": {
+  "zh": "估算缓存的收益与内存",
+  "en": "Estimate the gain and the memory of the cache"
+ },
+ "prompt": {
+  "zh": "在纸上完成。\n(a) 用归纳法说明，因果掩码下第 $i$ 个位置在任意一层的表示只依赖于 $x_1, \\dots, x_i$。\n(b) 不使用缓存时，从 1 个 token 生成到 $T$ 个 token，模型一共处理了多少个位置？使用缓存时呢？$T = 1000$ 时两者相差多少倍？\n(c) 一个模型有 24 层，$d = 2048$，以 16 位浮点数保存。上下文长度为 4096 时，单个序列的缓存占多少内存？一块 24 GB 的显卡在模型权重占去 8 GB 之后，最多能同时容纳多少个这样的序列？\n(d) 一个请求的提示词有 2000 个 token，输出 500 个 token。prefill 的速度是每秒 10000 个 token，decode 的速度是每秒 50 个 token。首 token 延迟和总时间各是多少？哪个阶段占主要部分？",
+  "en": "Work on paper.\n(a) Show by induction that under the causal mask the representation of position $i$ in any layer depends only on $x_1, \\dots, x_i$.\n(b) Without the cache, how many positions does the model process in total when generating from 1 token up to $T$ tokens? And with the cache? By what factor do the two differ for $T = 1000$?\n(c) A model has 24 layers and $d = 2048$ and is stored in 16-bit floating point. How much memory does the cache of one sequence take at a context length of 4096? How many such sequences fit at most on a 24 GB GPU after the model weights take 8 GB?\n(d) A request has a prompt of 2000 tokens and an output of 500 tokens. Prefill runs at 10000 tokens per second and decode at 50 tokens per second. What are the time to first token and the total time, and which phase dominates?"
+ },
+ "hints": [
+  {
+   "zh": "(b) $1 + 2 + \\dots + T = T(T+1)/2$。",
+   "en": "(b) $1 + 2 + \\dots + T = T(T+1)/2$."
+  },
+  {
+   "zh": "(c) 字节数为 $2 \\times L \\times T \\times d \\times b$。",
+   "en": "(c) The number of bytes is $2 \\times L \\times T \\times d \\times b$."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 第 0 层的 $h_i^{(0)}$ 是 $x_i$ 的嵌入加位置编码，只依赖 $x_i$。假设第 $\\ell - 1$ 层的 $h_j^{(\\ell-1)}$ 只依赖 $x_1, \\dots, x_j$。第 $\\ell$ 层中，位置 $i$ 的注意力在因果掩码下只读取 $h_1^{(\\ell-1)}, \\dots, h_i^{(\\ell-1)}$，前馈层和归一化只作用于位置 $i$ 自身，所以 $h_i^{(\\ell)}$ 只依赖 $x_1, \\dots, x_i$。\n\n(b) 不使用缓存时为 $1 + 2 + \\dots + T = T(T+1)/2$，$T = 1000$ 时是 500500 个位置。使用缓存时每个位置只处理一次，共 $T = 1000$ 个。两者相差约 500 倍。\n\n(c) $2 \\times 24 \\times 4096 \\times 2048 \\times 2 = 805{,}306{,}368$ 字节，约 0.81 GB（0.75 GiB）。剩余 16 GB 最多容纳 $16 / 0.81 \\approx 19$ 个序列。实际系统还需要为中间计算留出空间，能容纳的数量更少。\n\n(d) 首 token 延迟约为 $2000 / 10000 = 0.2$ 秒。生成 500 个 token 需要 $500 / 50 = 10$ 秒，总时间约 10.2 秒。尽管输入的 token 数是输出的 4 倍，绝大部分时间花在 decode 上。",
+  "en": "(a) In layer 0, $h_i^{(0)}$ is the embedding of $x_i$ plus the positional encoding and depends only on $x_i$. Assume $h_j^{(\\ell-1)}$ in layer $\\ell - 1$ depends only on $x_1, \\dots, x_j$. In layer $\\ell$ the attention of position $i$ reads only $h_1^{(\\ell-1)}, \\dots, h_i^{(\\ell-1)}$ under the causal mask, and the feed-forward layer and normalization act on position $i$ alone, so $h_i^{(\\ell)}$ depends only on $x_1, \\dots, x_i$.\n\n(b) Without the cache it is $1 + 2 + \\dots + T = T(T+1)/2$, which is 500500 positions for $T = 1000$. With the cache every position is processed once, $T = 1000$ in total. The factor is about 500.\n\n(c) $2 \\times 24 \\times 4096 \\times 2048 \\times 2 = 805{,}306{,}368$ bytes, about 0.81 GB (0.75 GiB). The remaining 16 GB hold at most $16 / 0.81 \\approx 19$ sequences. A real system also needs room for intermediate computation and holds fewer.\n\n(d) The time to first token is about $2000 / 10000 = 0.2$ seconds. Generating 500 tokens takes $500 / 50 = 10$ seconds, for a total of about 10.2 seconds. Although the input has 4 times as many tokens as the output, nearly all of the time goes into decode."
+ }
+}

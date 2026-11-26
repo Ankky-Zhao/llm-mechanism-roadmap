@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "bpe",
+ "level": 2,
+ "minutes": 20,
+ "title": {
+  "zh": "词表大小的取舍与手算 BPE",
+  "en": "The vocabulary trade-off and BPE by hand"
+ },
+ "prompt": {
+  "zh": "在纸上完成。\n(a) 对字符串 `abababcabc` 手动做两次 BPE 合并，写出每次合并的是哪一对，以及合并后的序列。出现次数相同时取先出现的一对。\n(b) 向量宽度 $d = 4096$。词表从 5 万增加到 20 万，嵌入表增加多少参数？\n(c) 某段文本用字符级分词是 4000 个 token，用子词分词是 1000 个 token。注意力部分的计算量相差多少倍？\n(d) 用一两句话分别说明按字符切分和按单词切分的主要问题。",
+  "en": "Work on paper.\n(a) Do two BPE merges by hand on the string `abababcabc`. State which pair is merged each time and the sequence afterwards. On equal counts take the pair that appears first.\n(b) The vector width is $d = 4096$. How many parameters does the embedding table gain when the vocabulary grows from 50 thousand to 200 thousand?\n(c) A text is 4000 tokens with character-level and 1000 tokens with subword tokenization. By what factor does the computation of the attention part differ?\n(d) State in a sentence or two each the main problem of splitting by characters and of splitting by words."
+ },
+ "hints": [
+  {
+   "zh": "(a) 先数出 ab、ba、bc、ca 各出现几次。",
+   "en": "(a) First count how often ab, ba, bc and ca occur."
+  },
+  {
+   "zh": "(c) 注意力部分的计算量与序列长度的平方成正比。",
+   "en": "(c) The computation of the attention part is proportional to the square of the sequence length."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 初始序列是 a b a b a b c a b c。ab 出现 4 次，ba 出现 2 次，bc 出现 2 次，ca 出现 1 次。第一次合并 ab，记作 X，得到 X X X c X c。此时 XX 出现 2 次，Xc 出现 2 次，cX 出现 1 次，先出现的是 XX，记作 Y，得到 Y X c X c。\n\n(b) 增加 $150000 \\times 4096 = 6.144 \\times 10^{8}$，约 6.1 亿个参数。\n\n(c) 序列长度相差 4 倍，注意力部分的计算量相差 16 倍。\n\n(d) 按字符切分时序列太长，计算代价高，模型还要自己把字符组合成有意义的单位。按单词切分时词表无法穷尽所有词形和新词，遇到词表之外的词无法表示。",
+  "en": "(a) The initial sequence is a b a b a b c a b c. ab occurs 4 times, ba twice, bc twice and ca once. The first merge is ab, call it X, giving X X X c X c. Now XX occurs twice, Xc twice and cX once. XX appears first, call it Y, giving Y X c X c.\n\n(b) The gain is $150000 \\times 4096 = 6.144 \\times 10^{8}$, about 610 million parameters.\n\n(c) The sequence lengths differ by a factor of 4, so the computation of the attention part differs by a factor of 16.\n\n(d) With characters the sequences are too long, computation is expensive and the model has to assemble characters into meaningful units itself. With words the vocabulary cannot cover all word forms and new words, and a word outside it cannot be represented."
+ }
+}

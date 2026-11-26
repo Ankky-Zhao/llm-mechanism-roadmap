@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "rag",
+ "level": 2,
+ "minutes": 40,
+ "network": true,
+ "title": {
+  "zh": "手写 BM25 与向量检索",
+  "en": "BM25 and vector retrieval by hand"
+ },
+ "prompt": {
+  "zh": "实现 BM25 的索引和打分，以及用均值池化得到句向量的函数。测试先在一个可以手算的三句话语料上逐项核对 BM25 的数值，再在 30 个段落上比较两种检索方法对两类问题的表现。如果安装了 FAISS，还会检查它返回的前 3 名与手写的结果相同。",
+  "en": "Implement the indexing and scoring of BM25 and a function that produces sentence vectors by mean pooling. The tests first check the BM25 values term by term on a three-sentence corpus that can be computed by hand, and then compare the two retrieval methods on two kinds of questions over 30 passages. If FAISS is installed, they also check that its top 3 equal the hand-written result."
+ },
+ "hints": [
+  {
+   "zh": "文档频率用 `Counter(term for d in self.docs for term in set(d))`，注意每个文档里同一个词只计一次。",
+   "en": "Document frequencies come from `Counter(term for d in self.docs for term in set(d))`. Note that a word counts once per document."
+  },
+  {
+   "zh": "均值池化是 `(hidden * mask).sum(1) / mask.sum(1)`，其中 `mask = enc['attention_mask'][..., None].float()`。",
+   "en": "Mean pooling is `(hidden * mask).sum(1) / mask.sum(1)` with `mask = enc['attention_mask'][..., None].float()`."
+  },
+  {
+   "zh": "归一化用 `torch.nn.functional.normalize(mean, dim=-1)`，之后点积就是余弦相似度。",
+   "en": "Normalize with `torch.nn.functional.normalize(mean, dim=-1)`, after which the dot product is the cosine similarity."
+  }
+ ]
+}

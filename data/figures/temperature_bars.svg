@@ -1,0 +1,39 @@
+<svg viewBox="0 0 700 250" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<text x="125" y="24" text-anchor="middle" font-size="13.5" font-weight="600" class="f-ink mono">T = 0.5</text>
+<line x1="30" y1="190" x2="220" y2="190" class="s-muted" stroke-width="1"/>
+<rect x="36" y="53.3" width="17" height="136.7" rx="2" class="f-accent"/>
+<rect x="59" y="162.4" width="17" height="27.6" rx="2" class="f-accent2"/>
+<rect x="82" y="183.2" width="17" height="6.8" rx="2" class="f-accent2"/>
+<rect x="105" y="187.5" width="17" height="2.5" rx="2" class="f-accent2"/>
+<rect x="128" y="189.1" width="17" height="0.9" rx="2" class="f-accent2"/>
+<rect x="151" y="189.7" width="17" height="0.3" rx="2" class="f-accent2"/>
+<rect x="174" y="189.9" width="17" height="0.1" rx="2" class="f-accent2"/>
+<rect x="197" y="190.0" width="17" height="0.0" rx="2" class="f-accent2"/>
+<text x="44" y="47.3" text-anchor="middle" font-size="11" class="f-muted mono">0.78</text>
+<text x="125" y="210" text-anchor="middle" font-size="11" class="f-muted" data-l="zh">token 按 logit 从大到小排列</text><text x="125" y="210" text-anchor="middle" font-size="11" class="f-muted" data-l="en">tokens sorted by logit</text>
+<text x="350" y="24" text-anchor="middle" font-size="13.5" font-weight="600" class="f-ink mono">T = 1</text>
+<line x1="255" y1="190" x2="445" y2="190" class="s-muted" stroke-width="1"/>
+<rect x="261" y="102.0" width="17" height="88.0" rx="2" class="f-accent"/>
+<rect x="284" y="150.4" width="17" height="39.6" rx="2" class="f-accent2"/>
+<rect x="307" y="170.4" width="17" height="19.6" rx="2" class="f-accent2"/>
+<rect x="330" y="178.1" width="17" height="11.9" rx="2" class="f-accent2"/>
+<rect x="353" y="182.8" width="17" height="7.2" rx="2" class="f-accent2"/>
+<rect x="376" y="185.6" width="17" height="4.4" rx="2" class="f-accent2"/>
+<rect x="399" y="187.3" width="17" height="2.7" rx="2" class="f-accent2"/>
+<rect x="422" y="188.4" width="17" height="1.6" rx="2" class="f-accent2"/>
+<text x="269" y="96.0" text-anchor="middle" font-size="11" class="f-muted mono">0.50</text>
+<text x="350" y="210" text-anchor="middle" font-size="11" class="f-muted" data-l="zh">token 按 logit 从大到小排列</text><text x="350" y="210" text-anchor="middle" font-size="11" class="f-muted" data-l="en">tokens sorted by logit</text>
+<text x="575" y="24" text-anchor="middle" font-size="13.5" font-weight="600" class="f-ink mono">T = 2</text>
+<line x1="480" y1="190" x2="670" y2="190" class="s-muted" stroke-width="1"/>
+<rect x="486" y="137.4" width="17" height="52.6" rx="2" class="f-accent"/>
+<rect x="509" y="154.8" width="17" height="35.2" rx="2" class="f-accent2"/>
+<rect x="532" y="165.2" width="17" height="24.8" rx="2" class="f-accent2"/>
+<rect x="555" y="170.7" width="17" height="19.3" rx="2" class="f-accent2"/>
+<rect x="578" y="174.9" width="17" height="15.1" rx="2" class="f-accent2"/>
+<rect x="601" y="178.3" width="17" height="11.7" rx="2" class="f-accent2"/>
+<rect x="624" y="180.9" width="17" height="9.1" rx="2" class="f-accent2"/>
+<rect x="647" y="182.9" width="17" height="7.1" rx="2" class="f-accent2"/>
+<text x="494" y="131.4" text-anchor="middle" font-size="11" class="f-muted mono">0.30</text>
+<text x="575" y="210" text-anchor="middle" font-size="11" class="f-muted" data-l="zh">token 按 logit 从大到小排列</text><text x="575" y="210" text-anchor="middle" font-size="11" class="f-muted" data-l="en">tokens sorted by logit</text>
+<text x="350" y="238" text-anchor="middle" font-size="12" class="f-muted" data-l="zh">同一组 logits，温度越低分布越集中</text><text x="350" y="238" text-anchor="middle" font-size="12" class="f-muted" data-l="en">the same logits, a lower temperature concentrates the distribution</text>
+</svg>

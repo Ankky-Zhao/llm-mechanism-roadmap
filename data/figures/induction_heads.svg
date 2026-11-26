@@ -1,0 +1,275 @@
+<svg viewBox="0 0 700 346" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<defs><marker id="a91" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" class="f-accent"/></marker><marker id="p91" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" class="f-pin"/></marker><marker id="p91g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" class="f-muted"/></marker></defs>
+<text x="170" y="18" text-anchor="middle" font-size="12.5" class="f-ink" font-weight="600" data-l="zh">归纳回路的工作方式</text><text x="170" y="18" text-anchor="middle" font-size="12.5" class="f-ink" font-weight="600" data-l="en">How the induction circuit works</text>
+<rect x="10" y="150" width="36" height="28" rx="6" class="f-surface s-line"/>
+<text x="28" y="169" text-anchor="middle" font-size="12.5" class="f-ink">BOS</text>
+<text x="28" y="196" text-anchor="middle" font-size="10" class="f-muted">0</text>
+<rect x="58" y="150" width="36" height="28" rx="6" class="f-surface s-line"/>
+<text x="76" y="169" text-anchor="middle" font-size="12.5" class="f-ink">A</text>
+<text x="76" y="196" text-anchor="middle" font-size="10" class="f-muted">1</text>
+<rect x="106" y="150" width="36" height="28" rx="6" class="f-surface s-line"/>
+<text x="124" y="169" text-anchor="middle" font-size="12.5" class="f-ink">B</text>
+<text x="124" y="196" text-anchor="middle" font-size="10" class="f-muted">2</text>
+<rect x="154" y="150" width="36" height="28" rx="6" class="f-soft s-accent"/>
+<text x="172" y="169" text-anchor="middle" font-size="12.5" class="f-ink">C</text>
+<text x="172" y="196" text-anchor="middle" font-size="10" class="f-muted">3</text>
+<rect x="202" y="150" width="36" height="28" rx="6" class="f-surface s-line"/>
+<text x="220" y="169" text-anchor="middle" font-size="12.5" class="f-ink">A</text>
+<text x="220" y="196" text-anchor="middle" font-size="10" class="f-muted">4</text>
+<rect x="250" y="150" width="36" height="28" rx="6" class="f-soft s-accent"/>
+<text x="268" y="169" text-anchor="middle" font-size="12.5" class="f-ink">B</text>
+<text x="268" y="196" text-anchor="middle" font-size="10" class="f-muted">5</text>
+<rect x="298" y="150" width="36" height="28" rx="6" class="f-surface s-line" stroke-dasharray="3 3"/>
+<text x="316" y="169" text-anchor="middle" font-size="12.5" class="f-pin">?</text>
+<text x="316" y="196" text-anchor="middle" font-size="10" class="f-muted">6</text>
+<text x="10" y="212" text-anchor="start" font-size="10" class="f-muted" data-l="zh">位置</text><text x="10" y="212" text-anchor="start" font-size="10" class="f-muted" data-l="en">position</text>
+<path d="M172,150 C172,118 124,118 127,147" fill="none" class="s-muted" stroke-width="1.6" marker-end="url(#p91g)"/>
+<text x="148.0" y="232" text-anchor="middle" font-size="11.5" class="f-ink" font-weight="600" data-l="zh">① 前一 token 头</text><text x="148.0" y="232" text-anchor="middle" font-size="11.5" class="f-ink" font-weight="600" data-l="en">① previous-token head</text>
+<text x="148.0" y="247" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">C 处记下“前面是 B”</text><text x="148.0" y="247" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">C notes that B came before</text>
+<path d="M268,150 C268,66 172,66 176,146" fill="none" class="s-accent" stroke-width="2" marker-end="url(#a91)"/>
+<text x="250.0" y="40" text-anchor="middle" font-size="11.5" class="f-accent" font-weight="600" data-l="zh">② 归纳头</text><text x="250.0" y="40" text-anchor="middle" font-size="11.5" class="f-accent" font-weight="600" data-l="en">② induction head</text>
+<text x="250.0" y="55" text-anchor="middle" font-size="10.5" class="f-accent" data-l="zh">当前是 B，读取“前面是 B”的位置</text><text x="250.0" y="55" text-anchor="middle" font-size="10.5" class="f-accent" data-l="en">current token B reads where B came before</text>
+<path d="M286,164 L295,164" fill="none" class="s-pin" stroke-width="2" marker-end="url(#p91)"/>
+<text x="316" y="232" text-anchor="middle" font-size="11.5" class="f-pin" font-weight="600" data-l="zh">③ 预测 C</text><text x="316" y="232" text-anchor="middle" font-size="11.5" class="f-pin" font-weight="600" data-l="en">③ predict C</text>
+<text x="170" y="284" text-anchor="middle" font-size="11" class="f-muted" data-l="zh">下层的头先把前一个 token 写入每个位置，</text><text x="170" y="284" text-anchor="middle" font-size="11" class="f-muted" data-l="en">A lower head first writes the previous token into each position,</text>
+<text x="170" y="300" text-anchor="middle" font-size="11" class="f-muted" data-l="zh">上层的头据此找到上一次出现之后的 token</text><text x="170" y="300" text-anchor="middle" font-size="11" class="f-muted" data-l="en">and a higher head uses it to find what followed last time</text>
+<text x="544" y="18" text-anchor="middle" font-size="12.5" class="f-ink" font-weight="600" data-l="zh">GPT-2 small 各头的归纳得分（实测）</text><text x="544" y="18" text-anchor="middle" font-size="12.5" class="f-ink" font-weight="600" data-l="en">Induction score of every head of GPT-2 small (measured)</text>
+<text x="422" y="268" text-anchor="end" font-size="10" class="f-muted">0</text>
+<rect x="430" y="255" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="430" y="255" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.03"/>
+<rect x="449" y="255" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="468" y="255" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="468" y="255" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.02"/>
+<rect x="487" y="255" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="506" y="255" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="525" y="255" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="255" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="255" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.03"/>
+<rect x="563" y="255" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="255" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="255" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.03"/>
+<rect x="601" y="255" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="601" y="255" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.03"/>
+<rect x="620" y="255" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="639" y="255" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="639" y="255" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.03"/>
+<text x="422" y="249" text-anchor="end" font-size="10" class="f-muted">1</text>
+<rect x="430" y="236" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="449" y="236" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="468" y="236" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="487" y="236" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="506" y="236" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="525" y="236" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="525" y="236" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.03"/>
+<rect x="544" y="236" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="236" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.03"/>
+<rect x="563" y="236" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="563" y="236" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.03"/>
+<rect x="582" y="236" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="236" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.02"/>
+<rect x="601" y="236" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="601" y="236" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.03"/>
+<rect x="620" y="236" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="639" y="236" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<text x="422" y="230" text-anchor="end" font-size="10" class="f-muted">2</text>
+<rect x="430" y="217" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="449" y="217" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="449" y="217" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.03"/>
+<rect x="468" y="217" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="487" y="217" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="506" y="217" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="525" y="217" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="217" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="563" y="217" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="217" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="601" y="217" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="620" y="217" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="639" y="217" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<text x="422" y="211" text-anchor="end" font-size="10" class="f-muted">3</text>
+<rect x="430" y="198" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="449" y="198" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="468" y="198" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="487" y="198" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="506" y="198" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="525" y="198" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="198" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="563" y="198" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="198" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="601" y="198" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="620" y="198" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="639" y="198" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<text x="422" y="192" text-anchor="end" font-size="10" class="f-muted">4</text>
+<rect x="430" y="179" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="449" y="179" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="468" y="179" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="487" y="179" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="506" y="179" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="525" y="179" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="179" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="563" y="179" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="179" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="179" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.03"/>
+<rect x="601" y="179" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="620" y="179" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="639" y="179" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<text x="422" y="173" text-anchor="end" font-size="10" class="f-muted">5</text>
+<rect x="430" y="160" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="430" y="160" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.46"/>
+<rect x="449" y="160" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="449" y="160" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.87"/>
+<rect x="468" y="160" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="487" y="160" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="506" y="160" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="525" y="160" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="525" y="160" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.93"/>
+<rect x="544" y="160" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="563" y="160" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="160" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="160" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.13"/>
+<rect x="601" y="160" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="601" y="160" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.03"/>
+<rect x="620" y="160" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="639" y="160" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<text x="422" y="154" text-anchor="end" font-size="10" class="f-muted">6</text>
+<rect x="430" y="141" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="449" y="141" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="468" y="141" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="487" y="141" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="506" y="141" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="506" y="141" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.04"/>
+<rect x="525" y="141" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="141" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="141" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.04"/>
+<rect x="563" y="141" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="141" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="601" y="141" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="601" y="141" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.89"/>
+<rect x="620" y="141" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="620" y="141" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.05"/>
+<rect x="639" y="141" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<text x="422" y="135" text-anchor="end" font-size="10" class="f-muted">7</text>
+<rect x="430" y="122" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="449" y="122" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="449" y="122" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.26"/>
+<rect x="468" y="122" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="468" y="122" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.79"/>
+<rect x="487" y="122" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="487" y="122" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.02"/>
+<rect x="506" y="122" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="525" y="122" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="122" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="122" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.07"/>
+<rect x="563" y="122" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="563" y="122" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.12"/>
+<rect x="582" y="122" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="601" y="122" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="620" y="122" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="620" y="122" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.88"/>
+<rect x="639" y="122" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="639" y="122" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.09"/>
+<text x="422" y="116" text-anchor="end" font-size="10" class="f-muted">8</text>
+<rect x="430" y="103" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="449" y="103" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="449" y="103" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.40"/>
+<rect x="468" y="103" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="487" y="103" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="487" y="103" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.06"/>
+<rect x="506" y="103" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="525" y="103" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="103" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="103" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.23"/>
+<rect x="563" y="103" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="103" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="103" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.03"/>
+<rect x="601" y="103" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="601" y="103" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.03"/>
+<rect x="620" y="103" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="620" y="103" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.11"/>
+<rect x="639" y="103" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<text x="422" y="97" text-anchor="end" font-size="10" class="f-muted">9</text>
+<rect x="430" y="84" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="430" y="84" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.33"/>
+<rect x="449" y="84" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="449" y="84" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.17"/>
+<rect x="468" y="84" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="468" y="84" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.14"/>
+<rect x="487" y="84" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="506" y="84" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="506" y="84" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.12"/>
+<rect x="525" y="84" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="84" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="84" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.53"/>
+<rect x="563" y="84" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="563" y="84" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.05"/>
+<rect x="582" y="84" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="84" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.08"/>
+<rect x="601" y="84" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="601" y="84" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.47"/>
+<rect x="620" y="84" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="639" y="84" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="639" y="84" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.05"/>
+<text x="422" y="78" text-anchor="end" font-size="10" class="f-muted">10</text>
+<rect x="430" y="65" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="430" y="65" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.45"/>
+<rect x="449" y="65" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="449" y="65" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.56"/>
+<rect x="468" y="65" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="468" y="65" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.05"/>
+<rect x="487" y="65" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="487" y="65" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.17"/>
+<rect x="506" y="65" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="506" y="65" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.10"/>
+<rect x="525" y="65" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="65" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="65" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.35"/>
+<rect x="563" y="65" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="563" y="65" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.58"/>
+<rect x="582" y="65" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="65" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.05"/>
+<rect x="601" y="65" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="620" y="65" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="620" y="65" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.24"/>
+<rect x="639" y="65" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="639" y="65" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.37"/>
+<text x="422" y="59" text-anchor="end" font-size="10" class="f-muted">11</text>
+<rect x="430" y="46" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="430" y="46" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.04"/>
+<rect x="449" y="46" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="449" y="46" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.09"/>
+<rect x="468" y="46" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="468" y="46" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.05"/>
+<rect x="487" y="46" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="506" y="46" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="506" y="46" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.05"/>
+<rect x="525" y="46" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="525" y="46" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.11"/>
+<rect x="544" y="46" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="544" y="46" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.07"/>
+<rect x="563" y="46" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="563" y="46" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.11"/>
+<rect x="582" y="46" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="582" y="46" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.04"/>
+<rect x="601" y="46" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="601" y="46" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.40"/>
+<rect x="620" y="46" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="620" y="46" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.48"/>
+<rect x="639" y="46" width="17.5" height="17.5" rx="2" class="f-surface s-line" stroke-width="0.5"/>
+<rect x="639" y="46" width="17.5" height="17.5" rx="2" class="f-accent" fill-opacity="0.05"/>
+<text x="438.5" y="286" text-anchor="middle" font-size="10" class="f-muted">0</text>
+<text x="457.5" y="286" text-anchor="middle" font-size="10" class="f-muted">1</text>
+<text x="476.5" y="286" text-anchor="middle" font-size="10" class="f-muted">2</text>
+<text x="495.5" y="286" text-anchor="middle" font-size="10" class="f-muted">3</text>
+<text x="514.5" y="286" text-anchor="middle" font-size="10" class="f-muted">4</text>
+<text x="533.5" y="286" text-anchor="middle" font-size="10" class="f-muted">5</text>
+<text x="552.5" y="286" text-anchor="middle" font-size="10" class="f-muted">6</text>
+<text x="571.5" y="286" text-anchor="middle" font-size="10" class="f-muted">7</text>
+<text x="590.5" y="286" text-anchor="middle" font-size="10" class="f-muted">8</text>
+<text x="609.5" y="286" text-anchor="middle" font-size="10" class="f-muted">9</text>
+<text x="628.5" y="286" text-anchor="middle" font-size="10" class="f-muted">10</text>
+<text x="647.5" y="286" text-anchor="middle" font-size="10" class="f-muted">11</text>
+<text x="544" y="302" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">头</text><text x="544" y="302" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">head</text>
+<text x="400" y="160" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">层</text><text x="400" y="160" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">layer</text>
+<rect x="638" y="178" width="19.5" height="19.5" rx="3" fill="none" class="s-pin" stroke-width="1.6"/>
+<text x="544" y="322" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">颜色越深得分越高</text><text x="544" y="322" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">darker means a higher score</text>
+<text x="544" y="337" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">红框是前一 token 头 L4H11</text><text x="544" y="337" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">the red frame marks the previous-token head L4H11</text>
+</svg>

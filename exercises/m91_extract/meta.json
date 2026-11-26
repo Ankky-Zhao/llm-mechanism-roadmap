@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "attn_viz",
+ "network": true,
+ "level": 1,
+ "minutes": 30,
+ "title": {
+  "zh": "提取注意力并绘制热图",
+  "en": "Extract attention and plot a heatmap"
+ },
+ "prompt": {
+  "zh": "从 GPT-2 small 中取出全部注意力权重，计算每个头的平均熵，并把一个头画成热图。测试检查张量的形状、每一行和为 1、因果掩码以及熵在两个手算例子上的值。请查看打印出的观察结果，并打开保存的图片。首次运行会下载约 0.5 GB 的模型。",
+  "en": "Extract all attention weights from GPT-2 small, compute the mean entropy of every head and draw one head as a heatmap. The tests check the shape of the tensor, that every row sums to 1, the causal mask, and the entropy on two examples that can be computed by hand. Look at the printed observations and open the saved image. The first run downloads a model of about 0.5 GB."
+ },
+ "hints": [
+  {
+   "zh": "`out.attentions` 是长度为 12 的元组，每个元素的形状是 `(1, 12, T, T)`。`torch.stack([a[0] for a in out.attentions])` 得到 `(12, 12, T, T)`。",
+   "en": "`out.attentions` is a tuple of length 12 whose elements have shape `(1, 12, T, T)`. `torch.stack([a[0] for a in out.attentions])` gives `(12, 12, T, T)`."
+  },
+  {
+   "zh": "熵的写法是 `-(att * torch.log(att.clamp_min(1e-12))).sum(-1).mean(-1)`。不做 clamp 时，被掩码的项会给出 `0 * log 0 = nan`。",
+   "en": "The entropy is `-(att * torch.log(att.clamp_min(1e-12))).sum(-1).mean(-1)`. Without the clamp the masked entries give `0 * log 0 = nan`."
+  }
+ ]
+}

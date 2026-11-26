@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "kv_cache",
+ "level": 2,
+ "minutes": 30,
+ "network": true,
+ "title": {
+  "zh": "测量首 token 延迟与生成速度",
+  "en": "Measure time to first token and generation speed"
+ },
+ "prompt": {
+  "zh": "在 GPT-2 上分别实现不使用缓存和使用缓存的贪心生成，并记录每个 token 的耗时。测试会检查两种方式生成的 token 相同、缓存的实际大小与公式一致，并在 50、200、800 三种提示词长度下比较首 token 延迟和每秒生成的 token 数。时间的断言留了较大的余量，具体数值因机器而异。",
+  "en": "Implement greedy generation on GPT-2 without and with the cache and record the time of every token. The tests check that both ways generate the same tokens and that the actual size of the cache agrees with the formula, and compare time to first token and tokens per second for prompts of 50, 200 and 800 tokens. The timing assertions leave a wide margin, and concrete numbers vary by machine."
+ },
+ "hints": [
+  {
+   "zh": "prefill 是 `logits, cache = model_step(model, input_ids)`，之后每一步是 `model_step(model, next_id.view(1, 1), cache)`。",
+   "en": "Prefill is `logits, cache = model_step(model, input_ids)`, and every later step is `model_step(model, next_id.view(1, 1), cache)`."
+  },
+  {
+   "zh": "每个 token 的计时应当包含模型的前向计算和取最大值两步。",
+   "en": "The timing of each token should cover both the forward pass of the model and taking the maximum."
+  }
+ ]
+}

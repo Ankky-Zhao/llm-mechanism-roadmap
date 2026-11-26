@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "lifecycle",
+ "level": 1,
+ "minutes": 15,
+ "title": {
+  "zh": "概念自测",
+  "en": "Concept self-check"
+ },
+ "prompt": {
+  "zh": "不看上面的内容，回答下面五问。\n(a) 把这六步按发生的先后排序。softmax，分词，取最后一个位置的 logits，嵌入，选 token，通过 12 层 block。\n(b) 下面哪些只发生在训练时？反向传播，计算交叉熵，采样，更新参数，分词。\n(c) 输入有 5 个 token 时，GPT-2 small 输出的 logits 是什么形状？预测下一个 token 用的是哪一行？其余几行有什么用？\n(d) 用 0.1 练习里的循环生成 20 个新 token，一共做了多少次前向计算？\n(e) 第一步 A 的概率是 0.7，B 是 0.3。A 之后概率最高的 token 是 0.4，B 之后概率最高的 token 是 0.95。贪心解码得到的两步序列概率是多少？概率最大的两步序列是哪一条？",
+  "en": "Without looking at the text above, answer these five questions.\n(a) Put the six steps in the order they happen. Softmax, tokenization, taking the logits of the last position, embedding, choosing a token, passing through the 12 blocks.\n(b) Which of these happen only during training? Backpropagation, computing cross-entropy, sampling, updating parameters, tokenization.\n(c) With 5 input tokens, what is the shape of the logits GPT-2 small outputs? Which row predicts the next token? What are the other rows for?\n(d) Generating 20 new tokens with the loop from the exercises of 0.1 takes how many forward passes?\n(e) At step one A has probability 0.7 and B has 0.3. The most probable token after A has 0.4 and the most probable token after B has 0.95. What is the probability of the two-step sequence greedy decoding produces? Which two-step sequence is the most probable?"
+ },
+ "hints": [
+  {
+   "zh": "(c) 位置 $t$ 的 logits 预测的是第 $t+1$ 个 token。想一想训练时每个位置是否都有一个可以对照的真实 token。",
+   "en": "(c) The logits at position $t$ predict token $t+1$. Consider whether, during training, every position has a true token to compare with."
+  },
+  {
+   "zh": "(e) 序列的概率是两步概率的乘积，分别算出两条路径再比较。",
+   "en": "(e) The probability of a sequence is the product of the two step probabilities. Compute both paths and compare."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 分词，嵌入，通过 12 层 block，取最后一个位置的 logits，softmax，选 token。\n\n(b) 反向传播、计算交叉熵和更新参数只发生在训练时。采样只发生在推理时。分词在两边都有。\n\n(c) 形状是 $(1, 5, 50257)$，每个输入位置一行。预测下一个 token 用最后一行。其余各行是模型在只看到前 $t$ 个 token 时对第 $t+1$ 个 token 的预测。训练时每一行都有真实的下一个 token 可以对照，所以一次前向就能得到 5 个训练信号。这是自回归模型训练效率高的原因之一。\n\n(d) 20 次，每个新 token 一次，而且每次都把越来越长的整段输入重新算一遍。避免这种重复计算的办法是 KV cache，在 5.2 讲。\n\n(e) 贪心第一步选 A，第二步选 A 之后最好的 token，概率为 $0.7 \\times 0.4 = 0.28$。先选 B 的路径概率为 $0.3 \\times 0.95 = 0.285$，略高于贪心的结果，所以概率最大的序列是从 B 开始的那一条。",
+  "en": "(a) Tokenization, embedding, passing through the 12 blocks, taking the logits of the last position, softmax, choosing a token.\n\n(b) Backpropagation, computing cross-entropy and updating parameters happen only during training. Sampling happens only at inference. Tokenization happens in both.\n\n(c) The shape is $(1, 5, 50257)$, one row per input position. The last row predicts the next token. Each other row is the model's prediction of token $t+1$ after seeing only the first $t$ tokens. During training every row has a true next token to compare with, so one forward pass yields 5 training signals. This is one reason autoregressive training is efficient.\n\n(d) 20, one per new token, and each one recomputes the whole, ever longer input. The KV cache removes this repeated work and is covered in 5.2.\n\n(e) Greedy takes A first and then the best token after A, giving $0.7 \\times 0.4 = 0.28$. The path that starts with B has $0.3 \\times 0.95 = 0.285$, slightly above the greedy result, so the most probable sequence is the one that starts with B."
+ }
+}

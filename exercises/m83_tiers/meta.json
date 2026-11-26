@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "eu_ai_act",
+ "level": 2,
+ "minutes": 25,
+ "title": {
+  "zh": "风险分级情景判断",
+  "en": "Risk-level scenarios"
+ },
+ "prompt": {
+  "zh": "根据本模块正文，对下面每个情景说明它属于哪个风险等级或适用哪项例外，涉及的主体是提供者还是部署者，并给出依据。这些判断用于练习，不构成法律意见。\n(a) 一家公司在自己的邮件服务中使用模型过滤垃圾邮件。\n(b) 一家网店在网站上提供一个回答售后问题的聊天机器人。\n(c) 一家招聘平台开发了一个按匹配程度给求职者排序的系统，并销售给企业。\n(d) 一家公司想用摄像头和模型判断员工在工作时的情绪状态。\n(e) 一名博士生微调了一个开放权重模型，在自己的电脑上做实验并把结果写进论文。\n(f) 同一名博士生所在的学院打算用她的模型自动给期末考试的简答题评分。\n(g) 一家公司训练了一个通用模型，以 Apache 2.0 许可证公开了权重、结构说明和使用说明。训练的计算量约为 $10^{23}$ 次浮点运算。",
+  "en": "Using the text of this module, state for each scenario below which risk level it belongs to or which exception applies, whether the party is a provider or a deployer, and the basis. These judgements are for practice and are not legal advice.\n(a) A company filters spam with a model in its own mail service.\n(b) An online shop offers a chatbot on its website that answers after-sales questions.\n(c) A recruitment platform develops a system that ranks job applicants by fit and sells it to companies.\n(d) A company wants to judge the emotional state of employees at work with cameras and a model.\n(e) A doctoral student fine-tunes an open-weight model, runs experiments on her own computer and reports the results in a paper.\n(f) The department of the same doctoral student plans to use her model to grade the short answers of final exams automatically.\n(g) A company trains a general-purpose model and publishes weights, a description of the architecture and usage instructions under the Apache 2.0 licence. The training compute is about $10^{23}$ floating-point operations."
+ },
+ "hints": [
+  {
+   "zh": "(c) 和 (f) 对照附件三的八个领域。",
+   "en": "(c) and (f) should be compared with the eight areas of Annex III."
+  },
+  {
+   "zh": "(g) 分别考虑第 53 条的四项义务和系统性风险的门槛。",
+   "en": "(g) Consider the four obligations of Article 53 and the threshold for systemic risk separately."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 风险极小的一级，没有专门的义务。垃圾邮件过滤是委员会页面给出的这一等级的例子。\n\n(b) 有透明度风险的一级。依据第 50 条，提供者须使用户知道自己在与人工智能系统交互，除非这一点显而易见。网店在自己的权限下使用该系统，是部署者。如果聊天机器人是它自己开发并以自己名义提供的，它同时是提供者。\n\n(c) 高风险。筛选和排序求职者属于附件三中的就业和劳动者管理领域。平台是提供者，购买并使用该系统的企业是部署者。系统对求职者进行画像，因此不能援引第 6 条第 3 款的减免。相应的义务自 2027 年 12 月 2 日起适用。\n\n(d) 属于禁止之列。在工作场所进行情绪识别是被禁止的做法之一，该项禁止自 2025 年 2 月起适用。\n\n(e) 适用研究例外。依据第 2 条，专为科学研究与开发的唯一目的而开发并投入使用的系统和模型不在该法的适用范围之内。她仍然需要遵守所用模型的许可证（见 6.2）以及数据保护等其他法律。\n\n(f) 情况发生了变化。评定学习成果属于附件三中的教育和职业培训领域，是高风险用途，并且这是在真实环境中用于决策，不再是纯粹的研究。学院在自己的权限下使用该系统，是部署者。模型如果由学院或该博士生以自己的名义投入使用，还需要确定谁承担提供者的义务。高风险义务自 2027 年 12 月 2 日起适用，在此之前也应当让所在机构的法务和数据保护部门参与。\n\n(g) 该公司是通用模型的提供者。模型以自由和开源许可证发布并公开了参数、结构信息和使用信息，依据第 53 条第 2 款，技术文档和向下游提供信息两项义务被免除，版权政策和训练内容摘要两项仍须履行。训练计算量 $10^{23}$ 低于第 51 条 $10^{25}$ 的门槛，不被推定具有系统性风险。",
+  "en": "(a) The level of minimal risk, with no specific obligations. Spam filtering is an example the Commission page gives for this level.\n\n(b) The level of transparency risk. Under Article 50 the provider has to make sure that users know they are interacting with an AI system, unless this is obvious. The shop uses the system under its authority and is a deployer. If it developed the chatbot itself and offers it under its own name, it is a provider as well.\n\n(c) High-risk. Screening and ranking job applicants belongs to the area of employment and workers' management in Annex III. The platform is the provider and the companies that buy and use the system are deployers. The system profiles applicants, so the derogation of Article 6(3) cannot be invoked. The corresponding obligations apply from 2 December 2027.\n\n(d) Prohibited. Emotion recognition in the workplace is one of the prohibited practices, and this prohibition has applied since February 2025.\n\n(e) The research exception applies. Under Article 2, systems and models developed and put into service for the sole purpose of scientific research and development are outside the scope of the Act. She still has to comply with the licence of the model used (see 6.2) and with other law such as data protection.\n\n(f) The situation has changed. Grading learning outcomes belongs to the area of education and vocational training in Annex III and is a high-risk use, and it is a use for decisions in a real environment and no longer pure research. The department uses the system under its authority and is a deployer. If the model is put into service by the department or by the doctoral student under their own name, it also has to be settled who bears the obligations of a provider. The high-risk obligations apply from 2 December 2027, and the legal and data protection offices of the institution should be involved before then as well.\n\n(g) The company is a provider of a general-purpose model. The model is released under a free and open-source licence with parameters, information on the architecture and information on usage made public, so under Article 53(2) the two obligations of technical documentation and information to downstream providers are waived, while the copyright policy and the summary of training content remain required. A training compute of $10^{23}$ is below the threshold of $10^{25}$ in Article 51, and systemic risk is not presumed."
+ }
+}

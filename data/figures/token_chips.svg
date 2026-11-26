@@ -1,0 +1,62 @@
+<svg viewBox="0 0 700 330" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<text x="14" y="33" font-size="12.5" class="f-ink mono">strawberry</text>
+<text x="200" y="33" font-size="11.5" class="f-muted mono">GPT-2</text>
+<rect x="262.0" y="14" width="32.4" height="28" rx="5" class="f-surface s-line"/><text x="278.2" y="32.5" text-anchor="middle" font-size="12.5" class="f-ink mono">st</text>
+<rect x="299.4" y="14" width="41.6" height="28" rx="5" class="f-surface s-line"/><text x="320.2" y="32.5" text-anchor="middle" font-size="12.5" class="f-ink mono">raw</text>
+<rect x="346.0" y="14" width="60.0" height="28" rx="5" class="f-surface s-line"/><text x="376.0" y="32.5" text-anchor="middle" font-size="12.5" class="f-ink mono">berry</text>
+<text x="14" y="71" font-size="12.5" class="f-ink mono">␣strawberry</text>
+<text x="200" y="71" font-size="11.5" class="f-muted mono">GPT-2</text>
+<rect x="262.0" y="52" width="115.2" height="28" rx="5" class="f-surface s-line"/><text x="319.6" y="70.5" text-anchor="middle" font-size="12.5" class="f-ink mono">␣strawberry</text>
+<text x="14" y="109" font-size="12.5" class="f-ink mono">␣s␣t␣r␣a␣w …</text>
+<text x="200" y="109" font-size="11.5" class="f-muted mono">GPT-2</text>
+<rect x="262.0" y="90" width="32.4" height="28" rx="5" class="f-surface s-line"/><text x="278.2" y="108.5" text-anchor="middle" font-size="12.5" class="f-ink mono">␣s</text>
+<rect x="299.4" y="90" width="32.4" height="28" rx="5" class="f-surface s-line"/><text x="315.6" y="108.5" text-anchor="middle" font-size="12.5" class="f-ink mono">␣t</text>
+<rect x="336.8" y="90" width="32.4" height="28" rx="5" class="f-surface s-line"/><text x="353.0" y="108.5" text-anchor="middle" font-size="12.5" class="f-ink mono">␣r</text>
+<rect x="374.2" y="90" width="32.4" height="28" rx="5" class="f-surface s-line"/><text x="390.4" y="108.5" text-anchor="middle" font-size="12.5" class="f-ink mono">␣a</text>
+<rect x="411.6" y="90" width="32.4" height="28" rx="5" class="f-surface s-line"/><text x="427.8" y="108.5" text-anchor="middle" font-size="12.5" class="f-ink mono">␣w</text>
+<rect x="449.0" y="90" width="26.0" height="28" rx="5" class="f-surface s-line"/><text x="462.0" y="108.5" text-anchor="middle" font-size="12.5" class="f-ink mono">…</text>
+<line x1="14" y1="125" x2="686" y2="125" class="s-line" stroke-width="1"/>
+<text x="14" y="147" font-size="12.5" class="f-ink mono">1234567</text>
+<text x="200" y="147" font-size="11.5" class="f-muted mono">GPT-2</text>
+<rect x="262.0" y="128" width="41.6" height="28" rx="5" class="f-surface s-line"/><text x="282.8" y="146.5" text-anchor="middle" font-size="12.5" class="f-ink mono">123</text>
+<rect x="308.6" y="128" width="32.4" height="28" rx="5" class="f-surface s-line"/><text x="324.8" y="146.5" text-anchor="middle" font-size="12.5" class="f-ink mono">45</text>
+<rect x="346.0" y="128" width="32.4" height="28" rx="5" class="f-surface s-line"/><text x="362.2" y="146.5" text-anchor="middle" font-size="12.5" class="f-ink mono">67</text>
+<text x="14" y="185" font-size="12.5" class="f-ink mono">12345678</text>
+<text x="200" y="185" font-size="11.5" class="f-muted mono">GPT-2</text>
+<rect x="262.0" y="166" width="41.6" height="28" rx="5" class="f-surface s-line"/><text x="282.8" y="184.5" text-anchor="middle" font-size="12.5" class="f-ink mono">123</text>
+<rect x="308.6" y="166" width="32.4" height="28" rx="5" class="f-surface s-line"/><text x="324.8" y="184.5" text-anchor="middle" font-size="12.5" class="f-ink mono">45</text>
+<rect x="346.0" y="166" width="41.6" height="28" rx="5" class="f-surface s-line"/><text x="366.8" y="184.5" text-anchor="middle" font-size="12.5" class="f-ink mono">678</text>
+<text x="14" y="223" font-size="12.5" class="f-ink mono">1234567</text>
+<text x="200" y="223" font-size="11.5" class="f-muted mono">o200k</text>
+<rect x="262.0" y="204" width="41.6" height="28" rx="5" class="f-surface s-line"/><text x="282.8" y="222.5" text-anchor="middle" font-size="12.5" class="f-ink mono">123</text>
+<rect x="308.6" y="204" width="41.6" height="28" rx="5" class="f-surface s-line"/><text x="329.4" y="222.5" text-anchor="middle" font-size="12.5" class="f-ink mono">456</text>
+<rect x="355.2" y="204" width="26.0" height="28" rx="5" class="f-surface s-line"/><text x="368.2" y="222.5" text-anchor="middle" font-size="12.5" class="f-ink mono">7</text>
+<line x1="14" y1="239" x2="686" y2="239" class="s-line" stroke-width="1"/>
+<text x="14" y="261" font-size="12.5" class="f-ink mono">北京是中国的首都</text>
+<text x="200" y="261" font-size="11.5" class="f-muted mono">GPT-2</text>
+<rect x="262.0" y="242" width="19.0" height="28" rx="5" class="f-surface s-line"/><text x="271.5" y="260.5" text-anchor="middle" font-size="12.5" class="f-ink mono">·</text>
+<rect x="285.0" y="242" width="19.0" height="28" rx="5" class="f-surface s-line"/><text x="294.5" y="260.5" text-anchor="middle" font-size="12.5" class="f-ink mono">·</text>
+<rect x="308.0" y="242" width="19.0" height="28" rx="5" class="f-surface s-line"/><text x="317.5" y="260.5" text-anchor="middle" font-size="12.5" class="f-ink mono">·</text>
+<rect x="331.0" y="242" width="19.0" height="28" rx="5" class="f-surface s-line"/><text x="340.5" y="260.5" text-anchor="middle" font-size="12.5" class="f-ink mono">·</text>
+<rect x="354.0" y="242" width="19.0" height="28" rx="5" class="f-surface s-line"/><text x="363.5" y="260.5" text-anchor="middle" font-size="12.5" class="f-ink mono">·</text>
+<rect x="377.0" y="242" width="19.0" height="28" rx="5" class="f-surface s-line"/><text x="386.5" y="260.5" text-anchor="middle" font-size="12.5" class="f-ink mono">·</text>
+<rect x="400.0" y="242" width="19.0" height="28" rx="5" class="f-surface s-line"/><text x="409.5" y="260.5" text-anchor="middle" font-size="12.5" class="f-ink mono">·</text>
+<rect x="423.0" y="242" width="19.0" height="28" rx="5" class="f-surface s-line"/><text x="432.5" y="260.5" text-anchor="middle" font-size="12.5" class="f-ink mono">·</text>
+<rect x="446.0" y="242" width="19.0" height="28" rx="5" class="f-surface s-line"/><text x="455.5" y="260.5" text-anchor="middle" font-size="12.5" class="f-ink mono">·</text>
+<rect x="469.0" y="242" width="19.0" height="28" rx="5" class="f-surface s-line"/><text x="478.5" y="260.5" text-anchor="middle" font-size="12.5" class="f-ink mono">·</text>
+<rect x="492.0" y="242" width="19.0" height="28" rx="5" class="f-surface s-line"/><text x="501.5" y="260.5" text-anchor="middle" font-size="12.5" class="f-ink mono">·</text>
+<rect x="515.0" y="242" width="19.0" height="28" rx="5" class="f-surface s-line"/><text x="524.5" y="260.5" text-anchor="middle" font-size="12.5" class="f-ink mono">·</text>
+<rect x="538.0" y="242" width="19.0" height="28" rx="5" class="f-surface s-line"/><text x="547.5" y="260.5" text-anchor="middle" font-size="12.5" class="f-ink mono">·</text>
+<rect x="561.0" y="242" width="19.0" height="28" rx="5" class="f-surface s-line"/><text x="570.5" y="260.5" text-anchor="middle" font-size="12.5" class="f-ink mono">·</text>
+<text x="590" y="261" text-anchor="start" font-size="12" class="f-muted" data-l="zh">14 个 token</text><text x="590" y="261" text-anchor="start" font-size="12" class="f-muted" data-l="en">14 tokens</text>
+<text x="14" y="299" font-size="12.5" class="f-ink mono">北京是中国的首都</text>
+<text x="200" y="299" font-size="11.5" class="f-muted mono">o200k</text>
+<rect x="262.0" y="280" width="40.0" height="28" rx="5" class="f-surface s-line"/><text x="282.0" y="298.5" text-anchor="middle" font-size="12.5" class="f-ink mono">北京</text>
+<rect x="307.0" y="280" width="40.0" height="28" rx="5" class="f-surface s-line"/><text x="327.0" y="298.5" text-anchor="middle" font-size="12.5" class="f-ink mono">是</text>
+<rect x="352.0" y="280" width="40.0" height="28" rx="5" class="f-surface s-line"/><text x="372.0" y="298.5" text-anchor="middle" font-size="12.5" class="f-ink mono">中国</text>
+<rect x="397.0" y="280" width="40.0" height="28" rx="5" class="f-surface s-line"/><text x="417.0" y="298.5" text-anchor="middle" font-size="12.5" class="f-ink mono">的</text>
+<rect x="442.0" y="280" width="40.0" height="28" rx="5" class="f-surface s-line"/><text x="462.0" y="298.5" text-anchor="middle" font-size="12.5" class="f-ink mono">首</text>
+<rect x="487.0" y="280" width="40.0" height="28" rx="5" class="f-surface s-line"/><text x="507.0" y="298.5" text-anchor="middle" font-size="12.5" class="f-ink mono">都</text>
+<text x="538" y="299" text-anchor="start" font-size="12" class="f-muted" data-l="zh">6 个 token</text><text x="538" y="299" text-anchor="start" font-size="12" class="f-muted" data-l="en">6 tokens</text>
+<text x="14" y="322" text-anchor="start" font-size="11.5" class="f-muted" data-l="zh">␣ 表示空格。</text><text x="14" y="322" text-anchor="start" font-size="11.5" class="f-muted" data-l="en">␣ stands for a space.</text>
+</svg>

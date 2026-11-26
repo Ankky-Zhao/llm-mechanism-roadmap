@@ -1,0 +1,2956 @@
+[
+ {
+  "topic": "pipeline",
+  "level": "intro",
+  "type": "video",
+  "lang": "en",
+  "title": "Transformers, the tech behind LLMs | Deep Learning Chapter 5 (3Blue1Brown)",
+  "url": "https://www.youtube.com/watch?v=wjZofJX0v4M",
+  "hours": 0.5,
+  "why": {
+   "zh": "用动画把从 token 到下一个 token 的全过程讲了一遍，适合作为第一个视频",
+   "en": "Animates the whole path from tokens to the next token. A good first video."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "pipeline",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "Transformer Explainer (interactive GPT-2 in the browser)",
+  "url": "https://poloclub.github.io/transformer-explainer/",
+  "hours": 0.5,
+  "why": {
+   "zh": "在浏览器里运行真实的 GPT-2，可以输入自己的句子并拖动温度观察概率变化",
+   "en": "Runs a real GPT-2 in the browser. Type your own sentence and drag the temperature to watch the probabilities change."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "pipeline",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "LLM Visualization (bbycroft.net)",
+  "url": "https://bbycroft.net/llm",
+  "hours": 0.5,
+  "why": {
+   "zh": "三维动画逐步展示一个小型 GPT 的每个矩阵运算，建立形状直觉",
+   "en": "A 3D walkthrough of every matrix operation in a small GPT, good for intuition about shapes."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "pipeline",
+  "level": "core",
+  "type": "blog",
+  "lang": "en",
+  "title": "The Illustrated GPT-2 (Jay Alammar)",
+  "url": "https://jalammar.github.io/illustrated-gpt2/",
+  "hours": 1,
+  "why": {
+   "zh": "图解 GPT-2 从输入到输出的每一步，与本模块的六步一一对应",
+   "en": "Illustrates every step of GPT-2 from input to output, matching the six steps of this module."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "pipeline",
+  "level": "core",
+  "type": "course",
+  "lang": "zh",
+  "title": "Hugging Face LLM 课程（中文）第 1 章 Transformer 模型",
+  "url": "https://huggingface.co/learn/llm-course/zh-CN/chapter1/1",
+  "hours": 2,
+  "why": {
+   "zh": "中文入门课程，从使用者的角度介绍 Transformer 模型能做什么",
+   "en": "An introductory course in Chinese on what Transformer models can do, from a user's point of view."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "pipeline",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Generation strategies (Transformers docs)",
+  "url": "https://huggingface.co/docs/transformers/generation_strategies",
+  "hours": 0.5,
+  "why": {
+   "zh": "`model.generate` 各种解码方式的官方说明，写完练习后对照参数名",
+   "en": "The official description of the decoding modes of `model.generate`. Compare the argument names after the exercises."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "lifecycle",
+  "level": "intro",
+  "type": "video",
+  "lang": "en",
+  "title": "[1hr Talk] Intro to Large Language Models (Karpathy)",
+  "url": "https://www.youtube.com/watch?v=zjkBMFhNj_g",
+  "hours": 1,
+  "why": {
+   "zh": "一小时讲清模型文件是什么、训练和推理各在做什么",
+   "en": "One hour on what a model file is and what training and inference each do."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "lifecycle",
+  "level": "core",
+  "type": "video",
+  "lang": "en",
+  "title": "Let's build GPT: from scratch, in code, spelled out (Karpathy)",
+  "url": "https://www.youtube.com/watch?v=kCc8FmEb1nY",
+  "hours": 2,
+  "why": {
+   "zh": "从空文件写出一个可训练的 GPT，把训练时间线完整走一遍，可作为阶段 2 的预习",
+   "en": "Writes a trainable GPT from an empty file and walks the full training timeline. Also a preview of stage 2."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "autograd",
+  "level": "intro",
+  "type": "video",
+  "lang": "en",
+  "title": "The spelled-out intro to neural networks and backpropagation: building micrograd (Karpathy)",
+  "url": "https://www.youtube.com/watch?v=VMj-3S1tku0",
+  "hours": 2.5,
+  "why": {
+   "zh": "本模块练习的原型，从零讲到训练出一个 MLP，适合先看再动手",
+   "en": "The model for this module's exercises, going from nothing to a trained MLP. Watch before coding."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "autograd",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "Calculus on Computational Graphs: Backpropagation (colah)",
+  "url": "https://colah.github.io/posts/2015-08-Backprop/",
+  "hours": 0.5,
+  "why": {
+   "zh": "用图把前向模式和反向模式的区别讲得很清楚",
+   "en": "Explains forward versus reverse mode clearly with diagrams."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "autograd",
+  "level": "core",
+  "type": "code",
+  "lang": "en",
+  "title": "karpathy/micrograd",
+  "url": "https://github.com/karpathy/micrograd",
+  "hours": 1,
+  "why": {
+   "zh": "约 150 行的完整实现，做完练习后可以对照",
+   "en": "A complete implementation in about 150 lines, good to compare with after the exercises."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "autograd",
+  "level": "core",
+  "type": "course",
+  "lang": "en",
+  "title": "CS231n notes: Backpropagation, Intuitions",
+  "url": "https://cs231n.github.io/optimization-2/",
+  "hours": 1,
+  "why": {
+   "zh": "讲清了加法门、乘法门、max 门各自如何分配梯度，以及向量化后的形式",
+   "en": "Shows how add, multiply and max gates route gradients, and the vectorized forms."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "autograd",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "A Gentle Introduction to torch.autograd",
+  "url": "https://docs.pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html",
+  "hours": 0.5,
+  "why": {
+   "zh": "把手写的标量版本对应回 PyTorch 的张量接口",
+   "en": "Maps the scalar version you wrote back to PyTorch's tensor API."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "autograd",
+  "level": "core",
+  "type": "course",
+  "lang": "zh",
+  "title": "动手学深度学习 2.5 自动微分",
+  "url": "https://zh.d2l.ai/chapter_preliminaries/autograd.html",
+  "hours": 0.5,
+  "why": {
+   "zh": "中文讲解，含非标量变量的反向传播与分离计算",
+   "en": "In Chinese, covering backward for non-scalar variables and detaching."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "autograd",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Automatic differentiation in machine learning: a survey (Baydin et al.)",
+  "url": "https://arxiv.org/abs/1502.05767",
+  "hours": 3,
+  "why": {
+   "zh": "系统区分自动微分、符号微分与数值微分，是前向与反向模式复杂度结论的出处",
+   "en": "Separates automatic, symbolic and numerical differentiation, and is the source for the complexity of forward and reverse mode."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "ce_mle_ppl",
+  "level": "intro",
+  "type": "video",
+  "lang": "en",
+  "title": "The spelled-out intro to language modeling: building makemore (Karpathy)",
+  "url": "https://www.youtube.com/watch?v=PaCmpygFfXo",
+  "hours": 2,
+  "why": {
+   "zh": "用字符级 bigram 模型把似然、负对数似然和损失一步步算出来",
+   "en": "Works out likelihood, negative log-likelihood and the loss step by step on a character bigram model."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "ce_mle_ppl",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "Visual Information Theory (colah)",
+  "url": "https://colah.github.io/posts/2015-09-Visual-Information/",
+  "hours": 1,
+  "why": {
+   "zh": "用图解释熵、交叉熵和 KL 散度，建立直觉效果很好",
+   "en": "Builds intuition for entropy, cross-entropy and KL divergence with pictures."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "ce_mle_ppl",
+  "level": "core",
+  "type": "course",
+  "lang": "zh",
+  "title": "动手学深度学习 3.4 softmax 回归",
+  "url": "https://zh.d2l.ai/chapter_linear-networks/softmax-regression.html",
+  "hours": 1,
+  "why": {
+   "zh": "中文讲解，3.4.7 节从信息论角度解释交叉熵",
+   "en": "In Chinese. Section 3.4.7 explains cross-entropy from information theory."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "ce_mle_ppl",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Perplexity of fixed-length models (Hugging Face)",
+  "url": "https://huggingface.co/docs/transformers/perplexity",
+  "hours": 0.5,
+  "why": {
+   "zh": "给出滑动窗口计算困惑度的标准代码，并展示步幅对结果的影响",
+   "en": "Gives the standard sliding-window code for perplexity and shows how the stride changes the result."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "ce_mle_ppl",
+  "level": "core",
+  "type": "book",
+  "lang": "en",
+  "title": "Speech and Language Processing, 3rd ed. draft, ch. 3 N-gram Language Models (Jurafsky & Martin)",
+  "url": "https://web.stanford.edu/~jurafsky/slp3/",
+  "hours": 2,
+  "why": {
+   "zh": "困惑度的教科书讲法，含它与熵的关系",
+   "en": "The textbook treatment of perplexity, including its relation to entropy."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "ce_mle_ppl",
+  "level": "deep",
+  "type": "book",
+  "lang": "en",
+  "title": "Deep Learning, ch. 5 Machine Learning Basics, §5.5 Maximum Likelihood Estimation",
+  "url": "https://www.deeplearningbook.org/contents/ml.html",
+  "hours": 1.5,
+  "why": {
+   "zh": "最大似然与 KL 散度等价关系的严格表述",
+   "en": "A rigorous statement of the equivalence between maximum likelihood and KL divergence."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "softmax_grad",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "The Softmax function and its derivative (Eli Bendersky)",
+  "url": "https://eli.thegreenplace.net/2016/the-softmax-function-and-its-derivative/",
+  "hours": 0.75,
+  "why": {
+   "zh": "雅可比矩阵和交叉熵梯度的完整推导，一步不跳",
+   "en": "A full derivation of the Jacobian and the cross-entropy gradient with no skipped steps."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "softmax_grad",
+  "level": "core",
+  "type": "course",
+  "lang": "en",
+  "title": "CS231n notes: Linear classification (Softmax classifier)",
+  "url": "https://cs231n.github.io/linear-classify/",
+  "hours": 1,
+  "why": {
+   "zh": "包含数值稳定性一节，说明为什么要先减去最大值",
+   "en": "Includes the section on numeric stability that explains subtracting the maximum."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "softmax_grad",
+  "level": "core",
+  "type": "video",
+  "lang": "en",
+  "title": "Building makemore Part 4: Becoming a Backprop Ninja (Karpathy)",
+  "url": "https://www.youtube.com/watch?v=q8SA3rM6ckI",
+  "hours": 2,
+  "why": {
+   "zh": "逐张量手写反向传播，其中交叉熵一段就是本模块练习 2 的内容",
+   "en": "Backpropagates tensor by tensor by hand. The cross-entropy part is exactly exercise 2 of this module."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "softmax_grad",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "torch.nn.CrossEntropyLoss",
+  "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html",
+  "hours": 0.25,
+  "why": {
+   "zh": "确认官方实现的输入约定、reduction 与 label_smoothing 参数",
+   "en": "Confirms the input convention, reduction and label_smoothing of the official implementation."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "softmax_grad",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Distilling the Knowledge in a Neural Network (Hinton, Vinyals, Dean)",
+  "url": "https://arxiv.org/abs/1503.02531",
+  "hours": 1,
+  "why": {
+   "zh": "带温度 softmax 的经典出处，说明软标签为什么带有额外信息",
+   "en": "The classic source for softmax with temperature, explaining why soft targets carry extra information."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "attention",
+  "level": "intro",
+  "type": "video",
+  "lang": "en",
+  "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6 (3Blue1Brown)",
+  "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc",
+  "hours": 0.5,
+  "why": {
+   "zh": "用动画讲清 query、key、value 各自的作用，建议在读公式之前看",
+   "en": "Animates what query, key and value each do. Best watched before reading the formulas."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "attention",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "The Illustrated Transformer (Jay Alammar)",
+  "url": "https://jalammar.github.io/illustrated-transformer/",
+  "hours": 1,
+  "why": {
+   "zh": "图解自注意力的每一步矩阵运算，是这一主题引用最多的入门文章",
+   "en": "Illustrates every matrix operation of self-attention. The most cited introduction to the topic."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "attention",
+  "level": "core",
+  "type": "course",
+  "lang": "zh",
+  "title": "动手学深度学习 10.3 注意力评分函数",
+  "url": "https://zh.d2l.ai/chapter_attention-mechanisms/attention-scoring-functions.html",
+  "hours": 1,
+  "why": {
+   "zh": "中文讲解，对比加性注意力和缩放点积注意力，并说明缩放与方差的关系",
+   "en": "In Chinese. Compares additive and scaled dot-product attention and explains the link between scaling and variance."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "attention",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "torch.nn.functional.scaled_dot_product_attention",
+  "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention.html",
+  "hours": 0.25,
+  "why": {
+   "zh": "练习 1 的对照对象，文档里给出了等价的 Python 实现",
+   "en": "The reference for exercise 1. The documentation includes an equivalent Python implementation."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "attention",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Attention Is All You Need (Vaswani et al.)",
+  "url": "https://arxiv.org/abs/1706.03762",
+  "hours": 2,
+  "why": {
+   "zh": "Transformer 的原始论文。3.2 节定义了缩放点积注意力和多头注意力，脚注 4 给出除以 √d_k 的理由",
+   "en": "The original Transformer paper. Section 3.2 defines scaled dot-product and multi-head attention, and footnote 4 gives the reason for dividing by √d_k."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "multihead",
+  "level": "intro",
+  "type": "course",
+  "lang": "zh",
+  "title": "动手学深度学习 10.5 多头注意力",
+  "url": "https://zh.d2l.ai/chapter_attention-mechanisms/multihead-attention.html",
+  "hours": 0.75,
+  "why": {
+   "zh": "中文讲解，包含拆头与合并的形状变换代码",
+   "en": "In Chinese, with code for the shape changes of splitting and merging heads."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "multihead",
+  "level": "core",
+  "type": "blog",
+  "lang": "en",
+  "title": "The Annotated Transformer (Harvard NLP)",
+  "url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+  "hours": 3,
+  "why": {
+   "zh": "把原论文逐段配上 PyTorch 实现，写完练习后可以对照完整模型",
+   "en": "Pairs the original paper with a PyTorch implementation section by section. Compare with the full model after the exercises."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "multihead",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "torch.nn.MultiheadAttention",
+  "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.MultiheadAttention.html",
+  "hours": 0.25,
+  "why": {
+   "zh": "练习 1 的对照对象，注意其 mask 约定与函数式接口相反",
+   "en": "The reference for exercise 1. Note that its mask convention is the opposite of the functional interface."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "causal_arch",
+  "level": "intro",
+  "type": "course",
+  "lang": "en",
+  "title": "How do Transformers work? (Hugging Face LLM Course, ch. 1)",
+  "url": "https://huggingface.co/learn/llm-course/chapter1/4",
+  "hours": 0.5,
+  "why": {
+   "zh": "对三类架构各自适合的任务给出简明对照",
+   "en": "A concise comparison of the tasks each of the three architectures suits."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "causal_arch",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "BERT: Pre-training of Deep Bidirectional Transformers (Devlin et al.)",
+  "url": "https://arxiv.org/abs/1810.04805",
+  "hours": 1.5,
+  "why": {
+   "zh": "encoder-only 的代表，掩码语言模型的出处",
+   "en": "The standard encoder-only model and the source of masked language modeling."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "causal_arch",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer (T5, Raffel et al.)",
+  "url": "https://arxiv.org/abs/1910.10683",
+  "hours": 2,
+  "why": {
+   "zh": "encoder-decoder 的代表，把所有任务统一成文本到文本",
+   "en": "The standard encoder-decoder model, which casts every task as text to text."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "causal_arch",
+  "level": "deep",
+  "type": "blog",
+  "lang": "en",
+  "title": "The Transformer Family Version 2.0 (Lilian Weng)",
+  "url": "https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/",
+  "hours": 3,
+  "why": {
+   "zh": "系统梳理 Transformer 的各种变体，适合学完阶段 2 后通读",
+   "en": "A systematic survey of Transformer variants, good to read after finishing stage 2."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "positional",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "Transformer Architecture: The Positional Encoding (Amirhossein Kazemnejad)",
+  "url": "https://kazemnejad.com/blog/transformer_architecture_positional_encoding/",
+  "hours": 0.5,
+  "why": {
+   "zh": "从“为什么不直接用 1、2、3”讲起，把正弦位置编码的设计动机讲得很清楚",
+   "en": "Starts from why plain 1, 2, 3 would not do and makes the motivation of the sinusoidal design clear."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "positional",
+  "level": "core",
+  "type": "course",
+  "lang": "zh",
+  "title": "动手学深度学习 10.6 自注意力和位置编码",
+  "url": "https://zh.d2l.ai/chapter_attention-mechanisms/self-attention-and-positional-encoding.html",
+  "hours": 1,
+  "why": {
+   "zh": "中文讲解，含正弦编码的可视化以及绝对位置与相对位置的关系",
+   "en": "In Chinese, with visualizations of the sinusoidal encoding and the relation between absolute and relative position."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "positional",
+  "level": "core",
+  "type": "blog",
+  "lang": "en",
+  "title": "Rotary Embeddings: A Relative Revolution (EleutherAI)",
+  "url": "https://blog.eleuther.ai/rotary-embeddings/",
+  "hours": 1,
+  "why": {
+   "zh": "用直观的图和简短的代码解释 RoPE，适合在读论文之前看",
+   "en": "Explains RoPE with intuitive figures and short code. Good before the paper."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "positional",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "RoFormer: Enhanced Transformer with Rotary Position Embedding (Su et al.)",
+  "url": "https://arxiv.org/abs/2104.09864",
+  "hours": 2,
+  "why": {
+   "zh": "RoPE 的原始论文，给出从目标条件出发求解旋转形式的完整推导",
+   "en": "The original RoPE paper, with the full derivation of the rotary form from the target condition."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "norm_ffn",
+  "level": "intro",
+  "type": "course",
+  "lang": "zh",
+  "title": "动手学深度学习 10.7 Transformer",
+  "url": "https://zh.d2l.ai/chapter_attention-mechanisms/transformer.html",
+  "hours": 1.5,
+  "why": {
+   "zh": "中文讲解，把残差、归一化和 FFN 放在完整结构里说明",
+   "en": "In Chinese. Explains residuals, normalization and the FFN within the full architecture."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "norm_ffn",
+  "level": "core",
+  "type": "code",
+  "lang": "en",
+  "title": "karpathy/nanoGPT",
+  "url": "https://github.com/karpathy/nanoGPT",
+  "hours": 2,
+  "why": {
+   "zh": "约三百行的 GPT 实现，可与练习 4 对照。作者已注明该仓库不再维护，但作为阅读材料仍然合适",
+   "en": "A GPT in about three hundred lines to compare with exercise 4. The author notes the repository is no longer maintained, yet it remains good reading."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "norm_ffn",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "On Layer Normalization in the Transformer Architecture (Xiong et al.)",
+  "url": "https://arxiv.org/abs/2002.04745",
+  "hours": 1.5,
+  "why": {
+   "zh": "解释 Pre-Norm 为什么比 Post-Norm 更容易训练，以及它与学习率预热的关系",
+   "en": "Explains why Pre-Norm trains more easily than Post-Norm and how this relates to learning-rate warm-up."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "norm_ffn",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "LLaMA: Open and Efficient Foundation Language Models (Touvron et al.)",
+  "url": "https://arxiv.org/abs/2302.13971",
+  "hours": 1,
+  "why": {
+   "zh": "2.2 节用一页列出了现代开放权重模型相对原始 Transformer 的三处改动，即 Pre-Norm 的 RMSNorm、SwiGLU 和 RoPE",
+   "en": "Section 2.2 lists on one page the three changes of modern open-weight models relative to the original Transformer, namely Pre-Norm RMSNorm, SwiGLU and RoPE."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "norm_ffn",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Layer Normalization (Ba, Kiros, Hinton)",
+  "url": "https://arxiv.org/abs/1607.06450",
+  "hours": 1,
+  "why": {
+   "zh": "LayerNorm 的原始论文，说明它与 BatchNorm 的区别",
+   "en": "The original LayerNorm paper, which sets out the difference from BatchNorm."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "norm_ffn",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Root Mean Square Layer Normalization (Zhang, Sennrich)",
+  "url": "https://arxiv.org/abs/1910.07467",
+  "hours": 1,
+  "why": {
+   "zh": "RMSNorm 的原始论文，论证减均值这一步可以省去",
+   "en": "The original RMSNorm paper, arguing that the mean subtraction can be dropped."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "norm_ffn",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Identity Mappings in Deep Residual Networks (He et al.)",
+  "url": "https://arxiv.org/abs/1603.05027",
+  "hours": 1.5,
+  "why": {
+   "zh": "残差连接中恒等通路的梯度分析，Pre-Norm 思想的来源",
+   "en": "The gradient analysis of the identity path in residual connections and the origin of the Pre-Norm idea."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "norm_ffn",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "GLU Variants Improve Transformer (Shazeer)",
+  "url": "https://arxiv.org/abs/2002.05202",
+  "hours": 0.5,
+  "why": {
+   "zh": "SwiGLU 的出处，只有几页",
+   "en": "The source of SwiGLU, only a few pages long."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "norm_ffn",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Gaussian Error Linear Units (GELUs) (Hendrycks, Gimpel)",
+  "url": "https://arxiv.org/abs/1606.08415",
+  "hours": 0.5,
+  "why": {
+   "zh": "GELU 的定义与动机",
+   "en": "The definition and motivation of GELU."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "complexity",
+  "level": "core",
+  "type": "blog",
+  "lang": "en",
+  "title": "Transformer Inference Arithmetic (kipply)",
+  "url": "https://kipp.ly/transformer-inference-arithmetic/",
+  "hours": 1,
+  "why": {
+   "zh": "用纸笔估算推理的计算量和 KV cache 的占用，与本模块的推导互相印证",
+   "en": "Estimates the compute of inference and the size of the KV cache with pen and paper, which complements the derivations of this module."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "complexity",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness (Dao et al.)",
+  "url": "https://arxiv.org/abs/2205.14135",
+  "hours": 2,
+  "why": {
+   "zh": "不改变结果而降低注意力显存读写的代表性方法",
+   "en": "The representative method for reducing the memory traffic of attention without changing the result."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "complexity",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Efficient Transformers: A Survey (Tay et al.)",
+  "url": "https://arxiv.org/abs/2009.06732",
+  "hours": 3,
+  "why": {
+   "zh": "系统整理了各种降低注意力复杂度的结构改动",
+   "en": "A systematic survey of structural changes that reduce the complexity of attention."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "bpe",
+  "level": "intro",
+  "type": "video",
+  "lang": "en",
+  "title": "Let's build the GPT Tokenizer (Karpathy)",
+  "url": "https://www.youtube.com/watch?v=zduSFxRajkE",
+  "hours": 2.25,
+  "why": {
+   "zh": "从零写出字节级 BPE，并讲解 GPT-2 与 GPT-4 分词器的差别，练习 1 的做法与它一致",
+   "en": "Writes byte-level BPE from scratch and explains how the GPT-2 and GPT-4 tokenizers differ. Exercise 1 follows the same approach."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "bpe",
+  "level": "intro",
+  "type": "course",
+  "lang": "zh",
+  "title": "Hugging Face LLM 课程（中文）6.5 BPE tokenization 算法",
+  "url": "https://huggingface.co/learn/llm-course/zh-CN/chapter6/5",
+  "hours": 0.75,
+  "why": {
+   "zh": "中文讲解 BPE 的训练和分词过程，附可运行的 Python 实现",
+   "en": "Explains BPE training and tokenization in Chinese, with a runnable Python implementation."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "bpe",
+  "level": "core",
+  "type": "course",
+  "lang": "en",
+  "title": "Byte-Pair Encoding tokenization (Hugging Face LLM Course, ch. 6)",
+  "url": "https://huggingface.co/learn/llm-course/chapter6/5",
+  "hours": 0.75,
+  "why": {
+   "zh": "上一条的英文版，同一章还有 WordPiece 和 unigram 的对应讲解",
+   "en": "The English version of the previous entry. The same chapter covers WordPiece and unigram as well."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "bpe",
+  "level": "core",
+  "type": "code",
+  "lang": "en",
+  "title": "karpathy/minbpe",
+  "url": "https://github.com/karpathy/minbpe",
+  "hours": 1.5,
+  "why": {
+   "zh": "简洁的 BPE 实现，其中带正则预分词的版本可以对齐 tiktoken 的结果",
+   "en": "A clean BPE implementation, including a regex version that matches the output of tiktoken."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "bpe",
+  "level": "core",
+  "type": "code",
+  "lang": "en",
+  "title": "openai/tiktoken",
+  "url": "https://github.com/openai/tiktoken",
+  "hours": 0.5,
+  "why": {
+   "zh": "OpenAI 模型使用的分词库，练习中用它作对照",
+   "en": "The tokenizer library used by OpenAI models, used as the reference in the exercises."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "bpe",
+  "level": "core",
+  "type": "code",
+  "lang": "en",
+  "title": "google/sentencepiece",
+  "url": "https://github.com/google/sentencepiece",
+  "hours": 1,
+  "why": {
+   "zh": "说明文档清楚列出了它与其他分词工具的区别，包括空格的处理方式",
+   "en": "Its README sets out clearly how it differs from other tokenization tools, including the handling of whitespace."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "bpe",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Neural Machine Translation of Rare Words with Subword Units (Sennrich, Haddow, Birch)",
+  "url": "https://arxiv.org/abs/1508.07909",
+  "hours": 1,
+  "why": {
+   "zh": "把 BPE 引入神经机器翻译的论文，子词分词由此成为标准做法",
+   "en": "The paper that brought BPE into neural machine translation and made subword tokenization standard."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "bpe",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "SentencePiece: A simple and language independent subword tokenizer and detokenizer (Kudo, Richardson)",
+  "url": "https://arxiv.org/abs/1808.06226",
+  "hours": 0.75,
+  "why": {
+   "zh": "SentencePiece 的论文，重点是直接从原始句子训练以及可逆的还原",
+   "en": "The SentencePiece paper, focused on training directly from raw sentences and on lossless detokenization."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "context_window",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "Context windows (Claude Platform Docs)",
+  "url": "https://platform.claude.com/docs/en/build-with-claude/context-windows",
+  "hours": 0.5,
+  "why": {
+   "zh": "用图说明多轮对话中 token 怎样累积，并讨论窗口管理的办法。具体的窗口大小以页面当前内容为准",
+   "en": "Shows with diagrams how tokens accumulate over turns and discusses ways of managing the window. For actual window sizes the current page is the reference."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "context_window",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Lost in the Middle: How Language Models Use Long Contexts (Liu et al.)",
+  "url": "https://arxiv.org/abs/2307.03172",
+  "hours": 1.5,
+  "why": {
+   "zh": "lost in the middle 一词的出处，实验设计可以直接借鉴到自己的评测中",
+   "en": "The source of the term lost in the middle. Its experimental design can be borrowed directly for one's own evaluations."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "context_window",
+  "level": "core",
+  "type": "blog",
+  "lang": "en",
+  "title": "Context Rot: How Increasing Input Tokens Impacts LLM Performance (Chroma)",
+  "url": "https://www.trychroma.com/research/context-rot",
+  "hours": 1,
+  "why": {
+   "zh": "2025 年对 18 个模型的测试，说明输入变长后表现下降在新模型上仍然存在",
+   "en": "A 2025 test of 18 models showing that the decline with longer input persists in newer models."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "token_issues",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Tokenization counts: the impact of tokenization on arithmetic in frontier LLMs (Singh, Strouse)",
+  "url": "https://arxiv.org/abs/2402.14903",
+  "hours": 1,
+  "why": {
+   "zh": "通过改变数字的切分方向来检验分词对算术的影响，实验设计简单而有说服力",
+   "en": "Tests the effect of tokenization on arithmetic by changing the direction in which numbers are cut. A simple and convincing design."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "token_issues",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Why Do Large Language Models (LLMs) Struggle to Count Letters? (Fu et al.)",
+  "url": "https://arxiv.org/abs/2412.18626",
+  "hours": 1,
+  "why": {
+   "zh": "在大量单词上统计字母计数的错误，发现模型能认出字母但数不准，错误与字母重复出现的情况相关性最强",
+   "en": "Statistics of letter-counting errors over many words, finding that models recognize the letters but miscount, with errors most strongly tied to letters that repeat."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "token_issues",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "CharBench: Evaluating the Role of Tokenization in Character-Level Tasks",
+  "url": "https://arxiv.org/abs/2508.02591",
+  "hours": 1,
+  "why": {
+   "zh": "系统评估分词在字符级任务中的作用，结论对“全是分词的问题”这一说法作了修正",
+   "en": "A systematic evaluation of the role of tokenization in character-level tasks, which qualifies the claim that tokenization explains everything."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "token_issues",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Investigating the Limitations of Transformers with Simple Arithmetic Tasks (Nogueira, Jiang, Lin)",
+  "url": "https://arxiv.org/abs/2102.13019",
+  "hours": 1,
+  "why": {
+   "zh": "说明数字的表示方式怎样决定模型能否学会加减法",
+   "en": "Shows how the representation of numbers decides whether a model can learn addition and subtraction."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "pretraining",
+  "level": "core",
+  "type": "video",
+  "lang": "en",
+  "title": "Let's reproduce GPT-2 (124M) (Karpathy)",
+  "url": "https://www.youtube.com/watch?v=l8pRSuU81PU",
+  "hours": 4,
+  "why": {
+   "zh": "从空文件开始复现 GPT-2 的预训练，包括数据加载、AdamW、学习率调度和各种提速手段",
+   "en": "Reproduces the pretraining of GPT-2 from an empty file, including data loading, AdamW, the learning-rate schedule and various speed-ups."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "pretraining",
+  "level": "core",
+  "type": "course",
+  "lang": "zh",
+  "title": "动手学深度学习 11.10 Adam 算法",
+  "url": "https://zh.d2l.ai/chapter_optimization/adam.html",
+  "hours": 0.75,
+  "why": {
+   "zh": "中文讲解 Adam 的两个滑动平均和偏差修正",
+   "en": "Explains in Chinese the two moving averages of Adam and the bias correction."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "pretraining",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Adam: A Method for Stochastic Optimization (Kingma, Ba)",
+  "url": "https://arxiv.org/abs/1412.6980",
+  "hours": 1,
+  "why": {
+   "zh": "Adam 的原始论文，偏差修正的推导在第 3 节",
+   "en": "The original Adam paper, with the derivation of the bias correction in section 3."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "pretraining",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Decoupled Weight Decay Regularization (Loshchilov, Hutter)",
+  "url": "https://arxiv.org/abs/1711.05101",
+  "hours": 1,
+  "why": {
+   "zh": "AdamW 的出处，说明 L2 正则与权重衰减在 Adam 中为什么不等价",
+   "en": "The source of AdamW, explaining why L2 regularization and weight decay are not equivalent under Adam."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "sft",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "Chat templates (Transformers docs)",
+  "url": "https://huggingface.co/docs/transformers/chat_templating",
+  "hours": 0.5,
+  "why": {
+   "zh": "说明对话模板的作用和 `add_generation_prompt` 的含义，并给出不同模型模板的对比",
+   "en": "Explains what chat templates do and what `add_generation_prompt` means, with a comparison of the templates of different models."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "sft",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Finetuned Language Models Are Zero-Shot Learners (FLAN, Wei et al.)",
+  "url": "https://arxiv.org/abs/2109.01652",
+  "hours": 1.5,
+  "why": {
+   "zh": "提出 instruction tuning 这一说法的论文，展示在多任务指令上微调能提升未见任务的表现",
+   "en": "The paper that introduced the term instruction tuning, showing that fine-tuning on instructions for many tasks improves performance on unseen tasks."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "sft",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Overcoming catastrophic forgetting in neural networks (Kirkpatrick et al.)",
+  "url": "https://arxiv.org/abs/1612.00796",
+  "hours": 1.5,
+  "why": {
+   "zh": "灾难性遗忘的经典研究，提出通过保护重要参数来缓解",
+   "en": "A classic study of catastrophic forgetting that proposes protecting important parameters as a remedy."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rlhf",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "Illustrating Reinforcement Learning from Human Feedback (Hugging Face)",
+  "url": "https://huggingface.co/blog/rlhf",
+  "hours": 0.75,
+  "why": {
+   "zh": "用图把 RLHF 分成预训练、奖励模型和强化学习三步讲清楚",
+   "en": "Explains RLHF with diagrams in three steps, pretraining, the reward model and reinforcement learning."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rlhf",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "RLHF: Reinforcement Learning from Human Feedback (Chip Huyen)",
+  "url": "https://huyenchip.com/2023/05/02/rlhf.html",
+  "hours": 1,
+  "why": {
+   "zh": "从工程角度梳理三个阶段各自的数据和损失，公式写得很清楚",
+   "en": "Walks through the data and loss of each of the three phases from an engineering angle, with clear formulas."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rlhf",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Training language models to follow instructions with human feedback (InstructGPT, Ouyang et al.)",
+  "url": "https://arxiv.org/abs/2203.02155",
+  "hours": 2,
+  "why": {
+   "zh": "把 RLHF 用于大语言模型的代表性论文，三步流程的出处",
+   "en": "The representative paper applying RLHF to large language models and the source of the three-step procedure."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rlhf",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Proximal Policy Optimization (OpenAI Spinning Up)",
+  "url": "https://spinningup.openai.com/en/latest/algorithms/ppo.html",
+  "hours": 1,
+  "why": {
+   "zh": "对裁剪目标按优势的正负分情况解释，并附伪代码",
+   "en": "Explains the clipped objective case by case according to the sign of the advantage, with pseudocode."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rlhf",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Proximal Policy Optimization Algorithms (Schulman et al.)",
+  "url": "https://arxiv.org/abs/1707.06347",
+  "hours": 1.5,
+  "why": {
+   "zh": "PPO 的原始论文",
+   "en": "The original PPO paper."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rlhf",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Deep reinforcement learning from human preferences (Christiano et al.)",
+  "url": "https://arxiv.org/abs/1706.03741",
+  "hours": 1.5,
+  "why": {
+   "zh": "从人的成对比较中学习奖励函数这一思路的早期工作",
+   "en": "Early work on learning a reward function from pairwise human comparisons."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rlhf",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Towards Understanding Sycophancy in Language Models (Sharma et al.)",
+  "url": "https://arxiv.org/abs/2310.13548",
+  "hours": 1.5,
+  "why": {
+   "zh": "分析人类偏好数据怎样促成模型迎合用户，是理解 RLHF 副作用的重要参考",
+   "en": "Analyses how human preference data drive models to agree with users. An important reference on the side effects of RLHF."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "dpo",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "Preference Tuning LLMs with Direct Preference Optimization Methods (Hugging Face)",
+  "url": "https://huggingface.co/blog/pref-tuning",
+  "hours": 0.75,
+  "why": {
+   "zh": "用实验对比 DPO 及其两种变体，适合了解实际训练中的超参数选择",
+   "en": "Compares DPO and two of its variants experimentally. Good for the hyperparameter choices of actual training."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "dpo",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "DPO Trainer (TRL docs)",
+  "url": "https://huggingface.co/docs/trl/dpo_trainer",
+  "hours": 0.5,
+  "why": {
+   "zh": "说明 DPO 训练所需的数据格式，以及怎样用几行代码启动训练",
+   "en": "Describes the data format DPO training needs and how to start training in a few lines."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "dpo",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Direct Preference Optimization: Your Language Model is Secretly a Reward Model (Rafailov et al.)",
+  "url": "https://arxiv.org/abs/2305.18290",
+  "hours": 2,
+  "why": {
+   "zh": "DPO 的原始论文，第 4 节的推导就是本模块的内容",
+   "en": "The original DPO paper. The derivation of its section 4 is the content of this module."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "lora",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "LoRA conceptual guide (PEFT docs)",
+  "url": "https://huggingface.co/docs/peft/main/en/conceptual_guides/lora",
+  "hours": 0.5,
+  "why": {
+   "zh": "用图说明低秩分解和权重合并，并介绍缩放方式的变体",
+   "en": "Explains the low-rank decomposition and weight merging with a diagram and introduces variants of the scaling."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "lora",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "LoRA: Low-Rank Adaptation of Large Language Models (Hu et al.)",
+  "url": "https://arxiv.org/abs/2106.09685",
+  "hours": 1.5,
+  "why": {
+   "zh": "LoRA 的原始论文，方法部分很短，值得完整阅读",
+   "en": "The original LoRA paper. The method section is short and worth reading in full."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "lora",
+  "level": "core",
+  "type": "code",
+  "lang": "en",
+  "title": "microsoft/LoRA (loralib)",
+  "url": "https://github.com/microsoft/LoRA",
+  "hours": 1,
+  "why": {
+   "zh": "论文作者的参考实现，可与练习中手写的版本对照",
+   "en": "The reference implementation by the authors of the paper, to compare with the hand-written version of the exercises."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "lora",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "LoRA Learns Less and Forgets Less (Biderman et al.)",
+  "url": "https://arxiv.org/abs/2405.09673",
+  "hours": 1.5,
+  "why": {
+   "zh": "系统比较 LoRA 与全量微调在学习与遗忘上的取舍，并给出使用建议",
+   "en": "A systematic comparison of the trade-off between learning and forgetting for LoRA and full fine-tuning, with recommended practices."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "lora",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Intrinsic Dimensionality Explains the Effectiveness of Language Model Fine-Tuning (Aghajanyan et al.)",
+  "url": "https://arxiv.org/abs/2012.13255",
+  "hours": 1,
+  "why": {
+   "zh": "LoRA 低秩假设的实验依据之一",
+   "en": "One of the experimental grounds for the low-rank assumption of LoRA."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "lora",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "QLoRA: Efficient Finetuning of Quantized LLMs (Dettmers et al.)",
+  "url": "https://arxiv.org/abs/2305.14314",
+  "hours": 1.5,
+  "why": {
+   "zh": "把 LoRA 与 4 位量化结合，使单卡微调大模型成为可能",
+   "en": "Combines LoRA with 4-bit quantization and makes fine-tuning large models on a single GPU possible."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "scaling",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Scaling Laws for Neural Language Models (Kaplan et al.)",
+  "url": "https://arxiv.org/abs/2001.08361",
+  "hours": 2,
+  "why": {
+   "zh": "缩放定律的奠基性论文，图表本身就值得细看",
+   "en": "The founding paper on scaling laws. The figures alone are worth close study."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "scaling",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Training Compute-Optimal Large Language Models (Chinchilla, Hoffmann et al.)",
+  "url": "https://arxiv.org/abs/2203.15556",
+  "hours": 2,
+  "why": {
+   "zh": "给出参数量与数据量应同步增长的结论，并解释与 Kaplan 等人结论不同的原因",
+   "en": "Concludes that parameters and data should grow in step and explains why this differs from Kaplan and colleagues."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "scaling",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Emergent Abilities of Large Language Models (Wei et al.)",
+  "url": "https://arxiv.org/abs/2206.07682",
+  "hours": 1.5,
+  "why": {
+   "zh": "给出涌现的定义并汇总了大量观察到的例子",
+   "en": "Defines emergence and collects many observed examples."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "scaling",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Are Emergent Abilities of Large Language Models a Mirage? (Schaeffer, Miranda, Koyejo)",
+  "url": "https://arxiv.org/abs/2304.15004",
+  "hours": 1.5,
+  "why": {
+   "zh": "提出指标选择可以解释许多涌现现象，应与上一篇对照阅读",
+   "en": "Argues that the choice of metric explains many emergent phenomena. To be read alongside the previous entry."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "sampling",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "How to generate text: using different decoding methods (Patrick von Platen, Hugging Face)",
+  "url": "https://huggingface.co/blog/how-to-generate",
+  "hours": 1,
+  "why": {
+   "zh": "用可运行的代码依次演示贪心、beam search、采样、top-k 和 top-p，并说明各自的问题",
+   "en": "Demonstrates greedy, beam search, sampling, top-k and top-p in turn with runnable code and names the problems of each."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "sampling",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "The Curious Case of Neural Text Degeneration (Holtzman et al.)",
+  "url": "https://arxiv.org/abs/1904.09751",
+  "hours": 1.5,
+  "why": {
+   "zh": "提出核采样的论文，并分析了最大化似然的解码为什么产生重复的文本",
+   "en": "The paper that proposed nucleus sampling, with an analysis of why likelihood-maximizing decoding yields repetitive text."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "sampling",
+  "level": "core",
+  "type": "blog",
+  "lang": "en",
+  "title": "Defeating Nondeterminism in LLM Inference (Horace He, Thinking Machines)",
+  "url": "https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/",
+  "hours": 1,
+  "why": {
+   "zh": "对温度为 0 时不一致的原因做了目前最细致的分析，从浮点加法一直讲到批次大小",
+   "en": "The most detailed analysis so far of why results differ at temperature 0, from floating-point addition up to batch size."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "sampling",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Non-Determinism of \"Deterministic\" LLM Settings (Atil et al.)",
+  "url": "https://arxiv.org/abs/2408.04667",
+  "hours": 1,
+  "why": {
+   "zh": "在多个模型和任务上测量了确定性设置下结果的实际波动",
+   "en": "Measures the actual variation of results under deterministic settings across several models and tasks."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "sampling",
+  "level": "deep",
+  "type": "official",
+  "lang": "en",
+  "title": "Reproducible outputs with the seed parameter (OpenAI Cookbook)",
+  "url": "https://developers.openai.com/cookbook/examples/reproducible_outputs_with_the_seed_parameter",
+  "hours": 0.3,
+  "why": {
+   "zh": "说明 seed 与 system_fingerprint 的用法，并注明不保证确定性",
+   "en": "Explains the use of seed and system_fingerprint and notes that determinism is not guaranteed."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "sampling",
+  "level": "deep",
+  "type": "official",
+  "lang": "en",
+  "title": "Glossary (Claude Platform docs)",
+  "url": "https://platform.claude.com/docs/en/about-claude/glossary",
+  "hours": 0.3,
+  "why": {
+   "zh": "其中的 temperature 条目明确说明温度为 0 时结果也不完全确定",
+   "en": "Its temperature entry states explicitly that results are not fully deterministic even at temperature 0."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "kv_cache",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "How caching works (Transformers docs)",
+  "url": "https://huggingface.co/docs/transformers/cache_explanation",
+  "hours": 0.5,
+  "why": {
+   "zh": "用公式和一段完整的生成循环说明缓存什么、为什么可以缓存",
+   "en": "Explains with formulas and a complete generation loop what is cached and why it can be."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "kv_cache",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Cache strategies (Transformers docs)",
+  "url": "https://huggingface.co/docs/transformers/kv_cache",
+  "hours": 0.5,
+  "why": {
+   "zh": "比较几种缓存实现在内存和速度上的取舍",
+   "en": "Compares the trade-offs of several cache implementations in memory and speed."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "kv_cache",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Prompt caching (Claude Platform docs)",
+  "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+  "hours": 0.5,
+  "why": {
+   "zh": "说明跨请求的前缀缓存怎样使用、怎样计价，可与本模块的机制对照",
+   "en": "Describes how prefix caching across requests is used and priced, to be read against the mechanism of this module."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "kv_cache",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention (vLLM, Kwon et al.)",
+  "url": "https://arxiv.org/abs/2309.06180",
+  "hours": 1.5,
+  "why": {
+   "zh": "说明在线服务中缓存内存为什么是瓶颈，以及 vLLM 的解决办法",
+   "en": "Explains why cache memory is the bottleneck of online serving and how vLLM addresses it."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "kv_cache",
+  "level": "deep",
+  "type": "blog",
+  "lang": "en",
+  "title": "Large Transformer Model Inference Optimization (Lilian Weng)",
+  "url": "https://lilianweng.github.io/posts/2023-01-10-inference-optimization/",
+  "hours": 2,
+  "why": {
+   "zh": "系统梳理量化、剪枝、蒸馏等推理优化方法，是阶段 6 的预备阅读",
+   "en": "A systematic survey of inference optimizations such as quantization, pruning and distillation, and preparatory reading for stage 6."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "constrained",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "Introducing Structured Outputs in the API (OpenAI)",
+  "url": "https://openai.com/index/introducing-structured-outputs-in-the-api/",
+  "hours": 0.5,
+  "why": {
+   "zh": "用通俗的语言说明约束解码的原理，并给出有无约束时的可靠性对比",
+   "en": "Explains the principle of constrained decoding in plain language and compares reliability with and without it."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "constrained",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "Creating your first schema (JSON Schema)",
+  "url": "https://json-schema.org/learn/getting-started-step-by-step",
+  "hours": 0.5,
+  "why": {
+   "zh": "JSON Schema 的官方入门，逐步写出一个完整的模式",
+   "en": "The official introduction to JSON Schema, building a complete schema step by step."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "constrained",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Efficient Guided Generation for Large Language Models (Willard & Louf)",
+  "url": "https://arxiv.org/abs/2307.09702",
+  "hours": 1.5,
+  "why": {
+   "zh": "把约束解码表述为状态机上的转移，并提出为词表建立索引，本模块练习的思路来自这里",
+   "en": "Formulates constrained decoding as transitions of a state machine and proposes indexing the vocabulary. The exercises of this module follow its idea."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "constrained",
+  "level": "core",
+  "type": "code",
+  "lang": "en",
+  "title": "dottxt-ai/outlines",
+  "url": "https://github.com/dottxt-ai/outlines",
+  "hours": 1,
+  "why": {
+   "zh": "上述论文对应的开源库，支持正则表达式、JSON Schema 和文法",
+   "en": "The open-source library of the paper above, supporting regular expressions, JSON Schema and grammars."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "constrained",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Structured outputs (Claude Platform docs)",
+  "url": "https://platform.claude.com/docs/en/build-with-claude/structured-outputs",
+  "hours": 0.5,
+  "why": {
+   "zh": "列出了文法编译、缓存、模式限制以及输出仍可能不符合模式的情况",
+   "en": "Lists grammar compilation, caching, schema limitations and the cases in which output may still not conform."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "constrained",
+  "level": "deep",
+  "type": "official",
+  "lang": "en",
+  "title": "GBNF grammars (llama.cpp)",
+  "url": "https://github.com/ggml-org/llama.cpp/blob/master/grammars/README.md",
+  "hours": 0.75,
+  "why": {
+   "zh": "本地模型上最常用的文法约束写法，可以看到上下文无关文法的实际形式",
+   "en": "The most common grammar notation for local models, showing what a context-free grammar looks like in practice."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "constrained",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Let Me Speak Freely? A Study on the Impact of Format Restrictions on Performance of Large Language Models (Tam et al.)",
+  "url": "https://arxiv.org/abs/2408.02442",
+  "hours": 1,
+  "why": {
+   "zh": "研究格式限制对推理表现的影响，提醒约束并非没有代价",
+   "en": "Studies how format restrictions affect reasoning performance, a reminder that constraints are not free."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "models",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "Model Cards (Hugging Face Hub docs)",
+  "url": "https://huggingface.co/docs/hub/model-cards",
+  "hours": 0.3,
+  "why": {
+   "zh": "说明模型卡是什么、元数据里有哪些字段，是读懂 Hub 页面的起点",
+   "en": "Explains what a model card is and which fields its metadata hold, the starting point for reading Hub pages."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "models",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "A Visual Guide to Quantization (Maarten Grootendorst)",
+  "url": "https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-quantization",
+  "hours": 1,
+  "why": {
+   "zh": "用大量图示讲解数值表示、对称与非对称量化、GPTQ 和 GGUF",
+   "en": "Explains number representation, symmetric and asymmetric quantization, GPTQ and GGUF with many illustrations."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "models",
+  "level": "core",
+  "type": "blog",
+  "lang": "en",
+  "title": "The Big LLM Architecture Comparison (Sebastian Raschka)",
+  "url": "https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison",
+  "hours": 2,
+  "why": {
+   "zh": "逐个对比近年开放权重模型的结构，可以看到分组查询注意力和混合专家的具体形式",
+   "en": "Compares the architectures of recent open-weight models one by one and shows the concrete forms of grouped-query attention and mixture-of-experts."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "models",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Quantization concept guide (Optimum docs)",
+  "url": "https://huggingface.co/docs/optimum/concept_guides/quantization",
+  "hours": 0.5,
+  "why": {
+   "zh": "给出量化的公式，并区分按张量与按通道、训练后量化与量化感知训练",
+   "en": "Gives the formulas of quantization and distinguishes per-tensor from per-channel and post-training quantization from quantization-aware training."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "models",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Quantization overview (Transformers docs)",
+  "url": "https://huggingface.co/docs/transformers/quantization/overview",
+  "hours": 0.3,
+  "why": {
+   "zh": "列出 Transformers 支持的量化方法，并给出加载 4 位模型的代码",
+   "en": "Lists the quantization methods supported by Transformers and gives the code for loading a 4-bit model."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "models",
+  "level": "deep",
+  "type": "official",
+  "lang": "en",
+  "title": "llama-quantize README (llama.cpp)",
+  "url": "https://github.com/ggml-org/llama.cpp/blob/master/tools/quantize/README.md",
+  "hours": 0.3,
+  "why": {
+   "zh": "列出 GGUF 各档量化的实际位数和文件大小",
+   "en": "Lists the actual bits per weight and file sizes of the GGUF quantization levels."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "models",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers (Frantar et al.)",
+  "url": "https://arxiv.org/abs/2210.17323",
+  "hours": 1.5,
+  "why": {
+   "zh": "利用二阶信息补偿舍入误差的代表性方法，说明 3 到 4 位量化为什么可行",
+   "en": "The representative method that compensates rounding errors with second-order information, showing why 3 to 4 bits are feasible."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "licenses",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "Licenses (Hugging Face Hub docs)",
+  "url": "https://huggingface.co/docs/hub/repositories-licenses",
+  "hours": 0.2,
+  "why": {
+   "zh": "Hub 认可的许可证标识符列表，以及自定义许可证的登记方式",
+   "en": "The list of license identifiers recognized by the Hub and how a custom license is declared."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "licenses",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "Gated models (Hugging Face Hub docs)",
+  "url": "https://huggingface.co/docs/hub/models-gated",
+  "hours": 0.2,
+  "why": {
+   "zh": "说明受限访问模型的申请流程和两种审批方式",
+   "en": "Describes the request process for gated models and the two approval modes."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "licenses",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "The Open Source AI Definition 1.0 (Open Source Initiative)",
+  "url": "https://opensource.org/ai/open-source-ai-definition",
+  "hours": 0.3,
+  "why": {
+   "zh": "开源 AI 的正式定义，可据此区分开源与开放权重",
+   "en": "The formal definition of open-source AI, by which open source and open weights can be told apart."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "licenses",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Apache License, Version 2.0",
+  "url": "https://www.apache.org/licenses/LICENSE-2.0",
+  "hours": 0.3,
+  "why": {
+   "zh": "最常见的宽松许可证的原文，篇幅不长，值得通读一次",
+   "en": "The text of the most common permissive license, short enough to read once in full."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "licenses",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Llama 3.3 Community License Agreement (Meta)",
+  "url": "https://dev.meta.ai/llama/llama3_3/license",
+  "hours": 0.3,
+  "why": {
+   "zh": "厂商自定义许可证的典型例子，包含命名、标注和用户规模方面的条款",
+   "en": "A typical custom vendor license, with terms on naming, attribution and user scale."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "licenses",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Gemma Terms of Use (Google)",
+  "url": "https://ai.google.dev/gemma/terms",
+  "hours": 0.3,
+  "why": {
+   "zh": "另一份自定义条款，可与 Llama 的协议对照阅读",
+   "en": "Another set of custom terms, to be read against the Llama agreement."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "licenses",
+  "level": "deep",
+  "type": "official",
+  "lang": "en",
+  "title": "Mistral AI Research License (MRL-0.1)",
+  "url": "https://mistral.ai/licenses/MRL-0.1.md",
+  "hours": 0.2,
+  "why": {
+   "zh": "研究许可证的例子，对研究用途的定义写得很具体",
+   "en": "An example of a research license with a very specific definition of research purposes."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "licenses",
+  "level": "deep",
+  "type": "official",
+  "lang": "en",
+  "title": "CC BY-NC 4.0 deed (Creative Commons)",
+  "url": "https://creativecommons.org/licenses/by-nc/4.0/deed.en",
+  "hours": 0.1,
+  "why": {
+   "zh": "非商用许可的简明说明页",
+   "en": "The plain-language deed of the non-commercial license."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "prompting",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "Prompt engineering overview (Claude Platform docs)",
+  "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview",
+  "hours": 0.5,
+  "why": {
+   "zh": "说明动手改提示词之前需要准备什么，并链接到各项具体技巧",
+   "en": "States what has to be in place before changing prompts and links to the individual techniques."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "prompting",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Language Models are Few-Shot Learners (Brown et al.)",
+  "url": "https://arxiv.org/abs/2005.14165",
+  "hours": 2,
+  "why": {
+   "zh": "GPT-3 的论文，使不更新权重的少样本提示成为主流用法",
+   "en": "The GPT-3 paper, which made few-shot prompting without weight updates the mainstream way of use."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "prompting",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al.)",
+  "url": "https://arxiv.org/abs/2201.11903",
+  "hours": 1.5,
+  "why": {
+   "zh": "思维链的原始论文",
+   "en": "The original chain-of-thought paper."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "prompting",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Rethinking the Role of Demonstrations: What Makes In-Context Learning Work? (Min et al.)",
+  "url": "https://arxiv.org/abs/2202.12837",
+  "hours": 1.5,
+  "why": {
+   "zh": "通过替换示例的各个成分，分析示例究竟提供了什么",
+   "en": "Analyses what examples actually provide by replacing their individual components."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "prompting",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Larger language models do in-context learning differently (Wei et al.)",
+  "url": "https://arxiv.org/abs/2303.03846",
+  "hours": 1.5,
+  "why": {
+   "zh": "标签翻转实验的来源，练习 2 重复了其中的设置",
+   "en": "The source of the flipped-label experiment, whose setup exercise 2 repeats."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "prompting",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models (Wang et al.)",
+  "url": "https://arxiv.org/abs/2203.11171",
+  "hours": 1,
+  "why": {
+   "zh": "对多条采样的推理路径做投票的方法",
+   "en": "The method of voting over several sampled reasoning paths."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "prompting",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Calibrate Before Use: Improving Few-Shot Performance of Language Models (Zhao et al.)",
+  "url": "https://arxiv.org/abs/2102.09690",
+  "hours": 1,
+  "why": {
+   "zh": "分析少样本提示不稳定的来源，并给出一种校准方法",
+   "en": "Analyses where the instability of few-shot prompting comes from and gives a calibration method."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "prompting",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Quantifying Language Models' Sensitivity to Spurious Features in Prompt Design (Sclar et al.)",
+  "url": "https://arxiv.org/abs/2310.11324",
+  "hours": 1,
+  "why": {
+   "zh": "系统度量提示词格式对结果的影响，建议报告多种格式下的范围",
+   "en": "Measures systematically how prompt format affects results and recommends reporting a range across formats."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "prompting",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Language Models Don't Always Say What They Think: Unfaithful Explanations in Chain-of-Thought Prompting (Turpin et al.)",
+  "url": "https://arxiv.org/abs/2305.04388",
+  "hours": 1.5,
+  "why": {
+   "zh": "说明思维链写出的解释可能与答案的真实成因不一致，与忠实性研究直接相关",
+   "en": "Shows that explanations written in chain-of-thought may disagree with the true cause of an answer, directly relevant to faithfulness research."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rag",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "Introducing Contextual Retrieval (Anthropic)",
+  "url": "https://www.anthropic.com/news/contextual-retrieval",
+  "hours": 0.75,
+  "why": {
+   "zh": "用通俗的方式讲清 RAG 的流程，并给出嵌入、BM25 和重排逐步叠加的实测效果",
+   "en": "Explains the RAG pipeline accessibly and gives measured effects of stacking embeddings, BM25 and reranking."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rag",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "Retrieve & Re-Rank (Sentence Transformers docs)",
+  "url": "https://sbert.net/examples/sentence_transformer/applications/retrieve_rerank/README.html",
+  "hours": 0.5,
+  "why": {
+   "zh": "两阶段检索的官方说明和示例代码",
+   "en": "The official description of two-stage retrieval with example code."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rag",
+  "level": "core",
+  "type": "blog",
+  "lang": "en",
+  "title": "Practical BM25, Part 2: The BM25 Algorithm and its Variables (Elastic)",
+  "url": "https://www.elastic.co/blog/practical-bm25-part-2-the-bm25-algorithm-and-its-variables",
+  "hours": 0.5,
+  "why": {
+   "zh": "逐项解释 BM25 公式中每个量的含义和两个参数的作用",
+   "en": "Explains each quantity of the BM25 formula and the role of its two parameters."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rag",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Lewis et al.)",
+  "url": "https://arxiv.org/abs/2005.11401",
+  "hours": 1.5,
+  "why": {
+   "zh": "提出 RAG 这一名称和框架的论文",
+   "en": "The paper that introduced the name and framework of RAG."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rag",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods (Cormack et al.)",
+  "url": "https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf",
+  "hours": 0.5,
+  "why": {
+   "zh": "RRF 的原始论文，只有两页",
+   "en": "The original RRF paper, two pages long."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rag",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks (Reimers & Gurevych)",
+  "url": "https://arxiv.org/abs/1908.10084",
+  "hours": 1.5,
+  "why": {
+   "zh": "说明为什么需要双编码器，以及句向量是怎样训练出来的",
+   "en": "Explains why bi-encoders are needed and how sentence vectors are trained."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rag",
+  "level": "deep",
+  "type": "code",
+  "lang": "en",
+  "title": "Faiss wiki (facebookresearch/faiss)",
+  "url": "https://github.com/facebookresearch/faiss/wiki",
+  "hours": 1,
+  "why": {
+   "zh": "向量规模变大后需要的近似搜索库，文档介绍了各种索引类型",
+   "en": "The approximate search library needed once vectors grow in number, with documentation of the index types."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rag",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "ClashEval: Quantifying the tug-of-war between an LLM's internal prior and external evidence (Wu, Wu, Zou)",
+  "url": "https://arxiv.org/abs/2404.10198",
+  "hours": 1.5,
+  "why": {
+   "zh": "度量模型在检索内容与自身知识冲突时采用哪一方",
+   "en": "Measures which side a model takes when retrieved content conflicts with its own knowledge."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "agents",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "Building effective agents (Anthropic)",
+  "url": "https://www.anthropic.com/engineering/building-effective-agents",
+  "hours": 0.75,
+  "why": {
+   "zh": "区分工作流与智能体，主张从简单的方案开始，是这个主题下很清晰的一篇概述",
+   "en": "Distinguishes workflows from agents and argues for starting simple, a very clear overview of the topic."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "agents",
+  "level": "intro",
+  "type": "blog",
+  "lang": "en",
+  "title": "Prompt injection attacks against GPT-3 (Simon Willison)",
+  "url": "https://simonwillison.net/2022/Sep/12/prompt-injection/",
+  "hours": 0.3,
+  "why": {
+   "zh": "提示注入这一名称的出处，用 SQL 注入的类比说明了问题的根源",
+   "en": "The origin of the name prompt injection, explaining the root of the problem through the analogy with SQL injection."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "agents",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Tool use: passing tools to chat templates (Transformers docs)",
+  "url": "https://huggingface.co/docs/transformers/chat_extras",
+  "hours": 0.5,
+  "why": {
+   "zh": "说明开放权重模型上工具调用的完整步骤，与练习 2 的做法一致",
+   "en": "Describes the full steps of tool calling on open-weight models, in line with exercise 2."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "agents",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Tool use overview (Claude Platform docs)",
+  "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
+  "hours": 0.5,
+  "why": {
+   "zh": "API 上工具调用的步骤，可与本地模型的做法逐步对照",
+   "en": "The steps of tool calling on an API, to be compared step by step with the local model."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "agents",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "ReAct: Synergizing Reasoning and Acting in Language Models (Yao et al.)",
+  "url": "https://arxiv.org/abs/2210.03629",
+  "hours": 1.5,
+  "why": {
+   "zh": "把推理与动作交替进行的做法，多数智能体提示方式的原型",
+   "en": "The approach of alternating reasoning and actions, the prototype of most ways of prompting agents."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "agents",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection (Greshake et al.)",
+  "url": "https://arxiv.org/abs/2302.12173",
+  "hours": 1.5,
+  "why": {
+   "zh": "系统分析间接提示注入的论文，说明外部数据怎样变成指令",
+   "en": "The paper that analyses indirect prompt injection systematically and shows how external data turn into instructions."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "agents",
+  "level": "deep",
+  "type": "official",
+  "lang": "en",
+  "title": "LLM01:2025 Prompt Injection (OWASP)",
+  "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+  "hours": 0.3,
+  "why": {
+   "zh": "给出提示注入的定义、分类和缓解措施清单",
+   "en": "Gives the definition, classification and a list of mitigations for prompt injection."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "agents",
+  "level": "deep",
+  "type": "official",
+  "lang": "en",
+  "title": "What is the Model Context Protocol? (MCP docs)",
+  "url": "https://modelcontextprotocol.io/docs/getting-started/intro",
+  "hours": 0.3,
+  "why": {
+   "zh": "MCP 的官方介绍，了解工具怎样以统一的方式提供给不同的应用",
+   "en": "The official introduction to MCP, on how tools are offered to different applications in a uniform way."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "evaluation",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "Define success criteria and build evaluations (Claude Platform docs)",
+  "url": "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests",
+  "hours": 0.5,
+  "why": {
+   "zh": "从成功标准讲到三类评分方法的取舍，并给出模型评委的使用建议",
+   "en": "Goes from success criteria to the trade-offs of three grading methods and gives advice on using model graders."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "evaluation",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena (Zheng et al.)",
+  "url": "https://arxiv.org/abs/2306.05685",
+  "hours": 1.5,
+  "why": {
+   "zh": "系统考察模型评委与人的一致程度以及位置、长度和自我偏好三种偏差",
+   "en": "Examines systematically how far model judges agree with people and the biases of position, verbosity and self-enhancement."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "evaluation",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations (Miller)",
+  "url": "https://arxiv.org/abs/2411.00640",
+  "hours": 1.5,
+  "why": {
+   "zh": "给出分析评测数据、比较两个模型和规划评测规模的统计公式",
+   "en": "Gives statistical formulas for analysing evaluation data, comparing two models and planning the size of an evaluation."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "evaluation",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Bleu: a Method for Automatic Evaluation of Machine Translation (Papineni et al.)",
+  "url": "https://aclanthology.org/P02-1040/",
+  "hours": 1,
+  "why": {
+   "zh": "BLEU 的原始论文，截断精确率和长度惩罚的出处",
+   "en": "The original BLEU paper, the source of clipped precision and the brevity penalty."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "evaluation",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "ROUGE: A Package for Automatic Evaluation of Summaries (Lin)",
+  "url": "https://aclanthology.org/W04-1013/",
+  "hours": 0.75,
+  "why": {
+   "zh": "ROUGE 的原始论文",
+   "en": "The original ROUGE paper."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "evaluation",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "LLM Evaluators Recognize and Favor Their Own Generations (Panickssery, Bowman, Feng)",
+  "url": "https://arxiv.org/abs/2404.13076",
+  "hours": 1,
+  "why": {
+   "zh": "研究评委的自我识别与自我偏好之间的关系",
+   "en": "Studies the relationship between self-recognition and self-preference of judges."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "evaluation",
+  "level": "deep",
+  "type": "official",
+  "lang": "en",
+  "title": "cohen_kappa_score (scikit-learn docs)",
+  "url": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html",
+  "hours": 0.1,
+  "why": {
+   "zh": "kappa 的定义和现成的实现，练习 3 用它做核对",
+   "en": "The definition of kappa and a ready implementation, against which exercise 3 checks."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "hallucination",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "Reduce hallucinations (Claude Platform docs)",
+  "url": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations",
+  "hours": 0.3,
+  "why": {
+   "zh": "列出七种在提示词层面减少幻觉的做法，并说明它们不能消除幻觉",
+   "en": "Lists seven prompt-level techniques for reducing hallucination and notes that they do not eliminate it."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "hallucination",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Why Language Models Hallucinate (Kalai, Nachum, Vempala, Zhang)",
+  "url": "https://arxiv.org/abs/2509.04664",
+  "hours": 1.5,
+  "why": {
+   "zh": "从统计和评测激励两方面解释幻觉的成因",
+   "en": "Explains the causes of hallucination from statistics and from the incentives of evaluation."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "hallucination",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "SelfCheckGPT: Zero-Resource Black-Box Hallucination Detection for Generative Large Language Models (Manakul, Liusie, Gales)",
+  "url": "https://arxiv.org/abs/2303.08896",
+  "hours": 1.5,
+  "why": {
+   "zh": "用多次采样的一致性检测幻觉的方法，练习 1 是它的简化版本",
+   "en": "The method of detecting hallucination by the consistency of repeated samples, of which exercise 1 is a simplified version."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "hallucination",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Extracting Training Data from Large Language Models (Carlini et al.)",
+  "url": "https://arxiv.org/abs/2012.07805",
+  "hours": 1.5,
+  "why": {
+   "zh": "证明训练数据中的个人信息可以通过查询从模型中提取",
+   "en": "Shows that personal information in training data can be extracted from a model by querying it."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "hallucination",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Gender Bias in Coreference Resolution: Evaluation and Debiasing Methods (Zhao et al.)",
+  "url": "https://arxiv.org/abs/1804.06876",
+  "hours": 1,
+  "why": {
+   "zh": "用职业与代词构造的偏见基准 WinoBias，与练习 3 的探测思路相同",
+   "en": "WinoBias, a bias benchmark built from occupations and pronouns, following the same idea as the probe of exercise 3."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "hallucination",
+  "level": "deep",
+  "type": "code",
+  "lang": "en",
+  "title": "microsoft/presidio",
+  "url": "https://github.com/microsoft/presidio",
+  "hours": 1,
+  "why": {
+   "zh": "结合命名实体识别、正则表达式和校验和的开源脱敏工具",
+   "en": "An open-source redaction tool that combines named entity recognition, regular expressions and checksums."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "eu_ai_act",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "AI Act (European Commission)",
+  "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+  "hours": 0.5,
+  "why": {
+   "zh": "欧盟委员会的官方概述，包含四个风险等级、禁止的做法和最新的适用时间表",
+   "en": "The official overview of the European Commission, with the four risk levels, the prohibited practices and the current timetable of application."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "eu_ai_act",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Article 53: Obligations for providers of general-purpose AI models (AI Act Service Desk)",
+  "url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-53",
+  "hours": 0.3,
+  "why": {
+   "zh": "委员会服务台提供的条文页面，基于 2026 年 7 月 27 日的合并文本",
+   "en": "The article page of the Commission's service desk, based on the consolidated text of 27 July 2026."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "eu_ai_act",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "The General-Purpose AI Code of Practice (European Commission)",
+  "url": "https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai",
+  "hours": 0.5,
+  "why": {
+   "zh": "通用模型行为准则的三章内容和模型文档表格",
+   "en": "The three chapters of the Code of Practice for general-purpose models and the Model Documentation Form."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "eu_ai_act",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Article 6: Classification rules for high-risk AI systems (AI Act Explorer)",
+  "url": "https://artificialintelligenceact.eu/article/6/",
+  "hours": 0.3,
+  "why": {
+   "zh": "高风险认定规则的条文。该网站为非官方的条文浏览工具，便于按条查阅",
+   "en": "The text of the classification rules for high-risk systems. The site is an unofficial browser of the articles, convenient for looking up single provisions."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "eu_ai_act",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Annex III: High-risk AI systems referred to in Article 6(2) (AI Act Explorer)",
+  "url": "https://artificialintelligenceact.eu/annex/3/",
+  "hours": 0.3,
+  "why": {
+   "zh": "八个高风险领域的完整清单",
+   "en": "The complete list of the eight high-risk areas."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "eu_ai_act",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Article 50: Transparency obligations (AI Act Explorer)",
+  "url": "https://artificialintelligenceact.eu/article/50/",
+  "hours": 0.3,
+  "why": {
+   "zh": "聊天机器人和生成内容的告知与标注义务",
+   "en": "The duties to inform and to mark for chatbots and generated content."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "eu_ai_act",
+  "level": "deep",
+  "type": "official",
+  "lang": "en",
+  "title": "Article 2: Scope (AI Act Explorer)",
+  "url": "https://artificialintelligenceact.eu/article/2/",
+  "hours": 0.3,
+  "why": {
+   "zh": "适用范围以及对科学研究和开源系统的例外",
+   "en": "The scope and the exceptions for scientific research and open-source systems."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "eu_ai_act",
+  "level": "deep",
+  "type": "official",
+  "lang": "en",
+  "title": "Article 99: Penalties (AI Act Explorer)",
+  "url": "https://artificialintelligenceact.eu/article/99/",
+  "hours": 0.2,
+  "why": {
+   "zh": "罚款上限的条文",
+   "en": "The provisions on the ceilings of fines."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "eu_ai_act",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Model Cards for Model Reporting (Mitchell et al.)",
+  "url": "https://arxiv.org/abs/1810.03993",
+  "hours": 1,
+  "why": {
+   "zh": "模型卡这一做法的出处，说明一份模型文档应当包含什么",
+   "en": "The origin of model cards, stating what a model document should contain."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "cn_us_regulation",
+  "level": "core",
+  "type": "official",
+  "lang": "zh",
+  "title": "生成式人工智能服务管理暂行办法（国家网信办等七部门）",
+  "url": "https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm",
+  "hours": 0.4,
+  "why": {
+   "zh": "与大模型关系最直接的规章原文，篇幅不长，建议通读",
+   "en": "The text of the rules most directly concerned with large models, short enough to read in full."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "cn_us_regulation",
+  "level": "core",
+  "type": "official",
+  "lang": "zh",
+  "title": "人工智能生成合成内容标识办法（国家网信办等四部门）",
+  "url": "https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm",
+  "hours": 0.3,
+  "why": {
+   "zh": "显式标识和隐式标识的定义以及各环节的义务",
+   "en": "The definitions of explicit and implicit labels and the duties at each stage."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "cn_us_regulation",
+  "level": "core",
+  "type": "official",
+  "lang": "zh",
+  "title": "人工智能拟人化互动服务管理暂行办法（国务院公报）",
+  "url": "https://www.gov.cn/gongbao/2026/issue_12806/202606/content_7072472.html",
+  "hours": 0.4,
+  "why": {
+   "zh": "2026 年 7 月起施行的新规章，针对提供情感陪伴的服务",
+   "en": "The new rules in force since July 2026, addressing services that provide emotional companionship."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "cn_us_regulation",
+  "level": "deep",
+  "type": "official",
+  "lang": "zh",
+  "title": "互联网信息服务深度合成管理规定（国家网信办等三部门）",
+  "url": "https://www.cac.gov.cn/2022-12/11/c_1672221949354811.htm",
+  "hours": 0.4,
+  "why": {
+   "zh": "标识和备案制度的较早来源，生成式服务办法多处引用它",
+   "en": "The earlier source of the labeling and filing regime, to which the measures on generative services refer in several places."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "cn_us_regulation",
+  "level": "deep",
+  "type": "official",
+  "lang": "zh",
+  "title": "全国人大常委会关于修改《网络安全法》的决定（新华社）",
+  "url": "https://www.news.cn/politics/20251029/2ec381412f8a4b2381f350ba5d664f30/c.html",
+  "hours": 0.3,
+  "why": {
+   "zh": "修改决定的全文，其中第三项即新增的人工智能条款",
+   "en": "The full text of the amendment decision, whose third item is the new provision on AI."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "cn_us_regulation",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "AI Risk Management Framework (NIST)",
+  "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+  "hours": 0.5,
+  "why": {
+   "zh": "美国使用最广的自愿性框架的官方页面，可由此进入框架正文和生成式人工智能的配套文件",
+   "en": "The official page of the most widely used voluntary framework in the United States, leading to the framework itself and the profile for generative AI."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "cn_us_regulation",
+  "level": "core",
+  "type": "official",
+  "lang": "en",
+  "title": "Executive Order 14365: Ensuring a National Policy Framework for Artificial Intelligence (Federal Register)",
+  "url": "https://www.federalregister.gov/documents/2025/12/16/2025-23092/ensuring-a-national-policy-framework-for-artificial-intelligence",
+  "hours": 0.3,
+  "why": {
+   "zh": "关于联邦与州法关系的行政令原文",
+   "en": "The text of the executive order on the relation between federal and state law."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "cn_us_regulation",
+  "level": "deep",
+  "type": "official",
+  "lang": "en",
+  "title": "Executive Order 14179: Removing Barriers to American Leadership in Artificial Intelligence (Federal Register)",
+  "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02172/removing-barriers-to-american-leadership-in-artificial-intelligence",
+  "hours": 0.2,
+  "why": {
+   "zh": "撤销第 14110 号行政令并设定现行联邦政策方向的行政令原文",
+   "en": "The text of the order that revoked Executive Order 14110 and set the current direction of federal policy."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "cn_us_regulation",
+  "level": "deep",
+  "type": "official",
+  "lang": "en",
+  "title": "SB26-189 Automated Decision-Making Technology (Colorado General Assembly)",
+  "url": "https://leg.colorado.gov/bills/sb26-189",
+  "hours": 0.3,
+  "why": {
+   "zh": "州法的一个例子，页面包含法案摘要和全文",
+   "en": "An example of a state law, with a summary and the full text of the bill."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "attn_viz",
+  "level": "intro",
+  "type": "code",
+  "lang": "en",
+  "title": "BertViz: Visualize Attention in NLP Models (Jesse Vig)",
+  "url": "https://github.com/jessevig/bertviz",
+  "hours": 0.5,
+  "why": {
+   "zh": "交互式浏览所有层和头的注意力，可在 Colab 中直接运行，适合在完成练习 1 之后使用",
+   "en": "Interactive browsing of the attention of all layers and heads, runs directly in Colab. Suited for use after exercise 1."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "attn_viz",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "In-context Learning and Induction Heads (Olsson et al., 2022)",
+  "url": "https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html",
+  "hours": 3,
+  "why": {
+   "zh": "归纳头的定义、打分方法和它与上下文学习关系的证据，练习 2 的得分即来自这里的前缀匹配定义",
+   "en": "The definition of induction heads, the scoring method and the evidence on their relation to in-context learning. The score of exercise 2 follows the prefix-matching definition given here."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "attn_viz",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Attention is not Explanation (Jain & Wallace, 2019)",
+  "url": "https://arxiv.org/abs/1902.10186",
+  "hours": 1.5,
+  "why": {
+   "zh": "质疑把注意力权重当作解释的代表性论文，读摘要和实验设计即可把握其论证",
+   "en": "The representative paper questioning attention weights as explanation. The abstract and the experimental design convey the argument."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "attn_viz",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Attention is not not Explanation (Wiegreffe & Pinter, 2019)",
+  "url": "https://arxiv.org/abs/1908.04626",
+  "hours": 1.5,
+  "why": {
+   "zh": "对上一篇的回应，说明结论取决于解释的定义，两篇应当一起读",
+   "en": "The reply to the previous paper, showing that the conclusion depends on the definition of explanation. The two are best read together."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "attn_viz",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "A Mathematical Framework for Transformer Circuits (Elhage et al., 2021)",
+  "url": "https://transformer-circuits.pub/2021/framework/index.html",
+  "hours": 4,
+  "why": {
+   "zh": "残差流、QK 回路和 OV 回路这套语言的来源，推导 1 和 9.2 的推导 1 都以它为依据",
+   "en": "The source of the vocabulary of residual stream, QK circuit and OV circuit. Derivation 1 and derivation 1 of 9.2 both rest on it."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "attn_viz",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "What Does BERT Look At? An Analysis of BERT's Attention (Clark et al., 2019)",
+  "url": "https://arxiv.org/abs/1906.04341",
+  "hours": 1.5,
+  "why": {
+   "zh": "系统地归纳了注意力头的常见模式，包括对分隔符的大量关注和与句法关系对应的头",
+   "en": "A systematic account of common patterns of attention heads, including the heavy attention to separator tokens and heads corresponding to syntactic relations."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "attn_viz",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Are Sixteen Heads Really Better than One? (Michel et al., 2019)",
+  "url": "https://arxiv.org/abs/1905.10650",
+  "hours": 1.5,
+  "why": {
+   "zh": "在测试时去掉大量注意力头而性能下降很小，是头的冗余和消融方法的早期依据",
+   "en": "Many attention heads can be removed at test time with little loss in performance. Early evidence for the redundancy of heads and for ablation as a method."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "attn_viz",
+  "level": "intro",
+  "type": "official",
+  "lang": "en",
+  "title": "torch.nn.Module: register_forward_hook and register_forward_pre_hook (PyTorch docs)",
+  "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Module.html",
+  "hours": 0.3,
+  "why": {
+   "zh": "钩子的签名、返回值的含义和句柄的用法，写练习 3 时需要对照",
+   "en": "The signatures of hooks, the meaning of their return values and the use of handles, to be consulted while writing exercise 3."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "logit_lens",
+  "level": "core",
+  "type": "blog",
+  "lang": "en",
+  "title": "interpreting GPT: the logit lens (nostalgebraist, 2020)",
+  "url": "https://www.lesswrong.com/posts/AcKRB8wDpdaN6v6ru/interpreting-gpt-the-logit-lens",
+  "hours": 1,
+  "why": {
+   "zh": "方法的原始出处，用大量图例展示了预测怎样逐层收敛",
+   "en": "The original source of the method, with many plots showing how predictions converge layer by layer."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "logit_lens",
+  "level": "core",
+  "type": "blog",
+  "lang": "en",
+  "title": "A Comprehensive Mechanistic Interpretability Explainer & Glossary (Neel Nanda)",
+  "url": "https://www.neelnanda.io/mechanistic-interpretability/glossary",
+  "hours": 3,
+  "why": {
+   "zh": "机制可解释性术语的详细词典，残差流、直接 logit 归因、各种消融和激活修补都有解释，适合随用随查",
+   "en": "A detailed dictionary of the terms of mechanistic interpretability, covering the residual stream, direct logit attribution, the kinds of ablation and activation patching. Suited for looking things up as needed."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "logit_lens",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Eliciting Latent Predictions from Transformers with the Tuned Lens (Belrose et al., 2023)",
+  "url": "https://arxiv.org/abs/2303.08112",
+  "hours": 2,
+  "why": {
+   "zh": "为每一层训练一个仿射变换来改进 logit lens，说明了原方法在哪些地方不可靠",
+   "en": "Improves the logit lens by training an affine map per layer and shows where the original method is unreliable."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "logit_lens",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Dissecting Recall of Factual Associations in Auto-Regressive Language Models (Geva et al., 2023)",
+  "url": "https://arxiv.org/abs/2304.14767",
+  "hours": 2.5,
+  "why": {
+   "zh": "把词表投影与注意力干预结合起来研究事实回忆的过程，是从 logit lens 走向因果分析的例子",
+   "en": "Combines projection onto the vocabulary with interventions on attention to study how facts are recalled. An example of moving from the logit lens to causal analysis."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "patching",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Interpretability in the Wild: a Circuit for Indirect Object Identification in GPT-2 small (Wang et al., 2022)",
+  "url": "https://arxiv.org/abs/2211.00593",
+  "hours": 4,
+  "why": {
+   "zh": "本模块所用任务的出处，完整描述了 7 类 26 个头的回路以及检验回路的三项标准",
+   "en": "The source of the task used in this module, with the full description of the circuit of 26 heads in 7 classes and the three criteria for testing a circuit."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "patching",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "How to use and interpret activation patching (Heimersheim & Nanda, 2024)",
+  "url": "https://arxiv.org/abs/2404.15255",
+  "hours": 1.5,
+  "why": {
+   "zh": "关于修补的方向、度量的选择和结果解读的实践指南，建议在做自己的实验之前阅读",
+   "en": "A practical guide on the direction of patching, the choice of metric and the reading of results. Recommended before running experiments of one's own."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "patching",
+  "level": "core",
+  "type": "blog",
+  "lang": "en",
+  "title": "Attribution Patching: Activation Patching At Industrial Scale (Neel Nanda)",
+  "url": "https://www.neelnanda.io/mechanistic-interpretability/attribution-patching",
+  "hours": 2,
+  "why": {
+   "zh": "归因修补的原始出处，详细讨论了近似在哪里有效、在哪里失效，练习 3 的结果可以与之对照",
+   "en": "The original source of attribution patching, with a detailed discussion of where the approximation works and where it fails. The results of exercise 3 can be compared with it."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "patching",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Towards Best Practices of Activation Patching in Language Models: Metrics and Methods (Zhang & Nanda, 2023)",
+  "url": "https://arxiv.org/abs/2309.16042",
+  "hours": 2,
+  "why": {
+   "zh": "系统比较了损坏方式和度量对定位结果的影响",
+   "en": "A systematic comparison of how corruption methods and metrics affect localization results."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "patching",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Locating and Editing Factual Associations in GPT (Meng et al., 2022)",
+  "url": "https://arxiv.org/abs/2202.05262",
+  "hours": 3,
+  "why": {
+   "zh": "用因果干预定位事实知识的代表性工作，结论是中间层的前馈模块在处理主语时起中介作用",
+   "en": "A representative study locating factual knowledge by causal intervention, concluding that feed-forward modules in the middle layers mediate while the subject is processed."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "patching",
+  "level": "core",
+  "type": "code",
+  "lang": "en",
+  "title": "TransformerLens (GitHub)",
+  "url": "https://github.com/TransformerLensOrg/TransformerLens",
+  "hours": 1,
+  "why": {
+   "zh": "机制可解释性最常用的库，README 说明了 4.0 版的接口变化并指向迁移说明",
+   "en": "The library most used for mechanistic interpretability. The README explains the interface change of version 4.0 and points to the migration guide."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "patching",
+  "level": "deep",
+  "type": "course",
+  "lang": "en",
+  "title": "ARENA: exercises on transformer interpretability (GitHub)",
+  "url": "https://github.com/callummcdougall/ARENA_3.0",
+  "hours": 20,
+  "why": {
+   "zh": "系统的练习课程，其中包含在 GPT-2 small 上复现间接宾语识别回路的完整练习，适合在本模块之后继续深入",
+   "en": "A systematic course of exercises, including a complete exercise reproducing the indirect object identification circuit in GPT-2 small. Suited for going deeper after this module."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "probes",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Understanding intermediate layers using linear classifier probes (Alain & Bengio, 2016)",
+  "url": "https://arxiv.org/abs/1610.01644",
+  "hours": 1.5,
+  "why": {
+   "zh": "线性探针方法的早期出处，说明了为什么探针要独立于模型训练",
+   "en": "An early source of the linear probe method, explaining why probes are trained independently of the model."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "probes",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Designing and Interpreting Probes with Control Tasks (Hewitt & Liang, 2019)",
+  "url": "https://arxiv.org/abs/1909.03368",
+  "hours": 2,
+  "why": {
+   "zh": "提出对照任务和选择性，是判断探针结果是否可信的标准做法",
+   "en": "Introduces control tasks and selectivity, the standard way of judging whether a probe result can be trusted."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "probes",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Probing Classifiers: Promises, Shortcomings, and Advances (Belinkov, 2021)",
+  "url": "https://arxiv.org/abs/2102.12452",
+  "hours": 1.5,
+  "why": {
+   "zh": "对探针方法及其局限的综述，篇幅不长，适合在设计探针实验之前通读",
+   "en": "A survey of the probing method and its limitations, short enough to read in full before designing a probing experiment."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "probes",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Language Models Represent Space and Time (Gurnee & Tegmark, 2023)",
+  "url": "https://arxiv.org/abs/2310.02207",
+  "hours": 2.5,
+  "why": {
+   "zh": "用线性探针研究大模型对地点和时间的表示，与地理信息相关的研究可以直接参考它的数据集和方法",
+   "en": "Studies with linear probes how large models represent places and times. Research related to geographic information can draw directly on its datasets and methods."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "probes",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "The Geometry of Truth: Emergent Linear Structure in LLM Representations of True/False Datasets (Marks & Tegmark, 2023)",
+  "url": "https://arxiv.org/abs/2310.06824",
+  "hours": 2.5,
+  "why": {
+   "zh": "比较了均值差探针与其他探针，并用干预检验方向的因果作用，是从读取走向改写的范例",
+   "en": "Compares mean-difference probes with other probes and tests the causal role of directions by intervention. A model case of moving from reading to rewriting."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "probes",
+  "level": "deep",
+  "type": "paper",
+  "lang": "en",
+  "title": "Steering Language Models With Activation Engineering (Turner et al., 2023)",
+  "url": "https://arxiv.org/abs/2308.10248",
+  "hours": 2,
+  "why": {
+   "zh": "激活加法的出处，用一对对比提示构造引导向量",
+   "en": "The source of activation addition, which builds a steering vector from a pair of contrasting prompts."
+  },
+  "checked": "2026-11-25"
+ },
+ {
+  "topic": "rag",
+  "level": "core",
+  "type": "paper",
+  "lang": "en",
+  "title": "Adaptive Chameleon or Stubborn Sloth: Revealing the Behavior of Large Language Models in Knowledge Conflicts (Xie et al., 2023)",
+  "url": "https://arxiv.org/abs/2305.13300",
+  "hours": 2.5,
+  "why": {
+   "zh": "从行为层面系统研究知识冲突，说明证据的连贯程度以及它与模型已有知识的重合怎样影响模型的选择",
+   "en": "A systematic behavioural study of knowledge conflicts, showing how the coherence of evidence and its overlap with what the model already knows affect the choice of the model."
+  },
+  "checked": "2026-11-25"
+ }
+]

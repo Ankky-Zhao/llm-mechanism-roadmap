@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "context_window",
+ "level": 3,
+ "minutes": 35,
+ "network": true,
+ "title": {
+  "zh": "信息的位置是否影响模型能否用上它",
+  "en": "Does the position of information affect whether the model uses it"
+ },
+ "prompt": {
+  "zh": "给 GPT-2 一串 “The code for 某人 is 某数” 的事实，再问其中某一条。实现判断模型是否答对的函数，并统计正确率随这条事实所在位置的变化。测试会检查位于末尾的事实取回率远高于位于开头的。运行后请观察打印出的各位置正确率。",
+  "en": "Give GPT-2 a list of facts of the form “The code for someone is some number” and ask about one of them. Implement the function that decides whether the model answers correctly and measure how accuracy changes with the position of the fact. The tests check that a fact at the end is retrieved far more often than one at the start. Look at the printed accuracy per position after running."
+ },
+ "hints": [
+  {
+   "zh": "候选 token 是每个数字前面加一个空格后分词得到的第一个 token，即 `tok(' ' + str(c)).input_ids[0]`。只在这些候选之间比较 logit。",
+   "en": "The candidate tokens are the first token of every number with a space in front, `tok(' ' + str(c)).input_ids[0]`. Compare logits among these candidates only."
+  },
+  {
+   "zh": "`logits[candidates].argmax() == i` 给出的是张量，用 `bool(...)` 转成 Python 的布尔值。",
+   "en": "`logits[candidates].argmax() == i` is a tensor. Convert it to a Python boolean with `bool(...)`."
+  },
+  {
+   "zh": "`accuracy_by_position` 对每次试验按给定方式生成名字和数字，再对每个位置调用一次 `retrieval_correct`，最后除以试验次数。",
+   "en": "`accuracy_by_position` generates the names and numbers of each trial as specified, calls `retrieval_correct` once per position, and finally divides by the number of trials."
+  }
+ ]
+}

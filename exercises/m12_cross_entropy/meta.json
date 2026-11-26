@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "ce_mle_ppl",
+ "level": 1,
+ "minutes": 25,
+ "title": {
+  "zh": "手写交叉熵与困惑度",
+  "en": "Cross-entropy and perplexity by hand"
+ },
+ "prompt": {
+  "zh": "不调用 `F.cross_entropy`，实现交叉熵、困惑度和每 token 比特数。测试会与 PyTorch 官方实现对比，并检查两个极端情形，即均匀分布的困惑度等于词表大小、完全确定且正确的预测困惑度为 1。",
+  "en": "Without calling `F.cross_entropy`, implement cross-entropy, perplexity and bits per token. The tests compare against the PyTorch implementation and check two extremes. A uniform distribution has perplexity equal to the vocabulary size, and a certain, correct prediction has perplexity 1."
+ },
+ "hints": [
+  {
+   "zh": "先得到对数概率 `logits - torch.logsumexp(logits, dim=-1, keepdim=True)`，不要先算概率再取 log。",
+   "en": "First get log-probabilities with `logits - torch.logsumexp(logits, dim=-1, keepdim=True)`. Do not compute probabilities and then take the log."
+  },
+  {
+   "zh": "用 `log_probs[torch.arange(N), targets]` 一次取出每一行里正确 token 的对数概率。",
+   "en": "Use `log_probs[torch.arange(N), targets]` to pick the correct token's log-probability in every row at once."
+  }
+ ]
+}

@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "probes",
+ "network": true,
+ "level": 2,
+ "minutes": 45,
+ "title": {
+  "zh": "训练探针并做对照实验",
+  "en": "Train a probe and run the controls"
+ },
+ "prompt": {
+  "zh": "取出 160 个城市在 GPT-2 small 各层最后一个 token 上的状态，用分层 5 折交叉验证评估一个预测大洲的线性探针，并完成三个对照，即打乱标签、随机权重的模型和训练集准确率。测试先在合成数据上检查评估函数，再检查真实实验的几项结论。请阅读打印出的全部结果，包括 token 数这一混淆因素、对正则强度的敏感性以及模型自身的回答。需要 scikit-learn，运行时间约 50 秒。",
+  "en": "Take the states of 160 cities at the last token in every layer of GPT-2 small, evaluate with stratified 5-fold cross-validation a linear probe that predicts the continent, and run three controls, namely shuffled labels, a model with random weights and accuracy on the training set. The tests check the evaluation function on synthetic data and then several conclusions of the real experiment. Read all printed results, including the confound of the token count, the sensitivity to the regularization strength and the answers of the model itself. scikit-learn is required, and the run takes about 50 seconds."
+ },
+ "hints": [
+  {
+   "zh": "`for train, test in StratifiedKFold(folds, shuffle=True, random_state=seed).split(X, y)` 给出每一折的下标。",
+   "en": "`for train, test in StratifiedKFold(folds, shuffle=True, random_state=seed).split(X, y)` yields the indices of every fold."
+  },
+  {
+   "zh": "标准化已经放在 `make_probe` 的流水线里，对每一折分别 `fit`，测试部分就不会参与均值和方差的估计。",
+   "en": "Standardization is already part of the pipeline of `make_probe`. Fitting it separately for every fold keeps the test part out of the estimate of mean and variance."
+  }
+ ]
+}

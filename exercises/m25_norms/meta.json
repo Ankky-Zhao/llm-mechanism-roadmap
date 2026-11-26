@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "norm_ffn",
+ "level": 1,
+ "minutes": 20,
+ "title": {
+  "zh": "手写 LayerNorm 与 RMSNorm",
+  "en": "LayerNorm and RMSNorm by hand"
+ },
+ "prompt": {
+  "zh": "实现两种归一化，与 `nn.LayerNorm` 和 `nn.RMSNorm` 对比。测试还会验证三条性质，即 LayerNorm 的输出均值为 0、两者都对输入的整体缩放不敏感、输入均值为 0 时两者结果相同。",
+  "en": "Implement both normalizations and compare with `nn.LayerNorm` and `nn.RMSNorm`. The tests also verify three properties, namely that the output of LayerNorm has mean 0, that both are insensitive to an overall rescaling of the input, and that the two coincide when the input has mean 0."
+ },
+ "hints": [
+  {
+   "zh": "均值和方差都沿最后一维计算，并保留维度，即 `x.mean(dim=-1, keepdim=True)`。",
+   "en": "Compute mean and variance along the last dimension and keep it, `x.mean(dim=-1, keepdim=True)`."
+  },
+  {
+   "zh": "方差用除以 $d$ 的版本，即 `((x - mean) ** 2).mean(...)`。不要用 `x.var()`，它默认除以 $d - 1$。`eps` 加在根号里面。",
+   "en": "Use the variance that divides by $d$, `((x - mean) ** 2).mean(...)`. Do not use `x.var()`, which divides by $d - 1$ by default. `eps` goes inside the square root."
+  }
+ ]
+}

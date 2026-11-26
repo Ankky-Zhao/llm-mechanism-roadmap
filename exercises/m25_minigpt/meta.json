@@ -1,0 +1,31 @@
+{
+ "kind": "code",
+ "module": "norm_ffn",
+ "level": 3,
+ "minutes": 45,
+ "requires": [
+  "m22_mha"
+ ],
+ "title": {
+  "zh": "从零训练一个字符级 mini-GPT",
+  "en": "Train a character-level mini-GPT from scratch"
+ },
+ "prompt": {
+  "zh": "用 2.2 写的 `MultiHeadAttention` 补全 `Block` 和 `MiniGPT` 的前向计算，在 Python 自带的一小段文本上训练 300 步，CPU 上只需几秒。测试会检查初始损失接近 $\\ln V$、后面的 token 不影响前面的输出、训练后损失明显下降，并打印一段模型生成的文本。",
+  "en": "Complete the forward passes of `Block` and `MiniGPT` with the `MultiHeadAttention` from 2.2 and train for 300 steps on a short text that ships with Python, which takes seconds on a CPU. The tests check that the initial loss is near $\\ln V$, that later tokens do not affect earlier outputs and that the loss falls clearly after training, and they print a sample of generated text."
+ },
+ "hints": [
+  {
+   "zh": "`self.attn(...)` 返回的是 `(输出, 权重)`，取第一个。",
+   "en": "`self.attn(...)` returns `(output, weights)`. Take the first."
+  },
+  {
+   "zh": "位置编号用 `torch.arange(T)`，因果掩码用 `torch.tril(torch.ones(T, T, dtype=torch.bool))`。",
+   "en": "Positions are `torch.arange(T)` and the causal mask is `torch.tril(torch.ones(T, T, dtype=torch.bool))`."
+  },
+  {
+   "zh": "计算损失时把 logits 变成 `(B*T, V)`、把 targets 变成 `(B*T,)`，再调用 `F.cross_entropy`。没有 targets 时损失返回 `None`。",
+   "en": "For the loss reshape the logits to `(B*T, V)` and the targets to `(B*T,)` and call `F.cross_entropy`. Without targets return `None` as the loss."
+  }
+ ]
+}

@@ -1,0 +1,32 @@
+{
+ "kind": "derivation",
+ "module": "ce_mle_ppl",
+ "level": 2,
+ "minutes": 25,
+ "title": {
+  "zh": "推导最小化交叉熵等价于最大似然",
+  "en": "Derive that minimizing cross-entropy is maximum likelihood"
+ },
+ "prompt": {
+  "zh": "合上上面的推导，在纸上完成下面四问。\n(a) 证明最大化 $\\prod_i p_\\theta(x^{(i)})$ 与最小化平均负对数似然得到同一个 $\\theta$。\n(b) 证明 $H(p,q) = H(p) + D_{\\mathrm{KL}}(p\\,\\|\\,q)$，并说明为什么最小化交叉熵等价于最小化 KL 散度。\n(c) 证明对词表大小为 $V$ 的均匀预测，困惑度等于 $V$。\n(d) 某模型在验证集上的损失是每 token 3.0 nat。它的困惑度和每 token 比特数各是多少？",
+  "en": "Close the derivation above and answer on paper.\n(a) Show that maximizing $\\prod_i p_\\theta(x^{(i)})$ and minimizing the average negative log-likelihood give the same $\\theta$.\n(b) Show that $H(p,q) = H(p) + D_{\\mathrm{KL}}(p\\,\\|\\,q)$ and explain why minimizing cross-entropy is minimizing KL divergence.\n(c) Show that a uniform prediction over a vocabulary of size $V$ has perplexity $V$.\n(d) A model has a validation loss of 3.0 nats per token. What are its perplexity and its bits per token?"
+ },
+ "hints": [
+  {
+   "zh": "(a) 只需要两个事实，即 $\\log$ 单调递增，以及乘以负常数会把最大化变成最小化。",
+   "en": "(a) needs two facts. $\\log$ is increasing, and multiplying by a negative constant turns a maximization into a minimization."
+  },
+  {
+   "zh": "(b) 在 $-\\sum_x p\\log q$ 中写 $\\log q = \\log p - \\log\\frac{p}{q}$。",
+   "en": "(b) Inside $-\\sum_x p\\log q$ write $\\log q = \\log p - \\log\\frac{p}{q}$."
+  },
+  {
+   "zh": "(d) 困惑度是 $e^{\\mathcal L}$，比特数是 $\\mathcal L/\\ln 2$。",
+   "en": "(d) Perplexity is $e^{\\mathcal L}$ and bits are $\\mathcal L/\\ln 2$."
+  }
+ ],
+ "solution": {
+  "zh": "(a) $\\log$ 单调递增，所以 $\\arg\\max_\\theta \\prod_i p_\\theta(x^{(i)}) = \\arg\\max_\\theta \\sum_i \\log p_\\theta(x^{(i)})$。乘以 $-\\tfrac1N$ 后最大化变为最小化，位置不变，得到 $\\arg\\min_\\theta -\\tfrac1N\\sum_i \\log p_\\theta(x^{(i)})$。\n\n(b) $$H(p,q) = -\\sum_x p(x)\\log q(x) = -\\sum_x p(x)\\log p(x) + \\sum_x p(x)\\log\\frac{p(x)}{q(x)} = H(p) + D_{\\mathrm{KL}}(p\\,\\|\\,q)$$ 其中 $p$ 是数据分布，$H(p)$ 不含 $\\theta$，所以对 $\\theta$ 最小化 $H(p, p_\\theta)$ 与最小化 $D_{\\mathrm{KL}}(p\\,\\|\\,p_\\theta)$ 相同。\n\n(c) 每个位置 $p_\\theta(x_t\\mid x_{<t}) = 1/V$，所以 $\\mathcal L = -\\tfrac1T\\sum_t \\log\\tfrac1V = \\ln V$，$\\mathrm{PPL} = e^{\\ln V} = V$。\n\n(d) $\\mathrm{PPL} = e^{3.0} \\approx 20.1$。比特数为 $3.0/\\ln 2 \\approx 4.33$ bit。也就是说模型平均相当于在约 20 个等可能的 token 中选择。",
+  "en": "(a) $\\log$ is increasing, so $\\arg\\max_\\theta \\prod_i p_\\theta(x^{(i)}) = \\arg\\max_\\theta \\sum_i \\log p_\\theta(x^{(i)})$. Multiplying by $-\\tfrac1N$ turns the maximization into a minimization at the same point, giving $\\arg\\min_\\theta -\\tfrac1N\\sum_i \\log p_\\theta(x^{(i)})$.\n\n(b) $$H(p,q) = -\\sum_x p(x)\\log q(x) = -\\sum_x p(x)\\log p(x) + \\sum_x p(x)\\log\\frac{p(x)}{q(x)} = H(p) + D_{\\mathrm{KL}}(p\\,\\|\\,q)$$ Here $p$ is the data distribution and $H(p)$ does not contain $\\theta$, so minimizing $H(p, p_\\theta)$ over $\\theta$ is the same as minimizing $D_{\\mathrm{KL}}(p\\,\\|\\,p_\\theta)$.\n\n(c) At every position $p_\\theta(x_t\\mid x_{<t}) = 1/V$, so $\\mathcal L = -\\tfrac1T\\sum_t \\log\\tfrac1V = \\ln V$ and $\\mathrm{PPL} = e^{\\ln V} = V$.\n\n(d) $\\mathrm{PPL} = e^{3.0} \\approx 20.1$. Bits per token are $3.0/\\ln 2 \\approx 4.33$. On average the model is as uncertain as a uniform choice among about 20 tokens."
+ }
+}

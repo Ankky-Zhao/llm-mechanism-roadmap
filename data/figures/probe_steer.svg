@@ -1,0 +1,68 @@
+<svg viewBox="0 0 700 320" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<text x="217.0" y="18" text-anchor="middle" font-size="12.5" class="f-ink" font-weight="600" data-l="zh">探针在留出城市上的准确率</text><text x="217.0" y="18" text-anchor="middle" font-size="12.5" class="f-ink" font-weight="600" data-l="en">Probe accuracy on held-out cities</text>
+<line x1="52" y1="250" x2="382" y2="250" class="s-line" stroke-width="1.2"/>
+<text x="44" y="254" text-anchor="end" font-size="10" class="f-muted">0.00</text>
+<line x1="52" y1="200.0" x2="382" y2="200.0" class="s-line" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="44" y="204.0" text-anchor="end" font-size="10" class="f-muted">0.25</text>
+<line x1="52" y1="150.0" x2="382" y2="150.0" class="s-line" stroke-width="1"/>
+<text x="44" y="154.0" text-anchor="end" font-size="10" class="f-muted">0.50</text>
+<line x1="52" y1="100.0" x2="382" y2="100.0" class="s-line" stroke-width="1"/>
+<text x="44" y="104.0" text-anchor="end" font-size="10" class="f-muted">0.75</text>
+<line x1="52" y1="50.0" x2="382" y2="50.0" class="s-line" stroke-width="1"/>
+<text x="44" y="54.0" text-anchor="end" font-size="10" class="f-muted">1.00</text>
+<text x="52.0" y="266" text-anchor="middle" font-size="10" class="f-muted">0</text>
+<text x="107.0" y="266" text-anchor="middle" font-size="10" class="f-muted">2</text>
+<text x="162.0" y="266" text-anchor="middle" font-size="10" class="f-muted">4</text>
+<text x="217.0" y="266" text-anchor="middle" font-size="10" class="f-muted">6</text>
+<text x="272.0" y="266" text-anchor="middle" font-size="10" class="f-muted">8</text>
+<text x="327.0" y="266" text-anchor="middle" font-size="10" class="f-muted">10</text>
+<text x="382.0" y="266" text-anchor="middle" font-size="10" class="f-muted">12</text>
+<text x="217.0" y="284" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">层（0 为嵌入之后）</text><text x="217.0" y="284" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">layer (0 is after the embedding)</text>
+<polyline points="52.0,106.0 79.5,96.0 107.0,100.0 134.5,102.0 162.0,92.0 189.5,90.0 217.0,90.0 244.5,86.0 272.0,86.0 299.5,84.0 327.0,78.0 354.5,78.0 382.0,78.0" fill="none" class="s-accent" stroke-width="2"/>
+<polyline points="52.0,178.0 79.5,172.0 107.0,172.0 134.5,168.0 162.0,176.0 189.5,172.0 217.0,180.0 244.5,184.0 272.0,182.0 299.5,178.0 327.0,180.0 354.5,174.0 382.0,182.0" fill="none" class="s-pin" stroke-width="2"/>
+<polyline points="52.0,212.0 79.5,200.0 107.0,204.0 134.5,202.0 162.0,206.0 189.5,202.0 217.0,206.0 244.5,210.0 272.0,212.0 299.5,212.0 327.0,216.0 354.5,218.0 382.0,220.0" fill="none" class="s-muted" stroke-width="2" stroke-dasharray="5 4"/>
+<circle cx="52.0" cy="106.0" r="2.6" class="f-accent"/>
+<circle cx="79.5" cy="96.0" r="2.6" class="f-accent"/>
+<circle cx="107.0" cy="100.0" r="2.6" class="f-accent"/>
+<circle cx="134.5" cy="102.0" r="2.6" class="f-accent"/>
+<circle cx="162.0" cy="92.0" r="2.6" class="f-accent"/>
+<circle cx="189.5" cy="90.0" r="2.6" class="f-accent"/>
+<circle cx="217.0" cy="90.0" r="2.6" class="f-accent"/>
+<circle cx="244.5" cy="86.0" r="2.6" class="f-accent"/>
+<circle cx="272.0" cy="86.0" r="2.6" class="f-accent"/>
+<circle cx="299.5" cy="84.0" r="2.6" class="f-accent"/>
+<circle cx="327.0" cy="78.0" r="2.6" class="f-accent"/>
+<circle cx="354.5" cy="78.0" r="2.6" class="f-accent"/>
+<circle cx="382.0" cy="78.0" r="2.6" class="f-accent"/>
+<text x="378.0" y="69.0" text-anchor="end" font-size="11" class="f-accent" font-weight="600" data-l="zh">GPT-2</text><text x="378.0" y="69.0" text-anchor="end" font-size="11" class="f-accent" font-weight="600" data-l="en">GPT-2</text>
+<text x="378.0" y="156.0" text-anchor="end" font-size="10.5" class="f-pin" data-l="zh">随机权重的模型</text><text x="378.0" y="156.0" text-anchor="end" font-size="10.5" class="f-pin" data-l="en">model with random weights</text>
+<text x="378.0" y="236.0" text-anchor="end" font-size="10.5" class="f-muted" data-l="zh">打乱标签</text><text x="378.0" y="236.0" text-anchor="end" font-size="10.5" class="f-muted" data-l="en">shuffled labels</text>
+<text x="58.0" y="195.0" text-anchor="start" font-size="9.5" class="f-muted" data-l="zh">随机猜测</text><text x="58.0" y="195.0" text-anchor="start" font-size="9.5" class="f-muted" data-l="en">chance</text>
+<text x="562.0" y="18" text-anchor="middle" font-size="12.5" class="f-ink" font-weight="600" data-l="zh">引导后转向 Asia 的比例</text><text x="562.0" y="18" text-anchor="middle" font-size="12.5" class="f-ink" font-weight="600" data-l="en">Share turned toward Asia by steering</text>
+<text x="562.0" y="34" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">留出的 20 个欧洲城市，α = 2</text><text x="562.0" y="34" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">20 held-out European cities, α = 2</text>
+<line x1="452" y1="250" x2="672" y2="250" class="s-line" stroke-width="1"/>
+<text x="444" y="254" text-anchor="end" font-size="10" class="f-muted">0.0</text>
+<line x1="452" y1="157.0" x2="672" y2="157.0" class="s-line" stroke-width="1"/>
+<text x="444" y="161.0" text-anchor="end" font-size="10" class="f-muted">0.5</text>
+<line x1="452" y1="64.0" x2="672" y2="64.0" class="s-line" stroke-width="1"/>
+<text x="444" y="68.0" text-anchor="end" font-size="10" class="f-muted">1.0</text>
+<rect x="459.0" y="82.6" width="22.666666666666664" height="167.4" rx="3" class="f-accent"/>
+<text x="470.3333333333333" y="77.6" text-anchor="middle" font-size="10" class="f-ink">0.90</text>
+<text x="470.3333333333333" y="266" text-anchor="middle" font-size="10" class="f-muted">0</text>
+<rect x="495.6666666666667" y="82.6" width="22.666666666666664" height="167.4" rx="3" class="f-accent"/>
+<text x="507.0" y="77.6" text-anchor="middle" font-size="10" class="f-ink">0.90</text>
+<text x="507.0" y="266" text-anchor="middle" font-size="10" class="f-muted">2</text>
+<rect x="532.3333333333334" y="64.0" width="22.666666666666664" height="186.0" rx="3" class="f-accent"/>
+<text x="543.6666666666667" y="59.0" text-anchor="middle" font-size="10" class="f-ink">1.00</text>
+<text x="543.6666666666667" y="266" text-anchor="middle" font-size="10" class="f-muted">4</text>
+<rect x="569.0" y="64.0" width="22.666666666666664" height="186.0" rx="3" class="f-accent"/>
+<text x="580.3333333333334" y="59.0" text-anchor="middle" font-size="10" class="f-ink">1.00</text>
+<text x="580.3333333333334" y="266" text-anchor="middle" font-size="10" class="f-muted">6</text>
+<rect x="605.6666666666666" y="64.0" width="22.666666666666664" height="186.0" rx="3" class="f-accent"/>
+<text x="617.0" y="59.0" text-anchor="middle" font-size="10" class="f-ink">1.00</text>
+<text x="617.0" y="266" text-anchor="middle" font-size="10" class="f-muted">8</text>
+<text x="653.6666666666666" y="245.0" text-anchor="middle" font-size="10" class="f-ink">0.00</text>
+<text x="653.6666666666666" y="266" text-anchor="middle" font-size="10" class="f-muted">10</text>
+<text x="562.0" y="284" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">加入引导向量的层</text><text x="562.0" y="284" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">layer at which the vector is added</text>
+<text x="562.0" y="304" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">长度相同的随机方向在各层均为 0</text><text x="562.0" y="304" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">a random direction of equal length gives 0 at every layer</text>
+</svg>

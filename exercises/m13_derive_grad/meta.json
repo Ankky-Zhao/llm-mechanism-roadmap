@@ -1,0 +1,32 @@
+{
+ "kind": "derivation",
+ "module": "softmax_grad",
+ "level": 2,
+ "minutes": 25,
+ "title": {
+  "zh": "推导 softmax 的梯度",
+  "en": "Derive the gradient of softmax"
+ },
+ "prompt": {
+  "zh": "这是面试里出现很多的一道推导题。合上上面的推导，在纸上完成。\n(a) 推导 $\\partial p_i/\\partial z_j$，分 $i=j$ 和 $i\\neq j$ 两种情况。\n(b) 推导交叉熵 $\\mathcal L = -\\sum_k y_k\\log p_k$ 对 $z_j$ 的梯度。\n(c) 若 softmax 带温度 $T$，梯度如何变化？\n(d) 取 $z = (2,\\ 1,\\ 0.1)$，正确类别是第一个。算出 $p$、损失和梯度。",
+  "en": "This derivation comes up a lot in interviews. Close the derivation above and work on paper.\n(a) Derive $\\partial p_i/\\partial z_j$ for the cases $i=j$ and $i\\neq j$.\n(b) Derive the gradient of the cross-entropy $\\mathcal L = -\\sum_k y_k\\log p_k$ with respect to $z_j$.\n(c) How does the gradient change when softmax has temperature $T$?\n(d) Let $z = (2,\\ 1,\\ 0.1)$ with the first class correct. Compute $p$, the loss and the gradient."
+ },
+ "hints": [
+  {
+   "zh": "(a) 用商的求导法则，记 $S = \\sum_k e^{z_k}$，注意 $\\partial S/\\partial z_j = e^{z_j}$。",
+   "en": "(a) Use the quotient rule with $S = \\sum_k e^{z_k}$ and note $\\partial S/\\partial z_j = e^{z_j}$."
+  },
+  {
+   "zh": "(b) 更省事的做法是先写成 $\\mathcal L = -z_c + \\log\\sum_k e^{z_k}$ 再求导。",
+   "en": "(b) It is quicker to write $\\mathcal L = -z_c + \\log\\sum_k e^{z_k}$ first and then differentiate."
+  },
+  {
+   "zh": "(d) $e^{2}\\approx 7.389$，$e^{1}\\approx 2.718$，$e^{0.1}\\approx 1.105$。",
+   "en": "(d) $e^{2}\\approx 7.389$, $e^{1}\\approx 2.718$, $e^{0.1}\\approx 1.105$."
+  }
+ ],
+ "solution": {
+  "zh": "(a) $i=j$ 时 $\\dfrac{\\partial p_i}{\\partial z_i} = \\dfrac{e^{z_i}S - e^{z_i}e^{z_i}}{S^2} = p_i(1-p_i)$。$i\\neq j$ 时 $\\dfrac{\\partial p_i}{\\partial z_j} = \\dfrac{-e^{z_i}e^{z_j}}{S^2} = -p_ip_j$。合并为 $p_i(\\delta_{ij}-p_j)$。\n\n(b) 设正确类别为 $c$，$\\mathcal L = -\\log p_c = -z_c + \\log\\sum_k e^{z_k}$，于是 $$\\frac{\\partial\\mathcal L}{\\partial z_j} = -\\delta_{jc} + \\frac{e^{z_j}}{\\sum_k e^{z_k}} = p_j - y_j$$\n\n(c) 令 $u = z/T$，则 $\\partial\\mathcal L/\\partial u_j = p_j - y_j$，再乘 $\\partial u_j/\\partial z_j = 1/T$，得到 $(p_j - y_j)/T$，其中 $p$ 是带温度的概率。\n\n(d) 指数之和为 $7.389 + 2.718 + 1.105 = 11.212$，所以 $p \\approx (0.659,\\ 0.242,\\ 0.099)$。损失为 $-\\ln 0.659 \\approx 0.417$。梯度为 $p - y \\approx (-0.341,\\ 0.242,\\ 0.099)$，三个分量之和为 0。",
+  "en": "(a) For $i=j$ we get $\\dfrac{\\partial p_i}{\\partial z_i} = \\dfrac{e^{z_i}S - e^{z_i}e^{z_i}}{S^2} = p_i(1-p_i)$. For $i\\neq j$ we get $\\dfrac{\\partial p_i}{\\partial z_j} = \\dfrac{-e^{z_i}e^{z_j}}{S^2} = -p_ip_j$. Together, $p_i(\\delta_{ij}-p_j)$.\n\n(b) With correct class $c$, $\\mathcal L = -\\log p_c = -z_c + \\log\\sum_k e^{z_k}$, so $$\\frac{\\partial\\mathcal L}{\\partial z_j} = -\\delta_{jc} + \\frac{e^{z_j}}{\\sum_k e^{z_k}} = p_j - y_j$$\n\n(c) Let $u = z/T$. Then $\\partial\\mathcal L/\\partial u_j = p_j - y_j$, and multiplying by $\\partial u_j/\\partial z_j = 1/T$ gives $(p_j - y_j)/T$, where $p$ is the tempered probability.\n\n(d) The exponentials sum to $7.389 + 2.718 + 1.105 = 11.212$, so $p \\approx (0.659,\\ 0.242,\\ 0.099)$. The loss is $-\\ln 0.659 \\approx 0.417$. The gradient is $p - y \\approx (-0.341,\\ 0.242,\\ 0.099)$, and its components sum to 0."
+ }
+}

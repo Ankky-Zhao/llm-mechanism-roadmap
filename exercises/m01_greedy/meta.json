@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "pipeline",
+ "level": 1,
+ "minutes": 25,
+ "network": true,
+ "title": {
+  "zh": "手写贪心生成循环",
+  "en": "A greedy generation loop by hand"
+ },
+ "prompt": {
+  "zh": "实现贪心解码，每一步取 logit 最大的 token 并接到输入后面。测试会与 `model.generate(do_sample=False)` 的结果对比。再写一个统计重复 n-gram 的小函数，用它确认贪心输出确实陷入了重复。运行后请看一眼打印出来的文本。",
+  "en": "Implement greedy decoding by taking the token with the largest logit at each step and appending it to the input. The tests compare with `model.generate(do_sample=False)`. Then write a small function that counts repeated n-grams and use it to confirm that the greedy output does fall into repetition. Read the printed text after running."
+ },
+ "hints": [
+  {
+   "zh": "取最大值不需要先做 softmax，因为 softmax 不改变大小顺序，直接对 logits 用 `argmax` 即可。",
+   "en": "No softmax is needed before taking the maximum, because softmax keeps the order. Use `argmax` on the logits directly."
+  },
+  {
+   "zh": "`next_id` 是 0 维张量，用 `next_id.view(1, 1)` 变成 `(1, 1)` 后再 `torch.cat([input_ids, ...], dim=1)`。",
+   "en": "`next_id` is a 0-dim tensor. Reshape it with `next_id.view(1, 1)` and then `torch.cat([input_ids, ...], dim=1)`."
+  },
+  {
+   "zh": "统计重复时用一个 `set` 记录见过的 n-gram，把每个窗口转成 `tuple` 才能放进集合。",
+   "en": "For the repeat count keep a `set` of n-grams already seen. Turn each window into a `tuple` so it can go into the set."
+  }
+ ]
+}

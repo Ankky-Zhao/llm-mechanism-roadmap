@@ -1,0 +1,18 @@
+<svg viewBox="0 0 700 240" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<defs><marker id="a45" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" class="f-ink"/></marker></defs>
+<text x="40" y="124" font-size="15" class="f-ink mono">x</text>
+<line x1="56" y1="120" x2="96" y2="120" class="s-muted" stroke-width="1.5"/>
+<path d="M96,120 L96,70 L176,70" fill="none" class="s-muted" stroke-width="1.5" marker-end="url(#a45)"/><path d="M96,120 L96,176 L146,176" fill="none" class="s-muted" stroke-width="1.5" marker-end="url(#a45)"/>
+<rect x="178" y="34" width="300" height="72" rx="10" class="f-surface s-line"/>
+<text x="328" y="64" text-anchor="middle" font-size="14" class="f-ink" font-weight="600" data-l="zh">W₀（冻结）</text><text x="328" y="64" text-anchor="middle" font-size="14" class="f-ink" font-weight="600" data-l="en">W₀ (frozen)</text>
+<text x="328" y="88" text-anchor="middle" font-size="12" class="f-muted mono">d × k</text>
+<rect x="148" y="150" width="130" height="52" rx="8" class="f-soft s-accent"/><text x="213" y="172" text-anchor="middle" font-size="14" font-weight="600" class="f-ink">A</text><text x="213" y="191" text-anchor="middle" font-size="11.5" class="f-muted mono">r × k</text>
+<rect x="348" y="150" width="130" height="52" rx="8" class="f-soft s-accent"/><text x="413" y="172" text-anchor="middle" font-size="14" font-weight="600" class="f-ink">B</text><text x="413" y="191" text-anchor="middle" font-size="11.5" class="f-muted mono">d × r</text>
+<line x1="280" y1="176" x2="346" y2="176" class="s-muted" stroke-width="1.5" marker-end="url(#a45)"/>
+<text x="313" y="166" text-anchor="middle" font-size="11" class="f-muted" data-l="zh">r 维</text><text x="313" y="166" text-anchor="middle" font-size="11" class="f-muted" data-l="en">r dims</text>
+<path d="M480,70 L560,70 L560,104" fill="none" class="s-muted" stroke-width="1.5" marker-end="url(#a45)"/><path d="M480,176 L560,176 L560,136" fill="none" class="s-muted" stroke-width="1.5" marker-end="url(#a45)"/>
+<circle cx="560" cy="120" r="14" class="f-surface s-accent" stroke-width="2"/><text x="560" y="126" text-anchor="middle" font-size="18" class="f-ink">+</text>
+<line x1="576" y1="120" x2="626" y2="120" class="s-muted" stroke-width="1.5" marker-end="url(#a45)"/><text x="640" y="125" font-size="15" class="f-ink mono">h</text>
+<text x="313" y="226" text-anchor="middle" font-size="12" class="f-accent" data-l="zh">可训练，A 随机初始化，B 初始化为 0</text><text x="313" y="226" text-anchor="middle" font-size="12" class="f-accent" data-l="en">trainable, A random at start, B zero at start</text>
+<text x="604" y="160" text-anchor="middle" font-size="11.5" class="f-muted mono">× α / r</text>
+</svg>

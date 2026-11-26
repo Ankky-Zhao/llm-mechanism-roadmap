@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "hallucination",
+ "level": 2,
+ "minutes": 30,
+ "network": true,
+ "title": {
+  "zh": "用自一致性检测幻觉",
+  "en": "Hallucination detection by self-consistency"
+ },
+ "prompt": {
+  "zh": "实现对同一个问题多次采样、计算两个回答之间的词级重合度，以及一组回答的平均一致性。测试对 8 个常识问题和 8 个关于虚构小镇的问题各采样 5 次，比较两组的一致性。请查看打印出的回答，注意哪些情况下一致性会给出误导性的结果。",
+  "en": "Implement sampling several answers to one question, the token-level overlap between two answers, and the mean consistency of a set of answers. The tests sample 5 answers each to 8 questions of common knowledge and 8 questions about an invented town and compare the consistency of the two groups. Look at the printed answers and note in which cases consistency gives a misleading result."
+ },
+ "hints": [
+  {
+   "zh": "`model.generate(**enc, do_sample=True, temperature=temperature, top_p=1.0, top_k=0, num_return_sequences=n, max_new_tokens=...)` 一次返回 n 个序列。",
+   "en": "`model.generate(**enc, do_sample=True, temperature=temperature, top_p=1.0, top_k=0, num_return_sequences=n, max_new_tokens=...)` returns n sequences at once."
+  },
+  {
+   "zh": "重合度的写法与 8.1 的词级 F1 相同，只是归一化改为 `re.sub(r'[^a-z0-9 ]', '', text.lower())`。",
+   "en": "The overlap is written like the token-level F1 of 8.1, with the normalization changed to `re.sub(r'[^a-z0-9 ]', '', text.lower())`."
+  }
+ ]
+}

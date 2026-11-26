@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "models",
+ "level": 2,
+ "minutes": 25,
+ "title": {
+  "zh": "手算参数量、内存与量化",
+  "en": "Parameters, memory and quantization by hand"
+ },
+ "prompt": {
+  "zh": "在纸上完成，可以使用计算器。\n(a) 一个 Llama 式模型的配置是 $V = 1000$、$d = 512$、$m = 1024$、$L = 4$，8 个查询头、2 个键值头，输出矩阵与嵌入共用。它有多少参数？\n(b) 一个 80.3 亿参数的模型，以 16 位、8 位保存各需多少内存？以平均每个权重 4.89 位的方式量化后是多少？\n(c) 对权重 $(0.6,\\ -0.2,\\ 0.05,\\ -1.4)$ 做 3 位对称量化。写出缩放系数、量化后的整数和还原后的值。哪些权重变成了 0？\n(d) 一个混合专家模型的总参数量是 1 万亿，每个 token 激活 520 亿。以 8 位保存需要多少内存？每个 token 的计算量大致相当于多大的普通模型？",
+  "en": "Work on paper. A calculator may be used.\n(a) A Llama-style model has the config $V = 1000$, $d = 512$, $m = 1024$, $L = 4$, 8 query heads and 2 key-value heads, with the output matrix tied to the embedding. How many parameters does it have?\n(b) How much memory does a model with 8.03 billion parameters need at 16 bits and at 8 bits? And after quantization to an average of 4.89 bits per weight?\n(c) Quantize the weights $(0.6,\\ -0.2,\\ 0.05,\\ -1.4)$ symmetrically to 3 bits. Give the scale, the integers and the restored values. Which weights become 0?\n(d) A mixture-of-experts model has 1 trillion parameters in total and activates 52 billion per token. How much memory does it need at 8 bits? To an ordinary model of what size does its computation per token roughly correspond?"
+ },
+ "hints": [
+  {
+   "zh": "(a) $d_{kv} = (512 / 8) \\times 2 = 128$。",
+   "en": "(a) $d_{kv} = (512 / 8) \\times 2 = 128$."
+  },
+  {
+   "zh": "(c) 3 位时 $q_{\\max} = 2^{2} - 1 = 3$。",
+   "en": "(c) At 3 bits $q_{\\max} = 2^{2} - 1 = 3$."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 注意力为 $512^2 + 2 \\times 512 \\times 128 + 512^2 = 655{,}360$。SwiGLU 为 $3 \\times 512 \\times 1024 = 1{,}572{,}864$。归一化为 $1024$。每个块共 $2{,}229{,}248$，4 个块为 $8{,}916{,}992$。加上嵌入 $512{,}000$ 和最后的归一化 $512$，总计 $9{,}429{,}504$。\n\n(b) 16 位为 $8.03 \\times 10^9 \\times 2 = 16.1$ GB。8 位为 $8.0$ GB。4.89 位为 $8.03 \\times 10^9 \\times 4.89 / 8 \\approx 4.9$ GB。这与 llama.cpp 文档中 Llama-3.1-8B 的 Q4_K_M 版本的大小一致。\n\n(c) $q_{\\max} = 3$，$s = 1.4 / 3 \\approx 0.467$。$w / s = (1.29,\\ -0.43,\\ 0.11,\\ -3)$，四舍五入得 $(1,\\ 0,\\ 0,\\ -3)$，还原为 $(0.467,\\ 0,\\ 0,\\ -1.4)$。$-0.2$ 和 $0.05$ 的绝对值都小于 $s/2 \\approx 0.233$，被舍入为 0。最大的权重被精确保留，较小的权重损失最重。\n\n(d) $10^{12}$ 个参数每个 1 字节，共 $10^{12}$ 字节，即 1000 GB。每个 token 的计算量大致相当于一个 520 亿参数的普通模型。内存由总参数量决定，速度主要由激活参数量决定。",
+  "en": "(a) Attention is $512^2 + 2 \\times 512 \\times 128 + 512^2 = 655{,}360$. SwiGLU is $3 \\times 512 \\times 1024 = 1{,}572{,}864$. The norms are $1024$. One block has $2{,}229{,}248$ and 4 blocks have $8{,}916{,}992$. With the embedding $512{,}000$ and the final norm $512$ the total is $9{,}429{,}504$.\n\n(b) At 16 bits $8.03 \\times 10^9 \\times 2 = 16.1$ GB. At 8 bits $8.0$ GB. At 4.89 bits $8.03 \\times 10^9 \\times 4.89 / 8 \\approx 4.9$ GB. This agrees with the size of the Q4_K_M version of Llama-3.1-8B in the llama.cpp documentation.\n\n(c) $q_{\\max} = 3$ and $s = 1.4 / 3 \\approx 0.467$. $w / s = (1.29,\\ -0.43,\\ 0.11,\\ -3)$ rounds to $(1,\\ 0,\\ 0,\\ -3)$, restored as $(0.467,\\ 0,\\ 0,\\ -1.4)$. $-0.2$ and $0.05$ are both smaller in magnitude than $s/2 \\approx 0.233$ and round to 0. The largest weight is kept exactly and the smaller weights lose the most.\n\n(d) $10^{12}$ parameters at 1 byte each are $10^{12}$ bytes, that is 1000 GB. The computation per token corresponds roughly to an ordinary model with 52 billion parameters. Memory is determined by the total and speed mainly by the active parameters."
+ }
+}

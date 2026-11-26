@@ -1,0 +1,25 @@
+<svg viewBox="0 0 700 220" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<defs><marker id="a44" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" class="f-ink"/></marker></defs>
+<text x="14" y="56" font-size="13.5" font-weight="600" class="f-ink">RLHF</text>
+<rect x="86.0" y="30" width="132" height="44" rx="8" class="f-surface s-line"/>
+<text x="152.0" y="57" text-anchor="middle" font-size="12" class="f-ink" data-l="zh">偏好数据</text><text x="152.0" y="57" text-anchor="middle" font-size="12" class="f-ink" data-l="en">preference data</text>
+<line x1="220.0" y1="52" x2="240.0" y2="52" class="s-muted" stroke-width="1.5" marker-end="url(#a44)"/>
+<rect x="242.0" y="30" width="132" height="44" rx="8" class="f-surface s-line"/>
+<text x="308.0" y="57" text-anchor="middle" font-size="12" class="f-ink" data-l="zh">训练奖励模型</text><text x="308.0" y="57" text-anchor="middle" font-size="12" class="f-ink" data-l="en">train reward model</text>
+<line x1="376.0" y1="52" x2="396.0" y2="52" class="s-muted" stroke-width="1.5" marker-end="url(#a44)"/>
+<rect x="398.0" y="30" width="132" height="44" rx="8" class="f-surface s-line"/>
+<text x="464.0" y="57" text-anchor="middle" font-size="12" class="f-ink" data-l="zh">采样 + PPO</text><text x="464.0" y="57" text-anchor="middle" font-size="12" class="f-ink" data-l="en">sampling + PPO</text>
+<line x1="532.0" y1="52" x2="552.0" y2="52" class="s-muted" stroke-width="1.5" marker-end="url(#a44)"/>
+<rect x="554.0" y="30" width="132" height="44" rx="8" class="f-surface s-line"/>
+<text x="620.0" y="57" text-anchor="middle" font-size="12" class="f-ink" data-l="zh">对齐后的模型</text><text x="620.0" y="57" text-anchor="middle" font-size="12" class="f-ink" data-l="en">aligned model</text>
+<text x="14" y="146" font-size="13.5" font-weight="600" class="f-ink">DPO</text>
+<rect x="86.0" y="120" width="132" height="44" rx="8" class="f-surface s-line"/>
+<text x="152.0" y="147" text-anchor="middle" font-size="12" class="f-ink" data-l="zh">偏好数据</text><text x="152.0" y="147" text-anchor="middle" font-size="12" class="f-ink" data-l="en">preference data</text>
+<line x1="220.0" y1="142" x2="318.0" y2="142" class="s-muted" stroke-width="1.5" marker-end="url(#a44)"/>
+<rect x="320.0" y="120" width="132" height="44" rx="8" class="f-soft s-accent"/>
+<text x="386.0" y="147" text-anchor="middle" font-size="12" class="f-ink" data-l="zh">一个分类损失</text><text x="386.0" y="147" text-anchor="middle" font-size="12" class="f-ink" data-l="en">one classification loss</text>
+<line x1="454.0" y1="142" x2="552.0" y2="142" class="s-muted" stroke-width="1.5" marker-end="url(#a44)"/>
+<rect x="554.0" y="120" width="132" height="44" rx="8" class="f-surface s-line"/>
+<text x="620.0" y="147" text-anchor="middle" font-size="12" class="f-ink" data-l="zh">对齐后的模型</text><text x="620.0" y="147" text-anchor="middle" font-size="12" class="f-ink" data-l="en">aligned model</text>
+<text x="350" y="202" text-anchor="middle" font-size="12.5" class="f-muted" data-l="zh">两者的最优解相同，即 π* ∝ π_ref · exp(r / β)</text><text x="350" y="202" text-anchor="middle" font-size="12.5" class="f-muted" data-l="en">both share the optimum π* ∝ π_ref · exp(r / β)</text>
+</svg>

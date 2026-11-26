@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "pipeline",
+ "level": 2,
+ "minutes": 30,
+ "network": true,
+ "title": {
+  "zh": "手写带温度的采样",
+  "en": "Sampling with temperature by hand"
+ },
+ "prompt": {
+  "zh": "实现从 `softmax(logits / T)` 中抽取一个 token，并把它接进生成循环。测试会检查四件事，即大量抽样后的频率接近概率、温度很低时等同于贪心、同一个随机种子给出同样的输出、采样文本的重复少于贪心文本。",
+  "en": "Implement drawing one token from `softmax(logits / T)` and plug it into the generation loop. The tests check four things, namely that frequencies over many draws approach the probabilities, that a very low temperature equals greedy, that the same random seed gives the same output, and that sampled text repeats less than greedy text."
+ },
+ "hints": [
+  {
+   "zh": "`torch.multinomial(probs, 1, generator=generator)` 按给定概率抽一个下标，返回形状为 `(1,)` 的张量，取 `[0]` 得到 0 维张量。",
+   "en": "`torch.multinomial(probs, 1, generator=generator)` draws one index with the given probabilities and returns a tensor of shape `(1,)`. Take `[0]` for a 0-dim tensor."
+  },
+  {
+   "zh": "生成循环与上一题相同，只是把 `argmax` 换成 `sample_next(logits, temperature, generator=g)`。随机数生成器 `g` 要在循环外面创建一次。",
+   "en": "The loop is the same as in the previous exercise with `argmax` replaced by `sample_next(logits, temperature, generator=g)`. Create the generator `g` once, outside the loop."
+  }
+ ]
+}

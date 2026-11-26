@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "ce_mle_ppl",
+ "level": 2,
+ "minutes": 30,
+ "network": true,
+ "title": {
+  "zh": "计算 GPT-2 在一段文本上的困惑度",
+  "en": "Perplexity of GPT-2 on a piece of text"
+ },
+ "prompt": {
+  "zh": "加载 GPT-2 small（约 500 MB，CPU 可运行），自己完成“错位一格”的对齐并计算每个 token 的负对数似然。测试会与 Hugging Face 传入 `labels` 时返回的 loss 对比，并验证把词序打乱后困惑度大幅上升。",
+  "en": "Load GPT-2 small (about 500 MB, runs on CPU), do the shift-by-one alignment yourself and compute the negative log-likelihood of every token. The tests compare with the loss Hugging Face returns when `labels` is passed, and check that shuffling the words raises the perplexity sharply."
+ },
+ "hints": [
+  {
+   "zh": "位置 $t$ 的 logits 预测的是第 $t+1$ 个 token。所以预测用 `logits[0, :-1]`，目标用 `input_ids[0, 1:]`，两者长度都是 $T-1$。",
+   "en": "The logits at position $t$ predict token $t+1$. Use `logits[0, :-1]` as predictions and `input_ids[0, 1:]` as targets. Both have length $T-1$."
+  },
+  {
+   "zh": "最后一个位置的 logits 没有对应的目标，第一个 token 没有上文，所以都不计入。",
+   "en": "The logits at the last position have no target and the first token has no context, so neither is scored."
+  }
+ ]
+}

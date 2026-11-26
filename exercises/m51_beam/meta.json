@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "sampling",
+ "level": 3,
+ "minutes": 35,
+ "network": true,
+ "title": {
+  "zh": "实现 beam search",
+  "en": "Implement beam search"
+ },
+ "prompt": {
+  "zh": "在 GPT-2 上实现不含结束符处理的 beam search。测试会检查宽度为 1 时与贪心解码一致，宽度为 4 时与 `model.generate(num_beams=4)` 的结果一致，并比较两者找到的序列的对数概率。运行后请阅读打印出的文本，注意概率更高的续写是否读起来更好。",
+  "en": "Implement beam search without end-of-sequence handling on GPT-2. The tests check that width 1 agrees with greedy decoding, that width 4 agrees with the result of `model.generate(num_beams=4)`, and compare the log-probabilities of the sequences the two find. Read the printed texts afterwards and consider whether the more probable continuations read better."
+ },
+ "hints": [
+  {
+   "zh": "`total = (scores[:, None] + logp).view(-1)` 把所有候选排成一个长度为 `b * V` 的向量，对它做 `topk(beam_size)`。",
+   "en": "`total = (scores[:, None] + logp).view(-1)` lines all candidates up in a vector of length `b * V`, on which `topk(beam_size)` is taken."
+  },
+  {
+   "zh": "由扁平下标还原出 `parent = flat // V` 和 `token = flat % V`，新的候选是 `torch.cat([beams[parent], token[:, None]], dim=1)`。",
+   "en": "Recover `parent = flat // V` and `token = flat % V` from the flat index. The new candidates are `torch.cat([beams[parent], token[:, None]], dim=1)`."
+  }
+ ]
+}

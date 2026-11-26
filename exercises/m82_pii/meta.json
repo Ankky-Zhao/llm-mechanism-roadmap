@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "hallucination",
+ "level": 2,
+ "minutes": 30,
+ "network": true,
+ "title": {
+  "zh": "PII 脱敏与反事实偏见探测",
+  "en": "PII redaction and a counterfactual bias probe"
+ },
+ "prompt": {
+  "zh": "第一部分实现卡号的 Luhn 校验和基于正则表达式的脱敏，测试文本中的姓名、地址和号码均为虚构。第二部分实现一个最简单的反事实探测，比较 GPT-2 在不同职业之后预测 he 与 she 的概率。请查看打印出的脱敏结果中哪些内容没有被去除，以及各职业的数值。",
+  "en": "The first part implements the Luhn check for card numbers and redaction with regular expressions. All names, addresses and numbers in the test text are invented. The second part implements the simplest counterfactual probe, comparing the probabilities GPT-2 assigns to he and she after different occupations. Look at what the printed redaction leaves in place and at the values for the occupations."
+ },
+ "hints": [
+  {
+   "zh": "Luhn 校验从最右边的数字开始，用 `enumerate(reversed(digits))`，下标为奇数的数字加倍。",
+   "en": "The Luhn check starts from the rightmost digit. Use `enumerate(reversed(digits))` and double the digits at odd indices."
+  },
+  {
+   "zh": "`CARD.sub(lambda m: '[CARD]' if luhn_valid(m.group()) else m.group(), text)` 可以只替换通过校验的数字串。",
+   "en": "`CARD.sub(lambda m: '[CARD]' if luhn_valid(m.group()) else m.group(), text)` replaces only the digit strings that pass the check."
+  },
+  {
+   "zh": "代词前要带空格，即 `tokenizer(' he').input_ids[0]`。",
+   "en": "The pronouns need a leading space, `tokenizer(' he').input_ids[0]`."
+  }
+ ]
+}

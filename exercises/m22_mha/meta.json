@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "multihead",
+ "level": 2,
+ "minutes": 40,
+ "title": {
+  "zh": "实现多头注意力并与 PyTorch 对比",
+  "en": "Implement multi-head attention and compare with PyTorch"
+ },
+ "prompt": {
+  "zh": "补全 `MultiHeadAttention.forward`，重点是五步形状变换。测试会把 `nn.MultiheadAttention` 的权重复制到你的模块里，在头数为 1、4、8 时比较输出和每个头的注意力权重，并验证参数量与头数无关。",
+  "en": "Complete `MultiHeadAttention.forward`, where the five shape changes are the main point. The tests copy the weights of `nn.MultiheadAttention` into your module, compare the output and the per-head attention weights for 1, 4 and 8 heads, and verify that the parameter count does not depend on the number of heads."
+ },
+ "hints": [
+  {
+   "zh": "`self.qkv(x).chunk(3, dim=-1)` 按 query、key、value 的顺序得到三个 `(B, T, d)` 的张量。",
+   "en": "`self.qkv(x).chunk(3, dim=-1)` gives three tensors of shape `(B, T, d)` in the order query, key, value."
+  },
+  {
+   "zh": "拆头是 `t.view(B, T, n_head, d_head).transpose(1, 2)`。不能直接 `view(B, n_head, T, d_head)`，那样会把不同位置的数据混在一起。",
+   "en": "Split heads with `t.view(B, T, n_head, d_head).transpose(1, 2)`. A direct `view(B, n_head, T, d_head)` would mix data from different positions."
+  },
+  {
+   "zh": "合并时先 `transpose(1, 2)` 换回 `(B, T, n_head, d_head)`，再 `.contiguous().view(B, T, d)`。缩放用的是 `d_head` 的平方根。",
+   "en": "To merge, first `transpose(1, 2)` back to `(B, T, n_head, d_head)`, then `.contiguous().view(B, T, d)`. The scaling uses the square root of `d_head`."
+  }
+ ]
+}

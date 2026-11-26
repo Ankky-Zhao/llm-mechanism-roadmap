@@ -1,0 +1,20 @@
+<svg viewBox="0 0 700 250" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<defs><marker id="a43" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" class="f-ink"/></marker></defs>
+<rect x="14" y="30" width="208" height="110" rx="10" class="f-surface s-line"/>
+<text x="118" y="58" text-anchor="middle" font-size="13.5" class="f-ink" font-weight="600" data-l="zh">① 监督微调</text><text x="118" y="58" text-anchor="middle" font-size="13.5" class="f-ink" font-weight="600" data-l="en">① Supervised fine-tuning</text>
+<text x="118" y="88" text-anchor="middle" font-size="12.5" class="f-muted" data-l="zh">示范数据</text><text x="118" y="88" text-anchor="middle" font-size="12.5" class="f-muted" data-l="en">demonstrations</text>
+<text x="118" y="112" text-anchor="middle" font-size="12.5" class="f-muted" data-l="zh">→ 初始模型 π_ref</text><text x="118" y="112" text-anchor="middle" font-size="12.5" class="f-muted" data-l="en">→ initial model π_ref</text>
+<rect x="246" y="30" width="208" height="110" rx="10" class="f-surface s-line"/>
+<text x="350" y="58" text-anchor="middle" font-size="13.5" class="f-ink" font-weight="600" data-l="zh">② 奖励模型</text><text x="350" y="58" text-anchor="middle" font-size="13.5" class="f-ink" font-weight="600" data-l="en">② Reward model</text>
+<text x="350" y="88" text-anchor="middle" font-size="12.5" class="f-muted" data-l="zh">人对回答两两比较</text><text x="350" y="88" text-anchor="middle" font-size="12.5" class="f-muted" data-l="en">humans compare pairs</text>
+<text x="350" y="112" text-anchor="middle" font-size="12.5" class="f-muted" data-l="zh">→ 打分函数 r(x, y)</text><text x="350" y="112" text-anchor="middle" font-size="12.5" class="f-muted" data-l="en">→ scoring function r(x, y)</text>
+<rect x="478" y="30" width="208" height="110" rx="10" class="f-surface s-line"/>
+<text x="582" y="58" text-anchor="middle" font-size="13.5" class="f-ink" font-weight="600" data-l="zh">③ 强化学习</text><text x="582" y="58" text-anchor="middle" font-size="13.5" class="f-ink" font-weight="600" data-l="en">③ Reinforcement learning</text>
+<text x="582" y="88" text-anchor="middle" font-size="12.5" class="f-muted" data-l="zh">最大化 r − β·KL</text><text x="582" y="88" text-anchor="middle" font-size="12.5" class="f-muted" data-l="en">maximize r − β·KL</text>
+<text x="582" y="112" text-anchor="middle" font-size="12.5" class="f-muted" data-l="zh">→ 最终模型 π</text><text x="582" y="112" text-anchor="middle" font-size="12.5" class="f-muted" data-l="en">→ final model π</text>
+<line x1="224" y1="85" x2="244" y2="85" class="s-muted" stroke-width="1.5" marker-end="url(#a43)"/>
+<line x1="456" y1="85" x2="476" y2="85" class="s-muted" stroke-width="1.5" marker-end="url(#a43)"/>
+<path d="M118,142 L118,196 L582,196 L582,144" fill="none" class="s-muted" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#a43)"/>
+<text x="350" y="188" text-anchor="middle" font-size="12" class="f-muted" data-l="zh">π_ref 被冻结，作为 KL 项的参照</text><text x="350" y="188" text-anchor="middle" font-size="12" class="f-muted" data-l="en">π_ref is frozen and serves as the reference of the KL term</text>
+<text x="350" y="232" text-anchor="middle" font-size="12.5" class="f-accent mono" data-l="zh">理想结果是 π*(y) ∝ π_ref(y) · exp(r(y) / β)</text><text x="350" y="232" text-anchor="middle" font-size="12.5" class="f-accent mono" data-l="en">the ideal result is π*(y) ∝ π_ref(y) · exp(r(y) / β)</text>
+</svg>

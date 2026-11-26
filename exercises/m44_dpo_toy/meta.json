@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "dpo",
+ "level": 2,
+ "minutes": 30,
+ "title": {
+  "zh": "在玩具策略上验证 DPO 收敛到 RLHF 的最优解",
+  "en": "Verify on a toy policy that DPO reaches the RLHF optimum"
+ },
+ "prompt": {
+  "zh": "沿用 4.3 的玩具问题，一个提示、6 个候选回答。模拟的标注者按一个隐藏的奖励做两两比较。只用这些比较结果和 DPO 损失训练策略，全程不使用奖励的数值。测试会检查训练得到的策略与 4.3 推出的闭式最优解一致，并且隐含奖励还原了隐藏的奖励。",
+  "en": "Continue with the toy problem of 4.3, one prompt and 6 candidate responses. Simulated annotators compare pairs according to a hidden reward. Train the policy with these comparisons and the DPO loss alone, never using the reward values. The tests check that the trained policy agrees with the closed-form optimum derived in 4.3 and that the implicit reward recovers the hidden one."
+ },
+ "hints": [
+  {
+   "zh": "每一步先算 `logp = torch.log_softmax(theta, -1)`，再用 `logp[winners]` 和 `logp[losers]` 取出每次比较中两个回答的对数概率。",
+   "en": "Each step first computes `logp = torch.log_softmax(theta, -1)` and then picks the log-probabilities of the two responses of each comparison with `logp[winners]` and `logp[losers]`."
+  },
+  {
+   "zh": "手动梯度下降的写法与 4.3 的奖励模型练习相同，更新放在 `torch.no_grad()` 里，每步之后把梯度清零。",
+   "en": "Manual gradient descent is written as in the reward-model exercise of 4.3, with the update inside `torch.no_grad()` and the gradient zeroed after every step."
+  }
+ ]
+}

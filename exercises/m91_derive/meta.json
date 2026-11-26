@@ -1,0 +1,32 @@
+{
+ "kind": "derivation",
+ "module": "attn_viz",
+ "level": 2,
+ "minutes": 30,
+ "title": {
+  "zh": "注意力权重说明了什么，没有说明什么",
+  "en": "What attention weights show and what they do not"
+ },
+ "prompt": {
+  "zh": "在纸上完成。\n(a) 位置 $i$ 可以读取 $i$ 个位置（含自身）。说明一行注意力权重的熵最小为 0，最大为 $\\log i$，并指出各自在什么情况下取到。\n(b) 一个头在位置 3 的权重为 $a = (0.1, 0.8, 0.1)$，三个位置的值向量经过 $W_O W_V$ 之后的范数分别为 $5, 0.2, 3$。计算各位置贡献 $c_{3j}$ 的范数，并说明哪个位置对这个头的输出影响最大。\n(c) GPT-2 中一层的 12 个头的输出拼接成 $z = [z_0; \\dots; z_{11}]$，再经过线性层 $\\text{c\\_proj}(z) = W z + b$。说明把 $z_h$ 置零恰好等于从这一层的输出中去掉第 $h$ 个头的那一项，而偏置 $b$ 不受影响。\n(d) 假设观察到模型在生成答案时，有若干个头把很高的权重放在工具返回的结果上，模型的回答却与工具结果不一致。给出两种不同的解释，并各设计一个可以区分它们的实验。",
+  "en": "Work on paper.\n(a) Position $i$ can read $i$ positions (itself included). Show that the entropy of a row of attention weights is at least 0 and at most $\\log i$, and say when each is attained.\n(b) A head has the weights $a = (0.1, 0.8, 0.1)$ at position 3, and the value vectors of the three positions have norms $5, 0.2, 3$ after $W_O W_V$. Compute the norms of the contributions $c_{3j}$ and say which position affects the output of this head most.\n(c) In GPT-2 the outputs of the 12 heads of a layer are concatenated into $z = [z_0; \\dots; z_{11}]$ and passed through the linear layer $\\text{c\\_proj}(z) = W z + b$. Show that zeroing $z_h$ removes exactly the term of head $h$ from the output of the layer, leaving the bias $b$ untouched.\n(d) Suppose that while the model generates its answer several heads put a high weight on the result returned by a tool, and the answer nonetheless disagrees with the tool result. Give two different explanations and design for each an experiment that can tell them apart."
+ },
+ "hints": [
+  {
+   "zh": "(a) 熵是凹函数，在均匀分布处取最大值。",
+   "en": "(a) Entropy is concave and is maximal at the uniform distribution."
+  },
+  {
+   "zh": "(c) 把 $W$ 按列分成 12 块，$W z = \\sum_h W_h z_h$。",
+   "en": "(c) Split $W$ by columns into 12 blocks, so that $W z = \\sum_h W_h z_h$."
+  },
+  {
+   "zh": "(d) 参考推导 1 的第 3 步和第 4 步，以及正文中关于冗余和间接作用的讨论。",
+   "en": "(d) See steps 3 and 4 of derivation 1 and the discussion of redundancy and indirect effects in the text."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 熵 $H = -\\sum_j a_j \\log a_j$ 的每一项都非负，所以 $H \\ge 0$，当全部权重集中在一个位置时等号成立。对上界，由 Jensen 不等式，$H = \\sum_j a_j \\log \\frac{1}{a_j} \\le \\log \\sum_j a_j \\cdot \\frac{1}{a_j} = \\log i$，当 $a_j = 1/i$ 即均匀分布时等号成立。第一个位置只能读取自身，熵恒为 0。\n\n(b) $\\lVert c_{31} \\rVert = 0.1 \\times 5 = 0.5$，$\\lVert c_{32} \\rVert = 0.8 \\times 0.2 = 0.16$，$\\lVert c_{33} \\rVert = 0.1 \\times 3 = 0.3$。权重最高的位置 2 贡献最小，权重只有 0.1 的位置 1 贡献最大。这里只比较了范数，方向是否与输出相关还需要另行考察。\n\n(c) 把 $W$ 按列分成 12 块 $W = [W_0, \\dots, W_{11}]$，每块 64 列，则 $W z + b = \\sum_{h} W_h z_h + b$。把 $z_h$ 置零后，和中恰好少了 $W_h z_h$ 这一项，其他头的项和偏置 $b$ 都不变。这就是练习 3 在 c_proj 的输入上操作的原因。如果改为在 c_proj 的输出上操作，各个头的贡献已经加在一起，无法单独去掉其中一个。\n\n(d) 解释一，这些头读取了工具结果，但写入残差流的内容很小，或者方向与答案 token 无关。它们可能只是在读取格式信息，例如括号和引号的位置。检验办法是计算这些头在答案位置上的输出对“工具给出的答案”与“模型给出的答案”两者 logit 差的直接贡献（9.2 的方法），并消融这些头看回答是否改变。\n\n解释二，这些头确实把工具给出的答案写向了输出，但别的组件以更大的幅度写入了模型自身记忆中的答案，例如靠后的前馈子层。检验办法是用 logit lens 逐层查看两个候选答案的名次，看工具给出的答案是否在某些层占上风而后被压过，再对起压制作用的组件做消融或修补（9.3）。\n\n两种解释并不互斥。只凭注意力权重无法区分它们，这正是需要干预实验的原因。",
+  "en": "(a) Every term of the entropy $H = -\\sum_j a_j \\log a_j$ is non-negative, so $H \\ge 0$, with equality when all weight sits on one position. For the upper bound, by the inequality of Jensen, $H = \\sum_j a_j \\log \\frac{1}{a_j} \\le \\log \\sum_j a_j \\cdot \\frac{1}{a_j} = \\log i$, with equality for $a_j = 1/i$, the uniform distribution. The first position can read only itself and its entropy is always 0.\n\n(b) $\\lVert c_{31} \\rVert = 0.1 \\times 5 = 0.5$, $\\lVert c_{32} \\rVert = 0.8 \\times 0.2 = 0.16$, $\\lVert c_{33} \\rVert = 0.1 \\times 3 = 0.3$. Position 2 with the highest weight contributes least, and position 1 with a weight of only 0.1 contributes most. Only norms are compared here, and whether the directions are relevant to the output has to be examined separately.\n\n(c) Split $W$ by columns into 12 blocks $W = [W_0, \\dots, W_{11}]$ of 64 columns each. Then $W z + b = \\sum_{h} W_h z_h + b$. With $z_h$ set to zero the sum lacks exactly the term $W_h z_h$, and the terms of the other heads and the bias $b$ are unchanged. This is why exercise 3 operates on the input of c_proj. On the output of c_proj the contributions of the heads are already added together and a single one can no longer be removed.\n\n(d) Explanation one. The heads read the tool result, while what they write into the residual stream is small or points in a direction unrelated to the answer tokens. They may be reading formatting information alone, such as the positions of brackets and quotation marks. The test is to compute the direct contribution of the outputs of these heads at the answer position to the logit difference between the answer given by the tool and the answer given by the model (the method of 9.2), and to ablate the heads and see whether the answer changes.\n\nExplanation two. The heads do write the answer given by the tool toward the output, while other components write the answer from the memory of the model with a larger magnitude, for instance late feed-forward sublayers. The test is to follow the ranks of the two candidate answers layer by layer with the logit lens, to see whether the answer of the tool leads in some layers and is then overtaken, and to ablate or patch the components that do the overriding (9.3).\n\nThe two explanations do not exclude each other. Attention weights alone cannot tell them apart, which is the reason intervention experiments are needed."
+ }
+}

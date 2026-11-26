@@ -1,0 +1,29 @@
+<svg viewBox="0 0 700 150" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<defs><marker id="ar22" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" class="f-ink"/></marker></defs>
+<rect x="8" y="36" width="102" height="70" rx="8" class="f-surface s-line"/>
+<text x="59.0" y="64" text-anchor="middle" font-size="11.5" class="f-ink" font-weight="600" data-l="zh">输入 x</text><text x="59.0" y="64" text-anchor="middle" font-size="11.5" class="f-ink" font-weight="600" data-l="en">input x</text>
+<text x="59.0" y="88" text-anchor="middle" font-size="10.5" class="f-muted mono">(B, T, d)</text>
+<line x1="111" y1="71" x2="123" y2="71" class="s-muted" stroke-width="1.5" marker-end="url(#ar22)"/>
+<rect x="124" y="36" width="102" height="70" rx="8" class="f-surface s-line"/>
+<text x="175.0" y="64" text-anchor="middle" font-size="11.5" class="f-ink" font-weight="600" data-l="zh">qkv 投影</text><text x="175.0" y="64" text-anchor="middle" font-size="11.5" class="f-ink" font-weight="600" data-l="en">qkv projection</text>
+<text x="175.0" y="88" text-anchor="middle" font-size="10.5" class="f-muted mono">3 × (B, T, d)</text>
+<line x1="227" y1="71" x2="239" y2="71" class="s-muted" stroke-width="1.5" marker-end="url(#ar22)"/>
+<rect x="240" y="36" width="102" height="70" rx="8" class="f-soft s-accent"/>
+<text x="291.0" y="64" text-anchor="middle" font-size="11.5" class="f-ink" font-weight="600" data-l="zh">拆成 h 个头</text><text x="291.0" y="64" text-anchor="middle" font-size="11.5" class="f-ink" font-weight="600" data-l="en">split into h heads</text>
+<text x="291.0" y="88" text-anchor="middle" font-size="10.5" class="f-muted mono">(B, h, T, d/h)</text>
+<line x1="343" y1="71" x2="355" y2="71" class="s-muted" stroke-width="1.5" marker-end="url(#ar22)"/>
+<rect x="356" y="36" width="102" height="70" rx="8" class="f-soft s-accent"/>
+<text x="407.0" y="64" text-anchor="middle" font-size="11.5" class="f-ink" font-weight="600" data-l="zh">每个头做注意力</text><text x="407.0" y="64" text-anchor="middle" font-size="11.5" class="f-ink" font-weight="600" data-l="en">attention per head</text>
+<text x="407.0" y="88" text-anchor="middle" font-size="10.5" class="f-muted mono">A: (B, h, T, T)</text>
+<line x1="459" y1="71" x2="471" y2="71" class="s-muted" stroke-width="1.5" marker-end="url(#ar22)"/>
+<rect x="472" y="36" width="102" height="70" rx="8" class="f-soft s-accent"/>
+<text x="523.0" y="64" text-anchor="middle" font-size="11.5" class="f-ink" font-weight="600" data-l="zh">加权求和</text><text x="523.0" y="64" text-anchor="middle" font-size="11.5" class="f-ink" font-weight="600" data-l="en">weighted sum</text>
+<text x="523.0" y="88" text-anchor="middle" font-size="10.5" class="f-muted mono">(B, h, T, d/h)</text>
+<line x1="575" y1="71" x2="587" y2="71" class="s-muted" stroke-width="1.5" marker-end="url(#ar22)"/>
+<rect x="588" y="36" width="102" height="70" rx="8" class="f-surface s-line"/>
+<text x="639.0" y="64" text-anchor="middle" font-size="11.5" class="f-ink" font-weight="600" data-l="zh">合并 + W_O</text><text x="639.0" y="64" text-anchor="middle" font-size="11.5" class="f-ink" font-weight="600" data-l="en">merge + W_O</text>
+<text x="639.0" y="88" text-anchor="middle" font-size="10.5" class="f-muted mono">(B, T, d)</text>
+<path d="M240,118 L240,126 L574,126 L574,118" fill="none" class="s-accent" stroke-width="1.2"/>
+<text x="407.0" y="143" text-anchor="middle" font-size="11.5" class="f-muted" data-l="zh">h 被当作批量维度，所有头并行计算</text><text x="407.0" y="143" text-anchor="middle" font-size="11.5" class="f-muted" data-l="en">h is treated as a batch dimension, all heads run in parallel</text>
+<text x="8" y="22" text-anchor="start" font-size="12.5" class="f-ink" data-l="zh">GPT-2 small：d = 768，h = 12，d/h = 64</text><text x="8" y="22" text-anchor="start" font-size="12.5" class="f-ink" data-l="en">GPT-2 small: d = 768, h = 12, d/h = 64</text>
+</svg>

@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "patching",
+ "network": true,
+ "requires": [
+  "m93_patch"
+ ],
+ "level": 3,
+ "minutes": 40,
+ "title": {
+  "zh": "修补注意力头",
+  "en": "Patch attention heads"
+ },
+ "prompt": {
+  "zh": "实现对单个注意力头输出的修补，可以限定在某一个位置上，并计算 144 个头的修补效应。测试检查同一层的 12 个头全部修补等于替换整层的头输出、第 8 层第 10 个头只在最后一个位置起作用，以及效应最强的头与 Wang 等人描述的回路相符。请阅读打印出的表，注意哪些头在 S2 位置起作用，哪些在最后一个位置起作用。运行时间约 45 秒。",
+  "en": "Implement patching of the output of a single attention head, optionally restricted to one position, and compute the patching effect of the 144 heads. The tests check that patching all 12 heads of a layer equals replacing the head outputs of the whole layer, that head 10 of layer 8 acts at the last position only, and that the heads with the strongest effect agree with the circuit described by Wang et al. Read the printed table and note which heads act at position S2 and which at the last position. The run takes about 45 seconds."
+ },
+ "hints": [
+  {
+   "zh": "头 $h$ 的输出是 c_proj 输入的切片 `[h * 64, (h + 1) * 64)`，与 9.1 的消融相同，只是把置零改为换成干净运行的值。",
+   "en": "The output of head $h$ is the slice `[h * 64, (h + 1) * 64)` of the input of c_proj, as in the ablation of 9.1, with zeroing replaced by the value of the clean run."
+  },
+  {
+   "zh": "`z[:, pos, sl] = clean_cache[('z', layer)][:, pos, sl]`，其中 `sl = slice(head * d, (head + 1) * d)`。",
+   "en": "`z[:, pos, sl] = clean_cache[('z', layer)][:, pos, sl]` with `sl = slice(head * d, (head + 1) * d)`."
+  }
+ ]
+}

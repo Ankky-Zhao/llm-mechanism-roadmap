@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "agents",
+ "level": 2,
+ "minutes": 35,
+ "title": {
+  "zh": "工具注册与参数校验",
+  "en": "Tool registry and argument validation"
+ },
+ "prompt": {
+  "zh": "实现一个工具注册表。它从 Python 函数的签名和文档字符串生成 JSON 模式，校验模型给出的参数，并在执行时把所有错误转换成文本返回。这个练习不需要模型，全部是普通的 Python。",
+  "en": "Implement a tool registry. It generates a JSON schema from the signature and docstring of a Python function, validates the arguments given by a model and, on execution, turns every error into returned text. This exercise needs no model and is ordinary Python throughout."
+ },
+ "hints": [
+  {
+   "zh": "`inspect.signature(fn).parameters` 是一个有序字典，值的 `.annotation` 是类型标注，`.default` 是默认值，没有默认值时等于 `inspect.Parameter.empty`。",
+   "en": "`inspect.signature(fn).parameters` is an ordered dict whose values have `.annotation` for the type hint and `.default` for the default, equal to `inspect.Parameter.empty` when there is none."
+  },
+  {
+   "zh": "类型检查要用 `type(value) is int` 这样的写法。`isinstance(True, int)` 在 Python 中为真，会把布尔值误当成整数。",
+   "en": "Type checks should be written like `type(value) is int`. `isinstance(True, int)` is true in Python and would mistake booleans for integers."
+  },
+  {
+   "zh": "`call` 中先调用 `validate`，有错误就直接返回。执行函数的部分放在 `try` 里。",
+   "en": "In `call` run `validate` first and return at once on errors. The execution of the function goes inside a `try`."
+  }
+ ]
+}

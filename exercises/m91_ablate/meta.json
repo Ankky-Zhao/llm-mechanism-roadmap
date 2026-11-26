@@ -1,0 +1,33 @@
+{
+ "kind": "code",
+ "module": "attn_viz",
+ "network": true,
+ "requires": [
+  "m91_extract",
+  "m91_heads"
+ ],
+ "level": 3,
+ "minutes": 45,
+ "title": {
+  "zh": "用消融检验归纳头的作用",
+  "en": "Test the role of induction heads by ablation"
+ },
+ "prompt": {
+  "zh": "用前向预钩子把指定注意力头的输出置零，并在退出时移除钩子。测试检查不消融时输出不变、退出后模型恢复原状、被消融的头对应的切片确实为零，随后比较去掉归纳头与去掉随机选取的头对重复序列损失的影响。请阅读打印出的全部结果，其中包括单个头的消融和普通文本上的结果。运行时间约 20 秒。",
+  "en": "Use forward pre-hooks to zero the output of given attention heads and remove the hooks on exit. The tests check that the output is unchanged without ablation, that the model is restored after exit and that the slices of the ablated heads are indeed zero, and then compare the effect on the loss of repeated sequences of removing induction heads and of removing randomly chosen heads. Read all printed results, which include the ablation of single heads and the result on ordinary text. The run takes about 20 seconds."
+ },
+ "hints": [
+  {
+   "zh": "预钩子的签名是 `hook(module, args)`，`args[0]` 是 c_proj 的输入，形状为 `(1, T, 768)`。返回 `(x,)` 即可替换输入。应先 `clone()` 再修改。",
+   "en": "A pre-hook has the signature `hook(module, args)`, and `args[0]` is the input of c_proj with shape `(1, T, 768)`. Returning `(x,)` replaces the input. Call `clone()` before modifying."
+  },
+  {
+   "zh": "在循环里定义钩子时，用一个外层函数 `make_hook(hs)` 把当前层的头列表固定下来。直接在循环体中写闭包会使所有钩子都引用最后一层的列表。",
+   "en": "When defining hooks in a loop, fix the list of heads of the current layer with an outer function `make_hook(hs)`. A closure written directly in the loop body makes all hooks refer to the list of the last layer."
+  },
+  {
+   "zh": "`register_forward_pre_hook` 返回一个句柄，`handle.remove()` 移除钩子。把 `yield` 放在 `try` 中、移除放在 `finally` 中，可以保证出错时模型也会恢复。",
+   "en": "`register_forward_pre_hook` returns a handle, and `handle.remove()` removes the hook. Putting `yield` inside `try` and the removal inside `finally` restores the model even when an error occurs."
+  }
+ ]
+}

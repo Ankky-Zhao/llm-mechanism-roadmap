@@ -1,0 +1,32 @@
+{
+ "kind": "derivation",
+ "module": "logit_lens",
+ "level": 2,
+ "minutes": 30,
+ "title": {
+  "zh": "残差流分解与 logit 差",
+  "en": "The decomposition of the residual stream and logit differences"
+ },
+ "prompt": {
+  "zh": "在纸上完成。\n(a) 证明对所有 logit 加上同一个常数 $c$ 不改变 softmax 的输出，并据此说明两个 token 的概率之比只取决于它们的 logit 差。\n(b) 设 $d = 3$，$g = (1, 1, 1)$，$b = 0$，忽略 $\\epsilon$。残差流由两项组成，$x_1 = (2, 0, -2)$，$x_2 = (1, 1, -2)$。方向 $u = w_a - w_b = (1, 0, -1)$。计算 $\\sigma$、两项各自的贡献以及 logit 差，并验证贡献之和等于直接计算的结果。\n(c) 说明为什么 $\\operatorname{LN}(\\operatorname{LN}(x))$ 一般不等于 $\\operatorname{LN}(x)$，并指出在什么特殊情况下两者相等。\n(d) 说明 logit lens 在第 $k$ 层之后的结果，等于把完整模型中第 $k$ 层及以后所有子层的输出置零后得到的输出。再说明它为什么不等于“模型在只有 $k$ 层时会输出什么”。",
+  "en": "Work on paper.\n(a) Prove that adding the same constant $c$ to all logits leaves the output of the softmax unchanged, and conclude that the ratio of the probabilities of two tokens depends only on the difference of their logits.\n(b) Let $d = 3$, $g = (1, 1, 1)$, $b = 0$ and ignore $\\epsilon$. The residual stream consists of two terms, $x_1 = (2, 0, -2)$ and $x_2 = (1, 1, -2)$. The direction is $u = w_a - w_b = (1, 0, -1)$. Compute $\\sigma$, the contribution of each term and the logit difference, and verify that the contributions sum to the directly computed result.\n(c) Explain why $\\operatorname{LN}(\\operatorname{LN}(x))$ in general differs from $\\operatorname{LN}(x)$, and name the special case in which the two agree.\n(d) Show that the result of the logit lens after layer $k$ equals the output obtained by zeroing in the full model the outputs of all sublayers from layer $k$ on. Then explain why it is not what a model with only $k$ layers would output."
+ },
+ "hints": [
+  {
+   "zh": "(b) 先求和 $x = x_1 + x_2$，再算它的均值和标准差。",
+   "en": "(b) Sum $x = x_1 + x_2$ and then compute its mean and standard deviation."
+  },
+  {
+   "zh": "(c) 考虑 $\\operatorname{LN}(x)$ 的均值和标准差分别是多少。",
+   "en": "(c) Consider what the mean and the standard deviation of $\\operatorname{LN}(x)$ are."
+  },
+  {
+   "zh": "(d) 使用推导 1 的最后一步。",
+   "en": "(d) Use the last step of derivation 1."
+  }
+ ],
+ "solution": {
+  "zh": "(a) $\\frac{e^{z_v + c}}{\\sum_k e^{z_k + c}} = \\frac{e^{c} e^{z_v}}{e^{c} \\sum_k e^{z_k}} = \\frac{e^{z_v}}{\\sum_k e^{z_k}}$。两个 token 的概率之比为 $\\frac{p_a}{p_b} = \\frac{e^{z_a}}{e^{z_b}} = e^{z_a - z_b}$，分母相同而消去，所以只取决于 logit 差。\n\n(b) $x = (3, 1, -4)$，$\\mu(x) = 0$，$\\sigma = \\sqrt{(9 + 1 + 16)/3} = \\sqrt{26/3} \\approx 2.944$。两项的均值分别为 $\\mu(x_1) = 0$ 和 $\\mu(x_2) = 0$，无需再去中心化。$u^\\top x_1 = 2 + 2 = 4$，贡献为 $4 / 2.944 \\approx 1.359$。$u^\\top x_2 = 1 + 2 = 3$，贡献为 $3 / 2.944 \\approx 1.019$。两者之和约为 $2.378$。直接计算，$\\operatorname{LN}(x) = (3, 1, -4) / 2.944$，$u^\\top \\operatorname{LN}(x) = (3 + 4) / 2.944 \\approx 2.378$，两者一致。\n\n(c) $\\operatorname{LN}(x)$ 的均值是 $\\mu(g \\odot \\hat{x} + b)$，标准差是 $\\sigma(g \\odot \\hat{x} + b)$，其中 $\\hat{x}$ 是标准化后的向量。由于 $g$ 的各分量不同，$b$ 也不为零，这个向量的均值一般不是 0，标准差一般不是 1，再做一次归一化会重新平移和缩放，并再乘一次 $g$、再加一次 $b$。只有当 $g$ 的各分量都等于 1 且 $b = 0$ 时，$\\operatorname{LN}(x) = \\hat{x}$ 的均值为 0、标准差为 1（忽略 $\\epsilon$），第二次归一化才不改变它。训练好的模型不满足这个条件。\n\n(d) 由推导 1，$x^{(L)} = x^{(0)} + \\sum_{\\ell < k} (A^{(\\ell)} + F^{(\\ell)}) + \\sum_{\\ell \\ge k} (A^{(\\ell)} + F^{(\\ell)})$。把第二个和中的各项置零后，最后的残差流就是 $x^{(k)}$，再经过最终的 LayerNorm 和输出矩阵，得到的正是 logit lens 的结果。一个只有 $k$ 层的模型则会在训练中学到让第 $k$ 层的输出直接适合被解码，它的权重与 12 层模型的前 $k$ 层不同。12 层模型的第 $k$ 层是为后面的层准备输入的，不是为输出矩阵准备的。",
+  "en": "(a) $\\frac{e^{z_v + c}}{\\sum_k e^{z_k + c}} = \\frac{e^{c} e^{z_v}}{e^{c} \\sum_k e^{z_k}} = \\frac{e^{z_v}}{\\sum_k e^{z_k}}$. The ratio of the probabilities of two tokens is $\\frac{p_a}{p_b} = \\frac{e^{z_a}}{e^{z_b}} = e^{z_a - z_b}$, since the common denominator cancels, so it depends on the logit difference alone.\n\n(b) $x = (3, 1, -4)$, $\\mu(x) = 0$, $\\sigma = \\sqrt{(9 + 1 + 16)/3} = \\sqrt{26/3} \\approx 2.944$. The means of the two terms are $\\mu(x_1) = 0$ and $\\mu(x_2) = 0$, so no further centring is needed. $u^\\top x_1 = 2 + 2 = 4$ gives a contribution of $4 / 2.944 \\approx 1.359$. $u^\\top x_2 = 1 + 2 = 3$ gives $3 / 2.944 \\approx 1.019$. Their sum is about $2.378$. Directly, $\\operatorname{LN}(x) = (3, 1, -4) / 2.944$ and $u^\\top \\operatorname{LN}(x) = (3 + 4) / 2.944 \\approx 2.378$, in agreement.\n\n(c) The mean of $\\operatorname{LN}(x)$ is $\\mu(g \\odot \\hat{x} + b)$ and its standard deviation is $\\sigma(g \\odot \\hat{x} + b)$, where $\\hat{x}$ is the standardized vector. Since the components of $g$ differ and $b$ is not zero, this vector in general has neither mean 0 nor standard deviation 1, so a second normalization shifts and scales it again and applies $g$ and $b$ once more. Only when all components of $g$ equal 1 and $b = 0$ does $\\operatorname{LN}(x) = \\hat{x}$ have mean 0 and standard deviation 1 (ignoring $\\epsilon$), and the second normalization leaves it unchanged. A trained model does not satisfy this condition.\n\n(d) By derivation 1, $x^{(L)} = x^{(0)} + \\sum_{\\ell < k} (A^{(\\ell)} + F^{(\\ell)}) + \\sum_{\\ell \\ge k} (A^{(\\ell)} + F^{(\\ell)})$. With the terms of the second sum set to zero the last residual stream is $x^{(k)}$, and passing it through the final LayerNorm and the output matrix gives exactly the result of the logit lens. A model with only $k$ layers would instead learn in training to make the output of layer $k$ directly suitable for decoding, and its weights differ from the first $k$ layers of the 12-layer model. Layer $k$ of the 12-layer model prepares input for the later layers and not for the output matrix."
+ }
+}

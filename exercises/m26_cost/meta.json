@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "complexity",
+ "level": 2,
+ "minutes": 30,
+ "title": {
+  "zh": "计算并测量注意力的代价",
+  "en": "Compute and measure the cost of attention"
+ },
+ "prompt": {
+  "zh": "写出一层中各部分的乘法次数、线性项与平方项相等时的长度，以及注意力矩阵占用的显存。再实现一个对数坐标下的斜率拟合，用它从实测时间里估计注意力耗时随长度增长的幂次。",
+  "en": "Write the number of multiplications of each part of a layer, the length at which the linear and quadratic terms are equal, and the memory taken by the attention matrices. Then implement a slope fit in log coordinates and use it to estimate from measured times the power with which attention time grows with length."
+ },
+ "hints": [
+  {
+   "zh": "四项分别是 `4*T*d*d`、`T*T*d`、`T*T*d` 和 `8*T*d*d`。",
+   "en": "The four terms are `4*T*d*d`, `T*T*d`, `T*T*d` and `8*T*d*d`."
+  },
+  {
+   "zh": "拟合斜率时先对 `xs` 和 `ys` 取 `math.log`，再套一元线性回归的斜率公式。",
+   "en": "For the slope take `math.log` of `xs` and `ys` first and apply the slope formula of simple linear regression."
+  }
+ ]
+}

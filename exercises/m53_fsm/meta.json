@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "constrained",
+ "level": 2,
+ "minutes": 35,
+ "network": true,
+ "title": {
+  "zh": "用状态机屏蔽 logits",
+  "en": "Mask logits with a state machine"
+ },
+ "prompt": {
+  "zh": "实现在字符级状态机上行走、计算某个状态下允许的 token，以及带约束的贪心解码。测试先在一个很小的词表上检查，再在 GPT-2 上用两个手写的状态机（只能回答 yes 或 no，只能输出 1 到 3 位数字）运行。运行后请对比打印出的无约束输出和有约束输出，并注意有约束的答案是否正确。",
+  "en": "Implement walking on a character-level state machine, computing the tokens allowed in a state, and greedy decoding under constraints. The tests first check on a tiny vocabulary and then run on GPT-2 with two hand-written state machines (answering only yes or no, producing only 1 to 3 digits). Compare the printed unconstrained and constrained outputs and note whether the constrained answers are correct."
+ },
+ "hints": [
+  {
+   "zh": "`dfa['trans'].get(state, {}).get(ch)` 在没有对应的转移时返回 `None`。",
+   "en": "`dfa['trans'].get(state, {}).get(ch)` returns `None` when there is no matching transition."
+  },
+  {
+   "zh": "屏蔽可以写成先建一个全为负无穷的向量，把允许的位置设为 0，再与 logits 相加。",
+   "en": "The mask can be written as a vector of minus infinity with zeros at the allowed positions, added to the logits."
+  },
+  {
+   "zh": "每个状态下允许的 token 只需计算一次，用一个字典按状态保存。",
+   "en": "The allowed tokens of each state need computing only once and can be kept in a dictionary keyed by state."
+  }
+ ]
+}

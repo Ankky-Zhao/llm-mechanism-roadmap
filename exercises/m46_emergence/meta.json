@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "scaling",
+ "level": 1,
+ "minutes": 20,
+ "title": {
+  "zh": "指标怎样让平滑的进步看起来像突变",
+  "en": "How a metric makes smooth progress look like a sudden change"
+ },
+ "prompt": {
+  "zh": "给定一个随模型规模平稳上升的逐 token 正确率，计算不同答案长度下的完全匹配率，并度量曲线上最大的跳变。测试会检查，在 30 个 token 的完全匹配指标下，小模型的得分几乎为 0，最大的模型接近 1，跳变幅度是逐 token 正确率的 5 倍以上。这里的正确率规律是为演示而设定的，不是任何真实模型的数据。",
+  "en": "Given a per-token accuracy that rises steadily with model size, compute the exact-match rate for different answer lengths and measure the largest jump on the curve. The tests check that under exact match over 30 tokens the small models score almost 0, the largest scores close to 1 and the jump is more than five times that of the per-token accuracy. The accuracy law used here is made up for demonstration and is not data from any real model."
+ },
+ "hints": [
+  {
+   "zh": "各 token 独立时，全部正确的概率是 `p ** length`。",
+   "en": "With independent tokens the probability of all being correct is `p ** length`."
+  },
+  {
+   "zh": "最大跳变用 `max(b - a for a, b in zip(values, values[1:]))`。",
+   "en": "The largest jump is `max(b - a for a, b in zip(values, values[1:]))`."
+  }
+ ]
+}

@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "agents",
+ "level": 2,
+ "minutes": 25,
+ "requires": [
+  "m73_registry",
+  "m73_toolcall",
+  "m73_loop"
+ ],
+ "title": {
+  "zh": "用 LangChain 重写并对比",
+  "en": "Rewrite with LangChain and compare"
+ },
+ "prompt": {
+  "zh": "用 LangChain 的 `@tool` 定义同样的工具，比较它生成的模式与手写注册表的模式，再写一个适配器，使练习 3 的循环不加改动就能运行在 LangChain 的工具上。这个练习只需要 `langchain-core`，不需要模型。",
+  "en": "Define the same tools with `@tool` of LangChain, compare the schema it generates with that of the hand-written registry, and write an adapter that lets the loop of exercise 3 run unchanged on LangChain tools. This exercise needs only `langchain-core` and no model."
+ },
+ "hints": [
+  {
+   "zh": "两种模式都是 `{'type': 'function', 'function': {...}}` 的结构，参数在 `['function']['parameters']` 下。",
+   "en": "Both schemas have the structure `{'type': 'function', 'function': {...}}`, with the parameters under `['function']['parameters']`."
+  },
+  {
+   "zh": "LangChain 的工具用 `tool.invoke(arguments)` 执行，参数不合法时会抛出异常，需要捕获并转成以 `ERROR` 开头的文本。",
+   "en": "A LangChain tool is executed with `tool.invoke(arguments)`, which raises on invalid arguments. Catch the exception and turn it into text beginning with `ERROR`."
+  }
+ ]
+}

@@ -1,0 +1,33 @@
+{
+ "kind": "code",
+ "module": "norm_ffn",
+ "level": 2,
+ "minutes": 30,
+ "network": true,
+ "requires": [
+  "m22_gpt2attn",
+  "m25_ffn"
+ ],
+ "title": {
+  "zh": "拼出完整的 GPT-2 前向计算",
+  "en": "Assemble the full GPT-2 forward pass"
+ },
+ "prompt": {
+  "zh": "用 2.2 写的 `gpt2_attention` 和上一题的 `gpt2_mlp` 拼出一个 Pre-Norm block，再接上嵌入、12 层 block、最后的归一化和 unembedding，得到完整的 logits。全程不调用 GPT-2 任何一层的前向函数。测试会与模型自身的输出对比。",
+  "en": "Use `gpt2_attention` from 2.2 and `gpt2_mlp` from the previous exercise to build a Pre-Norm block, then add the embeddings, the 12 blocks, the final normalization and the unembedding to obtain the full logits. No forward function of any GPT-2 layer is called. The tests compare with the model's own output."
+ },
+ "hints": [
+  {
+   "zh": "归一化写成一个小函数 `F.layer_norm(x, (768,), ln.weight, ln.bias, ln.eps)`，block 里用两次，最后的 `ln_f` 用一次。",
+   "en": "Write the normalization as a small helper, `F.layer_norm(x, (768,), ln.weight, ln.bias, ln.eps)`. It is used twice in the block and once for the final `ln_f`."
+  },
+  {
+   "zh": "注意顺序是先归一化再进子层，即 `x = x + gpt2_attention(ln(x), block.attn)`。写成 `ln(x + ...)` 就成了 Post-Norm，结果对不上。",
+   "en": "Mind the order, normalization first and then the sublayer, `x = x + gpt2_attention(ln(x), block.attn)`. Writing `ln(x + ...)` would be Post-Norm and the result would not match."
+  },
+  {
+   "zh": "嵌入用 `t.wte.weight[input_ids] + t.wpe.weight[torch.arange(T)]`，最后的 unembedding 是 `x @ t.wte.weight.T`。",
+   "en": "The embeddings are `t.wte.weight[input_ids] + t.wpe.weight[torch.arange(T)]` and the final unembedding is `x @ t.wte.weight.T`."
+  }
+ ]
+}

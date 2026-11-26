@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "prompting",
+ "level": 2,
+ "minutes": 30,
+ "network": true,
+ "title": {
+  "zh": "标签翻转实验",
+  "en": "The flipped-label experiment"
+ },
+ "prompt": {
+  "zh": "实现一个度量，统计模型的回答有多大比例遵循示例中展示的标签对应关系。测试在一个 5 亿参数的指令模型上比较四种标签，即真实标签、颠倒的标签、没有含义的 A 和 B，以及 foo 和 bar，各用 4 个和 8 个示例。首次运行需要下载约 1 GB 的模型。运行后请查看打印的表格，并思考它对“模型是否使用了提示词中的信息”这个问题意味着什么。",
+  "en": "Implement a measure of what share of the answers of a model follows the label correspondence shown in the examples. The tests compare four kinds of labels on an instruction model with 0.5 billion parameters, namely true labels, flipped labels, the meaningless A and B, and foo and bar, each with 4 and with 8 examples. The first run downloads a model of about 1 GB. Look at the printed table and consider what it implies for the question of whether a model uses the information in its prompt."
+ },
+ "hints": [
+  {
+   "zh": "`follow_rate` 中先用 `relabel` 改写示例的标签，候选标签是 `list(mapping.values())`。",
+   "en": "In `follow_rate` first rewrite the labels of the examples with `relabel`. The candidate labels are `list(mapping.values())`."
+  },
+  {
+   "zh": "一条测试评论算作遵循，当且仅当模型的回答等于 `mapping[真实标签]`。",
+   "en": "A test review counts as following if and only if the answer of the model equals `mapping[true_label]`."
+  }
+ ]
+}

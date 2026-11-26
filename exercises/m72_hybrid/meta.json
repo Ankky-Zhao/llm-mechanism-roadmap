@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "rag",
+ "level": 2,
+ "minutes": 25,
+ "network": true,
+ "requires": [
+  "m72_bm25"
+ ],
+ "title": {
+  "zh": "RRF 混合检索与 Recall@k、MRR",
+  "en": "Hybrid retrieval with RRF, Recall@k and MRR"
+ },
+ "prompt": {
+  "zh": "实现倒数排名融合和两个检索评价指标，然后在 20 个问题上比较 BM25、向量检索和两者的融合。问题分为沿用原文用词的和换了说法的两类，表格按类别分别给出结果。运行后请注意融合的总体结果是否好于其中最好的单一方法。",
+  "en": "Implement reciprocal rank fusion and two retrieval metrics, then compare BM25, vector retrieval and their fusion on 20 questions. The questions fall into those that reuse the wording of the passage and paraphrases, and the table gives results for each kind. Note whether the overall result of fusion is better than the best single method."
+ },
+ "hints": [
+  {
+   "zh": "RRF 中名次从 1 开始计，用 `enumerate(r, start=1)`。",
+   "en": "Ranks in RRF count from 1, so use `enumerate(r, start=1)`."
+  },
+  {
+   "zh": "`r.index(g)` 给出正确段落在排序中的下标，名次是下标加 1。",
+   "en": "`r.index(g)` gives the index of the correct passage in the ranking, and the rank is that index plus 1."
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "lora",
+ "level": 2,
+ "minutes": 35,
+ "title": {
+  "zh": "手写 LoRALinear",
+  "en": "LoRALinear by hand"
+ },
+ "prompt": {
+  "zh": "给一个冻结的 `nn.Linear` 加上 LoRA。测试会检查四件事，即初始化时输出与原层相同、只有 A 和 B 可训练、它能学会一个隐藏的秩为 2 的权重改动，以及合并后得到输出相同的普通线性层。",
+  "en": "Add LoRA to a frozen `nn.Linear`. The tests check four things, namely that the output equals that of the original layer at initialization, that only A and B are trainable, that it can learn a hidden weight change of rank 2, and that merging gives an ordinary linear layer with identical outputs."
+ },
+ "hints": [
+  {
+   "zh": "冻结用 `for p in self.base.parameters(): p.requires_grad_(False)`。",
+   "en": "Freeze with `for p in self.base.parameters(): p.requires_grad_(False)`."
+  },
+  {
+   "zh": "`nn.Linear` 的权重形状是 `(out, in)`，所以 `A` 是 `(r, in)`，`B` 是 `(out, r)`。前向中 LoRA 的部分是 `x @ self.A.T @ self.B.T`，完整的修正矩阵是 `self.B @ self.A`。",
+   "en": "The weight of `nn.Linear` has shape `(out, in)`, so `A` is `(r, in)` and `B` is `(out, r)`. The LoRA part of the forward pass is `x @ self.A.T @ self.B.T` and the full correction matrix is `self.B @ self.A`."
+  },
+  {
+   "zh": "合并时新建一个 `nn.Linear`，在 `torch.no_grad()` 下把 `base.weight + delta_weight()` 和偏置复制进去。",
+   "en": "For merging create a new `nn.Linear` and, under `torch.no_grad()`, copy `base.weight + delta_weight()` and the bias into it."
+  }
+ ]
+}

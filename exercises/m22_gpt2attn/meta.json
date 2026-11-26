@@ -1,0 +1,25 @@
+{
+ "kind": "code",
+ "module": "multihead",
+ "level": 3,
+ "minutes": 30,
+ "network": true,
+ "title": {
+  "zh": "用权重复现 GPT-2 的注意力层",
+  "en": "Reproduce GPT-2's attention layer from its weights"
+ },
+ "prompt": {
+  "zh": "只用 GPT-2 某一层注意力的两组权重 `c_attn` 和 `c_proj`，写出完整的前向计算，包括拆头、因果掩码和合并。测试会在第 0、5、11 层上与模型自带的注意力层对比。完成后，阶段 0 流程图中“12 层”里的一半已经由你亲手实现。",
+  "en": "Using only the two weight sets `c_attn` and `c_proj` of one GPT-2 attention layer, write the full forward pass including head splitting, causal mask and merging. The tests compare with the model's own attention layer at layers 0, 5 and 11. Once done, you have implemented half of the 12 layers box of the stage 0 diagram yourself."
+ },
+ "hints": [
+  {
+   "zh": "GPT-2 的 `Conv1D` 层计算的是 `x @ weight + bias`，权重形状是 `(输入, 输出)`，不需要转置。",
+   "en": "GPT-2's `Conv1D` layers compute `x @ weight + bias` with weights of shape `(in, out)`, so no transpose is needed."
+  },
+  {
+   "zh": "`(x @ attn.c_attn.weight + attn.c_attn.bias).split(768, dim=-1)` 得到 q、k、v。之后的步骤与上一题相同，再加上 `torch.tril` 生成的因果掩码。",
+   "en": "`(x @ attn.c_attn.weight + attn.c_attn.bias).split(768, dim=-1)` gives q, k and v. The rest follows the previous exercise, plus a causal mask from `torch.tril`."
+  }
+ ]
+}

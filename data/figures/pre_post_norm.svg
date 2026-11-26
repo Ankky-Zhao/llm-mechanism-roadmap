@@ -1,0 +1,26 @@
+<svg viewBox="0 0 700 322" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<defs><marker id="a25" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" class="f-ink"/></marker><marker id="a25b" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="16" markerHeight="16" orient="auto"><path d="M0,0L10,5L0,10z" class="f-accent"/></marker></defs>
+<text x="12" y="26" text-anchor="start" font-size="13" class="f-ink" font-weight="600" data-l="zh">Post-Norm（原始 Transformer）</text><text x="12" y="26" text-anchor="start" font-size="13" class="f-ink" font-weight="600" data-l="en">Post-Norm (original Transformer)</text>
+<line x1="40" y1="60" x2="676" y2="60" class="s-accent" stroke-width="4" marker-end="url(#a25b)"/>
+<text x="20" y="64" text-anchor="middle" font-size="13" class="f-ink mono">x</text>
+<circle cx="250" cy="60" r="12" class="f-surface s-accent" stroke-width="2"/><text x="250" y="65" text-anchor="middle" font-size="16" class="f-ink">+</text>
+<rect x="294" y="46" width="52" height="28" rx="6" class="f-pinsoft s-pin"/><text x="320" y="64" text-anchor="middle" font-size="12" class="f-ink mono">LN</text>
+<circle cx="540" cy="60" r="12" class="f-surface s-accent" stroke-width="2"/><text x="540" y="65" text-anchor="middle" font-size="16" class="f-ink">+</text>
+<rect x="584" y="46" width="52" height="28" rx="6" class="f-pinsoft s-pin"/><text x="610" y="64" text-anchor="middle" font-size="12" class="f-ink mono">LN</text>
+<path d="M80,63 L80,116 L250,116 L250,74" fill="none" class="s-muted" stroke-width="1.5" marker-end="url(#a25)"/>
+<rect x="123.0" y="102" width="84" height="28" rx="6" class="f-surface s-line"/><text x="165.0" y="120" text-anchor="middle" font-size="12" class="f-ink mono">Attention</text>
+<path d="M370,63 L370,116 L540,116 L540,74" fill="none" class="s-muted" stroke-width="1.5" marker-end="url(#a25)"/>
+<rect x="413.0" y="102" width="84" height="28" rx="6" class="f-surface s-line"/><text x="455.0" y="120" text-anchor="middle" font-size="12" class="f-ink mono">MLP</text>
+<text x="12" y="166" text-anchor="start" font-size="13" class="f-ink" font-weight="600" data-l="zh">Pre-Norm（GPT-2、LLaMA 等）</text><text x="12" y="166" text-anchor="start" font-size="13" class="f-ink" font-weight="600" data-l="en">Pre-Norm (GPT-2, LLaMA and others)</text>
+<line x1="40" y1="200" x2="676" y2="200" class="s-accent" stroke-width="4" marker-end="url(#a25b)"/>
+<text x="20" y="204" text-anchor="middle" font-size="13" class="f-ink mono">x</text>
+<circle cx="300" cy="200" r="12" class="f-surface s-accent" stroke-width="2"/><text x="300" y="205" text-anchor="middle" font-size="16" class="f-ink">+</text>
+<circle cx="590" cy="200" r="12" class="f-surface s-accent" stroke-width="2"/><text x="590" y="205" text-anchor="middle" font-size="16" class="f-ink">+</text>
+<path d="M70,203 L70,256 L300,256 L300,214" fill="none" class="s-muted" stroke-width="1.5" marker-end="url(#a25)"/>
+<rect x="120.7" y="242" width="52" height="28" rx="6" class="f-pinsoft s-pin"/><text x="146.7" y="260" text-anchor="middle" font-size="12" class="f-ink mono">LN</text>
+<rect x="181.3" y="242" width="84" height="28" rx="6" class="f-surface s-line"/><text x="223.3" y="260" text-anchor="middle" font-size="12" class="f-ink mono">Attention</text>
+<path d="M360,203 L360,256 L590,256 L590,214" fill="none" class="s-muted" stroke-width="1.5" marker-end="url(#a25)"/>
+<rect x="410.7" y="242" width="52" height="28" rx="6" class="f-pinsoft s-pin"/><text x="436.7" y="260" text-anchor="middle" font-size="12" class="f-ink mono">LN</text>
+<rect x="471.3" y="242" width="84" height="28" rx="6" class="f-surface s-line"/><text x="513.3" y="260" text-anchor="middle" font-size="12" class="f-ink mono">MLP</text>
+<text x="12" y="310" text-anchor="start" font-size="12" class="f-muted" data-l="zh">粗线是残差流。Pre-Norm 中它只经过加法，梯度可以原样传回。</text><text x="12" y="310" text-anchor="start" font-size="12" class="f-muted" data-l="en">The thick line is the residual stream. In Pre-Norm it passes through additions only, so gradients flow back unchanged.</text>
+</svg>

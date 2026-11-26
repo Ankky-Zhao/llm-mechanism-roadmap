@@ -1,0 +1,24 @@
+{
+ "kind": "code",
+ "module": "attention",
+ "level": 2,
+ "minutes": 30,
+ "title": {
+  "zh": "实验验证不缩放时 softmax 会饱和",
+  "en": "An experiment showing softmax saturation without scaling"
+ },
+ "prompt": {
+  "zh": "用随机向量做三个测量。点积的方差是否等于 $d_k$。16 个随机 key 上的最大注意力权重随 $d_k$ 怎样变化。通过 softmax 传回的梯度有多大。测试会检查不缩放时权重随维度增大而集中到单个位置，缩放后则保持不变。",
+  "en": "Take three measurements with random vectors. Whether the variance of the dot product equals $d_k$. How the largest attention weight over 16 random keys changes with $d_k$. How much gradient passes back through the softmax. The tests check that without scaling the weights concentrate on a single position as the dimension grows, and that with scaling they stay the same."
+ },
+ "hints": [
+  {
+   "zh": "query 取形状 `(n, 1, d_k)`，key 取 `(n, T, d_k)`，相乘后对最后一维求和得到 `(n, T)` 的分数。",
+   "en": "Use queries of shape `(n, 1, d_k)` and keys of `(n, T, d_k)`. Multiplying and summing over the last dimension gives scores of shape `(n, T)`."
+  },
+  {
+   "zh": "求梯度时先把分数变成叶子张量，即 `scores = scores.detach().requires_grad_(True)`，反向传播后读取 `scores.grad`。",
+   "en": "For the gradient, make the scores a leaf tensor with `scores = scores.detach().requires_grad_(True)` and read `scores.grad` after the backward pass."
+  }
+ ]
+}

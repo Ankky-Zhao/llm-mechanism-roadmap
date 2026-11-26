@@ -1,0 +1,29 @@
+{
+ "kind": "code",
+ "module": "constrained",
+ "level": 2,
+ "minutes": 30,
+ "network": true,
+ "requires": [
+  "m53_fsm",
+  "m53_schema"
+ ],
+ "title": {
+  "zh": "对比约束前后的格式错误率",
+  "en": "Compare format error rates with and without constraints"
+ },
+ "prompt": {
+  "zh": "实现从文本中提取 JSON、检查它是否符合模式、统计格式错误率和某个字段的正确率。测试随后在 GPT-2 上对 8 条评论运行四种设置，即有无示例与有无约束的组合。运行大约需要一分钟。请查看打印出的表格，区分约束改变了哪一列、没有改变哪一列。",
+  "en": "Implement extracting JSON from text, checking whether it conforms to the schema, and computing the format error rate and the accuracy of one field. The tests then run four settings on GPT-2 for 8 reviews, the combinations of with and without examples and with and without constraints. The run takes about a minute. Look at the printed table and distinguish which column the constraint changes and which it does not."
+ },
+ "hints": [
+  {
+   "zh": "`text.find('{')` 和 `text.find('}')` 给出第一个左括号和第一个右括号的位置。",
+   "en": "`text.find('{')` and `text.find('}')` give the positions of the first opening and the first closing brace."
+  },
+  {
+   "zh": "Python 中 `True` 是 `int` 的实例，所以判断整数要用 `type(value) is int`。",
+   "en": "In Python `True` is an instance of `int`, so integers are tested with `type(value) is int`."
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "context_window",
+ "level": 1,
+ "minutes": 15,
+ "title": {
+  "zh": "估算一次长对话的 token 数",
+  "en": "Estimate the tokens of a long conversation"
+ },
+ "prompt": {
+  "zh": "一个客服对话系统的 system prompt 有 800 个 token。每轮用户消息平均 60 个 token，回答平均 240 个 token。\n(a) 第 20 轮的输入有多少个 token？\n(b) 20 轮下来累计计费的输入 token 和输出 token 各是多少？\n(c) 如果模型的上下文窗口是 8000 个 token，并且每轮要给回答留出 500 个 token，对话最多能进行到第几轮而不需要丢弃历史？\n(d) 说出两种在超出窗口后处理历史的办法，以及各自的代价。",
+  "en": "A customer-service chat system has a system prompt of 800 tokens. Each user message averages 60 tokens and each answer 240 tokens.\n(a) How many tokens is the input of turn 20?\n(b) Over 20 turns, how many input tokens and output tokens are billed in total?\n(c) If the context window is 8000 tokens and 500 tokens are reserved for the answer of each turn, up to which turn can the conversation go without dropping history?\n(d) Name two ways of handling the history once the window is exceeded, with the price of each."
+ },
+ "hints": [
+  {
+   "zh": "(a) 用 $\\text{in}_i = s + i\\,u + (i-1)\\,a$。",
+   "en": "(a) Use $\\text{in}_i = s + i\\,u + (i-1)\\,a$."
+  },
+  {
+   "zh": "(c) 解不等式 $s + i\\,u + (i-1)\\,a + 500 \\le 8000$。",
+   "en": "(c) Solve the inequality $s + i\\,u + (i-1)\\,a + 500 \\le 8000$."
+  }
+ ],
+ "solution": {
+  "zh": "(a) $800 + 20 \\times 60 + 19 \\times 240 = 800 + 1200 + 4560 = 6560$。\n\n(b) 输入为 $20 \\times 800 + 60 \\times \\tfrac{20 \\times 21}{2} + 240 \\times \\tfrac{20 \\times 19}{2} = 16000 + 12600 + 45600 = 74200$。输出为 $20 \\times 240 = 4800$。累计输入是累计输出的 15 倍以上。\n\n(c) $800 + 60 i + 240 (i - 1) + 500 \\le 8000$ 即 $300 i \\le 6940$，$i \\le 23.1$，所以最多到第 23 轮。\n\n(d) 丢弃最早的消息，实现简单，代价是早期的信息完全丢失。把较早的对话压缩成摘要，能保留大意，代价是细节丢失，并且生成摘要本身需要一次额外的模型调用。",
+  "en": "(a) $800 + 20 \\times 60 + 19 \\times 240 = 800 + 1200 + 4560 = 6560$.\n\n(b) The input is $20 \\times 800 + 60 \\times \\tfrac{20 \\times 21}{2} + 240 \\times \\tfrac{20 \\times 19}{2} = 16000 + 12600 + 45600 = 74200$. The output is $20 \\times 240 = 4800$. The cumulative input is more than 15 times the cumulative output.\n\n(c) $800 + 60 i + 240 (i - 1) + 500 \\le 8000$ means $300 i \\le 6940$, so $i \\le 23.1$ and the conversation can reach turn 23.\n\n(d) Dropping the oldest messages is simple to implement, at the price of losing early information completely. Compressing the earlier conversation into a summary keeps the gist, at the price of losing details and of one extra model call to produce the summary."
+ }
+}

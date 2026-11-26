@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "softmax_grad",
+ "level": 1,
+ "minutes": 25,
+ "title": {
+  "zh": "数值稳定的 softmax 与 log-sum-exp",
+  "en": "A numerically stable softmax and log-sum-exp"
+ },
+ "prompt": {
+  "zh": "只用 `max`、`exp`、`log`、`sum` 实现 `logsumexp`、`log_softmax` 和 `softmax`。测试在运行你的代码期间会禁用 PyTorch 的内置版本，并用 logit 为 1000、10000 和 -10000 的输入检查是否溢出。",
+  "en": "Implement `logsumexp`, `log_softmax` and `softmax` using only `max`, `exp`, `log` and `sum`. The tests disable the PyTorch built-ins while your code runs and check for overflow with logits of 1000, 10000 and -10000."
+ },
+ "hints": [
+  {
+   "zh": "先用 `z.max(dim=dim, keepdim=True).values` 取出最大值 `m`，对 `z - m` 取指数，最后把 `m` 加回来。",
+   "en": "Take the maximum `m` with `z.max(dim=dim, keepdim=True).values`, exponentiate `z - m`, and add `m` back at the end."
+  },
+  {
+   "zh": "`softmax` 不要自己重新写一遍除法，直接对 `log_softmax` 的结果取指数即可。",
+   "en": "Do not write the division again for `softmax`. Exponentiate the result of `log_softmax`."
+  },
+  {
+   "zh": "注意 `keepdim`。内部计算保持维度方便广播，返回前按参数决定是否 `squeeze`。",
+   "en": "Mind `keepdim`. Keep the dimension internally so broadcasting works and squeeze before returning if asked."
+  }
+ ]
+}

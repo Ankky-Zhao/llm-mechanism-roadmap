@@ -1,0 +1,28 @@
+<svg viewBox="0 0 700 230" role="img" xmlns="http://www.w3.org/2000/svg" class="fig">
+<defs><marker id="a72" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" class="f-ink"/></marker></defs>
+<rect x="20" y="85" width="86" height="44" rx="8" class="f-surface s-line"/>
+<text x="63.0" y="111.0" text-anchor="middle" font-size="12.5" class="f-ink" data-l="zh">问题</text><text x="63.0" y="111.0" text-anchor="middle" font-size="12.5" class="f-ink" data-l="en">question</text>
+<rect x="150" y="40" width="120" height="48" rx="8" class="f-surface s-line"/>
+<text x="210.0" y="61.0" text-anchor="middle" font-size="12.5" class="f-ink">BM25</text>
+<text x="210.0" y="78.0" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">关键词</text><text x="210.0" y="78.0" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">keywords</text>
+<rect x="150" y="126" width="120" height="48" rx="8" class="f-surface s-line"/>
+<text x="210.0" y="147.0" text-anchor="middle" font-size="12.5" class="f-ink" data-l="zh">向量检索</text><text x="210.0" y="147.0" text-anchor="middle" font-size="12.5" class="f-ink" data-l="en">vector search</text>
+<text x="210.0" y="164.0" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">双编码器</text><text x="210.0" y="164.0" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">bi-encoder</text>
+<rect x="312" y="85" width="80" height="44" rx="8" class="f-soft s-accent"/>
+<text x="352.0" y="111.0" text-anchor="middle" font-size="12.5" class="f-ink">RRF</text>
+<rect x="430" y="85" width="100" height="44" rx="8" class="f-soft s-accent"/>
+<text x="480.0" y="104.0" text-anchor="middle" font-size="12.5" class="f-ink" data-l="zh">重排</text><text x="480.0" y="104.0" text-anchor="middle" font-size="12.5" class="f-ink" data-l="en">rerank</text>
+<text x="480.0" y="121.0" text-anchor="middle" font-size="10.5" class="f-muted" data-l="zh">交叉编码器</text><text x="480.0" y="121.0" text-anchor="middle" font-size="10.5" class="f-muted" data-l="en">cross-encoder</text>
+<rect x="570" y="85" width="110" height="44" rx="8" class="f-surface s-line"/>
+<text x="625.0" y="111.0" text-anchor="middle" font-size="12.5" class="f-ink" data-l="zh">前 3 个段落</text><text x="625.0" y="111.0" text-anchor="middle" font-size="12.5" class="f-ink" data-l="en">top 3 passages</text>
+<line x1="108" y1="100" x2="148" y2="68" class="s-muted" stroke-width="1.5" marker-end="url(#a72)"/>
+<line x1="108" y1="114" x2="148" y2="146" class="s-muted" stroke-width="1.5" marker-end="url(#a72)"/>
+<line x1="272" y1="64" x2="312" y2="96" class="s-muted" stroke-width="1.5" marker-end="url(#a72)"/>
+<line x1="272" y1="150" x2="312" y2="120" class="s-muted" stroke-width="1.5" marker-end="url(#a72)"/>
+<line x1="394" y1="107" x2="428" y2="107" class="s-muted" stroke-width="1.5" marker-end="url(#a72)"/>
+<line x1="532" y1="107" x2="568" y2="107" class="s-muted" stroke-width="1.5" marker-end="url(#a72)"/>
+<rect x="400" y="172" width="280" height="40" rx="8" class="f-surface s-line"/>
+<text x="540.0" y="196.0" text-anchor="middle" font-size="12.5" class="f-ink" data-l="zh">提示词 = 段落 + 问题，交给模型生成</text><text x="540.0" y="196.0" text-anchor="middle" font-size="12.5" class="f-ink" data-l="en">prompt = passages + question, then the model</text>
+<line x1="625" y1="131" x2="625" y2="170" class="s-muted" stroke-width="1.5" marker-end="url(#a72)"/>
+<text x="210" y="206" text-anchor="middle" font-size="11.5" class="f-muted" data-l="zh">段落的向量和 BM25 索引预先建立</text><text x="210" y="206" text-anchor="middle" font-size="11.5" class="f-muted" data-l="en">passage vectors and the BM25 index are built in advance</text>
+</svg>

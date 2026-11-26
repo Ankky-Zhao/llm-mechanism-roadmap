@@ -1,0 +1,28 @@
+{
+ "kind": "derivation",
+ "module": "scaling",
+ "level": 2,
+ "minutes": 25,
+ "title": {
+  "zh": "推导最优参数与数据配比",
+  "en": "Derive the optimal split between parameters and data"
+ },
+ "prompt": {
+  "zh": "合上上面的推导，在纸上完成。\n(a) 在约束 $6ND = C$ 下最小化 $A N^{-\\alpha} + B D^{-\\beta}$，推导 $N_{\\text{opt}}$ 和 $D_{\\text{opt}}$。\n(b) 代入 $\\alpha = 0.34$、$\\beta = 0.28$，$N_{\\text{opt}}$ 和 $D_{\\text{opt}}$ 分别随 $C$ 的多少次方增长？\n(c) 算力增加到 100 倍，最优的参数量和 token 数各变为原来的多少倍？\n(d) 一个需要连续答对 30 个 token 的任务。逐 token 正确率从 0.90 提高到 0.95，完全匹配率从多少变到多少？这说明了什么？",
+  "en": "Close the derivation above and work on paper.\n(a) Minimize $A N^{-\\alpha} + B D^{-\\beta}$ under the constraint $6ND = C$ and derive $N_{\\text{opt}}$ and $D_{\\text{opt}}$.\n(b) With $\\alpha = 0.34$ and $\\beta = 0.28$, with what powers of $C$ do $N_{\\text{opt}}$ and $D_{\\text{opt}}$ grow?\n(c) Compute increases a hundredfold. By what factors do the optimal numbers of parameters and tokens change?\n(d) A task requires 30 consecutive correct tokens. Per-token accuracy rises from 0.90 to 0.95. From what to what does exact match change, and what does this show?"
+ },
+ "hints": [
+  {
+   "zh": "(a) 用 $D = C/(6N)$ 消去 $D$，对 $N$ 求导并令其为 0。",
+   "en": "(a) Eliminate $D$ with $D = C/(6N)$, differentiate with respect to $N$ and set to 0."
+  },
+  {
+   "zh": "(c) 计算 $100^{0.45}$ 和 $100^{0.55}$。",
+   "en": "(c) Compute $100^{0.45}$ and $100^{0.55}$."
+  }
+ ],
+ "solution": {
+  "zh": "(a) 代入 $D = C/(6N)$ 得 $f(N) = A N^{-\\alpha} + B (C/6)^{-\\beta} N^{\\beta}$。令 $f'(N) = -\\alpha A N^{-\\alpha-1} + \\beta B (C/6)^{-\\beta} N^{\\beta - 1} = 0$，得 $N^{\\alpha+\\beta} = \\dfrac{\\alpha A}{\\beta B} (C/6)^{\\beta}$。所以 $N_{\\text{opt}} = G\\,(C/6)^{\\beta/(\\alpha+\\beta)}$，$D_{\\text{opt}} = G^{-1} (C/6)^{\\alpha/(\\alpha+\\beta)}$，其中 $G = \\big(\\tfrac{\\alpha A}{\\beta B}\\big)^{1/(\\alpha+\\beta)}$。\n\n(b) $N_{\\text{opt}} \\propto C^{0.28/0.62} \\approx C^{0.45}$，$D_{\\text{opt}} \\propto C^{0.34/0.62} \\approx C^{0.55}$。\n\n(c) 参数量变为 $100^{0.45} \\approx 8$ 倍，token 数变为 $100^{0.55} \\approx 12.5$ 倍，两者的乘积是 100。\n\n(d) $0.90^{30} \\approx 0.042$，$0.95^{30} \\approx 0.215$。逐 token 正确率只提高了约 6%，完全匹配率却变成了原来的 5 倍。同一个进步在不同的指标下看起来差别很大，非线性的指标会把平滑的提升显示为陡峭的跳变。",
+  "en": "(a) Substituting $D = C/(6N)$ gives $f(N) = A N^{-\\alpha} + B (C/6)^{-\\beta} N^{\\beta}$. Setting $f'(N) = -\\alpha A N^{-\\alpha-1} + \\beta B (C/6)^{-\\beta} N^{\\beta - 1} = 0$ gives $N^{\\alpha+\\beta} = \\dfrac{\\alpha A}{\\beta B} (C/6)^{\\beta}$. Hence $N_{\\text{opt}} = G\\,(C/6)^{\\beta/(\\alpha+\\beta)}$ and $D_{\\text{opt}} = G^{-1} (C/6)^{\\alpha/(\\alpha+\\beta)}$ with $G = \\big(\\tfrac{\\alpha A}{\\beta B}\\big)^{1/(\\alpha+\\beta)}$.\n\n(b) $N_{\\text{opt}} \\propto C^{0.28/0.62} \\approx C^{0.45}$ and $D_{\\text{opt}} \\propto C^{0.34/0.62} \\approx C^{0.55}$.\n\n(c) Parameters grow by $100^{0.45} \\approx 8$ and tokens by $100^{0.55} \\approx 12.5$, and the product of the two is 100.\n\n(d) $0.90^{30} \\approx 0.042$ and $0.95^{30} \\approx 0.215$. Per-token accuracy rises by only about 6% while exact match becomes five times as large. The same progress looks very different under different metrics, and a nonlinear metric displays a smooth gain as a steep jump."
+ }
+}

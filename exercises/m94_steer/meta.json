@@ -1,0 +1,28 @@
+{
+ "kind": "code",
+ "module": "probes",
+ "network": true,
+ "requires": [
+  "m94_probe"
+ ],
+ "level": 3,
+ "minutes": 45,
+ "title": {
+  "zh": "用均值差构造引导向量",
+  "en": "Build a steering vector from a mean difference"
+ },
+ "prompt": {
+  "zh": "计算亚洲城市与欧洲城市在某一层的平均状态之差，并实现在城市名最后一个 token 的位置上加入该向量后测量 Asia 与 Europe 的 logit 差。方向用一半城市计算，在另一半城市上检验。测试检查加入零向量不改变输出、第 6 层加入 2 倍向量使多数留出城市发生转变，而同样长度的随机方向没有这种效果。请查看打印出的各层、各强度的结果，以及与逻辑回归探针方向的比较。运行时间约 100 秒。",
+  "en": "Compute the difference between the mean states of Asian and of European cities at some layer, and implement measuring the logit difference between Asia and Europe with the vector added at the position of the last token of the city name. The direction is computed from one half of the cities and tested on the other half. The tests check that adding a zero vector leaves the output unchanged, that adding twice the vector at layer 6 turns most held-out cities, and that a random direction of the same length has no such effect. Look at the printed results for the layers and strengths and at the comparison with the direction of a logistic regression probe. The run takes about 100 seconds."
+ },
+ "hints": [
+  {
+   "zh": "`hidden_states[layer + 1]` 是第 `layer` 个块的输出，下标 0 是嵌入。",
+   "en": "`hidden_states[layer + 1]` is the output of block `layer`, index 0 being the embedding."
+  },
+  {
+   "zh": "钩子里写 `x[0, pos] += vec`，只改动城市名最后一个 token 的位置。块的输出是元组时返回 `(x,) + tuple(out[1:])`。",
+   "en": "Inside the hook write `x[0, pos] += vec`, changing the position of the last token of the city name alone. Return `(x,) + tuple(out[1:])` when the output of the block is a tuple."
+  }
+ ]
+}
